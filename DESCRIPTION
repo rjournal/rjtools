@@ -4,10 +4,10 @@ Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Mitchell",
              family = "O'Hara-Wild",
+             email = "mail@mitchelloharawild.com",
              role = c("aut", "cre")),
       person(given = "Stephanie",
              family = "Kobakian",
-             email = "stephanie.kobakian@gmail.com",
              role = c("aut")))
 Description: Tools for writing, checking, and submitting articles to the R 
   Journal.
