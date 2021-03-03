@@ -11,7 +11,7 @@ Authors@R:
              role = c("aut")))
 Description: Tools for writing, checking, and submitting articles to the R 
   Journal.
-License: MIT + file LICENSE
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
