@@ -1,13 +1,15 @@
-#' R Markdown output format for R Journal articles
+#' R Markdown output formats for R Journal articles
 #'
 #' The R Journal is built upon the distill framework with some modifications.
 #' This output format behaves almost identically to the
 #' `distill::distill_article()` format, with some formatting and structural
 #' changes.
 #'
-#' @param ... Arguments passed to `distill::distill_article()`.
+#' @param ... Arguments passed to `distill::distill_article()` for web articles,
+#'   and `rticles::rjournal_article()` for pdf articles.
+#' @rdname rjournal_article
 #' @export
-rjournal_article <- function(...) {
+rjournal_web_article <- function(...) {
   fmt <- distill::distill_article(...)
   post_knit <- fmt$post_knit
   fmt$post_knit <- function(...) {
@@ -20,4 +22,10 @@ rjournal_article <- function(...) {
   }
 
   fmt
+}
+
+#' @rdname rjournal_article
+#' @export
+rjournal_pdf_article <- function(...) {
+  rticles::rjournal_article(...)
 }
