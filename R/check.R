@@ -77,6 +77,7 @@ initial_check_article <- function(path) {
   # check that packages mentioned in manuscript are available on CRAN
   # if there are no mentions, flag for manual check
   check_packages_available(tex)
+  check_proposed_pkg()
 
   # Show a numeric summary of successes, errors and notes
   check_summary(path)
@@ -87,7 +88,7 @@ initial_check_article <- function(path) {
 
 }
 
-#' Check that packages mentioned in the text are available on CRAN
+#' Check that article title is in title case
 #'
 #' @param tex the tex file read in by readLines
 #'
@@ -108,7 +109,7 @@ check_title <- function(tex){
 
 }
 
-#' Check that packages mentioned in the text are available on CRAN
+#' Check that section titles are in sentence case
 #'
 #' @param tex the tex file read in by readLines
 #'
@@ -139,6 +140,10 @@ check_section <- function(tex){
   } else{
     log_success("All sections are properly formatted in sentence case")
   }
+
+}
+
+check_pkg_on_cran <- function(){
 
 }
 
@@ -316,6 +321,24 @@ check_cover_letter <- function(remaining_files){
 
 }
 
+#' Check that the proposed package is avilable on CRAN
+#' @importFrom cranlogs cran_downloads
+
+check_proposed_pkg <- function(){
+
+  pkg <- readline(prompt = "What's the name of package being proposed in the article? If none, please enter 0. ")
+
+  if (pkg != 0) {
+    count <- sum(cranlogs::cran_downloads(pkg, from = "2020-01-01")$count)
+    if (count == 0){
+      log_note(text = "No CRAN activities detected for package {pkg}")
+    } else{
+      log_success(text = "CRAN activities have been detected for package {pkg}")
+    }
+
+  }
+}
+
 #' Check that packages mentioned in the text are available on CRAN
 #'
 #' @param tex the tex file read in by readLines
@@ -324,7 +347,6 @@ check_cover_letter <- function(remaining_files){
 #' @importFrom utils available.packages
 #'
 check_packages_available <- function(tex) {
-
 
   # List of CRAN and BIO pkgs used in the text
   pkgs_to_check <- lapply(X = c("\\\\CRANpkg\\{(.*?)\\}", "\\\\BIOpkg\\{(.*?)\\}"),
