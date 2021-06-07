@@ -36,7 +36,7 @@ initial_checks <- function() {
 #' @param path Location of the article submission folder to check
 #'
 #' @export
-initial_check_article <- function(path) {
+initial_check_article <- function(path, dic = "en_US") {
 
   # Documents:
   # Necessary files must be included in submission folder
@@ -62,11 +62,13 @@ initial_check_article <- function(path) {
   # Check for one of each  "tex", "bib", "R"
   # return the name of the tex file
   filename <- check_filenames(remaining_files)
-  tex <- paste0(readLines(file.path(path, filename)), collapse = " ")
+  tex_vec <- readLines(file.path(path, filename))
+  tex <- paste0(tex_vec, collapse = " ")
 
   # Check for title case in title and sentence case in section title
   check_title(tex)
   check_section(tex)
+  check_spelling(tex_vec, dic)
 
   # Check for unnecessary files (to avoid potential issues)
   check_unnecessary_files(submission_files)
@@ -143,16 +145,35 @@ check_section <- function(tex){
 
 }
 
-check_pkg_on_cran <- function(){
 
+#' Check that Abstract comes before the introduction section
+#'
+#' @param tex the tex file read in by readLines
+#'
+#' @importFrom stringr str_locate
+#'
+check_abstract_before_intro <- function(tex){
+  abstract <- stringr::str_locate(tex, "abstract")[1]
+  intro <- stringr::str_locate(tex, "introduction")[1]
+
+  if (abstract < intro){
+    log_success("Abstract comes before the introduction section")
+  } else{
+    log_error("Abstract doesn't come before the introduction section")
+  }
 }
 
+#' Check for spelling mistakes
+#' @importFrom stringr str_extract str_replace_all
+#' @importFrom purrr map2
+#' @importFrom hunspell hunspell dictionary
+#' @importFrom tools toTitleCase
 check_spelling <- function(tex, dic = "en_US"){
 
-  detect_abstract <- stringr::str_extract(tex,  "(?<=\\\\abstract\\{).*?")
+  detect_abstract <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\abstract\\{).*?"))
   abstract_loc <- match(detect_abstract[!is.na(detect_abstract)], detect_abstract)
 
-  detect_bib <- purrr::map_chr(tex, ~stringr::str_extract(.x,  "(?<=\\\\bibliography\\{).*?(?=\\})"))
+  detect_bib <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\bibliography\\{).*?(?=\\})"))
   bib_loc <- match(detect_bib[!is.na(detect_bib)], detect_bib)
 
   to_replace <- paste(spell_to_remove, collapse = "|")
@@ -166,13 +187,19 @@ check_spelling <- function(tex, dic = "en_US"){
   select_idx <- !c(1:length(text_bw)) %in% chunk_idx
   text_clean <- text_bw[select_idx]
 
-  check_raw <- hunspell(text_clean, format = "latex", dic = dictionary(dic))
+  check_raw <- hunspell::hunspell(text_clean, format = "latex", dic = hunspell::dictionary(dic))
   check <- unique(unlist(check_raw))
-  check_out <- check[toupper(check) != check & tools::toTitleCase(check) != check] # remove acronym
+  check_out <- paste0(check[toupper(check) != check & tools::toTitleCase(check) != check], collapse = ", ") # remove acronym
 
-  check_out
+  if (length(check_out) != 0){
+    log_note("A potential list of spelling to check: {check_out}")
+  } else{
+    log_success("No spelling mistake detected")
+  }
 
 }
+
+
 
 spell_to_remove <- c("(\\\\url\\{(.*)\\})",
                      "(\\\\href\\{(.*)\\})",
