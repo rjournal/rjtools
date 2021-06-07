@@ -19,4 +19,5 @@ RoxygenNote: 7.1.1
 Imports: 
     distill,
     stringr,
-    rticles
+    rticles,
+    rj
