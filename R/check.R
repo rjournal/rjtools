@@ -10,15 +10,19 @@
 #'
 #' Set the directory of the articles repository using `set_articles_path`.
 #'
+#' @param dic the dictionary used for spelling check. See \code{dict} arguent in [hunspell::hunspell()]
+#'
 #' @importFrom  rj get_articles_path
-initial_checks <- function() {
+#' @rdname checks
+#' @export
+initial_checks <- function(dic = "en_US") {
 
   # Find articles without initial_check logs, pass that list to do checks
   base <- file.path(rj::get_articles_path(), "Submissions")
   paths <- dir(base, full.names = TRUE)
 
   # Call the function for to check each submission
-  lapply(paths, initial_check_article)
+  lapply(paths, initial_check_article, dic = dic)
 
   return(cat("Checks completed"))
 }
@@ -26,16 +30,8 @@ initial_checks <- function() {
 
 #' A single article check
 #'
-#' There are several initial checks undertaken for a submission.
-#' These checks reflect the requests made in the author submission guide.
-#'
-#' Results will be show in the initial_checks.log file in the submission folder
-#'
-#' Set the directory of the articles repository using `set_articles_path`.
-#'
 #' @param path Location of the article submission folder to check
-#'
-#' @export
+#' @rdname checks
 initial_check_article <- function(path, dic = "en_US") {
 
   # Documents:
@@ -92,12 +88,12 @@ initial_check_article <- function(path, dic = "en_US") {
 
 #' Check that article title is in title case
 #'
-#' @param tex the tex file read in by readLines
+#' @param tex the tex file read in by \code{readLines}
 #'
 #' @importFrom stringr str_extract
 #' @importFrom purrr map_chr
 #' @importFrom tools toTitleCase
-#'
+#' @rdname checks
 check_title <- function(tex){
 
   str <- stringr::str_extract(tex,  "(?<=\\\\title\\{).*?(?=\\})")
@@ -113,11 +109,11 @@ check_title <- function(tex){
 
 #' Check that section titles are in sentence case
 #'
-#' @param tex the tex file read in by readLines
+#' @param tex the tex file read in by \code{readLines}
 #'
 #' @importFrom stringr str_extract
 #' @importFrom utils available.packages
-#'
+#' @rdname checks
 check_section <- function(tex){
 
   str <- unlist(stringr::str_extract_all(tex,  "(?<=\\\\section\\{).*?(?=\\}[\\s]?[\\\\label]?)"))
@@ -148,10 +144,10 @@ check_section <- function(tex){
 
 #' Check that Abstract comes before the introduction section
 #'
-#' @param tex the tex file read in by readLines
+#' @param tex the tex file read in by \code{readLines}
 #'
 #' @importFrom stringr str_locate
-#'
+#' @rdname checks
 check_abstract_before_intro <- function(tex){
   abstract <- stringr::str_locate(tex, "abstract")[1]
   intro <- stringr::str_locate(tex, "introduction")[1]
@@ -168,6 +164,7 @@ check_abstract_before_intro <- function(tex){
 #' @importFrom purrr map2
 #' @importFrom hunspell hunspell dictionary
 #' @importFrom tools toTitleCase
+#' @rdname checks
 check_spelling <- function(tex, dic = "en_US"){
 
   detect_abstract <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\abstract\\{).*?"))
@@ -223,7 +220,7 @@ spell_to_remove <- c("(\\\\url\\{(.*)\\})",
 #' Check for the two expected RJwrapper files
 #'
 #' @param submission_files a vector of the file names in the submission folder
-#'
+#' @rdname checks
 check_wrappers <- function(submission_files) {
   # Check for RJwrapper files
   wrapper_files <- c("RJwrapper.tex",
@@ -260,7 +257,7 @@ check_wrappers <- function(submission_files) {
 #'
 #' @importFrom tools file_ext
 #' @importFrom tools file_path_sans_ext
-#'
+#' @rdname checks
 check_filenames <- function(remaining_files) {
 
   exts <- tools::file_ext(remaining_files)
@@ -309,7 +306,7 @@ check_filenames <- function(remaining_files) {
 #' Check for the two files that may cause build errors
 #'
 #' @param submission_files a vector of the file names in the submission folder
-#'
+#' @rdname checks
 check_unnecessary_files <- function(submission_files) {
 
   unnecessary_files <- c("RJtemplate.tex",
@@ -332,7 +329,7 @@ check_unnecessary_files <- function(submission_files) {
 #' Check for the two expected RJwrapper files
 #'
 #' @param remaining_files a vector of the file names in the submission folder
-#'
+#' @rdname checks
 check_cover_letter <- function(remaining_files){
 
 
@@ -350,7 +347,7 @@ check_cover_letter <- function(remaining_files){
 
 #' Check that the proposed package is avilable on CRAN
 #' @importFrom cranlogs cran_downloads
-
+#' @rdname checks
 check_proposed_pkg <- function(){
 
   pkg <- readline(prompt = "What's the name of package being proposed in the article? If none, please enter 0. ")
@@ -372,7 +369,7 @@ check_proposed_pkg <- function(){
 #'
 #' @importFrom stringr str_extract_all
 #' @importFrom utils available.packages
-#'
+#' @rdname checks
 check_packages_available <- function(tex) {
 
   # List of CRAN and BIO pkgs used in the text
@@ -444,15 +441,12 @@ check_packages_available <- function(tex) {
 
 #' Produce a summary of successes, errors and notes
 #'
-#' Show a numerical display of the amount of checks that succeeded, resulted in
-#' an error or returned additional information.
-#'
 #' @param path location of the submission being checked
 #' @param file the console output directed to the log, using `stdout`
 #'
 #' @importFrom stringr str_match
 #' @importFrom stringr str_count
-#'
+#' @rdname checks
 check_summary <- function(path, file = stdout()) {
 
   completed_checks <- readLines(file.path(path, "initial_checks.log"))
