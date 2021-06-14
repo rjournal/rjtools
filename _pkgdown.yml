@@ -1,0 +1,17 @@
+url: https://huizezhang-sherry.github.io/ferrn/
+
+
+template:
+  params:
+    bootswatch: cosmo
+    ganalytics: G-SPC6B94B10
+
+reference:
+- title: Article checks
+  desc: Functions to check that folder structure and article format meet Rjournal submission guideline
+  contents:
+  - starts_with("check")
+- title: Build articles
+  desc: Functions to build distill articles
+  contents:
+  - starts_with("rjournal")
