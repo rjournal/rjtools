@@ -32,6 +32,7 @@ initial_checks <- function(dic = "en_US") {
 #'
 #' @param path Location of the article submission folder to check
 #' @rdname checks
+#' @export
 initial_check_article <- function(path, dic = "en_US") {
 
   # Documents:
@@ -94,6 +95,7 @@ initial_check_article <- function(path, dic = "en_US") {
 #' @importFrom purrr map_chr
 #' @importFrom tools toTitleCase
 #' @rdname checks
+#' @export
 check_title <- function(tex){
 
   str <- stringr::str_extract(tex,  "(?<=\\\\title\\{).*?(?=\\})")
@@ -114,6 +116,7 @@ check_title <- function(tex){
 #' @importFrom stringr str_extract
 #' @importFrom utils available.packages
 #' @rdname checks
+#' @export
 check_section <- function(tex){
 
   str <- unlist(stringr::str_extract_all(tex,  "(?<=\\\\section\\{).*?(?=\\}[\\s]?[\\\\label]?)"))
@@ -148,6 +151,7 @@ check_section <- function(tex){
 #'
 #' @importFrom stringr str_locate
 #' @rdname checks
+#' @export
 check_abstract_before_intro <- function(tex){
   abstract <- stringr::str_locate(tex, "abstract")[1]
   intro <- stringr::str_locate(tex, "introduction")[1]
@@ -165,6 +169,7 @@ check_abstract_before_intro <- function(tex){
 #' @importFrom hunspell hunspell dictionary
 #' @importFrom tools toTitleCase
 #' @rdname checks
+#' @export
 check_spelling <- function(tex, dic = "en_US"){
 
   detect_abstract <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\abstract\\{).*?"))
@@ -221,6 +226,7 @@ spell_to_remove <- c("(\\\\url\\{(.*)\\})",
 #'
 #' @param submission_files a vector of the file names in the submission folder
 #' @rdname checks
+#' @export
 check_wrappers <- function(submission_files) {
   # Check for RJwrapper files
   wrapper_files <- c("RJwrapper.tex",
@@ -258,6 +264,7 @@ check_wrappers <- function(submission_files) {
 #' @importFrom tools file_ext
 #' @importFrom tools file_path_sans_ext
 #' @rdname checks
+#' @export
 check_filenames <- function(remaining_files) {
 
   exts <- tools::file_ext(remaining_files)
@@ -307,6 +314,7 @@ check_filenames <- function(remaining_files) {
 #'
 #' @param submission_files a vector of the file names in the submission folder
 #' @rdname checks
+#' @export
 check_unnecessary_files <- function(submission_files) {
 
   unnecessary_files <- c("RJtemplate.tex",
@@ -330,6 +338,7 @@ check_unnecessary_files <- function(submission_files) {
 #'
 #' @param remaining_files a vector of the file names in the submission folder
 #' @rdname checks
+#' @export
 check_cover_letter <- function(remaining_files){
 
 
@@ -348,6 +357,7 @@ check_cover_letter <- function(remaining_files){
 #' Check that the proposed package is avilable on CRAN
 #' @importFrom cranlogs cran_downloads
 #' @rdname checks
+#' @export
 check_proposed_pkg <- function(){
 
   pkg <- readline(prompt = "What's the name of package being proposed in the article? If none, please enter 0. ")
@@ -370,6 +380,7 @@ check_proposed_pkg <- function(){
 #' @importFrom stringr str_extract_all
 #' @importFrom utils available.packages
 #' @rdname checks
+#' @export
 check_packages_available <- function(tex) {
 
   # List of CRAN and BIO pkgs used in the text
@@ -447,6 +458,7 @@ check_packages_available <- function(tex) {
 #' @importFrom stringr str_match
 #' @importFrom stringr str_count
 #' @rdname checks
+#' @export
 check_summary <- function(path, file = stdout()) {
 
   completed_checks <- readLines(file.path(path, "initial_checks.log"))
