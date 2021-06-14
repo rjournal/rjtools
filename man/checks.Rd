@@ -3,64 +3,70 @@
 \name{initial_checks}
 \alias{initial_checks}
 \alias{initial_check_article}
-\alias{check_title}
-\alias{check_section}
-\alias{check_abstract_before_intro}
-\alias{check_spelling}
 \alias{check_wrappers}
 \alias{check_filenames}
 \alias{check_unnecessary_files}
 \alias{check_cover_letter}
+\alias{check_title}
+\alias{check_section}
+\alias{check_abstract_before_intro}
+\alias{check_spelling}
 \alias{check_proposed_pkg}
 \alias{check_packages_available}
-\alias{check_summary}
+\alias{output_summary}
 \title{Complete initial checks for submissions.}
 \usage{
 initial_checks(dic = "en_US")
 
-initial_check_article(path, dic = "en_US")
+initial_check_article(path = here::here(), dic = "en_US")
 
-check_title(tex)
+check_wrappers(path)
 
-check_section(tex)
+check_filenames(path)
 
-check_abstract_before_intro(tex)
+check_unnecessary_files(path)
 
-check_spelling(tex, dic = "en_US")
+check_cover_letter(path)
 
-check_wrappers(submission_files)
+check_title(path)
 
-check_filenames(remaining_files)
+check_section(path)
 
-check_unnecessary_files(submission_files)
+check_abstract_before_intro(path)
 
-check_cover_letter(remaining_files)
+check_spelling(path, dic = "en_US")
 
 check_proposed_pkg()
 
-check_packages_available(tex)
+check_packages_available(path)
 
-check_summary(path, file = stdout())
+output_summary(path, file = stdout())
 }
 \arguments{
-\item{dic}{the dictionary used for spelling check. See \code{dict} arguent in \code{\link[hunspell:hunspell]{hunspell::hunspell()}}}
+\item{dic}{the dictionary used for spelling check. See \code{dict} argument in \code{\link[hunspell:hunspell]{hunspell::hunspell()}}}
 
-\item{path}{location of the submission being checked}
-
-\item{tex}{the tex file read in by readLines}
-
-\item{submission_files}{a vector of the file names in the submission folder}
-
-\item{remaining_files}{a vector of the file names in the submission folder}
-
-\item{file}{the console output directed to the log, using \code{stdout}}
+\item{path}{The directory that contains the .tex file (Ideally, this directory should contain .bib, .rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)}
 }
 \description{
 There are several initial checks undertaken for each submission.
 These checks reflect the requests made in the author submission guide.
+Results will be show in the initial_checks.log file in the submission folder
 }
 \details{
-Results will be show in the initial_checks.log file in the submission folder
+Folder structure checks:
+\itemize{
+\item \code{check_wrappers()}: Check that the two expected RJwrapper files: RJwrapper.tex and RJwrapper.pdf exist
+\item \code{check_filenames()}: Check that the .bib, .rmd, and .tex all presents and have consistent names
+\item \code{check_unnecessary_files()}: Check that RJtemplate.tex and RJournal.sty are not included in the directory
+}
 
-Set the directory of the articles repository using \code{set_articles_path}.
+Tex file checks:
+\itemize{
+\item \code{check_title()}: article title is in title case
+\item \code{check_section()}: section sections are in sentence case
+\item \code{check_abstract_before_intro()}: abstract comes before the introduction section
+\item \code{check_spelling()}: potential spelling mistakes
+\item \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
+\item \code{check_packages_available()}: Check that packages mentioned in the text are available on CRAN
+}
 }

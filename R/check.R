@@ -1,16 +1,9 @@
-# suppose each article is in a separate repo
-# currently, there are multiple articles in the `ae-articles-testing`, supply an article id to locate which article
-
 #' Complete initial checks for submissions.
 #'
 #' There are several initial checks undertaken for each submission.
 #' These checks reflect the requests made in the author submission guide.
-#'
 #' Results will be show in the initial_checks.log file in the submission folder
 #'
-#' Set the directory of the articles repository using `set_articles_path`.
-#'
-#' @param dic the dictionary used for spelling check. See \code{dict} arguent in [hunspell::hunspell()]
 #'
 #' @importFrom  rj get_articles_path
 #' @rdname checks
@@ -30,10 +23,27 @@ initial_checks <- function(dic = "en_US") {
 
 #' A single article check
 #'
-#' @param path Location of the article submission folder to check
+#'
+#' @param path The directory that contains the .tex file (Ideally, this directory should contain .bib, .rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)
+#' @param dic the dictionary used for spelling check. See \code{dict} argument in [hunspell::hunspell()]
+#' @details
+#' Folder structure checks:
+#'
+#' * \code{check_wrappers()}: Check that the two expected RJwrapper files: RJwrapper.tex and RJwrapper.pdf exist
+#' * \code{check_filenames()}: Check that the .bib, .rmd, and .tex all presents and have consistent names
+#' * \code{check_unnecessary_files()}: Check that RJtemplate.tex and RJournal.sty are not included in the directory
+#'
+#' Tex file checks:
+#'
+#' * \code{check_title()}: article title is in title case
+#' * \code{check_section()}: section sections are in sentence case
+#' * \code{check_abstract_before_intro()}: abstract comes before the introduction section
+#' * \code{check_spelling()}: potential spelling mistakes
+#' * \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
+#' * \code{check_packages_available()}: Check that packages mentioned in the text are available on CRAN
 #' @rdname checks
 #' @export
-initial_check_article <- function(path, dic = "en_US") {
+initial_check_article <- function(path = here::here(), dic = "en_US") {
 
   # Documents:
   # Necessary files must be included in submission folder
@@ -41,45 +51,35 @@ initial_check_article <- function(path, dic = "en_US") {
   # Unnecessary files must not be included in submission folder
   # Do not proceed with them, flag for manual check
 
+  if (!"tex" %in% tools::file_ext(list.files(path = path))){
+    stop("Please supply the directory that contains the .tex file")
+  }
+
   # Create a log file for errors
   sink(file.path(path, "initial_checks.log"))
 
   # Display the name of the current article
-  cat(paste0("Initial check results: ", basename(path), "\n"))
+  cat(paste0("Initial check results: ", "\n"))
 
-  cli::cli_h1(paste0("Initial check results: ", basename(path)))
-
-  # Find all file names in the submission folder
-  # for single submission in submissions folder
-  submission_files <- list.files(path)
-
-  remaining_files <- check_wrappers(submission_files)
+  cli::cli_h1(paste0("Initial check results: "))
 
   # BEGIN CHECKS
-  # Check for one of each  "tex", "bib", "R"
-  # return the name of the tex file
-  filename <- check_filenames(remaining_files)
-  tex_vec <- readLines(file.path(path, filename))
-  tex <- paste0(tex_vec, collapse = " ")
+  # Folder structure checks:
+  check_wrappers(path)
+  check_filenames(path)
+  check_unnecessary_files(path)
+  check_cover_letter(path)
 
-  # Check for title case in title and sentence case in section title
-  check_title(tex)
-  check_section(tex)
-  check_spelling(tex_vec, dic)
-
-  # Check for unnecessary files (to avoid potential issues)
-  check_unnecessary_files(submission_files)
-
-  # Check for existence of a cover letter
-  check_cover_letter(remaining_files)
-
-  # check that packages mentioned in manuscript are available on CRAN
-  # if there are no mentions, flag for manual check
-  check_packages_available(tex)
+  # Tex file checks:
+  check_title(path)
+  check_section(path)
+  check_abstract_before_intro(path)
+  check_spelling(path, dic)
   check_proposed_pkg()
+  check_packages_available(path)
 
   # Show a numeric summary of successes, errors and notes
-  check_summary(path)
+  output_summary(path)
 
   # Return to console output
   sink()
@@ -87,150 +87,19 @@ initial_check_article <- function(path, dic = "en_US") {
 
 }
 
-#' Check that article title is in title case
-#'
-#' @param tex the tex file read in by \code{readLines}
-#'
-#' @importFrom stringr str_extract
-#' @importFrom purrr map_chr
-#' @importFrom tools toTitleCase
+
+##############################################
+##############################################
+# Folder structure checks:
+
 #' @rdname checks
 #' @export
-check_title <- function(tex){
+check_wrappers <- function(path) {
 
-  str <- stringr::str_extract(tex,  "(?<=\\\\title\\{).*?(?=\\})")
+  submission_files <-  list.files(path)
 
-  # str_to_title changes the first letter of all to capital - also for proposition
-  if (tools::toTitleCase(str) != str){
-    log_error("The title is not in title case!")
-  } else{
-    log_success("The article title is properly formatted in title case")
-  }
-
-}
-
-#' Check that section titles are in sentence case
-#'
-#' @param tex the tex file read in by \code{readLines}
-#'
-#' @importFrom stringr str_extract
-#' @importFrom utils available.packages
-#' @rdname checks
-#' @export
-check_section <- function(tex){
-
-  str <- unlist(stringr::str_extract_all(tex,  "(?<=\\\\section\\{).*?(?=\\}[\\s]?[\\\\label]?)"))
-
-  if (any(str_detect(str, "texorpdfstring"))){
-    str <- unlist(stringr::str_extract_all(tex,  "(?<=\\\\section\\{).*?(?=\\}\\\\label)"))
-  }
-
-  clean_section_title <- function(str){
-    if (str_detect(str, "texorpdfstring")){
-      str <- str_extract(str, "(?<=\\}\\{).*?(?=\\})")
-    }
-
-    str
-  }
-
-  str <- lapply(str, clean_section_title)
-
-  if (!all(stringr::str_to_sentence(str) == str)){
-    problem_one <- str[!stringr::str_to_sentence(str) == str]
-    log_error("Section {problem_one} is not in sentence case!")
-  } else{
-    log_success("All sections are properly formatted in sentence case")
-  }
-
-}
-
-
-#' Check that Abstract comes before the introduction section
-#'
-#' @param tex the tex file read in by \code{readLines}
-#'
-#' @importFrom stringr str_locate
-#' @rdname checks
-#' @export
-check_abstract_before_intro <- function(tex){
-  abstract <- stringr::str_locate(tex, "abstract")[1]
-  intro <- stringr::str_locate(tex, "introduction")[1]
-
-  if (abstract < intro){
-    log_success("Abstract comes before the introduction section")
-  } else{
-    log_error("Abstract doesn't come before the introduction section")
-  }
-}
-
-#' Check for spelling mistakes
-#' @importFrom stringr str_extract str_replace_all
-#' @importFrom purrr map2
-#' @importFrom hunspell hunspell dictionary
-#' @importFrom tools toTitleCase
-#' @rdname checks
-#' @export
-check_spelling <- function(tex, dic = "en_US"){
-
-  detect_abstract <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\abstract\\{).*?"))
-  abstract_loc <- match(detect_abstract[!is.na(detect_abstract)], detect_abstract)
-
-  detect_bib <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\bibliography\\{).*?(?=\\})"))
-  bib_loc <- match(detect_bib[!is.na(detect_bib)], detect_bib)
-
-  to_replace <- paste(spell_to_remove, collapse = "|")
-  tex2 <- stringr::str_replace_all(tex, to_replace, "")
-  text_bw <- tex2[(abstract_loc + 1):(bib_loc - 1)]
-
-  chunk_begin <- which(text_bw == "\\begin{Schunk}")
-  chunk_end <- which(text_bw == "\\end{Schunk}")
-  chunk_idx <- unlist(purrr::map2(chunk_begin, chunk_end, ~.x:.y))
-
-  select_idx <- !c(1:length(text_bw)) %in% chunk_idx
-  text_clean <- text_bw[select_idx]
-
-  check_raw <- hunspell::hunspell(text_clean, format = "latex", dic = hunspell::dictionary(dic))
-  check <- unique(unlist(check_raw))
-  check_out <- paste0(check[toupper(check) != check & tools::toTitleCase(check) != check], collapse = ", ") # remove acronym
-
-  if (length(check_out) != 0){
-    log_note("A potential list of spelling to check: {check_out}")
-  } else{
-    log_success("No spelling mistake detected")
-  }
-
-}
-
-
-
-spell_to_remove <- c("(\\\\url\\{(.*)\\})",
-                     "(\\\\href\\{(.*)\\})",
-                     "(\\\\label\\{(.*)\\})",
-                     "(\\\\nameref\\{(.*)\\})",
-                     "(\\\\code\\{(.*)\\})",
-                     "(\\\\CRANpkg\\{(.*)\\})",
-                     "(\\\\pkg\\{(.*)\\})",
-                     '("(.*)")',
-                     "(\\\\textt\\{(.*)\\})",
-                     "(\\\\emph\\{(.*)\\})",
-                     "(\\\\file\\{(.*)\\})",
-                     "(\\\\includegraphics\\[(.*)\\})",
-                     "(emph)"
-                     )
-
-
-
-
-
-#' Check for the two expected RJwrapper files
-#'
-#' @param submission_files a vector of the file names in the submission folder
-#' @rdname checks
-#' @export
-check_wrappers <- function(submission_files) {
   # Check for RJwrapper files
-  wrapper_files <- c("RJwrapper.tex",
-                     "RJwrapper.pdf")
+  wrapper_files <- c("RJwrapper.tex", "RJwrapper.pdf")
 
   # Immediate failure?
   # Return a warning if either "RJwrapper.tex" and/or "RJwrapper.pdf" not found
@@ -244,29 +113,14 @@ check_wrappers <- function(submission_files) {
 
   }
 
-  # Remove the two wrapper files that were checked
-  remaining_files <-
-    submission_files[!(submission_files %in% wrapper_files)]
-
-  return(remaining_files)
 }
 
-
-
-
-#' Check for the three files that should contain the filename
-#'
-#' @param remaining_files a vector of the file names in the submission folder,
-#' after the removal of the RJwrapper tex and pdf files.
-#'
-#' Returns the name of the tex file, that should be matched by the .bib and .R
-#'
-#' @importFrom tools file_ext
-#' @importFrom tools file_path_sans_ext
+#' @importFrom tools file_ext file_path_sans_ext
 #' @rdname checks
 #' @export
-check_filenames <- function(remaining_files) {
+check_filenames <- function(path) {
 
+  remaining_files <- remove_wrapper(path)
   exts <- tools::file_ext(remaining_files)
 
   files_exist <- c("tex", "bib", "R") %in% exts
@@ -302,24 +156,14 @@ check_filenames <- function(remaining_files) {
 
   }
 
-  # return the .tex filename to allow for search for packages, even if different names are used.
-  filename <- regmatches(matching_filename, regexpr("(.+)\\.tex", matching_filename))
-
-  return(filename)
 }
 
-
-
-#' Check for the two files that may cause build errors
-#'
-#' @param submission_files a vector of the file names in the submission folder
 #' @rdname checks
 #' @export
-check_unnecessary_files <- function(submission_files) {
+check_unnecessary_files <- function(path) {
 
-  unnecessary_files <- c("RJtemplate.tex",
-                         "RJournal.sty")
-
+  submission_files <- list.files(path)
+  unnecessary_files <- c("RJtemplate.tex", "RJournal.sty")
 
   if (any(unnecessary_files %in% submission_files)) {
 
@@ -333,18 +177,15 @@ check_unnecessary_files <- function(submission_files) {
 
 }
 
-
-#' Check for the two expected RJwrapper files
-#'
-#' @param remaining_files a vector of the file names in the submission folder
 #' @rdname checks
 #' @export
-check_cover_letter <- function(remaining_files){
+check_cover_letter <- function(path){
 
 
-  if (!any(grepl("letter", remaining_files))) {
+  remaining_files <- remove_wrapper(path)
+  if (!any(grepl("motivation", remaining_files))) {
 
-    log_error("Check for cover letter if add-on package submission style")
+    log_note("Check for cover letter if add-on package submission style")
 
   } else {
 
@@ -354,7 +195,121 @@ check_cover_letter <- function(remaining_files){
 
 }
 
-#' Check that the proposed package is avilable on CRAN
+
+##############################################
+##############################################
+# Tex file checks:
+
+#' @importFrom stringr str_extract
+#' @importFrom tools toTitleCase
+#' @rdname checks
+#' @export
+check_title <- function(path){
+
+  tex <- extract_tex(path)
+  str <- stringr::str_extract(tex,  "(?<=\\\\title\\{).*?(?=\\})")
+
+  # str_to_title changes the first letter of all to capital - also for proposition
+  if (tools::toTitleCase(str) != str){
+    log_error("The title is not in title case!")
+  } else{
+    log_success("The article title is properly formatted in title case")
+  }
+
+}
+
+
+#' @importFrom stringr str_extract
+#' @importFrom utils available.packages
+#' @rdname checks
+#' @export
+check_section <- function(path){
+
+  tex <- extract_tex(path)
+
+  str <- unlist(stringr::str_extract_all(tex,  "(?<=\\\\section\\{).*?(?=\\}[\\s]?[\\\\label]?)"))
+
+  if (any(str_detect(str, "texorpdfstring"))){
+    str <- unlist(stringr::str_extract_all(tex,  "(?<=\\\\section\\{).*?(?=\\}\\\\label)"))
+  }
+
+  clean_section_title <- function(str){
+    if (str_detect(str, "texorpdfstring")){
+      str <- str_extract(str, "(?<=\\}\\{).*?(?=\\})")
+    }
+
+    str
+  }
+
+  str <- lapply(str, clean_section_title)
+
+  if (!all(stringr::str_to_sentence(str) == str)){
+    problem_one <- str[!stringr::str_to_sentence(str) == str]
+    log_error("Section {problem_one} is not in sentence case!")
+  } else{
+    log_success("All sections are properly formatted in sentence case")
+  }
+
+}
+
+
+#' @importFrom stringr str_locate
+#' @rdname checks
+#' @export
+check_abstract_before_intro <- function(path){
+
+  tex <- extract_tex_vec(path)
+
+  abstract <- stringr::str_locate(tex, "abstract")[,"start"]
+  intro <- stringr::str_locate(tex, "introduction")[1]
+
+  if (abstract < intro){
+    log_success("Abstract comes before the introduction section")
+  } else{
+    log_error("Abstract doesn't come before the introduction section")
+  }
+}
+
+#' @importFrom stringr str_extract str_replace_all
+#' @importFrom purrr map2 map
+#' @importFrom hunspell hunspell dictionary
+#' @importFrom tools toTitleCase
+#' @rdname checks
+#' @export
+check_spelling <- function(path, dic = "en_US"){
+
+  tex <- extract_tex_vec(path)
+
+  detect_abstract <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\abstract\\{).*?"))
+  abstract_loc <- match(detect_abstract[!is.na(detect_abstract)], detect_abstract)
+
+  detect_bib <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\bibliography\\{).*?(?=\\})"))
+  bib_loc <- match(detect_bib[!is.na(detect_bib)], detect_bib)
+
+  to_replace <- paste(spell_to_remove, collapse = "|")
+  tex2 <- stringr::str_replace_all(tex, to_replace, "")
+  text_bw <- tex2[(abstract_loc + 1):(bib_loc - 1)]
+
+  chunk_begin <- which(text_bw == "\\begin{Schunk}")
+  chunk_end <- which(text_bw == "\\end{Schunk}")
+  chunk_idx <- unlist(purrr::map2(chunk_begin, chunk_end, ~.x:.y))
+
+  select_idx <- !c(1:length(text_bw)) %in% chunk_idx
+  text_clean <- text_bw[select_idx]
+
+  check_raw <- hunspell::hunspell(text_clean, format = "latex", dic = hunspell::dictionary(dic))
+  check <- unique(unlist(check_raw))
+  check_out <- paste0(check[toupper(check) != check & tools::toTitleCase(check) != check], collapse = ", ") # remove acronym
+
+  if (length(check_out) != 0){
+    log_note("A potential list of spelling to check: {check_out}")
+  } else{
+    log_success("No spelling mistake detected")
+  }
+
+}
+
+
 #' @importFrom cranlogs cran_downloads
 #' @rdname checks
 #' @export
@@ -373,16 +328,15 @@ check_proposed_pkg <- function(){
   }
 }
 
-#' Check that packages mentioned in the text are available on CRAN
-#'
-#' @param tex the tex file read in by readLines
-#'
+
 #' @importFrom stringr str_extract_all
 #' @importFrom utils available.packages
 #' @rdname checks
 #' @export
-check_packages_available <- function(tex) {
+check_packages_available <- function(path) {
 
+
+  tex <- extract_tex(path)
   # List of CRAN and BIO pkgs used in the text
   pkgs_to_check <- lapply(X = c("\\\\CRANpkg\\{(.*?)\\}", "\\\\BIOpkg\\{(.*?)\\}"),
                           FUN = stringr::str_extract_all, string = tex)
@@ -450,16 +404,10 @@ check_packages_available <- function(tex) {
 
 }
 
-#' Produce a summary of successes, errors and notes
-#'
-#' @param path location of the submission being checked
-#' @param file the console output directed to the log, using `stdout`
-#'
-#' @importFrom stringr str_match
-#' @importFrom stringr str_count
+
+#' @importFrom stringr str_match str_count
 #' @rdname checks
-#' @export
-check_summary <- function(path, file = stdout()) {
+output_summary <- function(path, file = stdout()) {
 
   completed_checks <- readLines(file.path(path, "initial_checks.log"))
 
@@ -481,9 +429,50 @@ check_summary <- function(path, file = stdout()) {
 
 }
 
+##############################################
+##############################################
+# helper functions
 
-#####################################################
+remove_wrapper <- function(path){
 
+  submission_files <- list.files(path)
+  wrapper_files <- c("RJwrapper.tex", "RJwrapper.pdf")
+  submission_files[!(submission_files %in% wrapper_files)]
+}
+
+extract_tex_vec <- function(path){
+  remaining <- remove_wrapper(path)
+  name <- remaining[tools::file_ext(remaining) == "tex"]
+
+  if (length(name) == 0){
+    stop("please specify the correct path that contains the .tex file")
+  }
+
+  readLines(file.path(path, name))
+}
+
+extract_tex <- function(path){
+
+  vec <- extract_tex_vec(path)
+  paste0(vec , collapse = " ")
+}
+
+spell_to_remove <- c("(\\\\url\\{(.*)\\})",
+                     "(\\\\href\\{(.*)\\})",
+                     "(\\\\label\\{(.*)\\})",
+                     "(\\\\nameref\\{(.*)\\})",
+                     "(\\\\code\\{(.*)\\})",
+                     "(\\\\CRANpkg\\{(.*)\\})",
+                     "(\\\\pkg\\{(.*)\\})",
+                     '("(.*)")',
+                     "(\\\\textt\\{(.*)\\})",
+                     "(\\\\emph\\{(.*)\\})",
+                     "(\\\\file\\{(.*)\\})",
+                     "(\\\\includegraphics\\[(.*)\\})",
+                     "(emph)"
+)
+
+##############################################
 log_factory <- function(prefix, .f) {
 
   # Guarantee definitions exist in the factory environment

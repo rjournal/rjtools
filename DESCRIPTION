@@ -30,4 +30,6 @@ Imports:
     stringr,
     rticles,
     rj,
-    cranlogs
+    cranlogs,
+    purrr,
+    hunspell
