@@ -15,6 +15,8 @@ Tools for writing, checking, and submitting articles to the R
 Authors:
 \itemize{
   \item Stephanie Kobakian
+  \item H. Sherry Zhang \email{huizezhangsh@gmail.com}
+  \item Di Cook \email{dicook@monash.edu} (\href{https://orcid.org/0000-0002-3813-7155}{ORCID})
 }
 
 }

@@ -8,7 +8,16 @@ Authors@R:
              role = c("aut", "cre")),
       person(given = "Stephanie",
              family = "Kobakian",
-             role = c("aut")))
+             role = c("aut")),
+      person(given = "H. Sherry",
+             family = "Zhang", 
+             email = "huizezhangsh@gmail.com", 
+             role = "aut"),
+      person(given = "Di", 
+             family = "Cook", 
+             email = "dicook@monash.edu", 
+             role = "aut", 
+             comment = c(ORCID = "0000-0002-3813-7155")))
 Description: Tools for writing, checking, and submitting articles to the R 
   Journal.
 License: MIT
@@ -17,7 +26,8 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
-    distill,
+    rjdistill,
     stringr,
     rticles,
-    rj
+    rj,
+    cranlogs
