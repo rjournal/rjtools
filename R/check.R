@@ -261,7 +261,7 @@ check_abstract_before_intro <- function(path){
   tex <- extract_tex_vec(path)
 
   abstract <- stringr::str_locate(tex, "abstract")[,"start"]
-  intro <- stringr::str_locate(tex, "introduction")[1]
+  intro <- stringr::str_locate(tex, "introduction")[,"start"]
 
   if (abstract < intro){
     log_success("Abstract comes before the introduction section")
