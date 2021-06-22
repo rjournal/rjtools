@@ -32,4 +32,5 @@ Imports:
     rj,
     cranlogs,
     purrr,
-    hunspell
+    hunspell,
+    fs

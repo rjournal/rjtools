@@ -29,3 +29,32 @@ rjournal_web_article <- function(...) {
 rjournal_pdf_article <- function(...) {
   rticles::rjournal_article(...)
 }
+
+#' Create an article template
+#' @param dir_path the directory name that hold the .bib, .tex, and .Rmd
+#' @param file_name the name of teh .Rmd file
+#' @importFrom usethis use_directory use_template
+#' @importFrom stringr str_remove str_extract
+#' @importFrom fs path
+#' @export
+create_article <- function(dir_path = "paper", file_name = "article"){
+
+  # it seems that usethis::use_template requires the template to be under inst/templates/...
+  templates <- c("rjournal/resources/RJwrapper.tex",
+                    "rjournal/skeleton/RJreferences.bib",
+                    "rjournal/skeleton/skeleton.Rmd")
+  names <- stringr::str_extract(templates, "([^\\/]+$)")
+  name_idx <- stringr::str_detect(templates, "skeleton")
+  ext <- fs::path_ext(names)
+  names[name_idx] <- paste0(file_name, ".", ext[name_idx])
+  usethis::use_directory(dir_path)
+
+  for (i in 1: length(templates)){
+    usethis::use_template(templates[i], package = "rjtools", save_as = fs::path(dir_path, names[i]))
+  }
+
+  message("Remember to change the .bib & .Rmd to the same name!")
+
+  invisible(TRUE)
+
+}
