@@ -29,7 +29,6 @@ Imports:
     rjdistill,
     stringr,
     rticles,
-    rj,
     cranlogs,
     purrr,
     hunspell,
