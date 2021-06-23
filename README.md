@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of rjtools is to …
+The goal of rjtools is to provide authors of R Journal articles the tools to create their article in the style of the journal, using the rticles template, tools to check their article against the required formatting.
 
 ## Installation
 
