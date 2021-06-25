@@ -1,26 +1,3 @@
-#' Complete initial checks for submissions.
-#'
-#' There are several initial checks undertaken for each submission.
-#' These checks reflect the requests made in the author submission guide.
-#' Results will be show in the initial_checks.log file in the submission folder
-#'
-#'
-#' @importFrom  rj get_articles_path
-#' @rdname checks
-#' @export
-initial_checks <- function(dic = "en_US") {
-
-  # Find articles without initial_check logs, pass that list to do checks
-  base <- file.path(rj::get_articles_path(), "Submissions")
-  paths <- dir(base, full.names = TRUE)
-
-  # Call the function for to check each submission
-  lapply(paths, initial_check_article, dic = dic)
-
-  return(cat("Checks completed"))
-}
-
-
 #' A single article check
 #'
 #'
