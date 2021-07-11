@@ -1,0 +1,38 @@
+---
+title: "create an article using `rjtools`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{create_article}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rjtools)
+```
+
+# Create an article 
+
+To create a new R journal article, use the `create_article()` function in the `rjtools` package. The function will create a paper folder in the root directory with three files: article.bib, article.Rmd, and RJwrapper.tex by default. 
+
+The name of the folder and bib/Rmd file can be customised by using the `dir_path` and `file_name` argument. R journal requires the bib file and the rmarkdown file to have the same name and we recommend them to be named as the surname of all the authors. 
+
+For example, to create an article by Di Cook, Catherine Hurley, Simon Urbanek, and Michael Kane, use 
+
+```{r eval = FALSE}
+create_article(file_name = "cook-hurley-urbanek-kane")
+```
+
+
+This will generate "cook-hurley-urbanek-kane.Rmd", "cook-hurley-urbanek-kane.bib", and "RJwrapper.tex" under the paper folder. 
+
+If you made change of the file name with `file_name`, please also change the reference to the bib file specified in the YAML of the rmarkdown file to the same name.
+
+

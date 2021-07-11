@@ -30,19 +30,22 @@ rjournal_pdf_article <- function(...) {
   rticles::rjournal_article(...)
 }
 
-#' Create an article template
-#' @param dir_path the directory name that hold the .bib, .tex, and .Rmd
-#' @param file_name the name of teh .Rmd file
+#' Create an R journal article with the existing template
+#'
+#' @details
+#' Wee \link[the vignette](\code{vignette("create_article", package = "rjtools")}) for how to create an article
+#'
+#' @param dir_path the directory name that houses the template files
+#' @param file_name the name of the bib/Rmd file
 #' @importFrom usethis use_directory use_template
 #' @importFrom stringr str_remove str_extract
 #' @importFrom fs path
 #' @export
 create_article <- function(dir_path = "paper", file_name = "article"){
 
-  # it seems that usethis::use_template requires the template to be under inst/templates/...
   templates <- c("rjournal/resources/RJwrapper.tex",
-                    "rjournal/skeleton/RJreferences.bib",
-                    "rjournal/skeleton/skeleton.Rmd")
+                 "rjournal/skeleton/RJreferences.bib",
+                 "rjournal/skeleton/skeleton.Rmd")
   names <- stringr::str_extract(templates, "([^\\/]+$)")
   name_idx <- stringr::str_detect(templates, "skeleton")
   ext <- fs::path_ext(names)
@@ -53,7 +56,8 @@ create_article <- function(dir_path = "paper", file_name = "article"){
     usethis::use_template(templates[i], package = "rjtools", save_as = fs::path(dir_path, names[i]))
   }
 
-  message("Remember to change the .bib & .Rmd to the same name!")
+  message("Please check that the reference to the bib file specified in the YAML of the Rmarkdown file
+  has the same name as the actual bib file. ")
 
   invisible(TRUE)
 

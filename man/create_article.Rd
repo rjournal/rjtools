@@ -2,15 +2,18 @@
 % Please edit documentation in R/rjournal_article.R
 \name{create_article}
 \alias{create_article}
-\title{Create an article template}
+\title{Create an Rj article with existing template}
 \usage{
 create_article(dir_path = "paper", file_name = "article")
 }
 \arguments{
-\item{dir_path}{the directory name that hold the .bib, .tex, and .Rmd}
+\item{dir_path}{the directory name that houses the template files}
 
-\item{file_name}{the name of teh .Rmd file}
+\item{file_name}{the name of the bib/Rmd file}
 }
 \description{
-Create an article template
+Create an Rj article with existing template
+}
+\details{
+see \link\href{\code{vignette("create_article", package = "rjtools")}}{the vignette} for how to create an article
 }

@@ -33,3 +33,7 @@ Imports:
     purrr,
     hunspell,
     fs
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr
