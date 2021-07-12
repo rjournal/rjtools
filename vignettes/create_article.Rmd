@@ -63,15 +63,14 @@ The initial check function documents the check results in a initial_checks.log f
 
 ## Check on spelling
 
-The spelling check returns a list of potential mis-spelling in the article. It checks the spelling from the abstract to before the bibliography section. Text in the code chunks are not checked. Spelling check is only performed on words with all lowercase letters. This ensures the false alarm is not raised for acronyms and people's name.
+The spelling check returns a list of potential mis-spelling in the article. It checks the spelling from the abstract section to the bibliography section, excluding all the  code chunks. Only words with all lowercase letters are checked to avoid false alarm on  acronyms and names.
 
-The spell check is performed with the `hunspell` package. By default, it uses the US spelling. British spelling can be checked with argument `dic = "en_GB"` and for other spelling variation, see `help(hunspell, package = "hunspell")`. The R journal doesn't impose a particular spelling but consistency in the spelling is required.
+The spell check is performed with the `hunspell` package and it uses the US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation as long as consistency is maintained.
 
 ## Check on the proposed package
 
-If the article proposes a package, ideally it should be available on CRAN already. The `check_proposed_pkg()` will prompt
+Ideally, the package proposed in an R journal article should be available on CRAN. The following prompt
 
   > What's the name of package being proposed in the article? If none, please enter 0. 
 
-for the name of the package proposed and run a cran download check with `cranlogs` package. 
-
+by `check_proposed_pkg()` will collect the name of the package proposed and run a cran download check with the `cranlogs` package.
