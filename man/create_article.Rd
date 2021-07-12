@@ -2,7 +2,7 @@
 % Please edit documentation in R/rjournal_article.R
 \name{create_article}
 \alias{create_article}
-\title{Create an Rj article with existing template}
+\title{Create an R journal article with the existing template}
 \usage{
 create_article(dir_path = "paper", file_name = "article")
 }
@@ -12,8 +12,8 @@ create_article(dir_path = "paper", file_name = "article")
 \item{file_name}{the name of the bib/Rmd file}
 }
 \description{
-Create an Rj article with existing template
+Create an R journal article with the existing template
 }
 \details{
-see \link\href{\code{vignette("create_article", package = "rjtools")}}{the vignette} for how to create an article
+See \code{vignette("create_article", package = "rjtools")} for how to create an article
 }

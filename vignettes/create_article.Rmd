@@ -31,8 +31,47 @@ create_article(file_name = "cook-hurley-urbanek-kane")
 ```
 
 
-This will generate "cook-hurley-urbanek-kane.Rmd", "cook-hurley-urbanek-kane.bib", and "RJwrapper.tex" under the paper folder. 
+This will generate "cook-hurley-urbanek-kane.Rmd", "cook-hurley-urbanek-kane.bib", and "RJwrapper.tex" under the paper folder. If you made change of the file name with `file_name`, please also change the reference to the bib file specified in the YAML of the rmarkdown file to the same name.
 
-If you made change of the file name with `file_name`, please also change the reference to the bib file specified in the YAML of the rmarkdown file to the same name.
+# Render the article
 
+In the `inst` folder is an pre-generated sample article (`sample-article.Rmd`) for demonstrating the check functions in the `rjotools`. 
+
+The properly rendered article should have `sample-article.tex` as the tex file, `RJwrapper.pdf` as the pdf document, `sample-article.R` that contains all the R codes in the Rmd file for reproducibility, and `sample-article.html` as the distill web article.
+
+
+# Check functions
+
+There are 9 functions for authors to check against an article that is ready to be submitted. These checks can be performed in one go with `initial_check_article()`, or separately with each individual `check_*()` function. Please notice that this is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission.
+
+All the check functions, except `check_proposed_pkg()`, requires a `path` argument that specifies the path from the project directory to the folder that contains the article. For articles that create by `create_article()` in the `paper` folder as introduced above, initial check can be run as: 
+
+```{r eval = FALSE}
+initial_check_article(path = here::here("paper"))
+```
+
+The initial check function documents the check results in a initial_checks.log file as well as in the console. A short description for each check function can be accessed via `help(checks, package = "rjtools")` and below are some additional information. 
+
+## Check for unncessary files
+
+[!] Currently the rendering of article requires sytle.sty but check against it.
+
+## Check for motivation letter
+
+[i] In addition, the cover letter for article of type "add-on package" should be saved at the same folder as the main article and named "motivation-letter". 
+
+
+## Check on spelling
+
+The spelling check returns a list of potential mis-spelling in the article. It checks the spelling from the abstract to before the bibliography section. Text in the code chunks are not checked. Spelling check is only performed on words with all lowercase letters. This ensures the false alarm is not raised for acronyms and people's name.
+
+The spell check is performed with the `hunspell` package. By default, it uses the US spelling. British spelling can be checked with argument `dic = "en_GB"` and for other spelling variation, see `help(hunspell, package = "hunspell")`. The R journal doesn't impose a particular spelling but consistency in the spelling is required.
+
+## Check on the proposed package
+
+If the article proposes a package, ideally it should be available on CRAN already. The `check_proposed_pkg()` will prompt
+
+  > What's the name of package being proposed in the article? If none, please enter 0. 
+
+for the name of the package proposed and run a cran download check with `cranlogs` package. 
 

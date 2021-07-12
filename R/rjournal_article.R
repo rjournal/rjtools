@@ -33,7 +33,7 @@ rjournal_pdf_article <- function(...) {
 #' Create an R journal article with the existing template
 #'
 #' @details
-#' Wee \link[the vignette](\code{vignette("create_article", package = "rjtools")}) for how to create an article
+#' See \code{vignette("create_article", package = "rjtools")} for how to create an article
 #'
 #' @param dir_path the directory name that houses the template files
 #' @param file_name the name of the bib/Rmd file
@@ -56,7 +56,7 @@ create_article <- function(dir_path = "paper", file_name = "article"){
     usethis::use_template(templates[i], package = "rjtools", save_as = fs::path(dir_path, names[i]))
   }
 
-  message("Please check that the reference to the bib file specified in the YAML of the Rmarkdown file
+  message("Please check that the reference to the bib file specified in the Rmarkdown YAML
   has the same name as the actual bib file. ")
 
   invisible(TRUE)

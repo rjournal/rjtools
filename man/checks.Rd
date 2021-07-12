@@ -48,20 +48,25 @@ output_summary(path, file = stdout())
 A single article check
 }
 \details{
+
+
 Folder structure checks:
 \itemize{
-\item \code{check_wrappers()}: Check that the two expected RJwrapper files: RJwrapper.tex and RJwrapper.pdf exist
-\item \code{check_filenames()}: Check that the .bib, .rmd, and .tex all presents and have consistent names
-\item \code{check_unnecessary_files()}: Check that RJtemplate.tex and RJournal.sty are not included in the directory
+\item \code{check_wrappers()}: the two expected RJwrapper files (RJwrapper.tex and RJwrapper.pdf) exist
+\item \code{check_filenames()}: the three files (.bib, .Rmd, and .tex) all present and have consistent names
+\item \code{check_unnecessary_files()}: template files (i.e. RJtemplate.tex and RJournal.sty) are not included in the directory
+\item \code{check_cover_letter()}: a motivational letter
 }
 
-Tex file checks:
+Content checks:
 \itemize{
 \item \code{check_title()}: article title is in title case
 \item \code{check_section()}: section sections are in sentence case
 \item \code{check_abstract_before_intro()}: abstract comes before the introduction section
 \item \code{check_spelling()}: potential spelling mistakes
 \item \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
-\item \code{check_packages_available()}: Check that packages mentioned in the text are available on CRAN
+\item \code{check_packages_available()}: packages mentioned in the article are available on CRAN
 }
+
+See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 }

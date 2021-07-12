@@ -1,0 +1,69 @@
+---
+title: "Title of your article"
+description: |
+    Insert a brief description of your paper here.
+abstract: >
+  An abstract of less than 150 words.
+draft: true
+author:  
+  # see ?rjournal_article for more information
+  - name: Author One
+    affiliation: Affiliation
+    address:
+    - line 1
+    - line 2
+    url: https://journal.r-project.org
+    orcid: 0000-0002-9079-593X
+    email:  author1@work
+  - name: Author Two
+    url: https://journal.r-project.org
+    email: author2@work
+    orcid: 0000-0002-9079-593X
+    affiliation: Affiliation 1
+    address:
+    - line 1 affiliation 1
+    - line 2 affiliation 1
+    affiliation2: Affiliation 2
+    address2:
+    - line 1 affiliation 2
+    - line 2 affiliation 2
+date: "`r Sys.Date()`"
+creative_commons: CC BY
+output: 
+  - rjtools::rjournal_pdf_article
+  - rjtools::rjournal_web_article
+# per R journal requirement, the bib filename should be the same as the output 
+# tex file. Don't forget to rename the bib file and change this example value.
+bibliography: sample-article.bib
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+# Introduction
+
+Introductory section which may include references in parentheses
+[@R], or cite a reference such as @R in the text.
+
+## Section title in sentence case
+
+This section may contain a figure such as Figure \ref{fig:Rlogo}.
+
+```{r, Rlogo, echo=FALSE, fig.cap='The logo of R.', out.width='2in', fig.align='center', fig.pos='htbp'}
+knitr::include_graphics('Rlogo-5.png')
+```
+
+## Another section
+
+There will likely be several sections, perhaps including the proposal of a new package xyz, some codes and plots
+
+```{r}
+x <- 1:10
+plot(x)
+```
+
+## Summary
+
+This file is only a basic article template. For full details of _The R Journal_ style and information on how to prepare your article for submission, see the [Instructions for Authors](https://journal.r-project.org/share/author-guide.pdf).

@@ -1,23 +1,27 @@
 #' A single article check
 #'
+#' @details
 #'
 #' @param path The directory that contains the .tex file (Ideally, this directory should contain .bib, .rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)
 #' @param dic the dictionary used for spelling check. See \code{dict} argument in [hunspell::hunspell()]
 #' @details
 #' Folder structure checks:
 #'
-#' * \code{check_wrappers()}: Check that the two expected RJwrapper files: RJwrapper.tex and RJwrapper.pdf exist
-#' * \code{check_filenames()}: Check that the .bib, .rmd, and .tex all presents and have consistent names
-#' * \code{check_unnecessary_files()}: Check that RJtemplate.tex and RJournal.sty are not included in the directory
+#' * \code{check_wrappers()}: the two expected RJwrapper files (RJwrapper.tex and RJwrapper.pdf) exist
+#' * \code{check_filenames()}: the three files (.bib, .Rmd, and .tex) all present and have consistent names
+#' * \code{check_unnecessary_files()}: template files (i.e. RJtemplate.tex and RJournal.sty) are not included in the directory
+#' * \code{check_cover_letter()}: a motivational letter
 #'
-#' Tex file checks:
+#' Content checks:
 #'
 #' * \code{check_title()}: article title is in title case
 #' * \code{check_section()}: section sections are in sentence case
 #' * \code{check_abstract_before_intro()}: abstract comes before the introduction section
 #' * \code{check_spelling()}: potential spelling mistakes
 #' * \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
-#' * \code{check_packages_available()}: Check that packages mentioned in the text are available on CRAN
+#' * \code{check_packages_available()}: packages mentioned in the article are available on CRAN
+#'
+#' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 #' @rdname checks
 #' @export
 initial_check_article <- function(path = here::here(), dic = "en_US") {
@@ -102,20 +106,6 @@ check_filenames <- function(path) {
 
   files_exist <- c("tex", "bib", "R") %in% exts
 
-  # check all files are present
-  if (!all(files_exist)) {
-
-    missing_type <- exts[!( c("tex", "bib", "R") %in% exts )]
-
-    log_error("Submission is missing a tex, bib or R file")
-
-  } else {
-
-    log_success("Submission has tex, bib, and R files")
-
-  }
-
-
   matching_filename <- remaining_files[exts %in% c("tex", "bib", "R")]
 
   single_filename <- tools::file_path_sans_ext(matching_filename)
@@ -127,7 +117,11 @@ check_filenames <- function(path) {
 
     log_error("Submission does not have consistently named tex, bib, and R files")
 
-  } else {
+  } else if (!all(files_exist)){
+
+    log_error("Submission is missing a tex, bib or R file")
+
+  } else{
 
     log_success("Submission has consistently named tex, bib, and R files")
 
@@ -144,7 +138,8 @@ check_unnecessary_files <- function(path) {
 
   if (any(unnecessary_files %in% submission_files)) {
 
-    log_error("Submission contains unnecessary files")
+    unnecessary <- unnecessary_files[unnecessary_files %in% submission_files]
+    log_error("Submission contains unnecessary files: ", unnecessary)
 
   } else {
 
@@ -162,7 +157,7 @@ check_cover_letter <- function(path){
   remaining_files <- remove_wrapper(path)
   if (!any(grepl("motivation", remaining_files))) {
 
-    log_note("Check for cover letter if add-on package submission style")
+    log_note("cover letter named 'motivation-letter' is not detected, if applicable")
 
   } else {
 
@@ -238,7 +233,9 @@ check_abstract_before_intro <- function(path){
   tex <- extract_tex_vec(path)
 
   abstract <- stringr::str_locate(tex, "abstract")[,"start"]
+  abstract <- abstract[!is.na(abstract)][1]
   intro <- stringr::str_locate(tex, "introduction")[,"start"]
+  intro <- intro[!is.na(intro)][1]
 
   if (abstract < intro){
     log_success("Abstract comes before the introduction section")
@@ -263,6 +260,8 @@ check_spelling <- function(path, dic = "en_US"){
   detect_bib <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\bibliography\\{).*?(?=\\})"))
   bib_loc <- match(detect_bib[!is.na(detect_bib)], detect_bib)
 
+  # spell_to_remove is a pre-defined vector of latex commands
+  # to be removed from spelling check
   to_replace <- paste(spell_to_remove, collapse = "|")
   tex2 <- stringr::str_replace_all(tex, to_replace, "")
   text_bw <- tex2[(abstract_loc + 1):(bib_loc - 1)]
@@ -276,10 +275,10 @@ check_spelling <- function(path, dic = "en_US"){
 
   check_raw <- hunspell::hunspell(text_clean, format = "latex", dic = hunspell::dictionary(dic))
   check <- unique(unlist(check_raw))
-  check_out <- paste0(check[toupper(check) != check & tools::toTitleCase(check) != check], collapse = ", ") # remove acronym
+  check_out <- check[tolower(check) == check]
 
   if (length(check_out) != 0){
-    log_note("A potential list of spelling to check: {check_out}")
+    log_note("A potential list of spelling to check:", paste(check_out, collapse = ", "))
   } else{
     log_success("No spelling mistake detected")
   }
@@ -458,7 +457,7 @@ log_factory <- function(prefix, .f) {
 
   function(text, ..., file = stdout(), .envir = parent.frame()) {
 
-    text <- glue::glue(prefix, text, .envir = .envir)
+    text <- glue::glue(prefix, text, ..., .envir = .envir)
 
     .f(text)
 
