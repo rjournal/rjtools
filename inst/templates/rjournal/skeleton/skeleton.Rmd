@@ -1,7 +1,5 @@
 ---
-title: "Title of your article"
-description: |
-    Insert a brief description of your paper here.
+title: "Title of My Article"
 abstract: >
   An abstract of less than 150 words.
 draft: true
@@ -44,22 +42,20 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 
 # Introduction
 
-Introductory section which may include references in parentheses
-[@R], or cite a reference such as @R in the text.
+An introduction to the paper ...
 
-## Section title in sentence case
+# Another section (... that needs to be in the sentence case)
 
-This section may contain a figure such as Figure \ref{fig:Rlogo}.
+There will likely be several sections, including literature review with some references in the `.bib` file, some user case demos with code snippets as follows: 
 
-```{r, Rlogo, echo=FALSE, fig.cap='The logo of R.', out.width='2in', fig.align='center', fig.pos='htbp'}
-knitr::include_graphics('Rlogo-5.png')
+```{r eval = FALSE, echo = TRUE}
+x <- 1:10
+plot(x)
 ```
 
-## Another section
+and a plot with cross-reference and captions as in Figure \@ref(fig:myplot),
 
-There will likely be several sections, perhaps including code snippets, such as:
-
-```{r}
+```{r myplot, fig.cap = "A caption should include three elements: 1) a one sentence summary of what the plot is about; 2) the details of elements being plotted; and 3) the messages from the plot."}
 x <- 1:10
 plot(x)
 ```
