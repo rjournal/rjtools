@@ -1,5 +1,5 @@
 % !TeX root = RJwrapper.tex
-\title{Title of your article}
+\title{xyz: a greate package that I created}
 \author{by Author One and Author Two}
 
 \maketitle
@@ -11,35 +11,31 @@ An abstract of less than 150 words.
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Introductory section which may include references in parentheses
-\citep{R}, or cite a reference such as \citet{R} in the text.
+An introduction to the paper \ldots{}
 
-\hypertarget{section-title-in-sentence-case}{%
-\subsection{Section title in sentence
-case}\label{section-title-in-sentence-case}}
+\hypertarget{another-section-that-needs-to-be-in-the-sentence-case}{%
+\section{Another section (\ldots{} that needs to be in the sentence
+case)}\label{another-section-that-needs-to-be-in-the-sentence-case}}
 
-This section may contain a figure such as Figure \ref{fig:Rlogo}.
+There will likely be several sections, including literature review with
+some references in the \texttt{.bib} file, some user case demos with
+code snippets as follows:
 
 \begin{Schunk}
-\begin{figure}[htbp]
-
-{\centering \includegraphics[width=2in]{Rlogo-5} 
-
-}
-
-\caption[The logo of R]{The logo of R.}\label{fig:Rlogo}
-\end{figure}
+\begin{Sinput}
+x <- 1:10
+plot(x)
+\end{Sinput}
 \end{Schunk}
 
-\hypertarget{another-section}{%
-\subsection{Another section}\label{another-section}}
-
-There will likely be several sections, perhaps including the proposal of
-a new package xyz, some codes and plots
+and a plot with cross-reference and captions as in Figure
+@ref(fig:myplot),
 
 \begin{Schunk}
-
-\includegraphics{sample-article_files/figure-latex/unnamed-chunk-1-1} \end{Schunk}
+\begin{figure}
+\includegraphics{sample-article_files/figure-latex/myplot-1} \caption[A caption should include three elements]{A caption should include three elements: 1) a one sentence summary of what the plot is about; 2) the details of elements being plotted; and 3) the messages from the plot.}\label{fig:myplot}
+\end{figure}
+\end{Schunk}
 
 \hypertarget{summary}{%
 \subsection{Summary}\label{summary}}
