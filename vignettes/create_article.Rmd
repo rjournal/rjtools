@@ -11,6 +11,7 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  message = FALSE,
   comment = "#>"
 )
 ```
@@ -55,35 +56,110 @@ In the `inst/paper` folder is an example article that has both html and pdf vers
 <!-- The properly rendered article should have `sample-article.tex` as the tex file, `RJwrapper.pdf` as the pdf document, `sample-article.R` that contains all the R codes in the Rmd file for reproducibility, and `sample-article.html` as the distill web article. -->
 
 
-There are 9 functions in total for authors to check against. These checks can be performed in one go with `initial_check_article()`, or separately with each individual `check_*()` function. Please notice that this is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission.
-
-All the check functions, except `check_proposed_pkg()`, requires a `path` argument that specifies the path from the project directory to the folder that contains the article. For articles that create by `create_article()` in the `paper` folder as introduced above, initial check can be run as: 
+There are 9 functions in total for authors to check against and these checks can be performed in one go with `initial_check_article()` with the path to the article folder: 
 
 ```{r eval = FALSE}
 initial_check_article(path = here::here("paper"))
 ```
 
-The initial check function documents the check results in a initial_checks.log file as well as in the console. A short description for each check function can be accessed via `help(checks, package = "rjtools")` and below are some additional information. 
+An initial_check.log file will be created under the same directory to document the check results, as well as in the console. Check on each item is also supported by individual `check_*()` function: 
+
+  - `check_wrappers()`
+  - `check_filenames()`
+  - `check_unnecessary_files()`
+  - `check_cover_letter()`
+  
+  - `check_title()`
+  - `check_section()`
+  - `check_spelling()`
+  - `check_proposed_pkg()`
+  - `check_packages_availabl()`
+
+Below we will check each item on the example article we create
+
+## Wrappers
+
+```{r}
+check_wrappers(path = here::here("inst/paper"))
+```
+
+A properly rendered article should have both the `RJwrapper.tex` and `RJwrapper.pdf` file and our article passes this check. Good!
+
+## Filenames
+
+```{r}
+check_filenames(path = here::here("inst/paper"))
+```
+
+As mentioned above, the .bib and .Rmd file should have consistent name when created. The .tex file with the same name is created when rendering the pdf article. Our article also passes this check :)
 
 ## Unnecessary files
 
-[!] Currently the rendering of article requires sytle.sty but check against it.
+```{r} 
+check_unnecessary_files(path = here::here("inst/paper")) 
+```
+
+This function checks that the folder doesn't contain the `RJtemplate.tex` file, which is in the previous R journal template. The [authors instruction](https://journal.r-project.org/share/author-guide.pdf) requires the authors to replace the content of this `RJtemplate.tex` file with article content and name with the lowercase concatenated author name, so it is essentially the `.tex` file in the previous section. Our article don't have an issue here. Good :)
 
 ## Motivation letter
 
-[i] In addition, the cover letter for article of type "add-on package" should be saved at the same folder as the main article and named "motivation-letter". 
+```{r} 
+check_cover_letter(path = here::here("inst/paper")) 
+```
 
+Cover letter should be provided for article of type "add-on package" and saved at the same folder as the article. The function checks whether there is a file has the word "motivation" in its name and the note says our sample article has not yet a motivational letter. Bad!
+
+## Article title
+
+```{r} 
+check_title(path = here::here("inst/paper")) 
+```
+
+The article title needs to be in the title case and we need to make this change before submission! Also if your title contains the package you're proposing, use the `\pkg{.}` tag rather than `\CRANpkg{.}`.
+
+## Section title
+
+```{r} 
+check_section(path = here::here("inst/paper")) 
+```
+
+Section titles need to be in the sentence case and we have no problem here!
 
 ## Spelling
 
-The spelling check returns a list of potential mis-spelling in the article. It checks the spelling from the abstract section to the bibliography section, excluding all the  code chunks. Only words with all lowercase letters are checked to avoid false alarm on  acronyms and names.
+```{r} 
+check_spelling(path = here::here("inst/paper")) 
+```
 
-The spell check is performed with the `hunspell` package and it uses the US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation as long as consistency is maintained.
+The spell check is performed with the `hunspell` package and it uses the US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained.
+
+Spelling check is performed from the abstract to bibliography section, excluding the comments in the code chunks. Only words with all lowercase letters are checked to avoid picking up on acronyms and names. Notice that this is only a coarse check ...
+
 
 ## Proposed package
 
-Ideally, the package proposed in an R journal article should be available on CRAN. The following prompt
+```{r eval = FALSE} 
+check_proposed_pkg() 
+```
+
+The package proposed in an article should already be available on CRAN. `check_proposed_pkg` doesn't require any path file but will have the following prompt in the console:
 
   > What's the name of package being proposed in the article? If none, please enter 0. 
 
-by `check_proposed_pkg()` will collect the name of the package proposed and run a cran download check with the `cranlogs` package.
+authors need to enter the exact package name for a cran download check with the `cranlogs` package.
+
+## Package availability
+
+```{r eval = FALSE} 
+check_packages_available(path = here::here("inst/paper")) 
+```
+
+
+<!-- Notice that this is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission. The initial check function documents the check results in a initial_checks.log file as well as in the console. A short description for each check function can be accessed via `help(checks, package = "rjtools")` and below are some additional information.  -->
+
+
+
+
+
+
+
