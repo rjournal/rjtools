@@ -134,7 +134,7 @@ check_filenames <- function(path) {
 check_unnecessary_files <- function(path) {
 
   submission_files <- list.files(path)
-  unnecessary_files <- c("RJtemplate.tex", "RJournal.sty")
+  unnecessary_files <- "RJtemplate.tex"
 
   if (any(unnecessary_files %in% submission_files)) {
 
@@ -143,7 +143,7 @@ check_unnecessary_files <- function(path) {
 
   } else {
 
-    log_success("No problematic files have been found")
+    log_success("No problematic file found")
 
   }
 
@@ -157,7 +157,7 @@ check_cover_letter <- function(path){
   remaining_files <- remove_wrapper(path)
   if (!any(grepl("motivation", remaining_files))) {
 
-    log_note("cover letter named 'motivation-letter' is not detected, if applicable")
+    log_note("Motivation letter is not detected, if applicable")
 
   } else {
 
@@ -278,7 +278,7 @@ check_spelling <- function(path, dic = "en_US"){
   check_out <- check[tolower(check) == check]
 
   if (length(check_out) != 0){
-    log_note("A potential list of spelling to check:", paste(check_out, collapse = ", "))
+    log_note("A potential list of spelling to check: ", paste(check_out, collapse = ", "))
   } else{
     log_success("No spelling mistake detected")
   }

@@ -42,7 +42,6 @@ rjournal_pdf_article <- function(...) {
 #' @importFrom fs path
 #' @export
 create_article <- function(dir_path = "paper", file_name = "article"){
-
   templates <- c("rjournal/resources/RJwrapper.tex",
                  "rjournal/skeleton/RJreferences.bib",
                  "rjournal/skeleton/skeleton.Rmd")
@@ -56,8 +55,7 @@ create_article <- function(dir_path = "paper", file_name = "article"){
     usethis::use_template(templates[i], package = "rjtools", save_as = fs::path(dir_path, names[i]))
   }
 
-  message("Please check that the reference to the bib file specified in the Rmarkdown YAML
-  has the same name as the actual bib file. ")
+  message("Remember to check the bibliography reference in the Rmd YAML!")
 
   invisible(TRUE)
 
