@@ -1,5 +1,6 @@
 ---
-title: "create an article using `rjtools`"
+title: "Create an article using `rjtools`"
+author: H. Sherry Zhang
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{create_article}
@@ -18,31 +19,43 @@ knitr::opts_chunk$set(
 library(rjtools)
 ```
 
-# Create an article 
+R journal features an automated online review process that requires certain structure and format on the submitted articles. To help authors meet these requirements, we create the `rjtools` package, with an intention that it would help R authors to write an R journal article, just as how `devtools` would help developers build a package. 
 
-To create a new R journal article, use the `create_article()` function in the `rjtools` package. The function will create a paper folder in the root directory with three files: article.bib, article.Rmd, and RJwrapper.tex by default. 
+In this vignette, we will walk together through how to use `rjtools` to create an R journal article using the build-in template and how to perform checks required by the R journal.
 
-The name of the folder and bib/Rmd file can be customised by using the `dir_path` and `file_name` argument. R journal requires the bib file and the rmarkdown file to have the same name and we recommend them to be named as the surname of all the authors. 
+# Create 
 
-For example, to create an article by Di Cook, Catherine Hurley, Simon Urbanek, and Michael Kane, use 
+The package contains a template for the R journal articles, [how it differs from the template in `rticles`]. The `create_article()` function will create a paper folder in the root directory with three files: 
+
+  - article.bib, 
+  - article.Rmd, and 
+  - RJwrapper.tex
+
+The folder name and bib/Rmd file name can be changed with argument `dir_path` and `file_name`. Notice that the R journal requires the .bib file and the .Rmd file to have the same name ("article" as created by default) and we recommend connecting the surname of all the authors as a name. 
+
+For example, an article by Di Cook, Catherine Hurley, Simon Urbanek, and Michael Kane can be created by
 
 ```{r eval = FALSE}
 create_article(file_name = "cook-hurley-urbanek-kane")
 ```
 
 
-This will generate "cook-hurley-urbanek-kane.Rmd", "cook-hurley-urbanek-kane.bib", and "RJwrapper.tex" under the paper folder. If you made change of the file name with `file_name`, please also change the reference to the bib file specified in the YAML of the rmarkdown file to the same name.
+This will generate 
+  
+  - cook-hurley-urbanek-kane.bib, 
+  - cook-hurley-urbanek-kane.Rmd, and 
+  - RJwrapper.tex
+  
+under the paper folder. One last step before start on writing is to make a change on the bibliography reference in the Rmd YAML. By default, the template generates `bibliography: RJreferences.bib` in the YAML and you want to replace `RJreferences` with the file name you just specified: `cook-hurley-urbanek-kane` so that the `.bib` file can be found! 
 
-# Render the article
+# Check
 
-In the `inst` folder is an pre-generated sample article (`sample-article.Rmd`) for demonstrating the check functions in the `rjotools`. 
+In the `inst/paper` folder is an example article that has both html and pdf version rendered [manually put in RJournal.sty to render the pdf article] and we will be using it to demonstrate the check functions in the `rjtools`.
 
-The properly rendered article should have `sample-article.tex` as the tex file, `RJwrapper.pdf` as the pdf document, `sample-article.R` that contains all the R codes in the Rmd file for reproducibility, and `sample-article.html` as the distill web article.
+<!-- The properly rendered article should have `sample-article.tex` as the tex file, `RJwrapper.pdf` as the pdf document, `sample-article.R` that contains all the R codes in the Rmd file for reproducibility, and `sample-article.html` as the distill web article. -->
 
 
-# Check functions
-
-There are 9 functions for authors to check against an article that is ready to be submitted. These checks can be performed in one go with `initial_check_article()`, or separately with each individual `check_*()` function. Please notice that this is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission.
+There are 9 functions in total for authors to check against. These checks can be performed in one go with `initial_check_article()`, or separately with each individual `check_*()` function. Please notice that this is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission.
 
 All the check functions, except `check_proposed_pkg()`, requires a `path` argument that specifies the path from the project directory to the folder that contains the article. For articles that create by `create_article()` in the `paper` folder as introduced above, initial check can be run as: 
 
@@ -52,22 +65,22 @@ initial_check_article(path = here::here("paper"))
 
 The initial check function documents the check results in a initial_checks.log file as well as in the console. A short description for each check function can be accessed via `help(checks, package = "rjtools")` and below are some additional information. 
 
-## Check for unncessary files
+## Unnecessary files
 
 [!] Currently the rendering of article requires sytle.sty but check against it.
 
-## Check for motivation letter
+## Motivation letter
 
 [i] In addition, the cover letter for article of type "add-on package" should be saved at the same folder as the main article and named "motivation-letter". 
 
 
-## Check on spelling
+## Spelling
 
 The spelling check returns a list of potential mis-spelling in the article. It checks the spelling from the abstract section to the bibliography section, excluding all the  code chunks. Only words with all lowercase letters are checked to avoid false alarm on  acronyms and names.
 
 The spell check is performed with the `hunspell` package and it uses the US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation as long as consistency is maintained.
 
-## Check on the proposed package
+## Proposed package
 
 Ideally, the package proposed in an R journal article should be available on CRAN. The following prompt
 
