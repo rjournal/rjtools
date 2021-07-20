@@ -51,10 +51,7 @@ under the paper folder. One last step before start on writing is to make a chang
 
 # Check
 
-In the `inst/paper` folder is an example article that has both html and pdf version rendered [manually put in RJournal.sty to render the pdf article] and we will be using it to demonstrate the check functions in the `rjtools`.
-
-<!-- The properly rendered article should have `sample-article.tex` as the tex file, `RJwrapper.pdf` as the pdf document, `sample-article.R` that contains all the R codes in the Rmd file for reproducibility, and `sample-article.html` as the distill web article. -->
-
+In the `inst/paper` folder is an example article that has both html and pdf version rendered [manually put in RJournal.sty to render the pdf article] and we will be using it to demonstrate the check functions in the `rjtools`. Notice that this is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission. 
 
 There are 9 functions in total for authors to check against and these checks can be performed in one go with `initial_check_article()` with the path to the article folder: 
 
@@ -115,7 +112,7 @@ Cover letter should be provided for article of type "add-on package" and saved a
 check_title(path = here::here("inst/paper")) 
 ```
 
-The article title needs to be in the title case and we need to make this change before submission! Also if your title contains the package you're proposing, use the `\pkg{.}` tag rather than `\CRANpkg{.}`.
+The article title needs to be in the title case and the check is not happy with our title here. Use `toTitleCase()` on the article title  tells us that we forget to capitalise "P" in "package" - better make this change before submission! Also if the title contains the package you're proposing, use the `\pkg{.}` tag rather than `\CRANpkg{.}`.
 
 ## Section title
 
@@ -131,9 +128,11 @@ Section titles need to be in the sentence case and we have no problem here!
 check_spelling(path = here::here("inst/paper")) 
 ```
 
-The spell check is performed with the `hunspell` package and it uses the US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained.
+The spell check uses the `hunspell` package with US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained.
 
-Spelling check is performed from the abstract to bibliography section, excluding the comments in the code chunks. Only words with all lowercase letters are checked to avoid picking up on acronyms and names. Notice that this is only a coarse check ...
+The spelling check is performed from the abstract to bibliography section, excluding the comments in the code chunks. Only words with all lowercase letters are checked to avoid picking up on acronyms and names. Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if the suggested spelling mistakes are true mis-spellings.
+
+In our article, "tooltip" is a specialised vocabulary in interactive graphics, "tsibble" is a package name (we use it to describe the package `tsibbletalk` is used for time series data with a tsibble structure), but "literacture" is a correct pick!
 
 
 ## Proposed package
@@ -142,11 +141,11 @@ Spelling check is performed from the abstract to bibliography section, excluding
 check_proposed_pkg() 
 ```
 
-The package proposed in an article should already be available on CRAN. `check_proposed_pkg` doesn't require any path file but will have the following prompt in the console:
+The package proposed in an article should already be available on CRAN before article submission. `check_proposed_pkg` prompts the following in the console:
 
   > What's the name of package being proposed in the article? If none, please enter 0. 
 
-authors need to enter the exact package name for a cran download check with the `cranlogs` package.
+and authors need to enter the exact package name for an availability check on CRAN download with the `cranlogs` package.
 
 ## Package availability
 
@@ -154,9 +153,7 @@ authors need to enter the exact package name for a cran download check with the 
 check_packages_available(path = here::here("inst/paper")) 
 ```
 
-
-<!-- Notice that this is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission. The initial check function documents the check results in a initial_checks.log file as well as in the console. A short description for each check function can be accessed via `help(checks, package = "rjtools")` and below are some additional information.  -->
-
+All the packages mentioned with a `\CRANpkg{.}` or `\BIOpkg{.}` tag need to be available on CRAN or Bioconductor and `check_packages_available` makes sure this is the case. 
 
 
 
