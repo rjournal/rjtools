@@ -181,11 +181,11 @@ check_title <- function(path){
   tex <- extract_tex(path)
   str <- stringr::str_extract(tex,  "(?<=\\\\title\\{).*?(?=\\})")
 
-  # str_to_title changes the first letter of all to capital - also for proposition
   if (tools::toTitleCase(str) != str){
     log_error("The title is not in title case!")
   } else{
-    log_success("The article title is properly formatted in title case")
+    log_success("The article title is properly formatted in title case,
+                try `toTitleCase()` on the title to see the difference")
   }
 
 }
@@ -323,6 +323,9 @@ check_packages_available <- function(path) {
   # Run cran checks
   allCRANpkgs <- available.packages()[,1]
 
+  allBIOpkgs <- available.packages(repos = "https://bioconductor.org/packages/3.11/bioc")[,1]
+
+  BIOpkgs <- unique(stringr::str_sub(unlist(pkgs_to_check[2]), start = 9, end = -2))
 
   if (!all(CRANpkgs %in% allCRANpkgs)) {
     # When one is missing from CRAN
@@ -332,17 +335,7 @@ check_packages_available <- function(path) {
 
     log_error(text = "{amount_missing} of {amount_pkgs} package(s) not available on CRAN: {paste(missing, collapse = ', ')}")
 
-  } else {
-
-    log_success("All CRAN packages mentioned are available")
-  }
-
-
-  allBIOpkgs <- available.packages(repos = "https://bioconductor.org/packages/3.11/bioc")[,1]
-
-  BIOpkgs <- unique(stringr::str_sub(unlist(pkgs_to_check[2]), start = 9, end = -2))
-
-  if (!all(BIOpkgs %in% allBIOpkgs)) {
+  } else if (!all(BIOpkgs %in% allBIOpkgs)) {
     # When one is missing from Bioconductor
     missing <- BIOpkgs[!(BIOpkgs %in% allBIOpkgs)]
     amount_missing <- length(missing)
@@ -351,8 +344,7 @@ check_packages_available <- function(path) {
     log_error("{amount_missing} of {amount_pkgs} package(s) not available on Bioconductor: {paste(missing, collapse = ', ')}")
 
   } else {
-
-    log_success("All Bioconductor packages mentioned are available")
+    log_success("All CRAN & Bioconductor packages mentioned are available")
 
   }
 
