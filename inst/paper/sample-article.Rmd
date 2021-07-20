@@ -1,35 +1,33 @@
 ---
-title: "Xyz: a greate package that I created"
+title: "ToOoOlTiPs: An R package for Customizable Tooltips in Interactive Graphics"
 abstract: >
   An abstract of less than 150 words.
 draft: true
 author:  
   # see ?rjournal_article for more information
-  - name: Author One
-    affiliation: Affiliation
+  - name: Quietest Quokka
+    affiliation: University of Little Mates
     address:
-    - line 1
-    - line 2
-    url: https://journal.r-project.org
-    orcid: 0000-0002-9079-593X
-    email:  author1@work
-  - name: Author Two
-    url: https://journal.r-project.org
-    email: author2@work
-    orcid: 0000-0002-9079-593X
-    affiliation: Affiliation 1
+    - Department of Letter Q
+    - Somewhere, Australia
+    url: https://www.britannica.com/animal/quokka
+    orcid: 0000-1721-1511-1101
+    email:  qquo@ulm.edu
+  - name: Bounciest Bilby
+    url: https://www.britannica.com/animal/bilby
+    email: bbil@ulm.edu
+    orcid: 0000-0002-0912-0225
+    affiliation: University of Little Mates
     address:
-    - line 1 affiliation 1
-    - line 2 affiliation 1
-    affiliation2: Affiliation 2
-    address2:
-    - line 1 affiliation 2
-    - line 2 affiliation 2
+    - Department of Letter B
+    - Somewhere, Australia
 date: "`r Sys.Date()`"
 creative_commons: CC BY
 output: 
   - rjtools::rjournal_web_article
   - rjtools::rjournal_pdf_article
+  
+
 # per R journal requirement, the bib filename should be the same as the output 
 # tex file. Don't forget to rename the bib file and change this example value.
 bibliography: sample-article.bib
@@ -39,28 +37,38 @@ bibliography: sample-article.bib
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(plotly)
+library(ggplot2)
+library(palmerpenguins)
 ```
 
 # Introduction
 
-An introduction to the paper ...
+Interactive graphics is a type of visualization that allows users to interactively inspect a plot. One of the most basic interactivity is through tooltips, where users can request additional information about a plot element by mouse hovering ...
 
-# Another section (... that needs to be in the sentence case)
+This paper will first review some R packages on interactive graphics and their tooltip implementations. Next, a new package \CRANpkg{ToOoOlTiPs} will be proposed for customizing tooltips. Some gallery plots will then be given to showcase how these tooltips help users to better read the graphics. 
 
-There will likely be several sections, including literature review with some references in the `.bib` file, some user case demos with code snippets as follows: 
+# Literacture review
 
-```{r eval = FALSE, echo = TRUE}
-x <- 1:10
-plot(x)
+Some packages on interactive graphics include \CRANpkg{plotly} [@plotly] that interfaces with Javascript for web-based interactive graphics, \CRANpkg{crosstalk} [@crosstalk] that specializes cross-linking elements across individual graphics, and most recently, \CRANpkg{tsibbletalk} [@RJ-2021-050] for working with time series data in a tsibble structure ...
+
+# Customizing tooltip design with \pkg{ToOoOlTiPs}
+
+\pkg{ToOoOlTiPs} is a packages for customizing tooltips in interactive graphics, it features ...
+
+# A gallery of tooltips
+
+We first show a baseline plot, in Figure \ref{fig:penguins-plotly}, made by the \pkg{plotly} package with \CRANpkg{palmerpenguin} data [@palmerpenguins]. 
+
+```{r penguins-plotly, echo = TRUE, fig.height = 5, fig.cap="A basic interactive plot made with the plotly package on palmer penguin data. Three species of penguins are plotted with bill depth on the x-axis and bill length on the y-axis. When hovering on a point, a tooltip will show the exact value of the bill depth and length for that point, along with the species name."}
+p <- penguins %>% 
+  ggplot(aes(x = bill_depth_mm, y = bill_length_mm, 
+             color = species)) + 
+  geom_point()
+ggplotly(p)
 ```
 
-and a plot with cross-reference and captions as in Figure \@ref(fig:myplot),
+Now we will re-create the same plot using the \pkg{ToOoOlTiPs} package for different tooltips designs ...
 
-```{r myplot, fig.cap = "A caption should include three elements: 1) a one sentence summary of what the plot is about; 2) the details of elements being plotted; and 3) the messages from the plot."}
-x <- 1:10
-plot(x)
-```
+# Summary
 
-## Summary
-
-This file is only a basic article template. For full details of _The R Journal_ style and information on how to prepare your article for submission, see the [Instructions for Authors](https://journal.r-project.org/share/author-guide.pdf).
+We have displayed various tooltips that are available in the package \pkg{ToOoOlTiPs}. These tooltips ...
