@@ -1,5 +1,5 @@
 ---
-title: "Create an article using `rjtools`"
+title: "Create and Check an R Journal Article Using `rjtools`"
 author: H. Sherry Zhang
 output: 
   rmarkdown::html_vignette:
@@ -51,7 +51,7 @@ This will generate
   
 under the paper folder. One last step before start on writing is to make a change on the bibliography reference in the Rmd YAML. By default, the template generates `bibliography: RJreferences.bib` in the YAML and you want to replace `RJreferences` with the file name you just specified: `cook-hurley-urbanek-kane`.
 
-# Check
+# Checks
 
 In the `inst/paper` folder is an example article that has both html and pdf version rendered [manually put in RJournal.sty to render the pdf article] and it will be used to demonstrate the check functions in the `rjtools`. Notice that the check function implemented here is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission. 
 
@@ -92,7 +92,7 @@ check_filenames(path = here::here("inst/paper"))
 
 As mentioned above, the .bib and .Rmd file should have consistent name when created. The .tex file with the same name will be automatically created when rendering the pdf article. Our article also passes this check :)
 
-## Unnecessary file
+## Presence of unnecessary files
 
 ```{r} 
 check_unnecessary_files(path = here::here("inst/paper")) 
@@ -100,7 +100,7 @@ check_unnecessary_files(path = here::here("inst/paper"))
 
 This function checks that the folder doesn't contain the `RJtemplate.tex` file, which is icluded the previous R journal template. The [authors instruction](https://journal.r-project.org/share/author-guide.pdf) requires the authors to replace the content of this `RJtemplate.tex` file with article content and name with the lowercase concatenated author name, so it is essentially the `.tex` file automatically generated in the previous section. Our article don't have unnecessary file here. Good :)
 
-## Motivation letter
+## Presence of a motivating letter
 
 ```{r} 
 check_cover_letter(path = here::here("inst/paper")) 
@@ -108,7 +108,7 @@ check_cover_letter(path = here::here("inst/paper"))
 
 Cover letter should be provided for article of type "add-on package" and saved at the same folder as the article. The function checks whether there is a file has the word "motivation" in its name and the note says our sample article has not yet have a motivational letter. Bad!
 
-## Article title
+## Article title is in title case
 
 ```{r} 
 check_title(path = here::here("inst/paper")) 
@@ -122,7 +122,7 @@ tools::toTitleCase("ToOoOlTiPs: An R package for Customizable Tooltips in Intera
 
 Here we forget to capitalise "P" in the word "package" - better make this change before submission! Also if the title contains the package you're proposing, i.e `ToOoOlTiPs` in our article, use the `\pkg{.}` tag rather than `\CRANpkg{.}`.
 
-## Section title
+## Section title is in sentence case
 
 ```{r} 
 check_section(path = here::here("inst/paper")) 
@@ -142,7 +142,7 @@ The underlying checking is done through the `hunspell` package with US spelling 
 In our article, "tooltip" is a specialised vocabulary in interactive graphics; "tsibble" is a package name (we use it to describe the package `tsibbletalk` being used for time series data with a tsibble structure); but "literacture" is a correct pick!
 
 
-## Proposed package
+## Package is available on CRAN
 
 ```{r eval = FALSE} 
 check_proposed_pkg() 
