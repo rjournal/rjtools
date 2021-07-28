@@ -35,7 +35,8 @@ Imports:
     fs,
     usethis,
     cli,
-    glue
+    glue,
+    here
 Suggests: 
     rmarkdown,
     knitr
