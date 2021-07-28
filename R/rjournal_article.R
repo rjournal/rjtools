@@ -13,7 +13,9 @@ rjournal_web_article <- rjdistill::rjournal_web_article
 
 #' @rdname rjournal_article
 #' @export
-rjournal_pdf_article <- rjdistill::rjournal_pdf_article
+rjournal_pdf_article <- function(...) {
+  rticles::rjournal_article(...)
+}
 
 #' Create an R journal article with the existing template
 #'

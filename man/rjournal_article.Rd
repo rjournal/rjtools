@@ -5,7 +5,31 @@
 \alias{rjournal_pdf_article}
 \title{R Markdown output formats for R Journal articles}
 \usage{
-rjournal_web_article(...)
+rjournal_web_article(
+  toc = FALSE,
+  toc_depth = 3,
+  toc_float = TRUE,
+  fig_width = 6.5,
+  fig_height = 4,
+  fig_retina = 2,
+  fig_caption = TRUE,
+  dev = "png",
+  smart = TRUE,
+  code_folding = FALSE,
+  self_contained = TRUE,
+  highlight = "default",
+  highlight_downlit = TRUE,
+  mathjax = "default",
+  extra_dependencies = NULL,
+  theme = NULL,
+  css = NULL,
+  includes = NULL,
+  keep_md = FALSE,
+  lib_dir = NULL,
+  md_extensions = NULL,
+  pandoc_args = NULL,
+  ...
+)
 
 rjournal_pdf_article(...)
 }
