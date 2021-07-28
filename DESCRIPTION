@@ -39,4 +39,6 @@ Imports:
 Suggests: 
     rmarkdown,
     knitr
+Remotes:
+    rjournal/rjdistill
 VignetteBuilder: knitr
