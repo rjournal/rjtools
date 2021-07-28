@@ -32,7 +32,10 @@ Imports:
     cranlogs,
     purrr,
     hunspell,
-    fs
+    fs,
+    usethis,
+    cli,
+    glue
 Suggests: 
     rmarkdown,
     knitr

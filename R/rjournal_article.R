@@ -9,26 +9,11 @@
 #'   and `rticles::rjournal_article()` for pdf articles.
 #' @rdname rjournal_article
 #' @export
-rjournal_web_article <- function(...) {
-  fmt <- distill::distill_article(...)
-  post_knit <- fmt$post_knit
-  fmt$post_knit <- function(...) {
-    args <- post_knit(...)
-    is_html <- which(str_detect(args, "html$"))
-    lapply(args[is_html], function(x) {
-      any(str_detect(readLines(x), "misc"))
-    })
-    args
-  }
-
-  fmt
-}
+rjournal_web_article <- rjdistill::rjournal_web_article
 
 #' @rdname rjournal_article
 #' @export
-rjournal_pdf_article <- function(...) {
-  rticles::rjournal_article(...)
-}
+rjournal_pdf_article <- rjdistill::rjournal_pdf_article
 
 #' Create an R journal article with the existing template
 #'
