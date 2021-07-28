@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://rjournal.github.io/rjtools//index.html</loc>
+  </url>
+  <url>
+    <loc>https://rjournal.github.io/rjtools//reference/checks.html</loc>
+  </url>
+  <url>
+    <loc>https://rjournal.github.io/rjtools//reference/create_article.html</loc>
+  </url>
+  <url>
+    <loc>https://rjournal.github.io/rjtools//reference/log_error.html</loc>
+  </url>
+  <url>
+    <loc>https://rjournal.github.io/rjtools//reference/log_note.html</loc>
+  </url>
+  <url>
+    <loc>https://rjournal.github.io/rjtools//reference/log_success.html</loc>
+  </url>
+  <url>
+    <loc>https://rjournal.github.io/rjtools//reference/rjournal_article.html</loc>
+  </url>
+  <url>
+    <loc>https://rjournal.github.io/rjtools//reference/rjtools-package.html</loc>
+  </url>
+  <url>
+    <loc>https://rjournal.github.io/rjtools//reference/symbol.html</loc>
+  </url>
+  <url>
+    <loc>https://rjournal.github.io/rjtools//articles/create_article.html</loc>
+  </url>
+</urlset>
