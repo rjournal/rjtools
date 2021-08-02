@@ -33,14 +33,14 @@ The goal of rjtools is to ...
 You can install the development version from [GitHub](https://github.com/) with: 
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("rjournal/rjtools")
+# install.packages("remotes")
+remotes::install_github("rjournal/rjtools")
 ```
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+To create an article template under the project directory: 
 
-```{r example}
+```{r example, eval = FALSE}
 library(rjtools)
-## basic example code
+create_article(file_name = "my_article")
 ```

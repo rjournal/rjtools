@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of rjtools is to provide authors of R Journal articles the tools to create their article in the style of the journal, using the rticles template, tools to check their article against the required formatting.
+The goal of rjtools is to …
 
 ## Installation
 
@@ -20,15 +20,15 @@ You can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("rjournal/rjtools")
+# install.packages("remotes")
+remotes::install_github("rjournal/rjtools")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+To create an article template under the project directory:
 
 ``` r
 library(rjtools)
-## basic example code
+create_article(file_name = "my_article")
 ```
