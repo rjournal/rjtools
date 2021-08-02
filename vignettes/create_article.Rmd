@@ -28,7 +28,7 @@ In this vignette, I will walk you through how to use `rjtools` to create an R jo
 
 # Create 
 
-The package contains a template for the R journal articles, [how it differs from the template in `rticles`]. The `create_article()` function will create a paper folder in the root directory with three files: 
+The package contains a template for the R journal articles. The `create_article()` function will create a paper folder in the root directory with three files: 
 
   - article.bib, 
   - article.Rmd, and 
@@ -53,12 +53,12 @@ under the paper folder. One last step before start on writing is to make a chang
 
 # Checks
 
-In the `inst/paper` folder is an example article that has both html and pdf version rendered [manually put in RJournal.sty to render the pdf article] and it will be used to demonstrate the check functions in the `rjtools`. Notice that the check function implemented here is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission. 
+In the `inst/paper-with-errors` folder is an example article that has both html and pdf version rendered [manually put in RJournal.sty to render the pdf article] and it will be used to demonstrate the check functions in the `rjtools`. Notice that the check function implemented here is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission. 
 
 There are 9 functions in total for authors to check against and these checks can be completed in one go with `initial_check_article()`, given a path to the article folder: 
 
 ```{r eval = FALSE}
-initial_check_article(path = here::here("paper"))
+initial_check_article(path = here::here("paper-with-errors"))
 ```
 
 The check result will be saved in an initial_check.log file, as well as displayed in the console. Checking on each item is also supported by individual `check_*()` function: 
@@ -79,7 +79,7 @@ Below we will apply each check function on the example article we create
 ## Wrappers
 
 ```{r}
-check_wrappers(path = here::here("inst/paper"))
+check_wrappers(path = here::here("inst/paper-with-errors"))
 ```
 
 A properly rendered article should have both the `RJwrapper.tex` and `RJwrapper.pdf` file and our article passes this check. Good!
@@ -87,7 +87,7 @@ A properly rendered article should have both the `RJwrapper.tex` and `RJwrapper.
 ## Filenames
 
 ```{r}
-check_filenames(path = here::here("inst/paper"))
+check_filenames(path = here::here("inst/paper-with-errors"))
 ```
 
 As mentioned above, the .bib and .Rmd file should have consistent name when created. The .tex file with the same name will be automatically created when rendering the pdf article. Our article also passes this check :)
@@ -95,7 +95,7 @@ As mentioned above, the .bib and .Rmd file should have consistent name when crea
 ## Presence of unnecessary files
 
 ```{r} 
-check_unnecessary_files(path = here::here("inst/paper")) 
+check_unnecessary_files(path = here::here("inst/paper-with-errors")) 
 ```
 
 This function checks that the folder doesn't contain the `RJtemplate.tex` file, which is icluded the previous R journal template. The [authors instruction](https://journal.r-project.org/share/author-guide.pdf) requires the authors to replace the content of this `RJtemplate.tex` file with article content and name with the lowercase concatenated author name, so it is essentially the `.tex` file automatically generated in the previous section. Our article don't have unnecessary file here. Good :)
@@ -103,7 +103,7 @@ This function checks that the folder doesn't contain the `RJtemplate.tex` file, 
 ## Presence of a motivating letter
 
 ```{r} 
-check_cover_letter(path = here::here("inst/paper")) 
+check_cover_letter(path = here::here("inst/paper-with-errors")) 
 ```
 
 Cover letter should be provided for article of type "add-on package" and saved at the same folder as the article. The function checks whether there is a file has the word "motivation" in its name and the note says our sample article has not yet have a motivational letter. Bad!
@@ -111,7 +111,7 @@ Cover letter should be provided for article of type "add-on package" and saved a
 ## Article title is in title case
 
 ```{r} 
-check_title(path = here::here("inst/paper")) 
+check_title(path = here::here("inst/paper-with-errors")) 
 ```
 
 The article title needs to be in the title case and the check is not happy with our title here. Use `tools::toTitleCase()` to get the correct title case format:
@@ -125,7 +125,7 @@ Here we forget to capitalise "P" in the word "package" - better make this change
 ## Section title is in sentence case
 
 ```{r} 
-check_section(path = here::here("inst/paper")) 
+check_section(path = here::here("inst/paper-with-errors")) 
 ```
 
 Section titles need to be in the sentence case and we are all good!
@@ -133,7 +133,7 @@ Section titles need to be in the sentence case and we are all good!
 ## Spelling
 
 ```{r} 
-check_spelling(path = here::here("inst/paper")) 
+check_spelling(path = here::here("inst/paper-with-errors")) 
 ```
 
 The spelling check is performed from the abstract to bibliography section, excluding the comments in the code chunks. Only words with all lowercase letters are checked to avoid picking up on acronyms and names.
@@ -161,7 +161,7 @@ Definitely CRAN can't find our package since it is a hypothetical one!
 ## Package availability
 
 ```{r eval = FALSE} 
-check_packages_available(path = here::here("inst/paper")) 
+check_packages_available(path = here::here("inst/paper-with-errors")) 
 ```
 
 All the packages mentioned with a `\CRANpkg{.}` or `\BIOpkg{.}` tag need to be available on CRAN or Bioconductor and `check_packages_available` makes sure this is the case. For our article, we get 
