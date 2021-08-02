@@ -48,7 +48,7 @@ Interactive graphics is a type of visualization that allows users to interactive
 
 This paper will first review some R packages on interactive graphics and their tooltip implementations. Next, a new package \CRANpkg{ToOoOlTiPs} will be proposed for customizing tooltips. Some gallery plots will then be given to showcase how these tooltips help users to better read the graphics. 
 
-# Literacture review
+# Literature review
 
 Some packages on interactive graphics include \CRANpkg{plotly} [@plotly] that interfaces with Javascript for web-based interactive graphics, \CRANpkg{crosstalk} [@crosstalk] that specializes cross-linking elements across individual graphics, and most recently, \CRANpkg{tsibbletalk} [@RJ-2021-050] for working with time series data in a tsibble structure ...
 
