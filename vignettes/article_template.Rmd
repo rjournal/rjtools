@@ -1,5 +1,5 @@
 ---
-title: "Article Template"
+title: "The Article Template"
 author: Sherry Zhang
 output: rmarkdown::html_vignette
 vignette: >

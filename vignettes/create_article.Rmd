@@ -1,5 +1,5 @@
 ---
-title: "Create an R Journal Article Using `rjtools`"
+title: "Create an R Journal Article"
 author: Sherry Zhang
 output: rmarkdown::html_vignette
 vignette: >
