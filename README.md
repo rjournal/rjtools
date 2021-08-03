@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of rjtools is to make it easier for authors of R Journal
+The goal of rjtools is to make it easier for AUTHORS of R Journal
 articles to start a new paper, and to check their paper is in suitable
 condition to submit.
 
