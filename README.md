@@ -39,4 +39,4 @@ create_article(file_name = "my_article")
 ## Check functions
 
 Explore the various `check_XXX` functions that will check the format of
-your article, and some sy=ubmission requirements.
+your article, and some submission requirements.
