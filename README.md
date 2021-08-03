@@ -6,7 +6,9 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of rjtools is to …
+The goal of rjtools is to make it easier for authors of R Journal
+articles to start a new paper, and to check their paper is in suitable
+condition to submit.
 
 ## Installation
 
@@ -21,6 +23,7 @@ You can install the development version from
 
 ``` r
 # install.packages("remotes")
+remotes::install_github("rjournal/rjdistill")
 remotes::install_github("rjournal/rjtools")
 ```
 
