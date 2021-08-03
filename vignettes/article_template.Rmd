@@ -1,0 +1,37 @@
+---
+title: "Article Template"
+author: Sherry Zhang
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rjtools-template}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = FALSE
+)
+```
+
+```{r setup, echo = FALSE}
+library(rjtools)
+library(rmarkdown)
+```
+
+```{r eval = FALSE}
+rmarkdown::draft("inst/sample-article", 
+                 template = here::here("inst/templates/rjournal"), 
+                 create_dir = TRUE, edit = FALSE)
+
+rmarkdown::render("inst/sample-article/sample-article.Rmd")
+```
+
+Here is how the template looks like when rendered as a web article (a [pdf](https://github.com/rjournal/rjtools/blob/main/inst/sample-article/RJwrapper.pdf) version is also available):
+
+```{r}
+htmltools::includeHTML(here::here("inst/sample-article/sample-article.html"))
+```
+
