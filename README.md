@@ -7,8 +7,10 @@
 <!-- badges: end -->
 
 The goal of rjtools is to make it easier for AUTHORS of R Journal
-articles to start a new paper, and to check their paper is in suitable
-condition to submit.
+articles to 
+
+1. create a new paper from a template that will produce both html and pdf versions in the formt needed by the journal, and 
+2. to run various checks on their paper, that it satisfies various requirements, in preparation for submitting it to the journal.
 
 ## Installation
 
@@ -23,11 +25,10 @@ You can install the development version from
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("rjournal/rjdistill")
 remotes::install_github("rjournal/rjtools")
 ```
 
-## Example
+## Getting started with a new article
 
 To create an article template under the project directory:
 
@@ -36,7 +37,7 @@ library(rjtools)
 create_article(file_name = "my_article")
 ```
 
-## Check functions
+## Checking that your paper satisfies various conditions
 
 Explore the various `check_XXX` functions that will check the format of
 your article, and some submission requirements.
