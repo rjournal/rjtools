@@ -7,10 +7,12 @@
 <!-- badges: end -->
 
 The goal of rjtools is to make it easier for AUTHORS of R Journal
-articles to 
+articles to
 
-1. create a new paper from a template that will produce both html and pdf versions in the formt needed by the journal, and 
-2. to run various checks on their paper, that it satisfies various requirements, in preparation for submitting it to the journal.
+1.  create a new paper from a template that will produce both html and
+    pdf versions in the format needed by the journal, and
+2.  to run various checks on their paper, that it satisfies various
+    requirements, in preparation for submitting it to the journal.
 
 ## Installation
 
@@ -18,10 +20,10 @@ articles to
 <!-- ``` r -->
 <!-- install.packages("rjtools") -->
 <!-- ``` -->
-<!-- And the development version from [GitHub](https://github.com/) with: -->
+<!-- And the development version from [GitHub](https://github.com/rjournal/rjtools) with: -->
 
 You can install the development version from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/rjournal/rjtools) with:
 
 ``` r
 # install.packages("remotes")
@@ -29,6 +31,8 @@ remotes::install_github("rjournal/rjtools")
 ```
 
 ## Getting started with a new article
+
+To create an article template under the project directory:
 
 To create an article template under the project directory:
 
