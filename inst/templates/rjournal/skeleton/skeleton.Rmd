@@ -45,7 +45,7 @@ This paper will first review some R packages on interactive graphics and their t
 
 # Literacture review
 
-Some packages on interactive graphics include \CRANpkg{plotly} [@plotly] that interfaces with Javascript for web-based interactive graphics, \CRANpkg{crosstalk} [@crosstalk] that specializes cross-linking elements across individual graphics, and most recently, \CRANpkg{tsibbletalk} [@RJ-2021-050] for working with time series data in a tsibble structure ...
+Some packages on interactive graphics include \CRANpkg{plotly} [@plotly] that interfaces with Javascript for web-based interactive graphics, \CRANpkg{crosstalk} [@crosstalk] that specializes cross-linking elements across individual graphics.  The recent R Journal paper \CRANpkg{tsibbletalk} [@RJ-2021-050] provides a good example of including interactive graphics into an article for the journal. This has both a set of linked plots, and also an animated gif example, illustrating linking between time series plots and feature summaries.
 
 # Customizing tooltip design with \pkg{ToOoOlTiPs}
 
