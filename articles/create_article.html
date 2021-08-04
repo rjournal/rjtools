@@ -100,16 +100,16 @@
 <li>RJwrapper.tex</li>
 </ul>
 <p>The folder name and bib/Rmd file name can be changed with argument <code>dir_path</code> and <code>file_name</code>. Notice that the R journal requires the .bib file and the .Rmd file to have the same name (“article” as created by default) and we recommend connecting the surname of all the authors as a name.</p>
-<p>For example, an article by Di Cook, Catherine Hurley, Simon Urbanek, and Michael Kane can be created by</p>
+<p>For example, an article by Di Cook, Catherine Hurley, Simon Urbanek, Mike Kane and Gavin Simpson can be created by</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/create_article.html">create_article</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="st">"cook-hurley-urbanek-kane"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/create_article.html">create_article</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="st">"cook-hurley-urbanek-kane-simpson"</span><span class="op">)</span></code></pre></div>
 <p>This will generate</p>
 <ul>
-<li>cook-hurley-urbanek-kane.bib,</li>
-<li>cook-hurley-urbanek-kane.Rmd, and</li>
+<li>cook-hurley-urbanek-kane-simpson.bib,</li>
+<li>cook-hurley-urbanek-kane-simpson.Rmd, and</li>
 <li>RJwrapper.tex</li>
 </ul>
-<p>under the paper folder. One last step before start on writing is to make a change on the bibliography reference in the Rmd YAML. By default, the template generates <code>bibliography: RJreferences.bib</code> in the YAML and you want to replace <code>RJreferences</code> with the file name you just specified: <code>cook-hurley-urbanek-kane</code>.</p>
+<p>in a folder called “paper”. One last step before start on writing is to make a change on the bibliography reference in the Rmd YAML. By default, the template generates <code>bibliography: RJreferences.bib</code> in the YAML and you want to replace <code>RJreferences</code> with the file name you just specified: <code>cook-hurley-urbanek-kane-simpson</code>.</p>
 </div>
   </div>
 
