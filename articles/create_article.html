@@ -89,7 +89,8 @@
 
     
     
-<p>R journal features an automated online review process that requires certain structure and format on the submitted articles. To help authors meet these requirements, we create the <code>rjtools</code> package, with an intention that it would help authors to write an R journal article, just as how <code>devtools</code> would help developers build a package. In this vignette, I will walk you through how to use <code>rjtools</code> to create an R journal article using the build-in template.</p>
+<p>With the advances in html delivery of research articles through the web, the R Journal now has a new format of it’s website using a version of the distill package. This will allow incorporation of interactive graphics directly into articles, and easier reading of the research online.</p>
+<p>The Rmd template in <code>rjtools</code> creates an article in the format needed for the R journal distill web site. The <code>rjtools</code> packages is provided to help authors meet these requirements, with an intention that it would help authors to write an R journal article, a little like the way that <code>devtools</code> help developers build an R package. In this vignette, I will walk you through how to use <code>rjtools</code> to create an R journal article using the build-in template.</p>
 <div id="create-an-article" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-an-article" class="anchor"></a>Create an Article</h2>
@@ -110,6 +111,11 @@
 <li>RJwrapper.tex</li>
 </ul>
 <p>in a folder called “paper”. One last step before start on writing is to make a change on the bibliography reference in the Rmd YAML. By default, the template generates <code>bibliography: RJreferences.bib</code> in the YAML and you need to replace <code>RJreferences</code> with the file name you just specified: <code>quokka-bilby</code>.</p>
+</div>
+<div id="note-rticles-template" class="section level2">
+<h2 class="hasAnchor">
+<a href="#note-rticles-template" class="anchor"></a>Note: <code>rticles</code> template</h2>
+<p>The <code>rticles</code> package contains a template for creating an R Journal article, which you might have used before if you have been already working with Rmarkdown for writing papers. This template creates an article that will be compiled with latex into a pdf format paper. It is using the current style file. If this new distill version of the delivery of the R Journal is successful, we will also synchronise the template the one in <code>rjtools</code>.</p>
 </div>
   </div>
 
