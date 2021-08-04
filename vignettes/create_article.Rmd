@@ -20,7 +20,9 @@ knitr::opts_chunk$set(
 library(rjtools)
 ```
 
-R journal features an automated online review process that requires certain structure and format on the submitted articles. To help authors meet these requirements, we create the `rjtools` package, with an intention that it would help authors to write an R journal article, just as how `devtools` would help developers build a package. In this vignette, I will walk you through how to use `rjtools` to create an R journal article using the build-in template. 
+With the advances in html delivery of research articles through the web, the R Journal now has a new format of it's website using a version of the distill package. This will allow incorporation of interactive graphics directly into articles, and easier reading of the research online. 
+
+The Rmd template in `rjtools` creates an article in the format needed for the R journal distill web site. The `rjtools` packages is provided to help authors meet these requirements, with an intention that it would help authors to write an R journal article, a little like the way that `devtools` help developers build an R package. In this vignette, I will walk you through how to use `rjtools` to create an R journal article using the build-in template. 
 
 ## Create an Article
 
@@ -47,3 +49,6 @@ This will generate
   
 in a folder called "paper". One last step before start on writing is to make a change on the bibliography reference in the Rmd YAML. By default, the template generates `bibliography: RJreferences.bib` in the YAML and you need to replace `RJreferences` with the file name you just specified: `quokka-bilby`.
 
+## Note: `rticles` template
+
+The `rticles` package contains a template for creating an R Journal article, which you might have used before if you have been already working with Rmarkdown for writing papers. This template creates an article that will be compiled with latex into a pdf format paper. It is using the current style file. If this new distill version of the delivery of the R Journal is successful, we will also synchronise the template the one in `rjtools`. 
