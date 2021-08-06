@@ -31,18 +31,19 @@ rjournal_pdf_article <- function(...) {
 create_article <- function(dir_path = "paper", file_name = "article"){
   templates <- c("rjournal/resources/RJwrapper.tex",
                  "rjournal/skeleton/RJreferences.bib",
-                 "rjournal/skeleton/skeleton.Rmd")
+                 "rjournal/skeleton/skeleton.Rmd",
+                 "rjournal/skeleton/Rjournal.sty")
   names <- stringr::str_extract(templates, "([^\\/]+$)")
-  name_idx <- stringr::str_detect(templates, "skeleton")
-  ext <- fs::path_ext(names)
-  names[name_idx] <- paste0(file_name, ".", ext[name_idx])
+  rmd_idx <- stringr::str_detect(templates, "Rmd")
+  names[rmd_idx] <- paste0(file_name, ".", fs::path_ext(names)[rmd_idx])
+  bib_idx <- stringr::str_detect(templates, "bib")
+  names[bib_idx] <- "skeleton.bib"
+
   usethis::use_directory(dir_path)
 
   for (i in 1: length(templates)){
     usethis::use_template(templates[i], package = "rjtools", save_as = fs::path(dir_path, names[i]))
   }
-
-  message("Remember to check the bibliography reference in the Rmd YAML!")
 
   invisible(TRUE)
 
