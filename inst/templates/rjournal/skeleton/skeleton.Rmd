@@ -23,10 +23,9 @@ author:
     - Somewhere, Australia
 date: "`r Sys.Date()`"
 creative_commons: CC BY
-output: 
-  - rjtools::rjournal_pdf_article
-  - rjtools::rjournal_web_article
-bibliography: RJreferences.bib
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_format = c("rjtools::rjournal_web_article", "rjtools::rjournal_pdf_article")) })
+bibliography: skeleton.bib
 
 ---
 
