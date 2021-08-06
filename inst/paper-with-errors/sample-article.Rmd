@@ -26,11 +26,6 @@ creative_commons: CC BY
 output: 
   - rjtools::rjournal_pdf_article
   - rjtools::rjournal_web_article
-  
-  
-
-# per R journal requirement, the bib filename should be the same as the output 
-# tex file. Don't forget to rename the bib file and change this example value.
 bibliography: sample-article.bib
 
 ---

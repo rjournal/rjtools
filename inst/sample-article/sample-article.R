@@ -1,4 +1,4 @@
-## ----setup, include=FALSE-------------------------------------------------------------------------------------------
+## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(plotly)
 library(ggplot2)
