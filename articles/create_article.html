@@ -96,9 +96,10 @@
 <a href="#create-an-article" class="anchor"></a>Create an Article</h2>
 <p>The package contains a template for the R journal articles. The <code><a href="../reference/create_article.html">create_article()</a></code> function will create a paper folder in the root directory with three files:</p>
 <ul>
-<li>article.bib,</li>
-<li>article.Rmd, and</li>
-<li>RJwrapper.tex</li>
+<li>article.Rmd,</li>
+<li>skeleton.bib,</li>
+<li>RJwrapper.tex, and</li>
+<li>Rjournal.sty</li>
 </ul>
 <p>The folder name and bib/Rmd file name can be changed with argument <code>dir_path</code> and <code>file_name</code>. Notice that the R journal requires the .bib file and the .Rmd file to have the same name (“article” as created by default) and we recommend connecting the surname of all the authors as a name.</p>
 <p>For example, an article by Quietest Quokka and Bounciest Bilby can be created by</p>
@@ -106,11 +107,12 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/create_article.html">create_article</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="st">"quokka-bilby"</span><span class="op">)</span></code></pre></div>
 <p>This will generate</p>
 <ul>
-<li>quokka-bilby.bib,</li>
-<li>quokka-bilby.Rmd, and</li>
-<li>RJwrapper.tex</li>
+<li>quokka-bilby.Rmd,</li>
+<li>skeleton.bib,</li>
+<li>RJwrapper.tex, and</li>
+<li>Rjournal.sty</li>
 </ul>
-<p>in a folder called “paper”. One last step before start on writing is to make a change on the bibliography reference in the Rmd YAML. By default, the template generates <code>bibliography: RJreferences.bib</code> in the YAML and you need to replace <code>RJreferences</code> with the file name you just specified: <code>quokka-bilby</code>.</p>
+<p>in a folder called “paper”.</p>
 </div>
 <div id="note-rticles-template" class="section level2">
 <h2 class="hasAnchor">
