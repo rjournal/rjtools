@@ -5,7 +5,7 @@ articles:
   article_template: article_template.html
   check_functions: check_functions.html
   create_article: create_article.html
-last_built: 2021-08-06T08:52Z
+last_built: 2021-08-06T09:11Z
 urls:
   reference: https://rjournal.github.io/rjtools//reference
   article: https://rjournal.github.io/rjtools//articles
