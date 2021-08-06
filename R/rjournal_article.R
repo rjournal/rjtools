@@ -29,22 +29,22 @@ rjournal_pdf_article <- function(...) {
 #' @importFrom fs path
 #' @export
 create_article <- function(dir_path = "paper", file_name = "article"){
-  templates <- c("rjournal/resources/RJwrapper.tex",
-                 "rjournal/skeleton/RJreferences.bib",
-                 "rjournal/skeleton/skeleton.Rmd",
-                 "rjournal/skeleton/Rjournal.sty")
-  names <- stringr::str_extract(templates, "([^\\/]+$)")
-  rmd_idx <- stringr::str_detect(templates, "Rmd")
-  names[rmd_idx] <- paste0(file_name, ".", fs::path_ext(names)[rmd_idx])
-  bib_idx <- stringr::str_detect(templates, "bib")
-  names[bib_idx] <- "skeleton.bib"
+  tmeplates <- c(
+    "skeleton/skeleton.Rmd",
+    "skeleton/RJreferences.bib",
+    "skeleton/Rjournal.sty",
+    "resources/RJwrapper.tex")
 
-  usethis::use_directory(dir_path)
+  template_full <- system.file(glue::glue("templates/rjournal/{tmeplates}"), package = "rjtools")
 
-  for (i in 1: length(templates)){
-    usethis::use_template(templates[i], package = "rjtools", save_as = fs::path(dir_path, names[i]))
-  }
+  file_names <- stringr::str_extract(templates, "([^\\/]+$)")
+  to <- glue::glue("{dir_path}/{file_names}")
 
-  invisible(TRUE)
+  fs::dir_create(path = dir_path)
+  fs::file_copy(template_full, dir_path, overwrite = TRUE)
+  fs::file_move(to[str_detect(to, "Rmd")], glue::glue("{dir_path}/{file_name}.Rmd"))
+  fs::file_move(to[str_detect(to, "bib")], glue::glue("{dir_path}/skeleton.bib"))
+
+  cli::cli_alert_info(glue::glue("Files created under the {dir_path} folder: {file_name}.Rmd, Rjournal.sty, RJwrapper.tex, and skeleton.bib."))
 
 }
