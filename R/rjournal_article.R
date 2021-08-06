@@ -8,6 +8,7 @@
 #' @param ... Arguments passed to `distill::distill_article()` for web articles,
 #'   and `rticles::rjournal_article()` for pdf articles.
 #' @rdname rjournal_article
+#' @inheritParams rjdistill::rjournal_web_article
 #' @export
 rjournal_web_article <- rjdistill::rjournal_web_article
 
@@ -23,10 +24,9 @@ rjournal_pdf_article <- function(...) {
 #' See \code{vignette("create_article", package = "rjtools")} for how to create an article
 #'
 #' @param dir_path the directory name that houses the template files
-#' @param file_name the name of the bib/Rmd file
-#' @importFrom usethis use_directory use_template
-#' @importFrom stringr str_remove str_extract
-#' @importFrom fs path
+#' @param file_name the name of the Rmd file
+#' @importFrom stringr str_extract
+#' @importFrom fs dir_create file_copy file_move
 #' @export
 create_article <- function(dir_path = "paper", file_name = "article"){
   tmeplates <- c(
@@ -37,7 +37,7 @@ create_article <- function(dir_path = "paper", file_name = "article"){
 
   template_full <- system.file(glue::glue("templates/rjournal/{tmeplates}"), package = "rjtools")
 
-  file_names <- stringr::str_extract(templates, "([^\\/]+$)")
+  file_names <- stringr::str_extract(template_full, "([^\\/]+$)")
   to <- glue::glue("{dir_path}/{file_names}")
 
   fs::dir_create(path = dir_path)

@@ -374,7 +374,6 @@ check_packages_available <- function(path) {
 
 
 #' @importFrom stringr str_match str_count
-#' @rdname checks
 output_summary <- function(path, file = stdout()) {
 
   completed_checks <- readLines(file.path(path, "initial_checks.log"))

@@ -12,7 +12,6 @@
 \alias{check_spelling}
 \alias{check_proposed_pkg}
 \alias{check_packages_available}
-\alias{output_summary}
 \title{A single article check}
 \usage{
 initial_check_article(path = here::here(), dic = "en_US")
@@ -36,8 +35,6 @@ check_spelling(path, dic = "en_US")
 check_proposed_pkg()
 
 check_packages_available(path)
-
-output_summary(path, file = stdout())
 }
 \arguments{
 \item{path}{The directory that contains the .tex file (Ideally, this directory should contain .bib, .rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)}

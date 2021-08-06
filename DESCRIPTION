@@ -39,7 +39,8 @@ Imports:
     here
 Suggests: 
     rmarkdown,
-    knitr
+    knitr,
+    htmltools
 Remotes:
     rjournal/rjdistill
 VignetteBuilder: knitr

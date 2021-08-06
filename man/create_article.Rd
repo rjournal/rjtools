@@ -9,7 +9,7 @@ create_article(dir_path = "paper", file_name = "article")
 \arguments{
 \item{dir_path}{the directory name that houses the template files}
 
-\item{file_name}{the name of the bib/Rmd file}
+\item{file_name}{the name of the Rmd file}
 }
 \description{
 Create an R journal article with the existing template
