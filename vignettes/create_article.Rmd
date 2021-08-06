@@ -28,9 +28,10 @@ The Rmd template in `rjtools` creates an article in the format needed for the R 
 
 The package contains a template for the R journal articles. The `create_article()` function will create a paper folder in the root directory with three files: 
 
-  - article.bib, 
-  - article.Rmd, and 
-  - RJwrapper.tex
+  - article.Rmd, 
+  - skeleton.bib, 
+  - RJwrapper.tex, and 
+  - Rjournal.sty
 
 The folder name and bib/Rmd file name can be changed with argument `dir_path` and `file_name`. Notice that the R journal requires the .bib file and the .Rmd file to have the same name ("article" as created by default) and we recommend connecting the surname of all the authors as a name. 
 
@@ -43,11 +44,12 @@ create_article(file_name = "quokka-bilby")
 
 This will generate 
   
-  - quokka-bilby.bib, 
-  - quokka-bilby.Rmd, and 
-  - RJwrapper.tex
+  - quokka-bilby.Rmd, 
+  - skeleton.bib, 
+  - RJwrapper.tex, and 
+  - Rjournal.sty
   
-in a folder called "paper". One last step before start on writing is to make a change on the bibliography reference in the Rmd YAML. By default, the template generates `bibliography: RJreferences.bib` in the YAML and you need to replace `RJreferences` with the file name you just specified: `quokka-bilby`.
+in a folder called "paper". 
 
 ## Note: `rticles` template
 

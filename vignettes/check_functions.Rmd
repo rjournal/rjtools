@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 library(rjtools)
 ```
 
-In the `inst/paper-with-errors` folder is an example article that has both html and pdf version rendered [manually put in RJournal.sty to render the pdf article] and it will be used to demonstrate the check functions in the `rjtools`. Notice that the check function implemented here is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission. 
+In the `inst/paper-with-errors` folder is an example article that has both html and pdf version rendered and it will be used to demonstrate the check functions in the `rjtools`. Notice that the check function implemented here is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission. 
 
 There are 9 functions in total for authors to check against and these checks can be completed in one go with `initial_check_article()`, given a path to the article folder: 
 
