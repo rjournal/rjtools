@@ -1,0 +1,20 @@
+---
+title: "Template Title"
+author: "Your Name"
+date: "The Date"
+output: output_format
+---
+R Journal
+
+Dear Editor
+
+Please consider ... for publication in the R Journal.
+
+The manuscript introduces ...
+
+It is a good fit to the Journal because ....
+
+Thank you for considering this manuscript.
+
+
+Regards,
