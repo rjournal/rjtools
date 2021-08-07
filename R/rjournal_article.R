@@ -35,7 +35,8 @@ create_article <- function(dir_path = "paper", file_name = "article"){
     "skeleton/Rjournal.sty",
     "resources/RJwrapper.tex")
 
-  template_full <- system.file(glue::glue("templates/rjournal/{tmeplates}"), package = "rjtools")
+  template_full <- system.file(glue::glue("rmarkdown/templates/rjournal/{tmeplates}"),
+                               package = "rjtools")
 
   file_names <- stringr::str_extract(template_full, "([^\\/]+$)")
   to <- glue::glue("{dir_path}/{file_names}")
