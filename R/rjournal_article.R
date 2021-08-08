@@ -46,7 +46,6 @@ create_article <- function(dir_path = "paper", file_name = "article"){
   fs::file_copy(template_full, dir_path, overwrite = TRUE)
   fs::file_move(to[str_detect(to, "Rmd")], glue::glue("{dir_path}/{file_name}.Rmd"))
   fs::file_move(to[str_detect(to, "bib")], glue::glue("{dir_path}/skeleton.bib"))
-  fs::file_move(to[str_detect(to, "md")], glue::glue("{dir_path}/motivation-letter.md"))
 
   cli::cli_alert_info(glue::glue("The initial files for your article have been created under the {dir_path} folder"))
   cli::cli_alert_info(glue::glue("{file_name}.Rmd, Rjournal.sty, RJwrapper.tex, skeleton.bib, and motivation-letter.md."))
