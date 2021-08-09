@@ -34,8 +34,6 @@ remotes::install_github("rjournal/rjtools")
 
 To create an article template under the project directory:
 
-To create an article template under the project directory:
-
 ``` r
 library(rjtools)
 create_article(file_name = "my_article")
