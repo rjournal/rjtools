@@ -12,26 +12,26 @@ An abstract of less than 150 words.
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Interactive graphics is a type of visualization that allows users to
-interactively inspect a plot. One of the most basic interactivity is
-through tooltips, where users can request additional information about a
-plot element by mouse hovering \ldots{}
+Interactive data graphics provides plots that allow users to interact
+them. One of the most basic types of interaction is through tooltips,
+where users are provided additional information about elements in the
+plot by moving the cursor over the plot.
 
 This paper will first review some R packages on interactive graphics and
-their tooltip implementations. Next, a new package \CRANpkg{ToOoOlTiPs}
-will be proposed for customizing tooltips. Some gallery plots will then
-be given to showcase how these tooltips help users to better read the
-graphics.
+their tooltip implementations. A new package \CRANpkg{ToOoOlTiPs} that
+provides customized tooltips for plot, is introduced. Some example plots
+will then be given to showcase how these tooltips help users to better
+read the graphics.
 
-\hypertarget{literacture-review}{%
-\section{Literacture review}\label{literacture-review}}
+\hypertarget{background}{%
+\section{Background}\label{background}}
 
 Some packages on interactive graphics include \CRANpkg{plotly}
 \citep{plotly} that interfaces with Javascript for web-based interactive
 graphics, \CRANpkg{crosstalk} \citep{crosstalk} that specializes
 cross-linking elements across individual graphics. The recent R Journal
 paper \CRANpkg{tsibbletalk} \citep{RJ-2021-050} provides a good example
-of including interactive graphics into an article for the journal. This
+of including interactive graphics into an article for the journal. It
 has both a set of linked plots, and also an animated gif example,
 illustrating linking between time series plots and feature summaries.
 
@@ -40,14 +40,15 @@ illustrating linking between time series plots and feature summaries.
 \pkg{ToOoOlTiPs}}{Customizing tooltip design with }}\label{customizing-tooltip-design-with}}
 
 \pkg{ToOoOlTiPs} is a packages for customizing tooltips in interactive
-graphics, it features \ldots{}
+graphics, it features these possibilities.
 
-\hypertarget{a-gallery-of-tooltips}{%
-\section{A gallery of tooltips}\label{a-gallery-of-tooltips}}
+\hypertarget{a-gallery-of-tooltips-examples}{%
+\section{A gallery of tooltips
+examples}\label{a-gallery-of-tooltips-examples}}
 
-We first show a baseline plot, in Figure \ref{fig:penguins-plotly}, made
-by the \pkg{plotly} package with \CRANpkg{palmerpenguins} data
-\citep{palmerpenguins}.
+Figure \ref{fig:penguins-plotly} shows an interactive plot of the
+\CRANpkg{palmerpenguins} data \citep{palmerpenguins}, made using the
+\pkg{plotly} package.
 
 \begin{Schunk}
 \begin{Sinput}
@@ -62,14 +63,11 @@ ggplotly(p)
 \end{figure}
 \end{Schunk}
 
-Now we will re-create the same plot using the \pkg{ToOoOlTiPs} package
-for different tooltips designs \ldots{}
-
 \hypertarget{summary}{%
 \section{Summary}\label{summary}}
 
 We have displayed various tooltips that are available in the package
-\pkg{ToOoOlTiPs}. These tooltips \ldots{}
+\pkg{ToOoOlTiPs}.
 
 \bibliography{skeleton.bib}
 
