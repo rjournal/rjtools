@@ -13,9 +13,9 @@ An abstract of less than 150 words.
 \section{Introduction}\label{introduction}}
 
 Interactive data graphics provides plots that allow users to interact
-them. One of the most basic types of interaction is through tooltips,
-where users are provided additional information about elements in the
-plot by moving the cursor over the plot.
+with them. One of the most basic types of interaction is through
+tooltips, where users are provided additional information about elements
+in the plot by moving the cursor over the plot.
 
 This paper will first review some R packages on interactive graphics and
 their tooltip implementations. A new package \CRANpkg{ToOoOlTiPs} that
@@ -53,8 +53,10 @@ Figure \ref{fig:penguins-plotly} shows an interactive plot of the
 \begin{Schunk}
 \begin{Sinput}
 p <- penguins %>% 
+  filter(species != "Gentoo") %>%
   ggplot(aes(x = bill_depth_mm, y = bill_length_mm, 
              color = species)) + 
+  scale_colour_brewer("", palette = "Dark2") +
   geom_point()
 ggplotly(p)
 \end{Sinput}

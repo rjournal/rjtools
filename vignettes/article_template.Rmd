@@ -29,9 +29,10 @@ rmarkdown::draft("inst/sample-article",
 rmarkdown::render("inst/sample-article/sample-article.Rmd")
 ```
 
-Here is how the template looks like when rendered as a web article (a [pdf](https://github.com/rjournal/rjtools/blob/main/inst/sample-article/RJwrapper.pdf) version is also available):
+Here is how the template approximately looks like when rendered as a web article:
 
 ```{r}
 htmltools::includeHTML(here::here("inst/sample-article/sample-article.html"))
 ```
 
+The template will also generate a  [pdf](https://github.com/rjournal/rjtools/blob/main/inst/sample-article/RJwrapper.pdf) version also. 
