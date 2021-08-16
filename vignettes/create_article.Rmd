@@ -49,7 +49,7 @@ This will generate
   - RJwrapper.tex, and 
   - Rjournal.sty
   
-in a folder called "paper". One last step before start on writing is to make a change on the bibliography reference in the Rmd YAML. By default, the template generates `bibliography: RJreferences.bib` **in the YAML and you need to replace** `RJreferences` with the file name you just specified: `quokka-bilby`.
+in a folder called "paper". We recommend a consistent name between the bib and article file, so you may want to decide to rename `skeleton.bib` to `quokka-bilby.bib` and also change the bibliography reference in the `quokka-bilby.Rmd` YAML.
 
 ## Note: `rticles` template
 
