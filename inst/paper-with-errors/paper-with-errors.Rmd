@@ -1,5 +1,6 @@
 ---
 title: "ToOoOlTiPs: An R package for Customizable Tooltips in Interactive Graphics"
+date: "`r Sys.Date()`"
 abstract: >
   An abstract of less than 150 words.
 draft: true
@@ -21,12 +22,11 @@ author:
     address:
     - Department of Letter B
     - Somewhere, Australia
-date: "`r Sys.Date()`"
 creative_commons: CC BY
 output: 
   - rjtools::rjournal_pdf_article
   - rjtools::rjournal_web_article
-bibliography: sample-article.bib
+bibliography: paper-with-errors.bib
 
 ---
 
