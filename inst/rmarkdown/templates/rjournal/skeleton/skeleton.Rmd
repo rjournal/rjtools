@@ -21,7 +21,7 @@ author:
     address:
     - Department of Letter B
     - Somewhere, Australia
-date: "`r Sys.Date()`"
+type: package
 creative_commons: CC BY
 output: 
   rjtools::rjournal_web_article
@@ -52,14 +52,21 @@ Some packages on interactive graphics include \CRANpkg{plotly} [@plotly] that in
 
 # A gallery of tooltips examples
 
-Figure \ref{fig:penguins-plotly} shows an interactive plot of the \CRANpkg{palmerpenguins} data [@palmerpenguins], made using the \pkg{plotly} package. 
+Figure `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\ref{fig:penguins-plotly}', '\\ref{fig:penguins-ggplot}'))` shows an `r ifelse(knitr::is_html_output(), 'interactive', '')` plot of the \CRANpkg{palmerpenguins} data [@palmerpenguins], made using the `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\CRANpkg{plotly}', '\\CRANpkg{ggplot2}'))` package. 
 
-```{r penguins-plotly, echo = TRUE, fig.height = 5, fig.cap="A basic interactive plot made with the plotly package on palmer penguin data. Three species of penguins are plotted with bill depth on the x-axis and bill length on the y-axis. When hovering on a point, a tooltip will show the exact value of the bill depth and length for that point, along with the species name."}
+```{r penguins-plotly, echo = TRUE, fig.height = 5, fig.cap="A basic interactive plot made with the plotly package on palmer penguin data. Three species of penguins are plotted with bill depth on the x-axis and bill length on the y-axis. When hovering on a point, a tooltip will show the exact value of the bill depth and length for that point, along with the species name.", include=knitr::is_html_output(), eval=knitr::is_html_output()}
 p <- penguins %>% 
   ggplot(aes(x = bill_depth_mm, y = bill_length_mm, 
              color = species)) + 
   geom_point()
 ggplotly(p)
+```
+
+```{r penguins-ggplot, echo = TRUE, fig.height = 5, fig.cap="A basic non-interactive plot made with the ggplot2 package on palmer penguin data. Three species of penguins are plotted with bill depth on the x-axis and bill length on the y-axis. Visit the online article to access the interactive version made with the plotly package.", include=knitr::is_latex_output(), eval=knitr::is_latex_output()}
+penguins %>% 
+  ggplot(aes(x = bill_depth_mm, y = bill_length_mm, 
+             color = species)) + 
+  geom_point()
 ```
 
 # Summary
