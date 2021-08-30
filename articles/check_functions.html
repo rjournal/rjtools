@@ -123,9 +123,9 @@
 <a href="#filenames" class="anchor"></a>Filenames</h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/initial_check_article.html">check_filenames</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; ✔ SUCCESS: Submission has consistently named tex, bib, and R files</span>
-<span class="co">#&gt; SUCCESS: Submission has consistently named tex, bib, and R files</span></code></pre></div>
-<p>As mentioned above, the .bib and .Rmd file should have consistent name when created. The .tex file with the same name will be automatically created when rendering the pdf article. Our article also passes this check :)</p>
+<span class="co">#&gt; ! ERROR: Submission does not have consistently named tex, bib, and R files</span>
+<span class="co">#&gt; ERROR: Submission does not have consistently named tex, bib, and R files</span></code></pre></div>
+<p>The .bib file is named <code>skeleton.bib</code> when created and we recommend setting a consistent name across the .bib, .tex, and .Rmd file. A fix to this is to rename the <code>skeleton.bib</code> as the file name you used when create the article, in our case, <code>paper-with-errors</code>. Also remember to make the same change in the Rmd YAML, so it can find the .bib file during knitting!</p>
 </div>
 <div id="presence-of-unnecessary-files" class="section level2">
 <h2 class="hasAnchor">
@@ -141,8 +141,8 @@
 <a href="#presence-of-a-motivating-letter" class="anchor"></a>Presence of a motivating letter</h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/initial_check_article.html">check_cover_letter</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; ℹ NOTE: Motivation letter is not detected, if applicable</span>
-<span class="co">#&gt; NOTE: Motivation letter is not detected, if applicable</span></code></pre></div>
+<span class="co">#&gt; ✔ SUCCESS: Possible motivation letter found</span>
+<span class="co">#&gt; SUCCESS: Possible motivation letter found</span></code></pre></div>
 <p>Cover letter should be provided for article of type “add-on package” and saved at the same folder as the article. The function checks whether there is a file has the word “motivation” in its name and the note says our sample article has not yet have a motivational letter. Bad!</p>
 </div>
 <div id="article-title-is-in-title-case" class="section level2">
@@ -172,10 +172,9 @@
 <a href="#spelling" class="anchor"></a>Spelling</h2>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/initial_check_article.html">check_spelling</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; ℹ NOTE: A potential list of spelling to check: tooltips, tooltip, tsibble</span>
-<span class="co">#&gt; NOTE: A potential list of spelling to check: tooltips, tooltip, tsibble</span></code></pre></div>
-<p>The spelling check is performed from the abstract to bibliography section, excluding the comments in the code chunks. Only words with all lowercase letters are checked to avoid picking up on acronyms and names. The underlying checking is done through the <code>hunspell</code> package with US spelling by default. British spelling can be checked with argument <code>dic = "en_GB"</code>. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained. Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if the suggested spelling mistakes are true mis-spellings.</p>
-<p>In our article, “tooltip” is a specialised vocabulary in interactive graphics; “tsibble” is a package name (we use it to describe the package <code>tsibbletalk</code> being used for time series data with a tsibble structure); but “literacture” is a correct pick!</p>
+<span class="co">#&gt; ℹ NOTE: A potential list of spelling to check: tooltips, tooltip</span>
+<span class="co">#&gt; NOTE: A potential list of spelling to check: tooltips, tooltip</span></code></pre></div>
+<p>The spelling check is performed from the abstract to bibliography section, excluding the comments in the code chunks. Only words with all lowercase letters are checked to avoid picking up on acronyms and names. The underlying checking is done through the <code>hunspell</code> package with US spelling by default. British spelling can be checked with argument <code>dic = "en_GB"</code>. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained. Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if the suggested spelling mistakes are true mis-spellings. In our article, “tooltip” is a specialised vocabulary in interactive graphics, which is not really a mis-spelling, so we are free of spelling mistake!</p>
 </div>
 <div id="package-is-available-on-cran" class="section level2">
 <h2 class="hasAnchor">
