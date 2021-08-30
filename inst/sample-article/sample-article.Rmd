@@ -1,5 +1,5 @@
 ---
-title: "ToOoOlTiPs: An R Package for Customizable Tooltips in Interactive Graphics"
+title: "ToOoOlTiPs: An R package for Customizable Tooltips in Interactive Graphics"
 abstract: >
   An abstract of less than 150 words.
 draft: true
@@ -21,7 +21,6 @@ author:
     address:
     - Department of Letter B
     - Somewhere, Australia
-date: "`r Sys.Date()`"
 type: package
 creative_commons: CC BY
 output: 
@@ -53,7 +52,7 @@ Some packages on interactive graphics include \CRANpkg{plotly} [@plotly] that in
 
 # A gallery of tooltips examples
 
-Figure `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\ref{fig:penguins-plotly}', '\\ref{fig:penguins-ggplot}'))` shows an `r ifelse(knitr::is_html_output(), 'interactive', '')` plot of the \CRANpkg{palmerpenguins} data [@palmerpenguins], made using the `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\CRANpkg{plotly}', '\\CRANpkg{ggplot2}'))` package. 
+Figure `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\ref{fig:penguins-plotly}', '\\ref{fig:penguins-ggplot}'))` shows an `r ifelse(knitr::is_html_output(), 'interactive', '')` plot of the \CRANpkg{palmerpenguins} data [@palmerpenguins], made using the `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\CRANpkg{plotly}', '\\CRANpkg{ggplot2}'))` package. This data features three penguin species which has a lovely illustration by Alison Horst in Figure \ref{fig:penguins-alison}. 
 
 ```{r penguins-plotly, echo = TRUE, fig.height = 5, fig.cap="A basic interactive plot made with the plotly package on palmer penguin data. Three species of penguins are plotted with bill depth on the x-axis and bill length on the y-axis. When hovering on a point, a tooltip will show the exact value of the bill depth and length for that point, along with the species name.", include=knitr::is_html_output(), eval=knitr::is_html_output()}
 p <- penguins %>% 
@@ -69,6 +68,11 @@ penguins %>%
              color = species)) + 
   geom_point()
 ```
+
+```{r penguins-alison, out.height = "30%", out.width = "100%", fig.cap = "Artwork by \\@allison\\_horst"}
+knitr::include_graphics("figures/penguins.png")
+```
+
 
 # Summary
 

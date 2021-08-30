@@ -19,5 +19,7 @@ penguins %>%
              color = species)) + 
   geom_point()
 
-```{.r .distill-force-highlighting-css}
-```
+
+## ----penguins-alison, out.height = "30%", out.width = "100%", fig.cap = "Artwork by \\@allison\\_horst"----
+knitr::include_graphics("figures/penguins.png")
+
