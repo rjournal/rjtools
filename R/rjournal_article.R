@@ -34,7 +34,8 @@ create_article <- function(dir_path = "paper", file_name = "article"){
     "skeleton/RJreferences.bib",
     "skeleton/Rjournal.sty",
     "resources/RJwrapper.tex",
-    "skeleton/motivation-letter.md")
+    "skeleton/motivation-letter.md",
+    "skeleton/penguins.png")
 
   template_full <- system.file(glue::glue("rmarkdown/templates/rjournal/{tmeplates}"),
                                package = "rjtools")
@@ -43,9 +44,11 @@ create_article <- function(dir_path = "paper", file_name = "article"){
   to <- glue::glue("{dir_path}/{file_names}")
 
   fs::dir_create(path = dir_path)
+  fs::dir_create(path = glue::glue("{dir_path}/figures"))
   fs::file_copy(template_full, dir_path, overwrite = TRUE)
   fs::file_move(to[str_detect(to, "Rmd")], glue::glue("{dir_path}/{file_name}.Rmd"))
   fs::file_move(to[str_detect(to, "bib")], glue::glue("{dir_path}/skeleton.bib"))
+  fs::file_move(to[str_detect(to, "png")], glue::glue("{dir_path}/figures/penguins.png"))
 
   cli::cli_alert_info(glue::glue("The initial files for your article have been created under the {dir_path} folder"))
   cli::cli_alert_info(glue::glue("{file_name}.Rmd, Rjournal.sty, RJwrapper.tex, skeleton.bib, and motivation-letter.md."))
