@@ -161,7 +161,7 @@ check_cover_letter <- function(path){
 
   } else {
 
-    log_note("Possible motivation letter found")
+    log_success("Possible motivation letter found")
 
   }
 

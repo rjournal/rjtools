@@ -56,7 +56,7 @@ A properly rendered article should have both the `RJwrapper.tex` and `RJwrapper.
 check_filenames(path = here::here("inst/paper-with-errors"))
 ```
 
-As mentioned above, the .bib and .Rmd file should have consistent name when created. The .tex file with the same name will be automatically created when rendering the pdf article. Our article also passes this check :)
+The .bib file is named `skeleton.bib` when created and we recommend setting a consistent name across the .bib, .tex, and .Rmd file.  A fix to this is to rename the `skeleton.bib` as the file name you used when create the article, in our case, `paper-with-errors`. Also remember to make the same change in the Rmd YAML, so it can find the .bib file during knitting!
 
 ## Presence of unnecessary files
 
@@ -103,9 +103,7 @@ check_spelling(path = here::here("inst/paper-with-errors"))
 ```
 
 The spelling check is performed from the abstract to bibliography section, excluding the comments in the code chunks. Only words with all lowercase letters are checked to avoid picking up on acronyms and names.
-The underlying checking is done through the `hunspell` package with US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained. Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if the suggested spelling mistakes are true mis-spellings.
-
-In our article, "tooltip" is a specialised vocabulary in interactive graphics; "tsibble" is a package name (we use it to describe the package `tsibbletalk` being used for time series data with a tsibble structure); but "literacture" is a correct pick!
+The underlying checking is done through the `hunspell` package with US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained. Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if the suggested spelling mistakes are true mis-spellings. In our article, "tooltip" is a specialised vocabulary in interactive graphics, which is not really a mis-spelling, so we are free of spelling mistake!
 
 
 ## Package is available on CRAN
