@@ -4,12 +4,12 @@
 \alias{create_article}
 \title{Create an R journal article with the existing template}
 \usage{
-create_article(dir_path = "paper", file_name = "article")
+create_article(file_name = "article", dir_path = here::here())
 }
 \arguments{
-\item{dir_path}{the directory name that houses the template files}
-
 \item{file_name}{the name of the Rmd file}
+
+\item{dir_path}{the directory name that houses the template files}
 }
 \description{
 Create an R journal article with the existing template

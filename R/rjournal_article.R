@@ -23,12 +23,12 @@ rjournal_pdf_article <- function(...) {
 #' @details
 #' See \code{vignette("create_article", package = "rjtools")} for how to create an article
 #'
-#' @param dir_path the directory name that houses the template files
 #' @param file_name the name of the Rmd file
+#' @param dir_path the directory name that houses the template files
 #' @importFrom stringr str_extract
 #' @importFrom fs dir_create file_copy file_move
 #' @export
-create_article <- function(dir_path = "paper", file_name = "article"){
+create_article <- function(file_name = "article", dir_path = here::here()){
   tmeplates <- c(
     "skeleton/skeleton.Rmd",
     "skeleton/RJreferences.bib",
