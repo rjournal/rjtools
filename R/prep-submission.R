@@ -71,3 +71,40 @@ zip_paper <- function(name, others = NULL){
 
 }
 
+#' Prepare pre-filled fields in the submission form
+#'
+#' Auto-generate answers to some fields in the R Jorunal submission form
+#'
+#' @param name the file name you used to create the article. See argument `file_name` in \code{create_article()}
+#' @export
+prepare_submission <- function(name){
+
+  tex <- readLines(list.files(pattern = glue::glue("{name}.tex"),
+                              recursive = TRUE, full.names = TRUE)) %>%
+    paste0(collapse = " ")
+
+  raw <- tex %>%
+    stringr::str_extract("(?<=\\\\author\\{).*?(?=\\})")
+  authors_raw <- raw[!is.na(raw)] %>% stringr::str_remove("by ")
+
+  if (!stringr::str_detect(authors_raw, ",")){
+    authors <- authors_raw %>% stringr::str_split(" and ", simplify = TRUE)
+  } else{
+    # more than two authors
+    authors <- authors_raw %>% stringr::str_split(", ", simplify = TRUE)
+  }
+
+  leading <- authors[1]
+  others <- toString(authors[2:length(authors)]) %>% stringr::str_remove("and ")
+
+  cli::cli_alert_info("Your name: {.field {leading}}")
+  cli::cli_alert_info("Names of other authors, comma separated: {.field {others}}")
+
+  # would be nice to implement keywords
+
+  title <- stringr::str_extract(tex,  "(?<=\\\\title\\{).*?(?=\\})")
+  cli::cli_alert_info("Article title: {.field {title}}")
+
+  cli::cli_alert_info("Please list the paths to any other supplementary files inside the zip (R scripts, data, etc.). Each file path should be separated by commas. This list will be used to construct the supplementary zip file for your article if it is accepted for publication:
+                       {.field data/* ?}")
+}
