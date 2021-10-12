@@ -32,7 +32,7 @@ check_abstract_before_intro(path)
 
 check_spelling(path, dic = "en_US")
 
-check_proposed_pkg()
+check_proposed_pkg(pkg = NULL)
 
 check_packages_available(path)
 }

@@ -236,13 +236,13 @@ check_abstract_before_intro <- function(path){
   abstract <- abstract[!is.na(abstract)][1]
   intro <- stringr::str_locate(tex, "introduction")[,"start"]
   intro <- intro[!is.na(intro)][1]
-  
+
   if(is.na(abstract)){
-    log_error("Unable to find abstract! Please check for the \abstract tag",
-              " in your Tex document")
+    log_error(paste0("Unable to find abstract! Please check for the \abstract ",
+                     "tag in your Tex document")
   } else if(is.na(intro)){
-    log_error("Unable to find introduction! Please check for an intro in", 
-              "your Tex document")
+    log_error(paste0("Unable to find introduction! Please check for an intro ",
+                     "in your Tex document"))
   } else if (abstract > intro){
     log_error("Abstract doesn't come before the introduction section")
   } else {
@@ -297,8 +297,9 @@ check_spelling <- function(path, dic = "en_US"){
 #' @export
 check_proposed_pkg <- function(pkg=NULL){
   if(is.null(pkg)){
-    pkg <- readline(prompt = "What's the name of package being proposed in ",
-                    "the article? If none, please enter 0. ")
+    pkg <- readline(prompt = paste0("What's the name of package being ",
+                                    "proposed in the article? If none, please ",
+                                    "enter 0. "))
   }
 
   if (pkg != 0) {
