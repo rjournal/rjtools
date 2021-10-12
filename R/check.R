@@ -295,9 +295,11 @@ check_spelling <- function(path, dic = "en_US"){
 #' @importFrom cranlogs cran_downloads
 #' @rdname checks
 #' @export
-check_proposed_pkg <- function(){
-
-  pkg <- readline(prompt = "What's the name of package being proposed in the article? If none, please enter 0. ")
+check_proposed_pkg <- function(pkg=NULL){
+  if(is.null(pkg)){
+    pkg <- readline(prompt = "What's the name of package being proposed in ",
+                    "the article? If none, please enter 0. ")
+  }
 
   if (pkg != 0) {
     count <- sum(cranlogs::cran_downloads(pkg, from = "2020-01-01")$count)
