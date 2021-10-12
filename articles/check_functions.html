@@ -150,8 +150,8 @@
 <a href="#article-title-is-in-title-case" class="anchor"></a>Article title is in title case</h2>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/initial_check_article.html">check_title</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; ! ERROR: The title is not in title case!</span>
-<span class="co">#&gt; ERROR: The title is not in title case!</span></code></pre></div>
+<span class="co">#&gt; ! ERROR: The title is not in title case! Try `tools::toTitleCase()` on the title to see the difference</span>
+<span class="co">#&gt; ERROR: The title is not in title case! Try `tools::toTitleCase()` on the title to see the difference</span></code></pre></div>
 <p>The article title needs to be in the title case and the check is not happy with our title here. Use <code><a href="https://rdrr.io/r/tools/toTitleCase.html">tools::toTitleCase()</a></code> to get the correct title case format:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html">toTitleCase</a></span><span class="op">(</span><span class="st">"ToOoOlTiPs: An R package for Customizable Tooltips in Interactive Graphics"</span><span class="op">)</span>

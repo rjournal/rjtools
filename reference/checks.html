@@ -133,7 +133,7 @@
     <p>A single article check</p>
     </div>
 
-    <pre class="usage"><span class='fu'>initial_check_article</span><span class='op'>(</span>path <span class='op'>=</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='op'>)</span>, dic <span class='op'>=</span> <span class='st'>"en_US"</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>initial_check_article</span><span class='op'>(</span>path <span class='op'>=</span> <span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='op'>)</span>, dic <span class='op'>=</span> <span class='st'>"en_US"</span>, pkg <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='fu'>check_wrappers</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>
 
@@ -151,7 +151,7 @@
 
 <span class='fu'>check_spelling</span><span class='op'>(</span><span class='va'>path</span>, dic <span class='op'>=</span> <span class='st'>"en_US"</span><span class='op'>)</span>
 
-<span class='fu'>check_proposed_pkg</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>check_proposed_pkg</span><span class='op'>(</span>pkg <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='fu'>check_packages_available</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></pre>
 
@@ -164,7 +164,11 @@
     </tr>
     <tr>
       <th>dic</th>
-      <td><p>the dictionary used for spelling check. See <code>dict</code> argument in <code><a href='https://docs.ropensci.org/hunspell/reference/hunspell.html'>hunspell::hunspell()</a></code></p></td>
+      <td><p>The dictionary used for spelling check. See <code>dict</code> argument in <code><a href='https://docs.ropensci.org/hunspell/reference/hunspell.html'>hunspell::hunspell()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>pkg</th>
+      <td><p>The name of the proposed package (if relevant), to be checked for activity on CRAN</p></td>
     </tr>
     </table>
 
