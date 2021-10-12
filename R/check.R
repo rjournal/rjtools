@@ -182,10 +182,10 @@ check_title <- function(path){
   str <- stringr::str_extract(tex,  "(?<=\\\\title\\{).*?(?=\\})")
 
   if (tools::toTitleCase(str) != str){
-    log_error("The title is not in title case!")
+    log_error("The title is not in title case! Try `tools::toTitleCase()` ",
+              "on the title to see the difference")
   } else{
-    log_success("The article title is properly formatted in title case,
-                try `toTitleCase()` on the title to see the difference")
+    log_success("The article title is properly formatted in title case")
   }
 
 }
@@ -237,10 +237,16 @@ check_abstract_before_intro <- function(path){
   intro <- stringr::str_locate(tex, "introduction")[,"start"]
   intro <- intro[!is.na(intro)][1]
 
-  if (abstract < intro){
-    log_success("Abstract comes before the introduction section")
-  } else{
+  if(is.na(abstract)){
+    log_error(paste0("Unable to find abstract! Please check for the \abstract ",
+                     "tag in your Tex document")
+  } else if(is.na(intro)){
+    log_error(paste0("Unable to find introduction! Please check for an intro ",
+                     "in your Tex document"))
+  } else if (abstract > intro){
     log_error("Abstract doesn't come before the introduction section")
+  } else {
+    log_success("Abstract comes before the introduction section")
   }
 }
 
@@ -289,9 +295,12 @@ check_spelling <- function(path, dic = "en_US"){
 #' @importFrom cranlogs cran_downloads
 #' @rdname checks
 #' @export
-check_proposed_pkg <- function(){
-
-  pkg <- readline(prompt = "What's the name of package being proposed in the article? If none, please enter 0. ")
+check_proposed_pkg <- function(pkg=NULL){
+  if(is.null(pkg)){
+    pkg <- readline(prompt = paste0("What's the name of package being ",
+                                    "proposed in the article? If none, please ",
+                                    "enter 0. "))
+  }
 
   if (pkg != 0) {
     count <- sum(cranlogs::cran_downloads(pkg, from = "2020-01-01")$count)
