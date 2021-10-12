@@ -239,7 +239,7 @@ check_abstract_before_intro <- function(path){
 
   if(is.na(abstract)){
     log_error(paste0("Unable to find abstract! Please check for the \abstract ",
-                     "tag in your Tex document")
+                     "tag in your Tex document"))
   } else if(is.na(intro)){
     log_error(paste0("Unable to find introduction! Please check for an intro ",
                      "in your Tex document"))
