@@ -182,10 +182,10 @@ check_title <- function(path){
   str <- stringr::str_extract(tex,  "(?<=\\\\title\\{).*?(?=\\})")
 
   if (tools::toTitleCase(str) != str){
-    log_error("The title is not in title case!")
+    log_error("The title is not in title case! Try `tools::toTitleCase()` ",
+              "on the title to see the difference")
   } else{
-    log_success("The article title is properly formatted in title case,
-                try `toTitleCase()` on the title to see the difference")
+    log_success("The article title is properly formatted in title case")
   }
 
 }
