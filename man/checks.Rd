@@ -14,7 +14,7 @@
 \alias{check_packages_available}
 \title{A single article check}
 \usage{
-initial_check_article(path = here::here(), dic = "en_US")
+initial_check_article(path = here::here(), dic = "en_US", pkg = NULL)
 
 check_wrappers(path)
 
@@ -39,7 +39,9 @@ check_packages_available(path)
 \arguments{
 \item{path}{The directory that contains the .tex file (Ideally, this directory should contain .bib, .rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)}
 
-\item{dic}{the dictionary used for spelling check. See \code{dict} argument in \code{\link[hunspell:hunspell]{hunspell::hunspell()}}}
+\item{dic}{The dictionary used for spelling check. See \code{dict} argument in \code{\link[hunspell:hunspell]{hunspell::hunspell()}}}
+
+\item{pkg}{The name of the proposed package (if relevant), to be checked for activity on CRAN}
 }
 \description{
 A single article check

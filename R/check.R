@@ -3,7 +3,8 @@
 #' @details
 #'
 #' @param path The directory that contains the .tex file (Ideally, this directory should contain .bib, .rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)
-#' @param dic the dictionary used for spelling check. See \code{dict} argument in [hunspell::hunspell()]
+#' @param dic The dictionary used for spelling check. See \code{dict} argument in [hunspell::hunspell()]
+#' @param pkg The name of the proposed package (if relevant), to be checked for activity on CRAN
 #' @details
 #' Folder structure checks:
 #'
@@ -24,7 +25,7 @@
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 #' @rdname checks
 #' @export
-initial_check_article <- function(path = here::here(), dic = "en_US") {
+initial_check_article <- function(path = here::here(), dic = "en_US", pkg=NULL) {
 
   # Documents:
   # Necessary files must be included in submission folder
@@ -56,7 +57,7 @@ initial_check_article <- function(path = here::here(), dic = "en_US") {
   check_section(path)
   check_abstract_before_intro(path)
   check_spelling(path, dic)
-  check_proposed_pkg()
+  check_proposed_pkg(pkg)
   check_packages_available(path)
 
   # Show a numeric summary of successes, errors and notes
