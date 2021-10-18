@@ -1,6 +1,6 @@
 Package: rjtools
 Title: Tools for Preparing, Checking, and Submitting Articles to the R Journal
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Authors@R: 
     c(person(given = "Mitchell",
              family = "O'Hara-Wild",
@@ -44,3 +44,5 @@ Suggests:
 Remotes:
     rjournal/rjdistill
 VignetteBuilder: knitr
+URL: https://github.com/rjournal/rjtools
+BugReports: https://github.com/rjournal/rjtools/issues
