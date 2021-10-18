@@ -104,25 +104,43 @@
 <div id="create-an-article" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-an-article" class="anchor"></a>Create an Article</h2>
-<p>The package contains a template for the R journal articles. The <code><a href="../reference/create_article.html">create_article()</a></code> function will create a paper folder in the root directory with three files:</p>
+<p>The <code><a href="../reference/create_article.html">create_article()</a></code> function will create these files and folder:</p>
 <ul>
-<li>article.Rmd,</li>
-<li>skeleton.bib,</li>
-<li>RJwrapper.tex, and</li>
-<li>Rjournal.sty</li>
+<li>
+<strong>figures/</strong>: folder for saved figures or images</li>
+<li>
+<strong>RJwrapper.tex</strong>: the tex template for compile an R journal article</li>
+<li>
+<strong>Rjournal.sty</strong>: the R journal style sheet</li>
+<li>
+<strong>article.Rmd</strong>: the main rmd document</li>
+<li>
+<strong>skeleton.bib</strong>: a bibtext file for adding reference</li>
+<li>
+<strong>biostats.csl</strong>: the R journal reference style</li>
+<li>
+<strong>motivation-letter.md</strong>: a motivation letter template for type add-on package</li>
 </ul>
-<p>The folder name and bib/Rmd file name can be changed with argument <code>dir_path</code> and <code>file_name</code>. The R journal requires the .bib file and the .Rmd file to have the same name (“article” as created by default). We recommend using a concatenation of the family names of all the authors as a file name.</p>
-<p>For example, an article by Quietest Quokka and Bounciest Bilby can be created by</p>
+<p>The <code>.sty</code> and <code>.csl</code> files make sure all the R Journal articles follow the same LATEX and reference style and should not be modified unless there’s a strong reason to do so. The <code>motivation-letter.md</code> can be deleted if the article type is not an add-on package.</p>
+<p>The <code>file_name</code> argument can be used to change the name of the main rmd document and we recommend using the concatenation of all the authors’ family name. For example, an article by Quietest Quokka and Bounciest Bilby can be created by</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/create_article.html">create_article</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="st">"quokka-bilby"</span><span class="op">)</span></code></pre></div>
-<p>This will generate</p>
+<p>In this case, the <code>article.Rmd</code> will become <code>quokka-bilby.Rmd</code>. If you have specified the file name as we recommended, be sure to also rename the <code>.bib</code> file and modify the bibliography reference in the <code>quokka-bilby.Rmd</code> YAML. R journal requires a consistent name between the bib and article file, otherwise check function <code>check_filenames</code> will pick it up.</p>
+</div>
+<div id="your-first-knit" class="section level2">
+<h2 class="hasAnchor">
+<a href="#your-first-knit" class="anchor"></a>Your first knit</h2>
+<p>The <code><a href="../reference/rjournal_web_article.html">rjtools::rjournal_web_article</a></code> output specified in the YAML will create the article in both html and pdf format. Additional files created during the knit are (assuming file name of <code>quokka-bilby</code>):</p>
 <ul>
-<li>quokka-bilby.Rmd,</li>
-<li>skeleton.bib,</li>
-<li>RJwrapper.tex, and</li>
-<li>Rjournal.sty</li>
+<li>
+<strong>quokka-bilby.html</strong>: the html article</li>
+<li>
+<strong>RJwrapper.pdf</strong>: the pdf article</li>
+<li>
+<strong>quokka-bilby.tex</strong>: the LaTex file</li>
+<li>
+<strong>quokka-bilby.R</strong>: an R file that contains all the code</li>
 </ul>
-<p>in a folder called “paper”. We recommend a consistent name between the bib and article file, so you may want to decide to rename <code>skeleton.bib</code> to <code>quokka-bilby.bib</code> and also change the bibliography reference in the <code>quokka-bilby.Rmd</code> YAML.</p>
 </div>
 <div id="note-rticles-template" class="section level2">
 <h2 class="hasAnchor">
