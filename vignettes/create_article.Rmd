@@ -26,31 +26,35 @@ The Rmd template in `rjtools` creates an article in the format needed for the R 
 
 ## Create an Article
 
-The package contains a template for the R journal articles. The `create_article()` function will create a paper folder in the root directory with three files: 
+The `create_article()` function will create these files and folder: 
 
-  - article.Rmd, 
-  - skeleton.bib, 
-  - RJwrapper.tex, and 
-  - Rjournal.sty
+  - **figures/**: folder for saved figures or images
+  - **RJwrapper.tex**: the tex template for compile an R journal article
+  - **Rjournal.sty**: the R journal style sheet
+  - **article.Rmd**: the main rmd document
+  - **skeleton.bib**: a bibtext file for adding reference
+  - **biostats.csl**: the R journal reference style
+  - **motivation-letter.md**: a motivation letter template for type add-on package
 
-The folder name and bib/Rmd file name can be changed with argument `dir_path` and `file_name`. The R journal requires the .bib file and the .Rmd file to have the same name ("article" as created by default). We recommend using a concatenation of the family names of all the authors as a file name. 
+The `.sty` and `.csl` files make sure all the R Journal articles follow the same LATEX and reference style and should not be modified unless there's a strong reason to do so. The `motivation-letter.md` can be deleted if the article type is not an add-on package.
 
-For example, an article by Quietest Quokka and Bounciest Bilby can be created by
+The `file_name` argument can be used to change the name of the main rmd document and we recommend using the concatenation of all the authors' family name. For example, an article by Quietest Quokka and Bounciest Bilby can be created by
 
 ```{r eval = FALSE}
 create_article(file_name = "quokka-bilby")
 ```
 
+In this case, the `article.Rmd` will become `quokka-bilby.Rmd`. If you have specified the file name as we recommended, be sure to also rename the `.bib` file and modify the bibliography reference in the `quokka-bilby.Rmd` YAML. R journal requires a consistent name between the bib and article file, otherwise check function `check_filenames` will pick it up. 
 
-This will generate 
-  
-  - quokka-bilby.Rmd, 
-  - skeleton.bib, 
-  - RJwrapper.tex, and 
-  - Rjournal.sty
-  
-in a folder called "paper". We recommend a consistent name between the bib and article file, so you may want to decide to rename `skeleton.bib` to `quokka-bilby.bib` and also change the bibliography reference in the `quokka-bilby.Rmd` YAML.
+## Your first knit
 
+The `rjtools::rjournal_web_article` output specified in the YAML will create the article in both html and pdf format. Additional files created during the knit are (assuming file name of `quokka-bilby`):
+
+  - **quokka-bilby.html**: the html article 
+  - **RJwrapper.pdf**: the pdf article 
+  - **quokka-bilby.tex**: the LaTex file 
+  - **quokka-bilby.R**: an R file that contains all the code 
+  
 ## Note: `rticles` template
 
 The `rticles` package contains a template for creating an R Journal article, which you might have used before if you have been already working with Rmarkdown for writing papers. This template creates an article that will be compiled with latex into a pdf format paper. It is using the current style file. If this new distill version of the delivery of the R Journal is successful, we will also synchronise the template the one in `rjtools`. 
