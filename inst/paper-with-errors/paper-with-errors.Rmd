@@ -1,5 +1,5 @@
 ---
-title: "ToOoOlTiPs: An R package for Customizable Tooltips in Interactive Graphics"
+title: "'ToOoOlTiPs': An R package for Customizable Tooltips in Interactive Graphics"
 abstract: >
   An abstract of less than 150 words.
 draft: true
