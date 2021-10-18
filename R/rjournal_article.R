@@ -35,7 +35,8 @@ create_article <- function(file_name = "article", dir_path = here::here()){
     "skeleton/Rjournal.sty",
     "resources/RJwrapper.tex",
     "skeleton/motivation-letter.md",
-    "skeleton/penguins.png")
+    "skeleton/penguins.png",
+    "skeleton/biostats.csl")
 
   template_full <- system.file(glue::glue("rmarkdown/templates/rjournal/{tmeplates}"),
                                package = "rjtools")

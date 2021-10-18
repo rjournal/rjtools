@@ -22,6 +22,7 @@ author:
     - Department of Letter B
     - Somewhere, Australia
 type: package
+csl: biostats.csl
 creative_commons: CC BY
 output: 
   rjtools::rjournal_web_article
