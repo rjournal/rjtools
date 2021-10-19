@@ -16,16 +16,13 @@ knitr::opts_chunk$set(
   comment = "#>",
   echo = FALSE,
   warning = FALSE,
-  message = FALSE,
+  message = FALSE
 )
 ```
 
 ```{r setup, echo = FALSE}
 library(rjtools)
 library(rmarkdown)
-library(palmerpenguins)
-library(ggplot2)
-library(plotly)
 ```
 
 This article will work you through the template article created using `create_article()`. We assume that you have follow the "Create an R Journal Article" vignette and are able to knit both the pdf and html article.
