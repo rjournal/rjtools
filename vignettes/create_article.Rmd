@@ -28,15 +28,15 @@ The Rmd template in `rjtools` creates an article in the format needed for the R 
 
 The `create_article()` function will create these files and folder: 
 
-  - **figures/**: folder for saved figures or images
-  - **RJwrapper.tex**: the tex template for compile an R journal article
-  - **Rjournal.sty**: the R journal style sheet
-  - **article.Rmd**: the main rmd document
-  - **skeleton.bib**: a bibtext file for adding reference
-  - **biostats.csl**: the R journal reference style
+  - **article.Rmd**: the main document
   - **motivation-letter.md**: a motivation letter template for type add-on package
+  - **skeleton.bib**: a bibtex file for adding reference
+  - **figures/**: folder for saved figures or images
+  - **biostats.csl**: the R journal reference style
+  - **RJwrapper.tex**: the tex template for compile pdf output
+  - **Rjournal.sty**: the R journal style sheet for pdf output
 
-The `.sty` and `.csl` files make sure all the R Journal articles follow the same LATEX and reference style and should not be modified unless there's a strong reason to do so. The `motivation-letter.md` can be deleted if the article type is not an add-on package.
+The `.csl`, `.tex`, and `sty` file make sure all the R Journal articles follow the same LaTex and reference style and should not be modified unless there's a strong reason to do so.
 
 The `file_name` argument can be used to change the name of the main rmd document and we recommend using the concatenation of all the authors' family name. For example, an article by Quietest Quokka and Bounciest Bilby can be created by
 
@@ -58,3 +58,5 @@ The `rjtools::rjournal_web_article` output specified in the YAML will create the
 ## Note: `rticles` template
 
 The `rticles` package contains a template for creating an R Journal article, which you might have used before if you have been already working with Rmarkdown for writing papers. This template creates an article that will be compiled with latex into a pdf format paper. It is using the current style file. If this new distill version of the delivery of the R Journal is successful, we will also synchronise the template the one in `rjtools`. 
+
+Now feel free to head to vignette *The Article Template* or *More details on the R Journal format* for an example article and more detailed information on the template. 

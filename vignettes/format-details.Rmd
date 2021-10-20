@@ -1,0 +1,70 @@
+---
+title: "More details on the R Journal format"
+author: Sherry Zhang
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{format-details}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup echo  FALSE}
+library(rjtools)
+```
+
+This article will work you through the template article created using `create_article()`. We assume that you have follow the "Create an R Journal Article" vignette and are able to knit both the pdf and html article.
+
+# YAML header
+
+# Plots
+
+## Static
+
+For a static graph, use `\@ref(fig:penguins)` for in-text reference and your code chunk should look something like this:
+
+````markdown
+`r ''````{r penguins, fig.cap="This is the figure caption"}
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g, 
+             color = species)) + 
+  geom_point()
+```
+````
+
+## Interactive 
+
+For an interactive graphic, use seperate code chunks to create a static plot for the pdf article and an interative one for the html article:
+
+````markdown
+`r ''````{r penguins-static, eval=knitr::is_latex_output(), fig.cap="This is the figure caption."}
+penguins %>%
+  ggplot(aes(x = bill_depth_mm, y = bill_length_mm,
+             color = species)) +
+  geom_point()
+```
+````
+
+````markdown
+`r ''````{r penguins-interactive, eval=knitr::is_html_output(), fig.cap="This is the figure caption."}
+p1 <- penguins %>%
+  ggplot(aes(x = bill_depth_mm, y = bill_length_mm,
+             color = species)) +
+  geom_point()
+plotly::ggplotly(p1)
+```
+````
+
+Notice here you need `eval=knitr::is_html_output()` and `eval=knitr::is_latex_output()` to make sure that pdf output only evaluates the first chunk and html output only evaluates the second chunk. 
+
+For in-text citation, you will something like this: 
+
+    Figure `r "\u0060r"` knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(fig:penguins-interactive)', '\\@ref(fig:penguins-static)'))`r "\u0060"` shows ...
+    
+This line is quite complicated so let's dissect its components: the if-else statement use `knitr::is_html_output()` to decide if the output is an html or pdf ouput. For an html output, `\\@ref(fig:penguins-interactive)` will be used to reference the chunk of the interactive graphic. If the output is pdf (LaTex), `\\@ref(fig:penguins-static)` will be used to refer to the static figure. Finally, `knitr::asis_output()` makes sure that the reference string is parsed as it is, so no special treatment on `\@`.
