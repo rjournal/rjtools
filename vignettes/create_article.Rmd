@@ -29,12 +29,12 @@ The Rmd template in `rjtools` creates an article in the format needed for the R 
 The `create_article()` function will create these files and folder: 
 
   - **article.Rmd**: the main document
-  - **motivation-letter.md**: a motivation letter template for type add-on package
-  - **skeleton.bib**: a bibtex file for adding reference
+  - **motivation-letter.md**: a motivation letter template for the article
+  - **skeleton.bib**: the bibtex file for reference
   - **figures/**: folder for saved figures or images
-  - **biostats.csl**: the R journal reference style
-  - **RJwrapper.tex**: the tex template for compile pdf output
-  - **Rjournal.sty**: the R journal style sheet for pdf output
+  - **rjournal.csl**: the R journal reference style sheet
+  - **RJwrapper.tex**: the tex template for compile the pdf output
+  - **Rjournal.sty**: the R journal style sheet for the pdf output
 
 The `.csl`, `.tex`, and `sty` file make sure all the R Journal articles follow the same LaTex and reference style and should not be modified unless there's a strong reason to do so.
 
