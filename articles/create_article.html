@@ -62,6 +62,9 @@
     <li>
       <a href="../articles/create_article.html">Create an R Journal Article</a>
     </li>
+    <li>
+      <a href="../articles/format-details.html">More details on the R Journal format</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -107,21 +110,21 @@
 <p>The <code><a href="../reference/create_article.html">create_article()</a></code> function will create these files and folder:</p>
 <ul>
 <li>
+<strong>article.Rmd</strong>: the main document</li>
+<li>
+<strong>motivation-letter.md</strong>: a motivation letter template for the article</li>
+<li>
+<strong>skeleton.bib</strong>: the bibtex file for reference</li>
+<li>
 <strong>figures/</strong>: folder for saved figures or images</li>
 <li>
-<strong>RJwrapper.tex</strong>: the tex template for compile an R journal article</li>
+<strong>rjournal.csl</strong>: the R journal reference style sheet</li>
 <li>
-<strong>Rjournal.sty</strong>: the R journal style sheet</li>
+<strong>RJwrapper.tex</strong>: the tex template for compile the pdf output</li>
 <li>
-<strong>article.Rmd</strong>: the main rmd document</li>
-<li>
-<strong>skeleton.bib</strong>: a bibtext file for adding reference</li>
-<li>
-<strong>biostats.csl</strong>: the R journal reference style</li>
-<li>
-<strong>motivation-letter.md</strong>: a motivation letter template for type add-on package</li>
+<strong>Rjournal.sty</strong>: the R journal style sheet for the pdf output</li>
 </ul>
-<p>The <code>.sty</code> and <code>.csl</code> files make sure all the R Journal articles follow the same LATEX and reference style and should not be modified unless there’s a strong reason to do so. The <code>motivation-letter.md</code> can be deleted if the article type is not an add-on package.</p>
+<p>The <code>.csl</code>, <code>.tex</code>, and <code>sty</code> file make sure all the R Journal articles follow the same LaTex and reference style and should not be modified unless there’s a strong reason to do so.</p>
 <p>The <code>file_name</code> argument can be used to change the name of the main rmd document and we recommend using the concatenation of all the authors’ family name. For example, an article by Quietest Quokka and Bounciest Bilby can be created by</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/create_article.html">create_article</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="st">"quokka-bilby"</span><span class="op">)</span></code></pre></div>
@@ -146,6 +149,7 @@
 <h2 class="hasAnchor">
 <a href="#note-rticles-template" class="anchor"></a>Note: <code>rticles</code> template</h2>
 <p>The <code>rticles</code> package contains a template for creating an R Journal article, which you might have used before if you have been already working with Rmarkdown for writing papers. This template creates an article that will be compiled with latex into a pdf format paper. It is using the current style file. If this new distill version of the delivery of the R Journal is successful, we will also synchronise the template the one in <code>rjtools</code>.</p>
+<p>Now feel free to head to vignette <em>The Article Template</em> or <em>More details on the R Journal format</em> for an example article and more detailed information on the template.</p>
 </div>
   </div>
 
