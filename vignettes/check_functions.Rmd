@@ -38,7 +38,7 @@ The check result will be saved in an initial_check.log file, as well as displaye
   - `check_section()`
   - `check_spelling()`
   - `check_proposed_pkg()`
-  - `check_packages_availabl()`
+  - `check_packages_available()`
 
 Below we will apply each check function on the example article we create
 

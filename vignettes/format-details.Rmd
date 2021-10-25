@@ -1,6 +1,6 @@
 ---
 title: "More details on the R Journal format"
-author: Sherry Zhang
+author: H. Sherry Zhang and Di Cook
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{format-details}
@@ -19,11 +19,30 @@ knitr::opts_chunk$set(
 library(rjtools)
 ```
 
-This article will work you through the template article created using `create_article()`. We assume that you have follow the "Create an R Journal Article" vignette and are able to knit both the pdf and html article.
+This article will work you the key parts of an rjournal template article as produced by `create_article()`. This assumes that you have already followed the "Create an R Journal Article" vignette, have created your initial article, and you have been able to knit both the `pdf` and `html` article. Here we explain the important parts you can see in the `Rmd` file that generates both output types, and how to modify them, and to debug if problems arise.
 
 # YAML header
 
-# Plots
+This has these components:
+
+- `title: "your article title"`
+- `abstract: > ....`
+- `author:` with separate lines for `name:`, `affiliation:`, `address:`, `url:`, `orcid:`, `email:` and a block for each author
+- `csl: "rjournal.csl"` specifies the citation style in the desirable format
+- `creative_commons: CC BY` license for your article
+- output format lines should look like
+```
+output:
+  rjtools::rjournal_web_article:
+    css: "rjournal.css"
+```
+- `bibliography: your-article.bib`
+
+# Figures
+
+If you would like to have an interactive plot in the html output, you will also need to provide a static plot for the pdf output. You will need two code blocks, one for each, with conditional `eval` options. The inline reference will also need to do a conditional `eval` to write the appropriate reference link depending on the html or pdf knitting. 
+
+Of course, if only a static plot is to be rendered in both outputs, a single code chunk and a single inline reference will be sufficient. 
 
 ## Static
 
@@ -40,7 +59,7 @@ penguins %>%
 
 ## Interactive 
 
-For an interactive graphic, use seperate code chunks to create a static plot for the pdf article and an interative one for the html article:
+For an interactive graphic, use separate code chunks to create a static plot for the pdf article and an interative one for the html article:
 
 ````markdown
 `r ''````{r penguins-static, eval=knitr::is_latex_output(), fig.cap="This is the figure caption."}
@@ -68,3 +87,35 @@ For in-text citation, you will something like this:
     Figure `r "\u0060r"` knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(fig:penguins-interactive)', '\\@ref(fig:penguins-static)'))`r "\u0060"` shows ...
     
 This line is quite complicated so let's dissect its components: the if-else statement use `knitr::is_html_output()` to decide if the output is an html or pdf ouput. For an html output, `\\@ref(fig:penguins-interactive)` will be used to reference the chunk of the interactive graphic. If the output is pdf (LaTex), `\\@ref(fig:penguins-static)` will be used to refer to the static figure. Finally, `knitr::asis_output()` makes sure that the reference string is parsed as it is, so no special treatment on `\@`.
+
+## Sizing
+
+distill layouts
+
+plotly sizing
+
+latex sizing
+
+# Tables
+
+# Citations
+
+# Styling
+
+Custom `css` is discouraged, because all articles should look similar. However, if you would like to make **small** changes in style for the appearance of your paper, even to get sizing of plots and tables cleaner in the html output, you can add a custom `css` and point to it in the YAML along with the `rjournal.css`. 
+
+# Converting from other Rmarkdown formats
+
+If you are already writing your articles using Rmarkdown, and have written your article using the `rticles::rjournal_article` style it is straightforward to make the switch to the `rjtools` styling. These are the steps that you need to follow:
+
+1. change output formats to `rjtools::rjournal_web_article` to switch to the new style, 
+2. remove any latex specific functionality, 
+3. change figure, table references to `\@ref()` and 
+4. add the `rjournal.csl` and `rjournal.css` template files to your folder, updating YAML to utilise them, and 
+5. set the reference to the `.bib` in the YAML.
+
+# Trouble-shooting
+
+If the pdf did not compile, check your latex installation, and update your version of `rjdistill` and then `rjtools`. If this hasn't fixed the problem, there may be a latex error in your file. If the `.tex` file was created you can use latex on your system to typeset from this file, and it might help you track down the location of the error in the `.tex` file, and hence narrow down the location in the `.Rmd`.
+
+
