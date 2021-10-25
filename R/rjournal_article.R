@@ -29,29 +29,36 @@ rjournal_pdf_article <- function(...) {
 #' @importFrom fs dir_create file_copy file_move
 #' @export
 create_article <- function(file_name = "article", dir_path = here::here()){
-  tmeplates <- c(
-    "skeleton/skeleton.Rmd",
-    "skeleton/RJreferences.bib",
-    "skeleton/Rjournal.sty",
-    "resources/RJwrapper.tex",
-    "skeleton/motivation-letter.md",
-    "skeleton/penguins.png",
-    "skeleton/biostats.csl")
 
-  template_full <- system.file(glue::glue("rmarkdown/templates/rjournal/{tmeplates}"),
-                               package = "rjtools")
+  # read in all the template files
+  folder <- c("skeleton", "resources")
+  templates <- fs::dir_ls(
+    system.file("rmarkdown", "templates","rjournal", glue::glue("{folder}"),
+                package = "rjtools"))
 
-  file_names <- stringr::str_extract(template_full, "([^\\/]+$)")
-  to <- glue::glue("{dir_path}/{file_names}")
-
+  # create directory
   fs::dir_create(path = dir_path)
   fs::dir_create(path = glue::glue("{dir_path}/figures"))
-  fs::file_copy(template_full, dir_path, overwrite = TRUE)
-  fs::file_move(to[str_detect(to, "Rmd")], glue::glue("{dir_path}/{file_name}.Rmd"))
-  fs::file_move(to[str_detect(to, "bib")], glue::glue("{dir_path}/skeleton.bib"))
-  fs::file_move(to[str_detect(to, "png")], glue::glue("{dir_path}/figures/penguins.png"))
 
-  cli::cli_alert_info(glue::glue("The initial files for your article have been created under the {dir_path} folder"))
-  cli::cli_alert_info(glue::glue("{file_name}.Rmd, Rjournal.sty, RJwrapper.tex, skeleton.bib, and motivation-letter.md."))
-  cli::cli_alert_info(glue::glue("Don't forget to change the name of the .bib file, and change its name in the {file_name}.Rmd YAML too"))
+  # move rmd as well as change the bib parameter as file_name
+  template_rmd <- xfun::read_utf8(templates[str_detect(templates, "Rmd")])
+  template_rmd <- whisker::whisker.render(
+    template = template_rmd,
+    data = list(bibfile = glue::glue(file_name, ".bib")))
+  template_rmd <- str_split(template_rmd, "\n")[[1]]
+  usethis::write_over(usethis::proj_path(glue::glue("{dir_path}/{file_name}.Rmd")),
+                      template_rmd, quiet = TRUE)
+
+  # move all others templates
+  all_others <- templates[!str_detect(templates, "Rmd")]
+  fs::file_copy(all_others, dir_path, overwrite = TRUE)
+
+  # rename/re-move bib file and penguins png
+  fs::file_move(glue::glue("{dir_path}/RJreferences.bib"),
+                glue::glue("{dir_path}/{file_name}.bib"))
+  fs::file_move(glue::glue("{dir_path}/penguins.png"),
+                glue::glue("{dir_path}/figures/penguins.png"))
+
+  cli::cli_alert_success("Article created :)")
+
 }

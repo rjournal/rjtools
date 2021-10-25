@@ -38,13 +38,11 @@ The `create_article()` function will create these files and folder:
 
 The `.csl`, `.tex`, and `sty` file make sure all the R Journal articles follow the same LaTex and reference style and should not be modified unless there's a strong reason to do so.
 
-The `file_name` argument can be used to change the name of the main rmd document and we recommend using the concatenation of all the authors' family name. For example, an article by Quietest Quokka and Bounciest Bilby can be created by
+The `file_name` argument changes the name of the main rmarkdown and bibliography file and we recommend the name to be the concatenation of all the authors' family name. For example, To use `quokka-bilby` as the file name for an article by Quietest Quokka and Bounciest Bilby: 
 
 ```{r eval = FALSE}
 create_article(file_name = "quokka-bilby")
 ```
-
-In this case, the `article.Rmd` will become `quokka-bilby.Rmd`. If you have specified the file name as we recommended, be sure to also rename the `.bib` file and modify the bibliography reference in the `quokka-bilby.Rmd` YAML. R journal requires a consistent name between the bib and article file, otherwise check function `check_filenames` will pick it up. 
 
 ## Your first knit
 
