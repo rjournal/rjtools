@@ -90,7 +90,7 @@ This line is quite complicated so let's dissect its components: the if-else stat
 
 ## Sizing
 
-For static plots, you can use `fig.width` and `fig.height` adjust figure sizing for both pdf and html outputs. 
+For static plots, you can use `fig.width` and `fig.height` to adjust figure sizing for both pdf and html outputs. 
 
 For html output, distill provides several larger than text-width layouts, i.e. `l-body-outset`, `l-page`, and `l-screen`. These can be set via the chunk option `layout`:
 
@@ -106,9 +106,7 @@ ggplot(data = penguins,
 ```
 ````
 
-Notice that `fig.width` and `fig.height` still apply here and `layout` option will not affect the pdf rendering.
-
-Some interactive graphics set the figure sizing inside its function, for example, 
+Notice that `fig.width` and `fig.height` still apply here and `layout` option will not affect the pdf rendering. Some interactive graphics set the figure sizing inside its function, for example, 
   
   - `plotly::ggplotly(p, width = ..., height = ...)`, and 
   - `ggiraph::girafe(p, width_svg = ..., height_svg = ...)`. 
@@ -118,9 +116,7 @@ Sizing these figures should via the relevant arguments rather than the chunk opt
 
 # Tables
 
-To use a simple markdown table, you need to add `preamble: \usepackage{longtable}` in the YAML for `.tex` to render the pdf output. 
-
-Another option is to use `knitr::kable()`, where you need to set up two chunks similar to the figures with different `format` arguments:
+To use a simple markdown table, you need to add `preamble: \usepackage{longtable}` in the YAML for the tex file to render the pdf output. Another option is to use `knitr::kable()`, where you need to set up two chunks similar to the figures with different `format` arguments:
 
 ````rmarkdown
 `r ''````{r penguins-interactive, eval = knitr::is_html_output()}
@@ -134,10 +130,13 @@ knitr::kable(head(penguins), format = "latex", caption = "Table caption")
 ```   
 ````
 
-For inline reference, remember to use `tab:` instead of `fig:` in `\\@ref(tab:penguins-interactive)` and `\\@ref(tab:penguins-static)`.
+For inline reference, remember to use `tab:` instead of `fig:` in `\\@ref(tab:penguins-interactive)` and `\\@ref(tab:penguins-static)`. The same `layout` used for figure sizing is also applicable for tables.
 
 
 # Citations
+
+As mentioned in the YAML header section, `rjournal.csl`, derived from *Biostatistics*, controls the overall referencing style of R Journal papers. For each reference material, you need to provide a link for easy access to the reference and this can be done through either the `doi` or `url` field. If both fields are presented, `url` takes priority and we recommend providing the URL link as `url = {https://doi.org/.../...},`.
+
 
 # Styling
 
