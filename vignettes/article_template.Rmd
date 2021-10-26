@@ -23,20 +23,15 @@ library(rjtools)
 library(rmarkdown)
 ```
 
-# Template preview
+Here we provide a worked example article with all the source files [available](https://github.com/rjournal/rjtools/tree/main/inst/sample-article). The rendered pdf output can be found [here](https://github.com/rjournal/rjtools/blob/main/inst/sample-article/RJwrapper.pdf)  and below is the html output:
 
-```{r eval = FALSE}
-rmarkdown::draft("inst/sample-article",
-                 template = here::here("inst/templates/rjournal"),
-                 create_dir = TRUE, edit = FALSE)
 
-rmarkdown::render("inst/sample-article/sample-article.Rmd")
-```
+:::: {style="display: flex;"}
 
-Here is how the template approximately looks like when rendered as a web article:
-
-```{r}
+::: {}
+```{r out.width="100%"}
 htmltools::includeHTML(here::here("inst/sample-article/sample-article.html"))
 ```
 
-The template will also generate a  [pdf](https://github.com/rjournal/rjtools/blob/main/inst/sample-article/RJwrapper.pdf) version.
+:::
+::::::

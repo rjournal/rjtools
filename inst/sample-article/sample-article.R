@@ -5,6 +5,19 @@ library(ggplot2)
 library(palmerpenguins)
 
 
+## ----penguins-alison, out.width = "100%", out.height = "30%", fig.cap = "Artwork by \\@allison\\_horst"----
+knitr::include_graphics("figures/penguins.png")
+
+
+## ----penguins-tab-interactive, eval = knitr::is_html_output(), layout = "l-body-outset"----
+#> knitr::kable(head(penguins), format = "html", caption = "A basic table")
+
+
+## ----penguins-tab-static, eval = knitr::is_latex_output()---------------------
+knitr::kable(head(penguins), format = "latex", caption = "A basic table") %>% 
+  kableExtra::kable_styling(font_size = 7)
+
+
 ## ----penguins-plotly, echo = TRUE, fig.height = 5, fig.cap="A basic interactive plot made with the plotly package on palmer penguin data. Three species of penguins are plotted with bill depth on the x-axis and bill length on the y-axis. When hovering on a point, a tooltip will show the exact value of the bill depth and length for that point, along with the species name.", include=knitr::is_html_output(), eval=knitr::is_html_output()----
 #> p <- penguins %>%
 #>   ggplot(aes(x = bill_depth_mm, y = bill_length_mm,
@@ -18,8 +31,4 @@ penguins %>%
   ggplot(aes(x = bill_depth_mm, y = bill_length_mm, 
              color = species)) + 
   geom_point()
-
-
-## ----penguins-alison, out.height = "30%", out.width = "100%", fig.cap = "Artwork by \\@allison\\_horst"----
-knitr::include_graphics("figures/penguins.png")
 

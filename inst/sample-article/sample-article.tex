@@ -1,5 +1,5 @@
 % !TeX root = RJwrapper.tex
-\title{ToOoOlTiPs: An R package for Customizable Tooltips in Interactive
+\title{ToOoOlTiPs: An R Package for Customizable Tooltips in Interactive
 Graphics}
 \author{by Quietest Quokka and Bounciest Bilby}
 
@@ -46,11 +46,48 @@ graphics, it features these possibilities.
 \section{A gallery of tooltips
 examples}\label{a-gallery-of-tooltips-examples}}
 
-Figure \ref{fig:penguins-ggplot} shows an plot of the
-\CRANpkg{palmerpenguins} data \citep{palmerpenguins}, made using the
-\CRANpkg{ggplot2} package. This data features three penguin species
-which has a lovely illustration by Alison Horst in Figure
-\ref{fig:penguins-alison}.
+The \CRANpkg{palmerpenguins} data \citep{palmerpenguins} features three
+penguin species which has a lovely illustration by Alison Horst in
+Figure \ref{fig:penguins-alison}.
+
+\begin{Schunk}
+\begin{figure}
+\includegraphics[width=1\linewidth,height=0.3\textheight]{figures/penguins} \caption[Artwork by \@allison\_horst]{Artwork by \@allison\_horst}\label{fig:penguins-alison}
+\end{figure}
+\end{Schunk}
+
+Table \ref{tab:penguins-tab-static} prints at the first five rows of
+this data:
+
+\begin{Schunk}
+\begin{table}
+
+\caption{\label{tab:penguins-tab-static}A basic table}
+\centering
+\fontsize{7}{9}\selectfont
+\begin{tabular}[t]{l|l|r|r|r|r|l|r}
+\hline
+species & island & bill\_length\_mm & bill\_depth\_mm & flipper\_length\_mm & body\_mass\_g & sex & year\\
+\hline
+Adelie & Torgersen & 39.1 & 18.7 & 181 & 3750 & male & 2007\\
+\hline
+Adelie & Torgersen & 39.5 & 17.4 & 186 & 3800 & female & 2007\\
+\hline
+Adelie & Torgersen & 40.3 & 18.0 & 195 & 3250 & female & 2007\\
+\hline
+Adelie & Torgersen & NA & NA & NA & NA & NA & 2007\\
+\hline
+Adelie & Torgersen & 36.7 & 19.3 & 193 & 3450 & female & 2007\\
+\hline
+Adelie & Torgersen & 39.3 & 20.6 & 190 & 3650 & male & 2007\\
+\hline
+\end{tabular}
+\end{table}
+
+\end{Schunk}
+
+Figure \ref{fig:penguins-ggplot} shows an plot of the penguins data,
+made using the \CRANpkg{ggplot2} package.
 
 \begin{Schunk}
 \begin{Sinput}
@@ -64,19 +101,13 @@ penguins %>%
 \end{figure}
 \end{Schunk}
 
-\begin{Schunk}
-\begin{figure}
-\includegraphics[width=1\linewidth,height=0.3\textheight]{figures/penguins} \caption[Artwork by \@allison\_horst]{Artwork by \@allison\_horst}\label{fig:penguins-alison}
-\end{figure}
-\end{Schunk}
-
 \hypertarget{summary}{%
 \section{Summary}\label{summary}}
 
 We have displayed various tooltips that are available in the package
 \pkg{ToOoOlTiPs}.
 
-\bibliography{skeleton.bib}
+\bibliography{sample-article.bib}
 
 \address{%
 Quietest Quokka\\
