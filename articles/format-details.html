@@ -166,7 +166,7 @@
 <div id="sizing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sizing" class="anchor"></a>Sizing</h2>
-<p>For static plots, you can use <code>fig.width</code> and <code>fig.height</code> adjust figure sizing for both pdf and html outputs.</p>
+<p>For static plots, you can use <code>fig.width</code> and <code>fig.height</code> to adjust figure sizing for both pdf and html outputs.</p>
 <p>For html output, distill provides several larger than text-width layouts, i.e. <code>l-body-outset</code>, <code>l-page</code>, and <code>l-screen</code>. These can be set via the chunk option <code>layout</code>:</p>
 <pre class="rmarkdown"><code>```{r layout = "l-body-outset", fig.width = 5, fig.height = 3}
 library(ggplot2)
@@ -177,8 +177,7 @@ ggplot(data = penguins,
            color = species)) + 
   geom_point()
 ```</code></pre>
-<p>Notice that <code>fig.width</code> and <code>fig.height</code> still apply here and <code>layout</code> option will not affect the pdf rendering.</p>
-<p>Some interactive graphics set the figure sizing inside its function, for example,</p>
+<p>Notice that <code>fig.width</code> and <code>fig.height</code> still apply here and <code>layout</code> option will not affect the pdf rendering. Some interactive graphics set the figure sizing inside its function, for example,</p>
 <ul>
 <li>
 <code>plotly::ggplotly(p, width = ..., height = ...)</code>, and</li>
@@ -191,19 +190,19 @@ ggplot(data = penguins,
 <div id="tables" class="section level1">
 <h1 class="hasAnchor">
 <a href="#tables" class="anchor"></a>Tables</h1>
-<p>To use a simple markdown table, you need to add <code>preamble: \usepackage{longtable}</code> in the YAML for <code>.tex</code> to render the pdf output.</p>
-<p>Another option is to use <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable()</a></code>, where you need to set up two chunks similar to the figures with different <code>format</code> arguments:</p>
+<p>To use a simple markdown table, you need to add <code>preamble: \usepackage{longtable}</code> in the YAML for the tex file to render the pdf output. Another option is to use <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable()</a></code>, where you need to set up two chunks similar to the figures with different <code>format</code> arguments:</p>
 <pre class="rmarkdown"><code>```{r penguins-interactive, eval = knitr::is_html_output()}
 knitr::kable(head(penguins), format = "html", caption = "Table caption")
 ```</code></pre>
 <pre class="rmarkdown"><code>```{r penguins-static, eval = knitr::is_latex_output()}
 knitr::kable(head(penguins), format = "latex", caption = "Table caption")
 ```   </code></pre>
-<p>For inline reference, remember to use <code>tab:</code> instead of <code>fig:</code> in <code>\\@ref(tab:penguins-interactive)</code> and <code>\\@ref(tab:penguins-static)</code>.</p>
+<p>For inline reference, remember to use <code>tab:</code> instead of <code>fig:</code> in <code>\\@ref(tab:penguins-interactive)</code> and <code>\\@ref(tab:penguins-static)</code>. The same <code>layout</code> used for figure sizing is also applicable for tables.</p>
 </div>
 <div id="citations" class="section level1">
 <h1 class="hasAnchor">
 <a href="#citations" class="anchor"></a>Citations</h1>
+<p>As mentioned in the YAML header section, <code>rjournal.csl</code>, derived from <em>Biostatistics</em>, controls the overall referencing style of R Journal papers. For each reference material, you need to provide a link for easy access to the reference and this can be done through either the <code>doi</code> or <code>url</code> field. If both fields are presented, <code>url</code> takes priority and we recommend providing the URL link as <code>url = {https://doi.org/.../...},</code>.</p>
 </div>
 <div id="styling" class="section level1">
 <h1 class="hasAnchor">
