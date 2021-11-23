@@ -1,5 +1,6 @@
 # rjtools 0.0.0.9002
 
+* Use `file.path` instead of glue to construct file path in `create_article` 
 * Generate the template with customised bib file name (#21)
 * Add Rjournal csl file in the template
 * Add details on files created in the `create_article` vignette 

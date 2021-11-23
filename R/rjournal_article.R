@@ -38,7 +38,7 @@ create_article <- function(file_name = "article", dir_path = here::here()){
 
   # create directory
   fs::dir_create(path = dir_path)
-  fs::dir_create(path = glue::glue("{dir_path}/figures"))
+  fs::dir_create(path = file.path(dir_path, "figures/"))
 
   # move rmd as well as change the bib parameter as file_name
   template_rmd <- xfun::read_utf8(templates[str_detect(templates, "Rmd")])
@@ -46,7 +46,7 @@ create_article <- function(file_name = "article", dir_path = here::here()){
     template = template_rmd,
     data = list(bibfile = glue::glue(file_name, ".bib")))
   template_rmd <- str_split(template_rmd, "\n")[[1]]
-  usethis::write_over(usethis::proj_path(glue::glue("{dir_path}/{file_name}.Rmd")),
+  usethis::write_over(file.path(dir_path, glue::glue("{file_name}.Rmd")),
                       template_rmd, quiet = TRUE)
 
   # move all others templates
@@ -54,10 +54,11 @@ create_article <- function(file_name = "article", dir_path = here::here()){
   fs::file_copy(all_others, dir_path, overwrite = TRUE)
 
   # rename/re-move bib file and penguins png
-  fs::file_move(glue::glue("{dir_path}/RJreferences.bib"),
-                glue::glue("{dir_path}/{file_name}.bib"))
-  fs::file_move(glue::glue("{dir_path}/penguins.png"),
-                glue::glue("{dir_path}/figures/penguins.png"))
+  fs::file_move(file.path(dir_path, "RJreferences.bib"),
+                file.path(dir_path, glue::glue("{file_name}.bib")))
+  fs::file_move(file.path(dir_path, "penguins.png"),
+                file.path(dir_path, "figures", "penguins.png"))
+
 
   cli::cli_alert_success("Article created :)")
 
