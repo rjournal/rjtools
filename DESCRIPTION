@@ -38,7 +38,6 @@ Imports:
     purrr,
     hunspell,
     fs,
-    usethis,
     cli,
     glue,
     here,

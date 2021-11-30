@@ -26,8 +26,9 @@ create_article <- function(file_name = "article", dir_path = here::here()){
     template = template_rmd,
     data = list(bibfile = glue::glue(file_name, ".bib")))
   template_rmd <- str_split(template_rmd, "\n")[[1]]
-  usethis::write_over(file.path(dir_path, glue::glue("{file_name}.Rmd")),
-                      template_rmd, quiet = TRUE)
+  xfun::write_utf8(
+    file.path(dir_path, xfun::with_ext(file_name, "Rmd")),
+    template_rmd, quiet = TRUE)
 
   # move all others templates
   all_others <- templates[!str_detect(templates, "Rmd")]

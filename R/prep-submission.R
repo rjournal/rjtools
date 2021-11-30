@@ -13,7 +13,7 @@ zip_paper <- function(name, others = NULL){
 
   # check whether the paper folder already exist
   if (fs::dir_exists("paper") & !fs::file_exists("paper.zip")){
-  delete_paper <- usethis::ui_yeah(
+  delete_paper <- yesno::yesno(
   "Paper folder should be reserved for the zipped file and Rjtools is going to delete it.
   Do you want to proceed?")
   if (delete_paper) {
