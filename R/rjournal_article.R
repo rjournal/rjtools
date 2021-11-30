@@ -12,9 +12,7 @@ create_article <- function(file_name = "article", dir_path = here::here()){
 
   # read in all the template files
   folder <- c("skeleton", "resources")
-  templates <- fs::dir_ls(
-    system.file("rmarkdown", "templates","rjournal", glue::glue("{folder}"),
-                package = "rjtools"))
+  templates <- fs::dir_ls(system.file("rmarkdown", "templates", "rjournal", folder, package = "rjtools"))
 
   # create directory
   fs::dir_create(path = dir_path)
@@ -24,7 +22,7 @@ create_article <- function(file_name = "article", dir_path = here::here()){
   template_rmd <- xfun::read_utf8(templates[str_detect(templates, "Rmd")])
   template_rmd <- whisker::whisker.render(
     template = template_rmd,
-    data = list(bibfile = glue::glue(file_name, ".bib")))
+    data = list(bibfile = xfun::with_ext(file_name, "bib")))
   template_rmd <- str_split(template_rmd, "\n")[[1]]
   xfun::write_utf8(
     file.path(dir_path, xfun::with_ext(file_name, "Rmd")),
@@ -36,7 +34,7 @@ create_article <- function(file_name = "article", dir_path = here::here()){
 
   # rename/re-move bib file and penguins png
   fs::file_move(file.path(dir_path, "RJreferences.bib"),
-                file.path(dir_path, glue::glue("{file_name}.bib")))
+                file.path(dir_path, xfun::with_ext(file_name, "bib")))
   fs::file_move(file.path(dir_path, "penguins.png"),
                 file.path(dir_path, "figures", "penguins.png"))
 

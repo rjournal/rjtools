@@ -79,7 +79,7 @@ zip_paper <- function(name, others = NULL){
 #' @export
 prepare_submission <- function(name){
 
-  tex <- readLines(list.files(pattern = glue::glue("{name}.tex"),
+  tex <- readLines(list.files(pattern = xfun::with_ext(name, "tex"),
                               recursive = TRUE, full.names = TRUE)) %>%
     paste0(collapse = " ")
 
