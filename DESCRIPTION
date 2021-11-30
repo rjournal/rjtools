@@ -17,7 +17,12 @@ Authors@R:
              family = "Cook", 
              email = "dicook@monash.edu", 
              role = "aut", 
-             comment = c(ORCID = "0000-0002-3813-7155")))
+             comment = c(ORCID = "0000-0002-3813-7155")),
+      person(given = "Christophe", 
+             family = "Dervieux", 
+             email = "cderv@rstudio.com", 
+             role = "aut", 
+             comment = c(ORCID = "0000-0003-4474-2498")))
 Description: Tools for writing, checking, and submitting articles to the R 
   Journal.
 License: MIT + file LICENSE
@@ -26,7 +31,7 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports: 
-    rjdistill,
+    distill,
     stringr,
     rticles,
     cranlogs,
@@ -36,13 +41,14 @@ Imports:
     usethis,
     cli,
     glue,
-    here
+    here,
+    whisker,
+    xfun,
+    callr
 Suggests: 
     rmarkdown,
     knitr,
     htmltools
-Remotes:
-    rjournal/rjdistill
 VignetteBuilder: knitr
 URL: https://github.com/rjournal/rjtools
 BugReports: https://github.com/rjournal/rjtools/issues

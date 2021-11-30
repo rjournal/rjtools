@@ -154,6 +154,6 @@ If you are already writing your articles using Rmarkdown, and have written your 
 
 # Trouble-shooting
 
-If the pdf did not compile, check your latex installation, and update your version of `rjdistill` and then `rjtools`. If this hasn't fixed the problem, there may be a latex error in your file. If the `.tex` file was created you can use latex on your system to typeset from this file, and it might help you track down the location of the error in the `.tex` file, and hence narrow down the location in the `.Rmd`.
+If the pdf did not compile, check your latex installation, and update your version of `rjtools`. If this hasn't fixed the problem, there may be a latex error in your file. If the `.tex` file was created you can use latex on your system to typeset from this file, and it might help you track down the location of the error in the `.tex` file, and hence narrow down the location in the `.Rmd`.
 
 

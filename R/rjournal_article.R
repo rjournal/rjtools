@@ -1,23 +1,3 @@
-#' R Markdown output formats for R Journal articles
-#'
-#' The R Journal is built upon the distill framework with some modifications.
-#' This output format behaves almost identically to the
-#' `distill::distill_article()` format, with some formatting and structural
-#' changes.
-#'
-#' @param ... Arguments passed to `distill::distill_article()` for web articles,
-#'   and `rticles::rjournal_article()` for pdf articles.
-#' @rdname rjournal_article
-#' @inheritParams rjdistill::rjournal_web_article
-#' @export
-rjournal_web_article <- rjdistill::rjournal_web_article
-
-#' @rdname rjournal_article
-#' @export
-rjournal_pdf_article <- function(...) {
-  rticles::rjournal_article(...)
-}
-
 #' Create an R journal article with the existing template
 #'
 #' @details

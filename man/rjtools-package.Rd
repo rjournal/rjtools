@@ -6,8 +6,15 @@
 \alias{rjtools-package}
 \title{rjtools: Tools for Preparing, Checking, and Submitting Articles to the R Journal}
 \description{
-Tools for writing, checking, and submitting articles to the R 
-  Journal.
+Tools for writing, checking, and submitting articles to the R Journal.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/rjournal/rjtools}
+  \item Report bugs at \url{https://github.com/rjournal/rjtools/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Mitchell O'Hara-Wild \email{mail@mitchelloharawild.com}
@@ -17,6 +24,7 @@ Authors:
   \item Stephanie Kobakian
   \item H. Sherry Zhang \email{huizezhangsh@gmail.com}
   \item Di Cook \email{dicook@monash.edu} (\href{https://orcid.org/0000-0002-3813-7155}{ORCID})
+  \item Christophe Dervieux \email{cderv@rstudio.com} (\href{https://orcid.org/0000-0003-4474-2498}{ORCID})
 }
 
 }

@@ -10,6 +10,5 @@ prepare_submission(name)
 \item{name}{the file name you used to create the article. See argument \code{file_name} in \code{create_article()}}
 }
 \description{
-The function provides answers to questions in the R journal submission form that
-can be auto-generated from the paper repository.
+Auto-generate answers to some fields in the R Jorunal submission form
 }

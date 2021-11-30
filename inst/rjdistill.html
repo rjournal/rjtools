@@ -1,0 +1,133 @@
+<script>
+  $(function() {
+    console.log("Starting...")
+
+    // Always show Published - distill hides it if not set
+    function show_byline_column(caption) {
+      $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'visible');
+    }
+
+    show_byline_column('Published')
+
+    // tweak function
+    var rmd_meta = JSON.parse($("#radix-rmarkdown-metadata").html());
+    function get_meta(name, meta) {
+      var ind = meta.attributes.names.value.findIndex((e) => e == name)
+      var val = meta.value[ind]
+      if (val.type != 'list') {
+        return val.value.toString()
+      }
+      return val
+    }
+
+    // tweak description
+    // Add clickable tags
+    const slug = get_meta('slug', rmd_meta)
+    const doi = get_meta('doi', rmd_meta)
+
+    var title = $("d-title").text
+
+    const buttons = $('<div class="dt-tags" style="grid-column: page;">')
+    buttons.append('<a href="#citation" class="dt-tag"><i class="fas fa-quote-left"></i> Cite</a>')
+    buttons.append('<a href="' + slug + '.pdf" class="dt-tag"><i class="fas fa-file-pdf"></i> PDF</a>')
+    buttons.append('<a href="https://twitter.com/intent/tweet?text='+title+'&url=https%3A%2F%2Fdoi.org%2F' + doi + '" class="dt-tag"><i class="fab fa-twitter"></i> Tweet</a>')
+
+    const abstract = $('<d-abstract>')
+    abstract.append('<b>Abstract:</b><br>')
+    abstract.append($("d-title p:not(:empty)").first()) // Move description to d-abstract
+    $("d-title p:empty").remove() // Remove empty paragraphs after title
+    abstract.append(buttons)
+    abstract.insertAfter($('d-title')) // Add abstract section after title
+
+    // tweak by-line
+    var byline = $("d-byline div.byline")
+    ind = rmd_meta.attributes.names.value.findIndex((e) => e == "journal")
+    const journal = get_meta('journal', rmd_meta)
+    const volume = get_meta('volume', rmd_meta)
+    const issue = get_meta('issue', rmd_meta)
+    const jrtitle = get_meta('title', journal)
+    const firstpage = get_meta('firstpage', journal)
+    const lastpage = get_meta('lastpage', journal)
+    byline.append('<div class="rjournal grid">')
+    $('div.rjournal').append('<h3>Volume</h3>')
+    $('div.rjournal').append('<h3>Pages</h3>')
+    $('div.rjournal').append('<p class="volume">'+volume+':'+issue+'</p>')
+    $('div.rjournal').append('<p class="pages">'+firstpage+' - '+lastpage+'</p>')
+
+    const received_date = get_meta('date_received', rmd_meta)
+    byline.find('h3:contains("Published")').parent().append('<h3>Received</h3><p>'+received_date+'</p>')
+
+  })
+</script>
+
+<style>
+    /*
+  .nav-dropdown-content .nav-dropdown-header {
+    text-transform: lowercase;
+  }
+  */
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr 2fr 2fr;
+  }
+
+  d-byline .rjournal {
+    grid-column-end: span 2;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 0;
+  }
+
+  d-title h1, d-title p, d-title figure,
+  d-abstract p, d-abstract b {
+    grid-column: page;
+  }
+
+  d-title .dt-tags {
+    grid-column: page;
+  }
+
+  .dt-tags .dt-tag {
+    text-transform: lowercase;
+  }
+
+  d-article h1 {
+    line-height: 1.1em;
+  }
+
+  d-abstract p, d-article p {
+    text-align: justify;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      justify-self: end;
+    }
+
+    nav.toc {
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      border-right-width: 1px;
+      border-right-style: solid;
+      border-right-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    text-transform: lowercase;
+  }
+
+  @keyframes highlight-target {
+    0% {
+      background-color: #ffa;
+    }
+    66% {
+      background-color: #ffa;
+    }
+    100% {
+      background-color: none;
+    }
+  }
+
+  d-article :target, d-appendix :target {
+     animation: highlight-target 3s;
+  }
+</style>
