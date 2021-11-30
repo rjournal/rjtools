@@ -22,8 +22,6 @@ author:
     - Department of Letter B
     - Somewhere, Australia
 type: package
-csl: rjournal.csl
-creative_commons: CC BY
 output: 
   rjtools::rjournal_web_article
 bibliography: {{{bibfile}}}
