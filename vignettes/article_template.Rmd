@@ -25,5 +25,13 @@ library(rmarkdown)
 
 Here we provide a worked example article with all the source files [available](https://github.com/rjournal/rjtools/tree/main/inst/sample-article). The rendered pdf output can be found [here](https://github.com/rjournal/rjtools/blob/main/inst/sample-article/RJwrapper.pdf)  and below is the html output:
 
-<iframe src = "`r here::here("inst/sample-article/article.html")`" height = "600" width= "100%">
-</iframe>
+```{r echo = FALSE}
+# webshot2::webshot(here::here("inst/sample-article/article.html"), 
+#                   delay = 1, zoom = 4, vwidth = 1000, vheight = 300)
+```
+
+```{r, out.width="100%", out.height="100%"}
+knitr::include_graphics("figures/webshot.png")
+```
+
+

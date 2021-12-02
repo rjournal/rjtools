@@ -46,8 +46,7 @@ Imports:
     callr
 Suggests: 
     rmarkdown,
-    knitr,
-    htmltools
+    knitr
 VignetteBuilder: knitr
 URL: https://github.com/rjournal/rjtools
 BugReports: https://github.com/rjournal/rjtools/issues
