@@ -30,7 +30,7 @@ Here we provide a worked example article with all the source files [available](h
 
 ::: {}
 ```{r out.width="100%"}
-htmltools::includeHTML(here::here("inst/sample-article/sample-article.html"))
+htmltools::includeHTML(here::here("inst/sample-article/article.html"))
 ```
 
 :::
