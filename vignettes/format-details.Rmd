@@ -28,15 +28,12 @@ This has these components:
 - `title: "your article title"`
 - `abstract: > ....`
 - `author:` with separate lines for `name:`, `affiliation:`, `address:`, `url:`, `orcid:`, `email:` and a block for each author
-- `csl: "rjournal.csl"` specifies the citation style in the desirable format
-- `creative_commons: CC BY` license for your article
 - output format lines should look like
 ```
 output:
-  rjtools::rjournal_web_article:
-    css: "rjournal.css"
+  rjtools::rjournal_web_article
 ```
-- `bibliography: your-article.bib`
+- `bibliography: RJreferences.bib`
 
 # Figures
 
@@ -80,13 +77,13 @@ plotly::ggplotly(p1)
 ```
 ````
 
-Notice here you need `eval=knitr::is_html_output()` and `eval=knitr::is_latex_output()` to make sure that pdf output only evaluates the first chunk and html output only evaluates the second chunk. 
+Notice here you need `eval=knitr::is_html_output()` and `eval=knitr::is_latex_output()` to make sure that the pdf output only evaluates the first chunk and the html output only evaluates the second. 
 
 For in-text citation, you will something like this: 
 
     Figure `r "\u0060r"` knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(fig:penguins-interactive)', '\\@ref(fig:penguins-static)'))`r "\u0060"` shows ...
     
-This line is quite complicated so let's dissect its components: the if-else statement use `knitr::is_html_output()` to decide if the output is an html or pdf ouput. For an html output, `\\@ref(fig:penguins-interactive)` will be used to reference the chunk of the interactive graphic. If the output is pdf (LaTex), `\\@ref(fig:penguins-static)` will be used to refer to the static figure. Finally, `knitr::asis_output()` makes sure that the reference string is parsed as it is, so no special treatment on `\@`.
+This line is quite complicated so let's dissect its components: the if-else statement uses `knitr::is_html_output()` to decide if the output is an html or pdf ouput. For an html output, `\\@ref(fig:penguins-interactive)` will be used to reference the chunk of the interactive graphic. If the output is a pdf, `\\@ref(fig:penguins-static)` will reference the static figure. Finally, `knitr::asis_output()` makes sure that the reference string is parsed as it is, so no special treatment on `\@`.
 
 ## Sizing
 
@@ -135,7 +132,19 @@ For inline reference, remember to use `tab:` instead of `fig:` in `\\@ref(tab:pe
 
 # Citations
 
-As mentioned in the YAML header section, `rjournal.csl`, derived from *Biostatistics*, controls the overall referencing style of R Journal papers. For each reference material, you need to provide a link for easy access to the reference and this can be done through either the `doi` or `url` field. If both fields are presented, `url` takes priority and we recommend providing the URL link as `url = {https://doi.org/.../...},`.
+The citation style will be added during the building process and you can find the csl file [here](https://github.com/rjournal/rjtools/blob/main/inst/rjournal.csl). This style adopts a "capitalize-first" text case on title, which means it will capitalise the first world, including the one after the colon, and use lowercase for the rest. If you would like to preserve the text case of the title in the reference, wrap the word with curly braces. A common example of this is to preserve the lowercase R package name: 
+
+```{eval = FALSE}
+@Manual{crosstalk,
+  title = {{crosstalk}: Inter-Widget Interactivity for HTML Widgets},
+  author = {Joe Cheng and Carson Sievert},
+  year = {2021},
+  note = {R package version 1.1.1},
+  url = {https://CRAN.R-project.org/package=crosstalk},
+}
+```
+
+R Journal requires a link for easy access to the reference and this can be done through either the `doi` or `url` field. If both fields are presented, `url` takes priority and we recommend providing the URL link as `url = {https://doi.org/.../...},`.
 
 
 # Styling

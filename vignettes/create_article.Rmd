@@ -26,19 +26,18 @@ The Rmd template in `rjtools` creates an article in the format needed for the R 
 
 ## Create an Article
 
-The `create_article()` function will create these files and folder: 
+The `create_article()` function will create these files under a default `paper` folder: 
 
   - **article.Rmd**: the main document
   - **motivation-letter.md**: a motivation letter template for the article
-  - **skeleton.bib**: the bibtex file for reference
-  - **figures/**: folder for saved figures or images
-  - **rjournal.csl**: the R journal reference style sheet
+  - **penguins.png**: an example png used to illustrate how to include a figure in the new format
+  - **Rjreferences.bib**: the bibtex file for reference
   - **RJwrapper.tex**: the tex template for compile the pdf output
   - **Rjournal.sty**: the R journal style sheet for the pdf output
 
-The `.csl`, `.tex`, and `sty` file make sure all the R Journal articles follow the same LaTex and reference style and should not be modified unless there's a strong reason to do so.
+The `.tex`, and `sty` file make sure all the R Journal articles follow the same latex and reference style and should not be modified unless there's a strong reason to do so.
 
-The `file_name` argument changes the name of the main rmarkdown and bibliography file and we recommend the name to be the concatenation of all the authors' family name. For example, To use `quokka-bilby` as the file name for an article by Quietest Quokka and Bounciest Bilby: 
+The `file_name` argument changes the name of the main rmarkdown document, for example, if you wish to use `quokka-bilby` as the file name, instead of `article`, create the article with: 
 
 ```{r eval = FALSE}
 create_article(file_name = "quokka-bilby")
