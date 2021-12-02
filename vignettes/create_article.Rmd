@@ -52,7 +52,7 @@ The `rjtools::rjournal_web_article` output specified in the YAML will create the
   - **quokka-bilby.tex**: the LaTex file 
   - **quokka-bilby.R**: an R file that contains all the code 
   
-You can use the typical ways to render the files, through the RStudio `knit` button, or using `rmarkdown::render("yourpaper/yourarticle.Rmd")` on the R command line. 
+You can use the typical ways to render the files, through the RStudio `knit` button, or using `rmarkdown::render("paper/quokka-bilby.Rmd")` on the R command line. 
 
 ## Note: `rticles` template
 
