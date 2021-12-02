@@ -1,3 +1,9 @@
+# rjtools 1.0.0
+
+* Depends on distill instead of rjdistill
+* `csl` and `sty` files built into system files
+* Successfully tested article creation in different three modes, through RStudio dropdown, from RStudio console and terminal R using `create_article()`. 
+
 # rjtools 0.0.0.9002
 
 * Merge rjdistill with rjtools

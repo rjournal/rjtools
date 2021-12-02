@@ -28,6 +28,6 @@ create_article <- function(file_name = "article", dir_path = "paper"){
   fs::file_copy(all_others, dir_path, overwrite = TRUE)
 
 
-  cli::cli_alert_success("Article created :)")
+  cli::cli_alert_success(glue::glue("Article created in the directory called ", dir_path, " :)"))
 
 }
