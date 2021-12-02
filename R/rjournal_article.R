@@ -8,7 +8,7 @@
 #' @importFrom stringr str_extract
 #' @importFrom fs dir_create file_copy file_move
 #' @export
-create_article <- function(file_name = "article", dir_path = "paper"){
+create_article <- function(file_name = "quokka-bilby", dir_path = "rjarticle"){
 
   force(dir_path)
   # read in all the template files
