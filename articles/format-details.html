@@ -112,17 +112,12 @@
 <li><code>abstract: &gt; ....</code></li>
 <li>
 <code>author:</code> with separate lines for <code>name:</code>, <code>affiliation:</code>, <code>address:</code>, <code>url:</code>, <code>orcid:</code>, <code>email:</code> and a block for each author</li>
-<li>
-<code>csl: "rjournal.csl"</code> specifies the citation style in the desirable format</li>
-<li>
-<code>creative_commons: CC BY</code> license for your article</li>
 <li>output format lines should look like</li>
 </ul>
 <pre><code>output:
-  rjtools::rjournal_web_article:
-    css: "rjournal.css"</code></pre>
+  rjtools::rjournal_web_article</code></pre>
 <ul>
-<li><code>bibliography: your-article.bib</code></li>
+<li><code>bibliography: RJreferences.bib</code></li>
 </ul>
 </div>
 <div id="figures" class="section level1">
@@ -158,10 +153,10 @@
 <span id="cb4-5"><a href="#cb4-5"></a><span class="bn">  geom_point()</span></span>
 <span id="cb4-6"><a href="#cb4-6"></a><span class="bn">plotly::ggplotly(p1)</span></span>
 <span id="cb4-7"><a href="#cb4-7"></a><span class="bn">```</span></span></code></pre></div>
-<p>Notice here you need <code>eval=knitr::is_html_output()</code> and <code>eval=knitr::is_latex_output()</code> to make sure that pdf output only evaluates the first chunk and html output only evaluates the second chunk.</p>
+<p>Notice here you need <code>eval=knitr::is_html_output()</code> and <code>eval=knitr::is_latex_output()</code> to make sure that the pdf output only evaluates the first chunk and the html output only evaluates the second.</p>
 <p>For in-text citation, you will something like this:</p>
 <pre><code>Figure `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(fig:penguins-interactive)', '\\@ref(fig:penguins-static)'))` shows ...</code></pre>
-<p>This line is quite complicated so let’s dissect its components: the if-else statement use <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html">knitr::is_html_output()</a></code> to decide if the output is an html or pdf ouput. For an html output, <code>\\@ref(fig:penguins-interactive)</code> will be used to reference the chunk of the interactive graphic. If the output is pdf (LaTex), <code>\\@ref(fig:penguins-static)</code> will be used to refer to the static figure. Finally, <code><a href="https://rdrr.io/pkg/knitr/man/asis_output.html">knitr::asis_output()</a></code> makes sure that the reference string is parsed as it is, so no special treatment on <code>\@</code>.</p>
+<p>This line is quite complicated so let’s dissect its components: the if-else statement uses <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html">knitr::is_html_output()</a></code> to decide if the output is an html or pdf ouput. For an html output, <code>\\@ref(fig:penguins-interactive)</code> will be used to reference the chunk of the interactive graphic. If the output is a pdf, <code>\\@ref(fig:penguins-static)</code> will reference the static figure. Finally, <code><a href="https://rdrr.io/pkg/knitr/man/asis_output.html">knitr::asis_output()</a></code> makes sure that the reference string is parsed as it is, so no special treatment on <code>\@</code>.</p>
 </div>
 <div id="sizing" class="section level2">
 <h2 class="hasAnchor">
@@ -202,7 +197,15 @@ knitr::kable(head(penguins), format = "latex", caption = "Table caption")
 <div id="citations" class="section level1">
 <h1 class="hasAnchor">
 <a href="#citations" class="anchor"></a>Citations</h1>
-<p>As mentioned in the YAML header section, <code>rjournal.csl</code>, derived from <em>Biostatistics</em>, controls the overall referencing style of R Journal papers. For each reference material, you need to provide a link for easy access to the reference and this can be done through either the <code>doi</code> or <code>url</code> field. If both fields are presented, <code>url</code> takes priority and we recommend providing the URL link as <code>url = {https://doi.org/.../...},</code>.</p>
+<p>The citation style will be added during the building process and you can find the csl file <a href="https://github.com/rjournal/rjtools/blob/main/inst/rjournal.csl">here</a>. This style adopts a “capitalize-first” text case on title, which means it will capitalise the first world, including the one after the colon, and use lowercase for the rest. If you would like to preserve the text case of the title in the reference, wrap the word with curly braces. A common example of this is to preserve the lowercase R package name:</p>
+<pre class="eval"><code>@Manual{crosstalk,
+  title = {{crosstalk}: Inter-Widget Interactivity for HTML Widgets},
+  author = {Joe Cheng and Carson Sievert},
+  year = {2021},
+  note = {R package version 1.1.1},
+  url = {https://CRAN.R-project.org/package=crosstalk},
+}</code></pre>
+<p>R Journal requires a link for easy access to the reference and this can be done through either the <code>doi</code> or <code>url</code> field. If both fields are presented, <code>url</code> takes priority and we recommend providing the URL link as <code>url = {https://doi.org/.../...},</code>.</p>
 </div>
 <div id="styling" class="section level1">
 <h1 class="hasAnchor">

@@ -184,8 +184,8 @@
 <a href="#spelling" class="anchor"></a>Spelling</h2>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/initial_check_article.html">check_spelling</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; ℹ NOTE: A potential list of spelling to check: tooltips, tooltip</span>
-<span class="co">#&gt; NOTE: A potential list of spelling to check: tooltips, tooltip</span></code></pre></div>
+<span class="co">#&gt; ℹ NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot</span>
+<span class="co">#&gt; NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot</span></code></pre></div>
 <p>The spelling check is performed from the abstract to bibliography section, excluding the comments in the code chunks. Only words with all lowercase letters are checked to avoid picking up on acronyms and names. The underlying checking is done through the <code>hunspell</code> package with US spelling by default. British spelling can be checked with argument <code>dic = "en_GB"</code>. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained. Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if the suggested spelling mistakes are true mis-spellings. In our article, “tooltip” is a specialised vocabulary in interactive graphics, which is not really a mis-spelling, so we are free of spelling mistake!</p>
 </div>
 <div id="package-is-available-on-cran" class="section level2">
