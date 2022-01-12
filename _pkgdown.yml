@@ -1,11 +1,14 @@
 url: https://rjournal.github.io/rjtools/
 
-
 template:
   params:
     bootswatch: cosmo
 
 reference:
+- title: Create article
+  desc: Functions to create an R Journal article from the template
+  contents:
+  - create_article
 - title: Article checks
   desc: Functions to check that folder structure and article format meet Rjournal submission guideline
   contents:
@@ -14,3 +17,12 @@ reference:
   desc: Functions to build distill articles
   contents:
   - starts_with("rjournal")
+- title: Prepare article submission
+  desc: Functions to help building a zip file of relevant materials for submission
+  contents:
+  - zip_paper
+  - prepare_submission
+- title: Misc
+  contents:
+  - starts_with("log")
+  - symbol
