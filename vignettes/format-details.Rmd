@@ -110,6 +110,9 @@ Notice that `fig.width` and `fig.height` still apply here and `layout` option wi
   
 Sizing these figures should via the relevant arguments rather than the chunk options.
 
+## Alt text
+
+Alt text is read by a screen reader for people with visual disability and authors are encouraged to include alt text in their figures to make them more accessible in the R community. You only need to add alt text for the html figures and this can be done via the `fig.alt` chunk option. There are a few guidelines on how to write an alt text can be found at [here](https://www.vic.gov.au/alternative-text), [here](https://rjionline.org/news/alt-text-is-journalism-enhancing-your-reporting-with-accessibility/), and [here](https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81). Remember an alt text is not supposed to tell the reader what can be learnt from the plot, but merely to describe what is on the plot. With a good alt text, people should be able to sketch a copy of the figure based on your description. 
 
 # Tables
 
