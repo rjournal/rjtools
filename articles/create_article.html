@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rjtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -73,7 +69,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/rjournal/rjtools/">
+  <a href="https://github.com/rjournal/rjtools/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,10 +88,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Create an R Journal Article</h1>
-                        <h4 class="author">Sherry Zhang</h4>
+                        <h4 data-toc-skip class="author">Sherry Zhang</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/rjournal/rjtools/blob/master/vignettes/create_article.Rmd"><code>vignettes/create_article.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/rjournal/rjtools/blob/HEAD/vignettes/create_article.Rmd" class="external-link"><code>vignettes/create_article.Rmd</code></a></small>
       <div class="hidden name"><code>create_article.Rmd</code></div>
 
     </div>
@@ -104,9 +100,9 @@
     
 <p>With the advances in html delivery of research articles through the web, the R Journal now has a new format of it’s website using a version of the distill package. This will allow incorporation of interactive graphics directly into articles, and easier reading of the research online.</p>
 <p>The Rmd template in <code>rjtools</code> creates an article in the format needed for the R journal distill web site. The <code>rjtools</code> packages is provided to help authors meet these requirements, with an intention that it would help authors to write an R journal article, a little like the way that <code>devtools</code> help developers build an R package. In this vignette, I will walk you through how to use <code>rjtools</code> to create an R journal article using the build-in template.</p>
-<div id="create-an-article" class="section level2">
-<h2 class="hasAnchor">
-<a href="#create-an-article" class="anchor"></a>Create an Article</h2>
+<div class="section level2">
+<h2 id="create-an-article">Create an Article<a class="anchor" aria-label="anchor" href="#create-an-article"></a>
+</h2>
 <p>The <code><a href="../reference/create_article.html">create_article()</a></code> function will create these files under a default <code>paper</code> folder:</p>
 <ul>
 <li>
@@ -127,9 +123,9 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/create_article.html">create_article</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="st">"quokka-bilby"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="your-first-knit" class="section level2">
-<h2 class="hasAnchor">
-<a href="#your-first-knit" class="anchor"></a>Your first knit</h2>
+<div class="section level2">
+<h2 id="your-first-knit">Your first knit<a class="anchor" aria-label="anchor" href="#your-first-knit"></a>
+</h2>
 <p>The <code><a href="../reference/rjournal_web_article.html">rjtools::rjournal_web_article</a></code> output specified in the YAML will create the article in both html and pdf format. Additional files created during the knit are (assuming file name of <code>quokka-bilby</code>):</p>
 <ul>
 <li>
@@ -143,9 +139,9 @@
 </ul>
 <p>You can use the typical ways to render the files, through the RStudio <code>knit</code> button, or using <code>rmarkdown::render("paper/quokka-bilby.Rmd")</code> on the R command line.</p>
 </div>
-<div id="note-rticles-template" class="section level2">
-<h2 class="hasAnchor">
-<a href="#note-rticles-template" class="anchor"></a>Note: <code>rticles</code> template</h2>
+<div class="section level2">
+<h2 id="note-rticles-template">Note: <code>rticles</code> template<a class="anchor" aria-label="anchor" href="#note-rticles-template"></a>
+</h2>
 <p>The <code>rticles</code> package contains a template for creating an R Journal article, which you might have used before if you have been already working with Rmarkdown for writing papers. This template creates an article that will be compiled with latex into a pdf format paper. It is using the current style file. If this new distill version of the delivery of the R Journal is successful, we will also synchronise the template the one in <code>rjtools</code>.</p>
 <p>Now feel free to head to vignette <em>The Article Template</em> or <em>More details on the R Journal format</em> for an example article and more detailed information on the template.</p>
 </div>
@@ -162,11 +158,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Mitchell O'Hara-Wild, Stephanie Kobakian, H. Sherry Zhang, Di Cook, Christophe Dervieux.</p>
+  <p></p>
+<p>Developed by Mitchell O’Hara-Wild, Stephanie Kobakian, H. Sherry Zhang, Di Cook, Christophe Dervieux.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -174,6 +172,8 @@
 
   
 
+
+  
 
   </body>
 </html>
