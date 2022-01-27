@@ -114,7 +114,7 @@ check_filenames <- function(path) {
   # Check for all three files with matching names
   # Find the file name that should match
 
-  if (!length(unique(single_filename)) == 1) {
+  if (length(unique(single_filename)) != 1) {
 
     log_error("Submission does not have consistently named tex, bib, and R files")
 
