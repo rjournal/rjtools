@@ -57,7 +57,7 @@ The \CRANpkg{palmerpenguins} data [@palmerpenguins]  features three penguin spec
 knitr::include_graphics("penguins.png")
 ```
 
-Table `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(tab:penguins-tab-interactive)', '\\@ref(tab:penguins-tab-static)'))` prints at the first five rows of this data:
+Table `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(tab:penguins-tab-interactive)', '\\@ref(tab:penguins-tab-static)'))` prints at the first five rows of the `penguins` data:
 
 ```{r penguins-tab-interactive, eval = knitr::is_html_output(), layout = "l-body-outset"}
 knitr::kable(head(penguins), format = "html", caption = "A basic table")
