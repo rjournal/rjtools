@@ -9,7 +9,8 @@
 #'   and `rticles::rjournal_article()` for pdf articles.
 #' @inheritParams distill::distill_article
 #' @export
-rjournal_web_article <- function(toc = FALSE, self_contained = FALSE, ...) {
+rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
+                                 legacy_pdf = FALSE, ...) {
   args <- c()
   base_format <- distill::distill_article(
     self_contained = self_contained, toc = toc, ...
@@ -97,6 +98,17 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE, ...) {
   pre_processor <- function(metadata, input_file, runtime, knit_meta, files_dir,
                             output_dir) {
 
+    # Add embedded PDF
+    embed_pdf <- if(legacy_pdf) {
+      whisker::whisker.render(
+'<div class="l-page">
+  <embed src="{{slug}}.pdf" type="application/pdf" height="955px" width="100%">
+</div>', data = list(slug = metadata$slug)
+      )
+    } else {
+      NULL
+    }
+
     # Add custom appendix
     data <- list()
     if (!is.null(metadata$supplementary_materials)) {
@@ -127,12 +139,23 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE, ...) {
     front_matter_delimiters <- grep("^(---|\\.\\.\\.)\\s*$", input)
 
     xfun::write_utf8(
-      c("---", yaml::as.yaml(metadata), "---",
-        input[(front_matter_delimiters[2]+1):length(input)], "", appendix),
+      c(
+        "---",
+        yaml::as.yaml(metadata),
+        "---",
+        input[(front_matter_delimiters[2]+1):length(input)],
+        "",
+        embed_pdf,
+        "",
+        appendix
+      ),
       input_file
     )
+
     # Custom args
-    args <- rmarkdown::pandoc_include_args(in_header = system.file("rjdistill.html", package = "rjtools"))
+    args <- rmarkdown::pandoc_include_args(
+      in_header = system.file("rjdistill.html", package = "rjtools")
+    )
 
     args
   }
@@ -142,11 +165,10 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE, ...) {
     # and files produced moved back into the main dir.
 
     # Deactivate for now as I am not sure to understand what should be built
-    if (!is.null(render_pdf)) {
+    if (!is.null(render_pdf) && !legacy_pdf) {
       callr::r(function(input){
         rmarkdown::render(
           input,
-          # output_format = "rticles::rjournal_article",
           output_format = "rjtools::rjournal_pdf_article"
         )
       }, args = list(input = rmd_path))
