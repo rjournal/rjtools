@@ -154,6 +154,10 @@ R Journal requires a link for easy access to the reference and this can be done 
 
 Custom `css` is discouraged, because all articles should look similar. However, if you would like to make **small** changes in style for the appearance of your paper, even to get sizing of plots and tables cleaner in the html output, you can add a custom `css` and point to it in the YAML along with the `rjournal.css`. 
 
+# Others
+
+  - Randomisation: if your code contains any randomisation, make sure a seed is used so that pdf and html can render the same result. 
+
 # Converting from other Rmarkdown formats
 
 If you are already writing your articles using Rmarkdown, and have written your article using the `rticles::rjournal_article` style it is straightforward to make the switch to the `rjtools` styling. These are the steps that you need to follow:
