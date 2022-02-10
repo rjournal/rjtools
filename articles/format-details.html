@@ -214,6 +214,13 @@ knitr::kable(head(penguins), format = "latex", caption = "Table caption")
 <p>Custom <code>css</code> is discouraged, because all articles should look similar. However, if you would like to make <strong>small</strong> changes in style for the appearance of your paper, even to get sizing of plots and tables cleaner in the html output, you can add a custom <code>css</code> and point to it in the YAML along with the <code>rjournal.css</code>.</p>
 </div>
 <div class="section level2">
+<h2 id="others">Others<a class="anchor" aria-label="anchor" href="#others"></a>
+</h2>
+<ul>
+<li>Randomisation: if your code contains any randomisation, make sure a seed is used so that pdf and html can render the same result.</li>
+</ul>
+</div>
+<div class="section level2">
 <h2 id="converting-from-other-rmarkdown-formats">Converting from other Rmarkdown formats<a class="anchor" aria-label="anchor" href="#converting-from-other-rmarkdown-formats"></a>
 </h2>
 <p>If you are already writing your articles using Rmarkdown, and have written your article using the <code><a href="https://rdrr.io/pkg/rticles/man/rjournal_article.html" class="external-link">rticles::rjournal_article</a></code> style it is straightforward to make the switch to the <code>rjtools</code> styling. These are the steps that you need to follow:</p>
