@@ -2,7 +2,7 @@
 rjournal_pdf_article <- function(..., self_contained = FALSE) {
   fmt <- rticles::rjournal_article(...)
   post_process <- fmt$post_processor
-  fmt$post_processor <- function(...) {
+  fmt$post_processor <- function(metadata, utf8_input, output_file, clean, verbose) {
     # Replace \@ref(***) with \ref{***}
     file <- xfun::with_ext(output_file, '.tex')
     lines <- xfun::read_utf8(file)
@@ -18,7 +18,7 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
     sty_dest <- file.path(".", basename(sty_origin))
     copied <- file.copy(sty_origin, sty_dest)
     on.exit(unlink(sty_dest[copied]))
-    post_process(...)
+    post_process(metadata, utf8_input, output_file, clean, verbose)
   }
 
   fmt
