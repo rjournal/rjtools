@@ -46,6 +46,9 @@ zip_paper <- function(name, others = NULL){
   sty <- list.files(pattern = "Rjournal.sty",
                           recursive = TRUE, full.names = TRUE)
 
+  motivation_letter <- list.files(pattern = "motivation-letter.md",
+                    recursive = TRUE, full.names = TRUE)
+
   # process other files to zip
   file_path <- others[fs::path_ext(others) != ""]
   folder_path <- others[fs::path_ext(others) == ""]
@@ -66,7 +69,7 @@ zip_paper <- function(name, others = NULL){
   #                 ")
 
   # collect everything and zip!
-  to_zip <- c(basic, html_files, rjwrapper, sty, other_paths)
+  to_zip <- c(basic, html_files, rjwrapper, sty, motivation_letter, other_paths)
   zip(zipfile = "paper", to_zip)
 
 
