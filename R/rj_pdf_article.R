@@ -6,11 +6,7 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
     # Replace \@ref(***) with \ref{***}
     file <- xfun::with_ext(output_file, '.tex')
     lines <- xfun::read_utf8(file)
-    ## From bookdown/R/latex.R
-    lines = gsub(
-      '(?<!\\\\textbackslash{})@ref\\(([-/:[:alnum:]]+)\\)', '\\\\ref{\\1}', lines,
-      perl = TRUE
-    )
+    lines <- resolve_refs_latex(lines)
     xfun::write_utf8(lines, file)
 
     sty_origin <- list.files(system.file("tex", package = "rjtools"),
