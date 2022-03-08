@@ -15,6 +15,9 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
     copied <- file.copy(sty_origin, sty_dest)
     on.exit(unlink(sty_dest[copied]))
     post_process(metadata, utf8_input, output_file, clean, verbose)
+    out_pdf <- xfun::with_ext(basename(output_file), ".pdf")
+    file.rename("RJwrapper.pdf", out_pdf)
+    out_pdf
   }
 
   fmt
