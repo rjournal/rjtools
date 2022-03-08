@@ -10,6 +10,6 @@ resolve_refs_latex = function(x) {
     '(?<!\\\\textbackslash{})@ref\\(([-/:[:alnum:]]+)\\)', '\\\\ref{\\1}', x,
     perl = TRUE
   )
-  x = gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', reg_label_types), '\\\\label{\\1}', x)
+  x = gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', "fig|tab|eq|thm|lem|cor|prp|cnj|def|exm|exr|hyp|ex"), '\\\\label{\\1}', x)
   x
 }
