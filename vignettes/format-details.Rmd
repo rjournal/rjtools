@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 library(rjtools)
 ```
 
-This article will work you the key parts of an rjournal template article as produced by `create_article()`. This assumes that you have already followed the "Create an R Journal Article" vignette, have created your initial article, and you have been able to knit both the `pdf` and `html` article. Here we explain the important parts you can see in the `Rmd` file that generates both output types, and how to modify them, and to debug if problems arise.
+This article will work you through the key parts of an rjournal template article as produced by `create_article()`. This assumes that you have already followed the **Create an R Journal Article** vignette, have created your initial article, and you have been able to knit both the `pdf` and `html` article. Here we explain the important parts you can see in the `Rmd` file that generates both output types, and how to modify them, and to debug if problems arise.
 
 # YAML header
 
@@ -28,22 +28,16 @@ This has these components:
 - `title: "your article title"`
 - `abstract: > ....`
 - `author:` with separate lines for `name:`, `affiliation:`, `address:`, `url:`, `orcid:`, `email:` and a block for each author
-- output format lines should look like
-```
-output:
-  rjtools::rjournal_web_article
-```
+- `output:` as `rjtools::rjournal_web_article`
 - `bibliography: RJreferences.bib`
 
 # Figures
 
-If you would like to have an interactive plot in the html output, you will also need to provide a static plot for the pdf output. You will need two code blocks, one for each, with conditional `eval` options. The inline reference will also need to do a conditional `eval` to write the appropriate reference link depending on the html or pdf knitting. 
-
-Of course, if only a static plot is to be rendered in both outputs, a single code chunk and a single inline reference will be sufficient. 
+The new R Journal format supports interactive plots in the html output, on top of the conventional static plots in both pdf and html outputs. The following section will show examples on creating static and interactive plots with the R Journal format.
 
 ## Static
 
-For a static graph, use `\@ref(fig:penguins)` for in-text reference and your code chunk should look something like this:
+For a static plot, use `\@ref(fig:penguins)` for in-text reference and your code chunk should look something like this:
 
 ````markdown
 `r ''````{r penguins, fig.cap="This is the figure caption"}
@@ -54,9 +48,11 @@ penguins %>%
 ```
 ````
 
+This chunk will be evaluated for both pdf and html rendering and the html reference syntax `\@ref(fig:penguins)` works in both formats under the `rjtools::rjournal_web_article` output (which you specified in the YAML header).
+
 ## Interactive 
 
-For an interactive graphic, use separate code chunks to create a static plot for the pdf article and an interative one for the html article:
+One of the advantages of the new R Journal format is to allow interactive graphics and animation in the html article while provide a static version in the pdf article. To do this, you will need two code chunks with conditional evaluation:
 
 ````markdown
 `r ''````{r penguins-static, eval=knitr::is_latex_output(), fig.cap="This is the figure caption."}
@@ -77,13 +73,13 @@ plotly::ggplotly(p1)
 ```
 ````
 
-Notice here you need `eval=knitr::is_html_output()` and `eval=knitr::is_latex_output()` to make sure that the pdf output only evaluates the first chunk and the html output only evaluates the second. 
+Here the `penguins-static` chunk is only evaluated in the pdf article, given `eval = knitr::is_latex_output()` and the second chunk `penguins-interactive` is only evaluated when building the html article (`eval = knitr::is_html_output()`). 
 
-For in-text citation, you will something like this: 
+The in-text citation is a bit more complicated since it involves referencing different chunks. You will need something like this: 
 
     Figure `r "\u0060r"` knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(fig:penguins-interactive)', '\\@ref(fig:penguins-static)'))`r "\u0060"` shows ...
     
-This line is quite complicated so let's dissect its components: the if-else statement uses `knitr::is_html_output()` to decide if the output is an html or pdf ouput. For an html output, `\\@ref(fig:penguins-interactive)` will be used to reference the chunk of the interactive graphic. If the output is a pdf, `\\@ref(fig:penguins-static)` will reference the static figure. Finally, `knitr::asis_output()` makes sure that the reference string is parsed as it is, so no special treatment on `\@`.
+The if-else statement uses `knitr::is_html_output()` to decide if the output is an html or pdf ouput. For an html output, `\\@ref(fig:penguins-interactive)` will be used to reference the chunk of the interactive graphic. If the output is a pdf, `\\@ref(fig:penguins-static)` will reference the static chunk. Finally, `knitr::asis_output()` makes sure that the reference string is parsed as it is, so no special treatment on `\@`.
 
 ## Sizing
 
@@ -116,7 +112,12 @@ Alt text is read by a screen reader for people with visual disability and author
 
 # Tables
 
-To use a simple markdown table, you need to add `preamble: \usepackage{longtable}` in the YAML for the tex file to render the pdf output. Another option is to use `knitr::kable()`, where you need to set up two chunks similar to the figures with different `format` arguments:
+Both markdown table and `knitr::kable()` are supported in both pdf and html articles with the R Journal format
+
+To use a simple [markdown table](https://www.markdownguide.org/extended-syntax/#tables), you need to add `preamble: \usepackage{longtable}` in the YAML to render the pdf output. 
+
+
+With `knitr::kable()` two chunks need to be set up with different `format` arguments, similar to the interactive graphics:
 
 ````rmarkdown
 `r ''````{r penguins-interactive, eval = knitr::is_html_output()}
@@ -131,7 +132,6 @@ knitr::kable(head(penguins), format = "latex", caption = "Table caption")
 ````
 
 For inline reference, remember to use `tab:` instead of `fig:` in `\\@ref(tab:penguins-interactive)` and `\\@ref(tab:penguins-static)`. The same `layout` used for figure sizing is also applicable for tables.
-
 
 # Citations
 
@@ -156,7 +156,7 @@ Custom `css` is discouraged, because all articles should look similar. However, 
 
 # Others
 
-  - Randomisation: if your code contains any randomisation, make sure a seed is used so that pdf and html can render the same result. 
+  - Randomisation: if your code contains any randomisation, make sure a seed is used so that the pdf and html article render the same result. 
 
 # Converting from other Rmarkdown formats
 

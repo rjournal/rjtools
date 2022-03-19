@@ -36,7 +36,7 @@ To create an article template under the project directory:
 
 ``` r
 library(rjtools)
-create_article(file_name = "my_article")
+create_article()
 ```
 
 To examine how the papers in this format would look in an R Journal
@@ -44,7 +44,22 @@ issue, take a look at the June 2021 issue
 <https://journal.r-project.org/dev/issues/2021-1/>. Particularly
 articles by Wang, and two articles by Kane, and the editorial.
 
+-   To learn more on the article creation, read [Create an R Journal
+    Article](https://rjournal.github.io/rjtools/articles/create_article.html).
+
+-   For more information on the R Journal format, specifically how to
+    create figures, tables, among others with the new format, read [More
+    details on the R Journal
+    format](https://rjournal.github.io/rjtools/articles/format-details.html).
+
+-   The rendered template article is showcased in [The Article
+    Template](https://rjournal.github.io/rjtools/articles/article_template.html).
+
 ## Checking that your paper satisfies various conditions
 
 Explore the various `check_XXX` functions that will check the format of
 your article, and some submission requirements.
+
+-   See [Check your Article Before
+    Submission](https://rjournal.github.io/rjtools/articles/check_functions.html)
+    for more on this.

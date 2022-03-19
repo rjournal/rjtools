@@ -11,7 +11,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  message = FALSE
 )
 ```
 
@@ -19,15 +20,38 @@ knitr::opts_chunk$set(
 library(rjtools)
 ```
 
-In the `inst/paper-with-errors` folder is an example article that has both html and pdf version rendered and it will be used to demonstrate the check functions in the `rjtools`. Notice that the check function implemented here is only an initial automated check and we recommend authors to also read [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf) before submission. 
+The `rjtools` package has implemented some automated checks on style, spelling, and package availability, according to the R Journal format. For a comprehensive instruction on the journal format, we recommend authors to follow [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf). 
 
-There are 9 functions in total for authors to check against and these checks can be completed in one go with `initial_check_article()`, given a path to the article folder: 
+This vignette will demonstrate these checks with an example article, [paper-with-errors](https://github.com/rjournal/rjtools/tree/main/inst/paper-with-errors).
+
+
+# All checks in one function
+
+All the nine checks in `rjtools` can be completed with `initial_check_article()`, given a path to the article folder: 
 
 ```{r eval = FALSE}
-initial_check_article(path = here::here("paper-with-errors"))
+initial_check_article(path = here::here("inst/paper-with-errors"))
 ```
 
-The check result will be saved in an initial_check.log file, as well as displayed in the console. Checking on each item is also supported by individual `check_*()` function: 
+*Notice the file path here is the path to the .tex file of your article. If you have created the article using `create_article()` with the default arguments, you can check with `initial_check_article(path = here::here("rjarticle"))`.*
+
+The check result will be saved in an initial_check.log file under the same folder, as well as displayed in the console. This is how it looks like for the sample article:
+
+    Initial check results:
+    SUCCESS: Submission contains both RJwrapper.tex and RJwrapper.pdf
+    ERROR: Submission does not have consistently named tex, bib, and R files
+    SUCCESS: No problematic file found
+    SUCCESS: Possible motivation letter found
+    ERROR: The title is not in title case! Suggest title to be changed to:
+    ToOoOlTiPs: An R Package for Customizable Tooltips in Interactive Graphics
+    SUCCESS: All sections are properly formatted in sentence case
+    SUCCESS: Abstract comes before the introduction section
+    NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot
+    SUCCESS: Submission contains both RJwrapper.tex and RJwrapper.pdf
+
+# Individual check functions
+
+The nine individual checks contained in `initial_check_article()` are: 
 
   - `check_wrappers()`
   - `check_filenames()`
@@ -40,7 +64,7 @@ The check result will be saved in an initial_check.log file, as well as displaye
   - `check_proposed_pkg()`
   - `check_packages_available()`
 
-Below we will apply each check function on the example article we create
+and they can all be individually checked on the article.
 
 ## Wrappers
 
@@ -48,7 +72,7 @@ Below we will apply each check function on the example article we create
 check_wrappers(path = here::here("inst/paper-with-errors"))
 ```
 
-A properly rendered article should have both the `RJwrapper.tex` and `RJwrapper.pdf` file and our article passes this check. Good!
+A properly rendered article should have both the `RJwrapper.tex` and `RJwrapper.pdf` file and our article passes this check. 
 
 ## Filenames
 
@@ -56,7 +80,7 @@ A properly rendered article should have both the `RJwrapper.tex` and `RJwrapper.
 check_filenames(path = here::here("inst/paper-with-errors"))
 ```
 
-The .bib file is named `skeleton.bib` when created and we recommend setting a consistent name across the .bib, .tex, and .Rmd file.  A fix to this is to rename the `skeleton.bib` as the file name you used when create the article, in our case, `paper-with-errors`. Also remember to make the same change in the Rmd YAML, so it can find the .bib file during knitting!
+The .bib file is named `Rjreferences.bib` when created and we recommend setting a consistent name across the .bib, .tex, and .Rmd file.  A fix to this is to rename the `Rjreferences.bib` as the file name you used when create the article, in our case, `paper-with-errors`. 
 
 ## Presence of unnecessary files
 
@@ -64,7 +88,7 @@ The .bib file is named `skeleton.bib` when created and we recommend setting a co
 check_unnecessary_files(path = here::here("inst/paper-with-errors")) 
 ```
 
-This function checks that the folder doesn't contain the `RJtemplate.tex` file, which is icluded the previous R journal template. The [authors instruction](https://journal.r-project.org/share/author-guide.pdf) requires the authors to replace the content of this `RJtemplate.tex` file with article content and name with the lowercase concatenated author name, so it is essentially the `.tex` file automatically generated in the previous section. Our article don't have unnecessary file here. Good :)
+This function checks that the folder doesn't contain the `RJtemplate.tex` file, which is included the past R journal template. The [authors instruction](https://journal.r-project.org/share/author-guide.pdf) requires the authors to replace the content of this `RJtemplate.tex` file with article content and name with the lowercase concatenated author name, so it is essentially the `.tex` file automatically generated in the previous section. Our article don't have unnecessary files.
 
 ## Presence of a motivating letter
 
@@ -72,7 +96,7 @@ This function checks that the folder doesn't contain the `RJtemplate.tex` file, 
 check_cover_letter(path = here::here("inst/paper-with-errors")) 
 ```
 
-Cover letter should be provided for article of type "add-on package" and saved at the same folder as the article. The function checks whether there is a file has the word "motivation" in its name and the note says our sample article has not yet have a motivational letter. Bad!
+Cover letter should be provided for article of type "add-on package" and saved at the same folder as the article. The function checks whether there is a file containing the word "motivation" in its name. Our article passes this check.
 
 ## Article title is in title case
 
@@ -94,7 +118,7 @@ Here we forget to capitalise "P" in the word "package" - better make this change
 check_section(path = here::here("inst/paper-with-errors")) 
 ```
 
-Section titles need to be in the sentence case and we are all good!
+Section titles need to be in the sentence case and we are all good here :)
 
 ## Spelling
 
@@ -102,8 +126,9 @@ Section titles need to be in the sentence case and we are all good!
 check_spelling(path = here::here("inst/paper-with-errors")) 
 ```
 
-The spelling check is performed from the abstract to bibliography section, excluding the comments in the code chunks. Only words with all lowercase letters are checked to avoid picking up on acronyms and names.
-The underlying checking is done through the `hunspell` package with US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained. Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if the suggested spelling mistakes are true mis-spellings. In our article, "tooltip" is a specialised vocabulary in interactive graphics, which is not really a mis-spelling, so we are free of spelling mistake!
+The spelling is checked from the abstract to bibliography section and only words with all lowercase letters are checked to avoid picking up on acronyms and names. The underlying checking is done through the `hunspell` package with US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained. 
+
+Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if these are true spelling mistakes. In our article, "tooltip" is a specialised vocabulary in interactive graphics, rather than a mis-spell, so we are free to go :)
 
 
 ## Package is available on CRAN
@@ -112,15 +137,15 @@ The underlying checking is done through the `hunspell` package with US spelling 
 check_proposed_pkg() 
 ```
 
-The package proposed in an article should already be available on CRAN before article submission. `check_proposed_pkg` prompts the following in the console:
+The package proposed in an article should already be available on CRAN before article submission. `check_proposed_pkg()` prompts the following in the console:
 
   > What's the name of package being proposed in the article? If none, please enter 0. 
 
-and authors need to enter the exact package name for an availability check on CRAN download with the `cranlogs` package. For our article, enter "ToOoOlTiPs" in the console and the check would say 
+and authors need to enter the exact package name, with proper capitalisation, for an availability check on CRAN download. For our article, enter `ToOoOlTiPs` in the console and the check would say
 
   > NOTE: No CRAN activities detected for package ToOoOlTiPs
   
-Definitely CRAN can't find our package since it is a hypothetical one!  
+Not suprising that CRAN can't find our package since it is a hypothetical one!  
 
 ## Package availability
 
@@ -128,11 +153,11 @@ Definitely CRAN can't find our package since it is a hypothetical one!
 check_packages_available(path = here::here("inst/paper-with-errors")) 
 ```
 
-All the packages mentioned with a `\CRANpkg{.}` or `\BIOpkg{.}` tag need to be available on CRAN or Bioconductor and `check_packages_available` makes sure this is the case. For our article, we get 
+All the packages mentioned with a `\CRANpkg{.}` or `\BIOpkg{.}` tag need to be available on CRAN or Bioconductor and `check_packages_available()` makes sure this is the case. For our article, we get 
 
  > ! ERROR: 1 of 5 package(s) not available on CRAN: ToOoOlTiPs
  
-which is not really an issue :)
+which is not really an issue here!
 
 
 
