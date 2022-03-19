@@ -1,4 +1,4 @@
-#' Create an R journal article with the existing template
+#' Create an R Journal article with the existing template
 #'
 #' @details
 #' See \code{vignette("create_article", package = "rjtools")} for how to create an article

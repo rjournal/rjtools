@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep-submission.R
 \name{zip_paper}
 \alias{zip_paper}
-\title{Zip your directory for Rjournal submission}
+\title{Zip your directory for R Journal submission}
 \usage{
 zip_paper(name, others = NULL)
 }

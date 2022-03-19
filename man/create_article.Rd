@@ -2,7 +2,7 @@
 % Please edit documentation in R/rjournal_article.R
 \name{create_article}
 \alias{create_article}
-\title{Create an R journal article with the existing template}
+\title{Create an R Journal article with the existing template}
 \usage{
 create_article(file_name = "quokka-bilby", dir_path = "rjarticle")
 }
@@ -12,7 +12,7 @@ create_article(file_name = "quokka-bilby", dir_path = "rjarticle")
 \item{dir_path}{the directory name that houses the template files}
 }
 \description{
-Create an R journal article with the existing template
+Create an R Journal article with the existing template
 }
 \details{
 See \code{vignette("create_article", package = "rjtools")} for how to create an article

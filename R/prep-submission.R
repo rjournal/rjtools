@@ -1,4 +1,4 @@
-#' Zip your directory for Rjournal submission
+#' Zip your directory for R Journal submission
 #'
 #' Zip up  files in the directory into a \code{paper.zip} for Rjournal submission.
 #'
@@ -6,6 +6,8 @@
 #' @param name the file name you used to create the article. See argument `file_name` in \code{create_article()}
 #' @param others other files or folders to zip, this might include supplementary \code{data/} folder,
 #' motivational letter for add-in packages, and \code{review/} folder for reviewer's comments and responses.
+#' @importFrom utils zip
+#' @importFrom yesno yesno
 #' @export
 #'
 zip_paper <- function(name, others = NULL){
@@ -70,7 +72,7 @@ zip_paper <- function(name, others = NULL){
 
   # collect everything and zip!
   to_zip <- c(basic, html_files, rjwrapper, sty, motivation_letter, other_paths)
-  zip(zipfile = "paper", to_zip)
+  utils::zip(zipfile = "paper", to_zip)
 
 
 }

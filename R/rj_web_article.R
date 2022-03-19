@@ -8,7 +8,10 @@
 #' @param ... Arguments passed to `distill::distill_article()` for web articles,
 #'   and `rticles::rjournal_article()` for pdf articles.
 #' @inheritParams distill::distill_article
+#' @param legacy_pdf whether an article is from the past and only have pdf version
+#' @importFrom rlang caller_env env_poke
 #' @export
+#' @rdname article
 rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
                                  legacy_pdf = FALSE, ...) {
   args <- c()
