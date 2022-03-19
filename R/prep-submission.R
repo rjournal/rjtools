@@ -36,7 +36,7 @@ zip_paper <- function(name, others = NULL){
   # should find .Rmd, .tex, .bib, .html from the dual rendering,
   # and .r for the script if applicable
   basic <- list.files(pattern = name, recursive = TRUE, full.names = TRUE)
-  html_files <- list.dirs(path = paste0(dirname(basic[1]), "/", name, "_files"))
+  html_files <- list.dirs(path = file.path(dirname(basic[1]), glue::glue("{name}_files")))
 
   # should find RJwrapper.tex and RJwrapper.pdf
   rjwrapper <- list.files(pattern = "RJwrapper",
