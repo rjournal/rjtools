@@ -5,6 +5,7 @@
 #' @param path The directory that contains the .tex file (Ideally, this directory should contain .bib, .rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)
 #' @param dic The dictionary used for spelling check. See \code{dict} argument in [hunspell::hunspell()]
 #' @param pkg The name of the proposed package (if relevant), to be checked for activity on CRAN
+#' @param ... Additional arguments for spelling check with [hunspell::hunspell]
 #' @details
 #' Folder structure checks:
 #'
@@ -25,7 +26,7 @@
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 #' @rdname checks
 #' @export
-initial_check_article <- function(path = here::here(), dic = "en_US", pkg=NULL) {
+initial_check_article <- function(path = here::here(), dic = "en_US", pkg=NULL, ...) {
 
   # Documents:
   # Necessary files must be included in submission folder
@@ -56,7 +57,7 @@ initial_check_article <- function(path = here::here(), dic = "en_US", pkg=NULL) 
   check_title(path)
   check_section(path)
   check_abstract_before_intro(path)
-  check_spelling(path, dic)
+  check_spelling(path, dic, ...)
   check_proposed_pkg(pkg)
   check_packages_available(path)
 
@@ -259,7 +260,7 @@ check_abstract_before_intro <- function(path){
 #' @importFrom tools toTitleCase
 #' @rdname checks
 #' @export
-check_spelling <- function(path, dic = "en_US"){
+check_spelling <- function(path, dic = "en_US", ...){
 
   tex <- extract_tex_vec(path)
 
@@ -282,7 +283,7 @@ check_spelling <- function(path, dic = "en_US"){
   select_idx <- !c(1:length(text_bw)) %in% chunk_idx
   text_clean <- text_bw[select_idx]
 
-  check_raw <- hunspell::hunspell(text_clean, format = "latex", dic = hunspell::dictionary(dic))
+  check_raw <- hunspell::hunspell(text_clean, format = "latex", dic = hunspell::dictionary(dic), ...)
   check <- unique(unlist(check_raw))
   check_out <- check[tolower(check) == check]
 

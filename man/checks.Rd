@@ -14,7 +14,7 @@
 \alias{check_packages_available}
 \title{A single article check}
 \usage{
-initial_check_article(path = here::here(), dic = "en_US", pkg = NULL)
+initial_check_article(path = here::here(), dic = "en_US", pkg = NULL, ...)
 
 check_wrappers(path)
 
@@ -30,7 +30,7 @@ check_section(path)
 
 check_abstract_before_intro(path)
 
-check_spelling(path, dic = "en_US")
+check_spelling(path, dic = "en_US", ...)
 
 check_proposed_pkg(pkg = NULL)
 
@@ -42,6 +42,8 @@ check_packages_available(path)
 \item{dic}{The dictionary used for spelling check. See \code{dict} argument in \code{\link[hunspell:hunspell]{hunspell::hunspell()}}}
 
 \item{pkg}{The name of the proposed package (if relevant), to be checked for activity on CRAN}
+
+\item{...}{Additional arguments for spelling check with \link[hunspell:hunspell]{hunspell::hunspell}}
 }
 \description{
 A single article check
