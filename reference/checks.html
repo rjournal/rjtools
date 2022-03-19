@@ -72,7 +72,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">initial_check_article</span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="op">)</span>, dic <span class="op">=</span> <span class="st">"en_US"</span>, pkg <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">initial_check_article</span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="op">)</span>, dic <span class="op">=</span> <span class="st">"en_US"</span>, pkg <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="fu">check_wrappers</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>
 
@@ -88,7 +88,7 @@
 
 <span class="fu">check_abstract_before_intro</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>
 
-<span class="fu">check_spelling</span><span class="op">(</span><span class="va">path</span>, dic <span class="op">=</span> <span class="st">"en_US"</span><span class="op">)</span>
+<span class="fu">check_spelling</span><span class="op">(</span><span class="va">path</span>, dic <span class="op">=</span> <span class="st">"en_US"</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="fu">check_proposed_pkg</span><span class="op">(</span>pkg <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
 
@@ -103,6 +103,8 @@
 <dd><p>The dictionary used for spelling check. See <code>dict</code> argument in <code><a href="https://docs.ropensci.org/hunspell/reference/hunspell.html" class="external-link">hunspell::hunspell()</a></code></p></dd>
 <dt>pkg</dt>
 <dd><p>The name of the proposed package (if relevant), to be checked for activity on CRAN</p></dd>
+<dt>...</dt>
+<dd><p>Additional arguments for spelling check with <a href="https://docs.ropensci.org/hunspell/reference/hunspell.html" class="external-link">hunspell::hunspell</a></p></dd>
 </dl></div>
     <div id="details">
     <h2>Details</h2>

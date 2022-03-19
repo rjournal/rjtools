@@ -98,11 +98,32 @@
 
     
     
-<p>In the <code>inst/paper-with-errors</code> folder is an example article that has both html and pdf version rendered and it will be used to demonstrate the check functions in the <code>rjtools</code>. Notice that the check function implemented here is only an initial automated check and we recommend authors to also read <a href="https://journal.r-project.org/share/author-guide.pdf" class="external-link">instructions for Authors</a> before submission.</p>
-<p>There are 9 functions in total for authors to check against and these checks can be completed in one go with <code><a href="../reference/checks.html">initial_check_article()</a></code>, given a path to the article folder:</p>
+<p>The <code>rjtools</code> package has implemented some automated checks on style, spelling, and package availability, according to the R Journal format. For a comprehensive instruction on the journal format, we recommend authors to follow <a href="https://journal.r-project.org/share/author-guide.pdf" class="external-link">instructions for Authors</a>.</p>
+<p>This vignette will demonstrate these checks with an example article, <a href="https://github.com/rjournal/rjtools/tree/main/inst/paper-with-errors" class="external-link">paper-with-errors</a>.</p>
+<div class="section level2">
+<h2 id="all-checks-in-one-function">All checks in one function<a class="anchor" aria-label="anchor" href="#all-checks-in-one-function"></a>
+</h2>
+<p>All the nine checks in <code>rjtools</code> can be completed with <code><a href="../reference/checks.html">initial_check_article()</a></code>, given a path to the article folder:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">initial_check_article</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"paper-with-errors"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>The check result will be saved in an initial_check.log file, as well as displayed in the console. Checking on each item is also supported by individual <code>check_*()</code> function:</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">initial_check_article</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><em>Notice the file path here is the path to the .tex file of your article. If you have created the article using <code><a href="../reference/create_article.html">create_article()</a></code> with the default arguments, you can check with <code>initial_check_article(path = here::here("rjarticle"))</code>.</em></p>
+<p>The check result will be saved in an initial_check.log file under the same folder, as well as displayed in the console. This is how it looks like for the sample article:</p>
+<pre><code>Initial check results:
+SUCCESS: Submission contains both RJwrapper.tex and RJwrapper.pdf
+ERROR: Submission does not have consistently named tex, bib, and R files
+SUCCESS: No problematic file found
+SUCCESS: Possible motivation letter found
+ERROR: The title is not in title case! Suggest title to be changed to:
+ToOoOlTiPs: An R Package for Customizable Tooltips in Interactive Graphics
+SUCCESS: All sections are properly formatted in sentence case
+SUCCESS: Abstract comes before the introduction section
+NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot
+SUCCESS: Submission contains both RJwrapper.tex and RJwrapper.pdf</code></pre>
+</div>
+<div class="section level2">
+<h2 id="individual-check-functions">Individual check functions<a class="anchor" aria-label="anchor" href="#individual-check-functions"></a>
+</h2>
+<p>The nine individual checks contained in <code><a href="../reference/checks.html">initial_check_article()</a></code> are:</p>
 <ul>
 <li><p><code><a href="../reference/checks.html">check_wrappers()</a></code></p></li>
 <li><p><code><a href="../reference/checks.html">check_filenames()</a></code></p></li>
@@ -114,101 +135,95 @@
 <li><p><code><a href="../reference/checks.html">check_proposed_pkg()</a></code></p></li>
 <li><p><code><a href="../reference/checks.html">check_packages_available()</a></code></p></li>
 </ul>
-<p>Below we will apply each check function on the example article we create</p>
-<div class="section level2">
-<h2 id="wrappers">Wrappers<a class="anchor" aria-label="anchor" href="#wrappers"></a>
-</h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_wrappers</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> SUCCESS: Submission contains both RJwrapper.tex and RJwrapper.pdf</span>
-<span class="co">#&gt; SUCCESS: Submission contains both RJwrapper.tex and RJwrapper.pdf</span></code></pre></div>
-<p>A properly rendered article should have both the <code>RJwrapper.tex</code> and <code>RJwrapper.pdf</code> file and our article passes this check. Good!</p>
-</div>
-<div class="section level2">
-<h2 id="filenames">Filenames<a class="anchor" aria-label="anchor" href="#filenames"></a>
-</h2>
+<p>and they can all be individually checked on the article.</p>
+<div class="section level3">
+<h3 id="wrappers">Wrappers<a class="anchor" aria-label="anchor" href="#wrappers"></a>
+</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_filenames</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #BBBB00;">!</span> ERROR: Submission does not have consistently named tex, bib, and R files</span>
-<span class="co">#&gt; ERROR: Submission does not have consistently named tex, bib, and R files</span></code></pre></div>
-<p>The .bib file is named <code>skeleton.bib</code> when created and we recommend setting a consistent name across the .bib, .tex, and .Rmd file. A fix to this is to rename the <code>skeleton.bib</code> as the file name you used when create the article, in our case, <code>paper-with-errors</code>. Also remember to make the same change in the Rmd YAML, so it can find the .bib file during knitting!</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_wrappers</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; SUCCESS: Submission contains both RJwrapper.tex and RJwrapper.pdf</span></code></pre></div>
+<p>A properly rendered article should have both the <code>RJwrapper.tex</code> and <code>RJwrapper.pdf</code> file and our article passes this check.</p>
 </div>
-<div class="section level2">
-<h2 id="presence-of-unnecessary-files">Presence of unnecessary files<a class="anchor" aria-label="anchor" href="#presence-of-unnecessary-files"></a>
-</h2>
+<div class="section level3">
+<h3 id="filenames">Filenames<a class="anchor" aria-label="anchor" href="#filenames"></a>
+</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_unnecessary_files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> SUCCESS: No problematic file found</span>
-<span class="co">#&gt; SUCCESS: No problematic file found</span></code></pre></div>
-<p>This function checks that the folder doesn’t contain the <code>RJtemplate.tex</code> file, which is icluded the previous R journal template. The <a href="https://journal.r-project.org/share/author-guide.pdf" class="external-link">authors instruction</a> requires the authors to replace the content of this <code>RJtemplate.tex</code> file with article content and name with the lowercase concatenated author name, so it is essentially the <code>.tex</code> file automatically generated in the previous section. Our article don’t have unnecessary file here. Good :)</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_filenames</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; ERROR: Submission does not have consistently named tex, bib, and R files</span></code></pre></div>
+<p>The .bib file is named <code>Rjreferences.bib</code> when created and we recommend setting a consistent name across the .bib, .tex, and .Rmd file. A fix to this is to rename the <code>Rjreferences.bib</code> as the file name you used when create the article, in our case, <code>paper-with-errors</code>.</p>
 </div>
-<div class="section level2">
-<h2 id="presence-of-a-motivating-letter">Presence of a motivating letter<a class="anchor" aria-label="anchor" href="#presence-of-a-motivating-letter"></a>
-</h2>
+<div class="section level3">
+<h3 id="presence-of-unnecessary-files">Presence of unnecessary files<a class="anchor" aria-label="anchor" href="#presence-of-unnecessary-files"></a>
+</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_cover_letter</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> SUCCESS: Possible motivation letter found</span>
-<span class="co">#&gt; SUCCESS: Possible motivation letter found</span></code></pre></div>
-<p>Cover letter should be provided for article of type “add-on package” and saved at the same folder as the article. The function checks whether there is a file has the word “motivation” in its name and the note says our sample article has not yet have a motivational letter. Bad!</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_unnecessary_files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
+<span class="co">#&gt; SUCCESS: No problematic file found</span></code></pre></div>
+<p>This function checks that the folder doesn’t contain the <code>RJtemplate.tex</code> file, which is included the past R journal template. The <a href="https://journal.r-project.org/share/author-guide.pdf" class="external-link">authors instruction</a> requires the authors to replace the content of this <code>RJtemplate.tex</code> file with article content and name with the lowercase concatenated author name, so it is essentially the <code>.tex</code> file automatically generated in the previous section. Our article don’t have unnecessary files.</p>
 </div>
-<div class="section level2">
-<h2 id="article-title-is-in-title-case">Article title is in title case<a class="anchor" aria-label="anchor" href="#article-title-is-in-title-case"></a>
-</h2>
+<div class="section level3">
+<h3 id="presence-of-a-motivating-letter">Presence of a motivating letter<a class="anchor" aria-label="anchor" href="#presence-of-a-motivating-letter"></a>
+</h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_cover_letter</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
+<span class="co">#&gt; SUCCESS: Possible motivation letter found</span></code></pre></div>
+<p>Cover letter should be provided for article of type “add-on package” and saved at the same folder as the article. The function checks whether there is a file containing the word “motivation” in its name. Our article passes this check.</p>
+</div>
+<div class="section level3">
+<h3 id="article-title-is-in-title-case">Article title is in title case<a class="anchor" aria-label="anchor" href="#article-title-is-in-title-case"></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_title</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; <span style="color: #BBBB00;">!</span> ERROR: The title is not in title case! Suggest title to be changed to:</span>
-<span class="co">#&gt; ToOoOlTiPs: An R Package for Customizable Tooltips in Interactive Graphics</span>
 <span class="co">#&gt; ERROR: The title is not in title case! Suggest title to be changed to:</span>
 <span class="co">#&gt; ToOoOlTiPs: An R Package for Customizable Tooltips in Interactive Graphics</span></code></pre></div>
 <p>The article title needs to be in the title case and the check is not happy with our title here. Use <code><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">tools::toTitleCase()</a></code> to get the correct title case format:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="st">"ToOoOlTiPs: An R package for Customizable Tooltips in Interactive Graphics"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "ToOoOlTiPs: An R Package for Customizable Tooltips in Interactive Graphics"</span></code></pre></div>
 <p>Here we forget to capitalise “P” in the word “package” - better make this change before submission! Also if the title contains the package you’re proposing, i.e <code>ToOoOlTiPs</code> in our article, use the <code>\pkg{.}</code> tag rather than <code>\CRANpkg{.}</code>.</p>
 </div>
-<div class="section level2">
-<h2 id="section-title-is-in-sentence-case">Section title is in sentence case<a class="anchor" aria-label="anchor" href="#section-title-is-in-sentence-case"></a>
-</h2>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_section</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; <span style="color: #00BB00;">✔</span> SUCCESS: All sections are properly formatted in sentence case</span>
-<span class="co">#&gt; SUCCESS: All sections are properly formatted in sentence case</span></code></pre></div>
-<p>Section titles need to be in the sentence case and we are all good!</p>
-</div>
-<div class="section level2">
-<h2 id="spelling">Spelling<a class="anchor" aria-label="anchor" href="#spelling"></a>
-</h2>
+<div class="section level3">
+<h3 id="section-title-is-in-sentence-case">Section title is in sentence case<a class="anchor" aria-label="anchor" href="#section-title-is-in-sentence-case"></a>
+</h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_spelling</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot</span>
-<span class="co">#&gt; NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot</span></code></pre></div>
-<p>The spelling check is performed from the abstract to bibliography section, excluding the comments in the code chunks. Only words with all lowercase letters are checked to avoid picking up on acronyms and names. The underlying checking is done through the <code>hunspell</code> package with US spelling by default. British spelling can be checked with argument <code>dic = "en_GB"</code>. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained. Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if the suggested spelling mistakes are true mis-spellings. In our article, “tooltip” is a specialised vocabulary in interactive graphics, which is not really a mis-spelling, so we are free of spelling mistake!</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_section</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
+<span class="co">#&gt; SUCCESS: All sections are properly formatted in sentence case</span></code></pre></div>
+<p>Section titles need to be in the sentence case and we are all good here :)</p>
 </div>
-<div class="section level2">
-<h2 id="package-is-available-on-cran">Package is available on CRAN<a class="anchor" aria-label="anchor" href="#package-is-available-on-cran"></a>
-</h2>
+<div class="section level3">
+<h3 id="spelling">Spelling<a class="anchor" aria-label="anchor" href="#spelling"></a>
+</h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_spelling</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> 
+<span class="co">#&gt; NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot</span></code></pre></div>
+<p>The spelling is checked from the abstract to bibliography section and only words with all lowercase letters are checked to avoid picking up on acronyms and names. The underlying checking is done through the <code>hunspell</code> package with US spelling by default. British spelling can be checked with argument <code>dic = "en_GB"</code>. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained.</p>
+<p>Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if these are true spelling mistakes. In our article, “tooltip” is a specialised vocabulary in interactive graphics, rather than a mis-spell, so we are free to go :)</p>
+</div>
+<div class="section level3">
+<h3 id="package-is-available-on-cran">Package is available on CRAN<a class="anchor" aria-label="anchor" href="#package-is-available-on-cran"></a>
+</h3>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_proposed_pkg</a></span><span class="op">(</span><span class="op">)</span> </code></pre></div>
-<p>The package proposed in an article should already be available on CRAN before article submission. <code>check_proposed_pkg</code> prompts the following in the console:</p>
+<p>The package proposed in an article should already be available on CRAN before article submission. <code><a href="../reference/checks.html">check_proposed_pkg()</a></code> prompts the following in the console:</p>
 <blockquote>
 <p>What’s the name of package being proposed in the article? If none, please enter 0.</p>
 </blockquote>
-<p>and authors need to enter the exact package name for an availability check on CRAN download with the <code>cranlogs</code> package. For our article, enter “ToOoOlTiPs” in the console and the check would say</p>
+<p>and authors need to enter the exact package name, with proper capitalisation, for an availability check on CRAN download. For our article, enter <code>ToOoOlTiPs</code> in the console and the check would say</p>
 <blockquote>
 <p>NOTE: No CRAN activities detected for package ToOoOlTiPs</p>
 </blockquote>
-<p>Definitely CRAN can’t find our package since it is a hypothetical one!</p>
+<p>Not suprising that CRAN can’t find our package since it is a hypothetical one!</p>
 </div>
-<div class="section level2">
-<h2 id="package-availability">Package availability<a class="anchor" aria-label="anchor" href="#package-availability"></a>
-</h2>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="section level3">
+<h3 id="package-availability">Package availability<a class="anchor" aria-label="anchor" href="#package-availability"></a>
+</h3>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/checks.html">check_packages_available</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/paper-with-errors"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
-<p>All the packages mentioned with a <code>\CRANpkg{.}</code> or <code>\BIOpkg{.}</code> tag need to be available on CRAN or Bioconductor and <code>check_packages_available</code> makes sure this is the case. For our article, we get</p>
+<p>All the packages mentioned with a <code>\CRANpkg{.}</code> or <code>\BIOpkg{.}</code> tag need to be available on CRAN or Bioconductor and <code><a href="../reference/checks.html">check_packages_available()</a></code> makes sure this is the case. For our article, we get</p>
 <blockquote>
 <p>! ERROR: 1 of 5 package(s) not available on CRAN: ToOoOlTiPs</p>
 </blockquote>
-<p>which is not really an issue :)</p>
+<p>which is not really an issue here!</p>
+</div>
 </div>
   </div>
 

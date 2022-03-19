@@ -103,10 +103,10 @@
 <div class="section level2">
 <h2 id="create-an-article">Create an Article<a class="anchor" aria-label="anchor" href="#create-an-article"></a>
 </h2>
-<p>The <code><a href="../reference/create_article.html">create_article()</a></code> function will create these files under a default <code>paper</code> folder:</p>
+<p>The <code><a href="../reference/create_article.html">create_article()</a></code> function will create these files under a default <code>rjarticle</code> folder:</p>
 <ul>
 <li>
-<strong>article.Rmd</strong>: the main document</li>
+<strong>quokka-bilby.Rmd</strong>: the main document</li>
 <li>
 <strong>motivation-letter.md</strong>: a motivation letter template for the article</li>
 <li>
@@ -126,7 +126,7 @@
 <div class="section level2">
 <h2 id="your-first-knit">Your first knit<a class="anchor" aria-label="anchor" href="#your-first-knit"></a>
 </h2>
-<p>The <code><a href="../reference/rjournal_web_article.html">rjtools::rjournal_web_article</a></code> output specified in the YAML will create the article in both html and pdf format. Additional files created during the knit are (assuming file name of <code>quokka-bilby</code>):</p>
+<p>The <code><a href="../reference/article.html">rjtools::rjournal_web_article</a></code> output specified in the article YAML will create the article in both html and pdf formats. Additional files created during the knit are (assuming file name of <code>quokka-bilby</code>):</p>
 <ul>
 <li>
 <strong>quokka-bilby.html</strong>: the html article</li>
@@ -135,7 +135,9 @@
 <li>
 <strong>quokka-bilby.tex</strong>: the LaTex file</li>
 <li>
-<strong>quokka-bilby.R</strong>: an R file that contains all the code</li>
+<strong>quokka-bilby.R</strong>: an R file that contains all the codes</li>
+<li>
+<strong>quokka-bilby-files/</strong>: a folder of javascript libraries, necessary to view the the html article</li>
 </ul>
 <p>You can use the regular ways to render the files, either through the RStudio <code>knit</code> button, or using <code>rmarkdown::render("paper/quokka-bilby.Rmd")</code> on the R command line.</p>
 </div>
