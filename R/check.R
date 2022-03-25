@@ -181,7 +181,8 @@ check_cover_letter <- function(path){
 check_title <- function(path){
 
   tex <- extract_tex(path)
-  str <- stringr::str_extract(tex,  "(?<=\\\\title\\{).*?(?=\\})")
+  str <- sub(".*((?<=\\\\title\\{)(.*)(?=\\}\\s\\\\author\\{)).*","\\1", tex, perl = TRUE)
+  str <- gsub("\\{.*\\}", "", str) # remove package name
 
   if (tools::toTitleCase(str) != str){
     correct <- tools::toTitleCase(str)
