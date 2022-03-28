@@ -98,7 +98,7 @@
 
     
     
-<p>This article will work you through the key parts of an rjournal template article as produced by <code><a href="../reference/create_article.html">create_article()</a></code>. This assumes that you have already followed the <strong>Create an R Journal Article</strong> vignette, have created your initial article, and you have been able to knit both the <code>pdf</code> and <code>html</code> article. Here we explain the important parts you can see in the <code>Rmd</code> file that generates both output types, and how to modify them, and to debug if problems arise.</p>
+<p>This article will work you the key parts of an rjournal template article as produced by <code><a href="../reference/create_article.html">create_article()</a></code>. This assumes that you have already followed the “Create an R Journal Article” vignette, have created your initial article, and you have been able to knit both the <code>pdf</code> and <code>html</code> article. Here we explain the important parts you can see in the <code>Rmd</code> file that generates both output types, and how to modify them, and to debug if problems arise.</p>
 <div class="section level2">
 <h2 id="yaml-header">YAML header<a class="anchor" aria-label="anchor" href="#yaml-header"></a>
 </h2>
@@ -108,49 +108,52 @@
 <li><code>abstract: &gt; ....</code></li>
 <li>
 <code>author:</code> with separate lines for <code>name:</code>, <code>affiliation:</code>, <code>address:</code>, <code>url:</code>, <code>orcid:</code>, <code>email:</code> and a block for each author</li>
-<li>
-<code>output:</code> as <code><a href="../reference/article.html">rjtools::rjournal_web_article</a></code>
-</li>
+<li>output format lines should look like</li>
+</ul>
+<pre><code><span class="va">output</span><span class="op">:</span>
+  <span class="fu">rjtools</span><span class="fu">::</span><span class="va"><a href="../reference/article.html">rjournal_web_article</a></span></code></pre>
+<ul>
 <li><code>bibliography: RJreferences.bib</code></li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
 </h2>
-<p>The new R Journal format supports interactive plots in the html output, on top of the conventional static plots in both pdf and html outputs. The following section will show examples on creating static and interactive plots with the R Journal format.</p>
+<p>If you would like to have an interactive plot in the html output, you will also need to provide a static plot for the pdf output. You will need two code blocks, one for each, with conditional <code>eval</code> options. The inline reference will also need to do a conditional <code>eval</code> to write the appropriate reference link depending on the html or pdf knitting.</p>
+<p>Of course, if only a static plot is to be rendered in both outputs, a single code chunk and a single inline reference will be sufficient.</p>
+<p>Note that the structure of a thorough caption is three components: (1) what is the plot/table about, (2) specific details of plot/table, like what type of display and how variables are mapped, (3) the most important thing that the reader should learn.</p>
 <div class="section level3">
 <h3 id="static">Static<a class="anchor" aria-label="anchor" href="#static"></a>
 </h3>
-<p>For a static plot, use <code>\@ref(fig:penguins)</code> for in-text reference and your code chunk should look something like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="bn">```{r penguins, fig.cap="This is the figure caption"}</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="bn">penguins %&gt;% </span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="bn">  ggplot(aes(x = flipper_length_mm, y = body_mass_g, </span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="bn">             color = species)) + </span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="bn">  geom_point()</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="bn">```</span></span></code></pre></div>
-<p>This chunk will be evaluated for both pdf and html rendering and the html reference syntax <code>\@ref(fig:penguins)</code> works in both formats under the <code><a href="../reference/article.html">rjtools::rjournal_web_article</a></code> output (which you specified in the YAML header).</p>
+<p>For a static graph, use <code>\@ref(fig:penguins)</code> for in-text reference and your code chunk should look something like this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="bn">```{r penguins, fig.cap="This is the figure caption"}</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="bn">penguins %&gt;% </span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="bn">  ggplot(aes(x = flipper_length_mm, y = body_mass_g, </span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="bn">             color = species)) + </span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="bn">  geom_point()</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="bn">```</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="interactive">Interactive<a class="anchor" aria-label="anchor" href="#interactive"></a>
 </h3>
-<p>One of the advantages of the new R Journal format is to allow interactive graphics and animation in the html article while provide a static version in the pdf article. To do this, you will need two code chunks with conditional evaluation:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="bn">```{r penguins-static, eval=knitr::is_latex_output(), fig.cap="This is the figure caption."}</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="bn">penguins %&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="bn">  ggplot(aes(x = bill_depth_mm, y = bill_length_mm,</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="bn">             color = species)) +</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="bn">  geom_point()</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="bn">```</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a><span class="bn">```{r penguins-interactive, eval=knitr::is_html_output(), fig.cap="This is the figure caption."}</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="bn">p1 &lt;- penguins %&gt;%</span></span>
+<p>For an interactive graphic, use separate code chunks to create a static plot for the pdf article and an interative one for the html article:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a><span class="bn">```{r penguins-static, eval=knitr::is_latex_output(), fig.cap="This is the figure caption."}</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="bn">penguins %&gt;%</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="bn">  ggplot(aes(x = bill_depth_mm, y = bill_length_mm,</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="bn">             color = species)) +</span></span>
 <span id="cb3-5"><a href="#cb3-5"></a><span class="bn">  geom_point()</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="bn">plotly::ggplotly(p1)</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="bn">```</span></span></code></pre></div>
-<p>Here the <code>penguins-static</code> chunk is only evaluated in the pdf article, given <code>eval = knitr::is_latex_output()</code> and the second chunk <code>penguins-interactive</code> is only evaluated when building the html article (<code>eval = knitr::is_html_output()</code>).</p>
-<p>The in-text citation is a bit more complicated since it involves referencing different chunks. You will need something like this:</p>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="bn">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="bn">```{r penguins-interactive, eval=knitr::is_html_output(), fig.cap="This is the figure caption."}</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="bn">p1 &lt;- penguins %&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="bn">  ggplot(aes(x = bill_depth_mm, y = bill_length_mm,</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="bn">             color = species)) +</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="bn">  geom_point()</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="bn">plotly::ggplotly(p1)</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="bn">```</span></span></code></pre></div>
+<p>Notice here you need <code>eval=knitr::is_html_output()</code> and <code>eval=knitr::is_latex_output()</code> to make sure that the pdf output only evaluates the first chunk and the html output only evaluates the second.</p>
+<p>For in-text citation, you will something like this:</p>
 <pre><code>Figure `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(fig:penguins-interactive)', '\\@ref(fig:penguins-static)'))` shows ...</code></pre>
-<p>The if-else statement uses <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html" class="external-link">knitr::is_html_output()</a></code> to decide if the output is an html or pdf ouput. For an html output, <code>\\@ref(fig:penguins-interactive)</code> will be used to reference the chunk of the interactive graphic. If the output is a pdf, <code>\\@ref(fig:penguins-static)</code> will reference the static chunk. Finally, <code><a href="https://rdrr.io/pkg/knitr/man/asis_output.html" class="external-link">knitr::asis_output()</a></code> makes sure that the reference string is parsed as it is, so no special treatment on <code>\@</code>.</p>
+<p>This line is quite complicated so let’s dissect its components: the if-else statement uses <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html" class="external-link">knitr::is_html_output()</a></code> to decide if the output is an html or pdf ouput. For an html output, <code>\\@ref(fig:penguins-interactive)</code> will be used to reference the chunk of the interactive graphic. If the output is a pdf, <code>\\@ref(fig:penguins-static)</code> will reference the static figure. Finally, <code><a href="https://rdrr.io/pkg/knitr/man/asis_output.html" class="external-link">knitr::asis_output()</a></code> makes sure that the reference string is parsed as it is, so no special treatment on <code>\@</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="sizing">Sizing<a class="anchor" aria-label="anchor" href="#sizing"></a>
@@ -184,9 +187,7 @@ ggplot(data = penguins,
 <div class="section level2">
 <h2 id="tables">Tables<a class="anchor" aria-label="anchor" href="#tables"></a>
 </h2>
-<p>Both markdown table and <code><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">knitr::kable()</a></code> are supported in both pdf and html articles with the R Journal format</p>
-<p>To use a simple <a href="https://www.markdownguide.org/extended-syntax/#tables" class="external-link">markdown table</a>, you need to add <code>preamble: \usepackage{longtable}</code> in the YAML to render the pdf output.</p>
-<p>With <code><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">knitr::kable()</a></code> two chunks need to be set up with different <code>format</code> arguments, similar to the interactive graphics:</p>
+<p>To use a simple markdown table, you need to add <code>preamble: \usepackage{longtable}</code> in the YAML for the tex file to render the pdf output. Another option is to use <code><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">knitr::kable()</a></code>, where you need to set up two chunks similar to the figures with different <code>format</code> arguments:</p>
 <pre class="rmarkdown"><code>```{r penguins-interactive, eval = knitr::is_html_output()}
 knitr::kable(head(penguins), format = "html", caption = "Table caption")
 ```</code></pre>
@@ -214,13 +215,6 @@ knitr::kable(head(penguins), format = "latex", caption = "Table caption")
 <p>Custom <code>css</code> is discouraged, because all articles should look similar. However, if you would like to make <strong>small</strong> changes in style for the appearance of your paper, even to get sizing of plots and tables cleaner in the html output, you can add a custom <code>css</code> and point to it in the YAML along with the <code>rjournal.css</code>.</p>
 </div>
 <div class="section level2">
-<h2 id="others">Others<a class="anchor" aria-label="anchor" href="#others"></a>
-</h2>
-<ul>
-<li>Randomisation: if your code contains any randomisation, make sure a seed is used so that the pdf and html article render the same result.</li>
-</ul>
-</div>
-<div class="section level2">
 <h2 id="converting-from-other-rmarkdown-formats">Converting from other Rmarkdown formats<a class="anchor" aria-label="anchor" href="#converting-from-other-rmarkdown-formats"></a>
 </h2>
 <p>If you are already writing your articles using Rmarkdown, and have written your article using the <code><a href="https://rdrr.io/pkg/rticles/man/rjournal_article.html" class="external-link">rticles::rjournal_article</a></code> style it is straightforward to make the switch to the <code>rjtools</code> styling. These are the steps that you need to follow:</p>
@@ -231,6 +225,12 @@ knitr::kable(head(penguins), format = "latex", caption = "Table caption")
 <li>add the <code>rjournal.csl</code> and <code>rjournal.css</code> template files to your folder, updating YAML to utilise them, and</li>
 <li>set the reference to the <code>.bib</code> in the YAML.</li>
 </ol>
+</div>
+<div class="section level2">
+<h2 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
+</h2>
+<p>Code chunks should provide the examples of usage of the package, if the paper is about an add-on package for R. Nice structure to the code is expected of R Journal papers.</p>
+<p>Some good advice on code style can be found in - “R packages” chapter 7 by Hadley Wickham at <a href="https://r-pkgs.org/r.html" class="external-link uri">https://r-pkgs.org/r.html</a>, - “rOpenSci Packages: Development, Maintenance, and Peer Review” at <a href="https://devguide.ropensci.org/building.html" class="external-link uri">https://devguide.ropensci.org/building.html</a>, - “What I look for in ‘Software Papers’” by Carl Boettiger at <a href="https://www.carlboettiger.info/2013/06/13/what-I-look-for-in-software-papers.html" class="external-link uri">https://www.carlboettiger.info/2013/06/13/what-I-look-for-in-software-papers.html</a> - Using the “styler” package, - and avoiding the features warned against by Jenny Bryan at <a href="https://www.tidyverse.org/articles/2017/12/workflow-vs-script/" class="external-link uri">https://www.tidyverse.org/articles/2017/12/workflow-vs-script/</a></p>
 </div>
 <div class="section level2">
 <h2 id="trouble-shooting">Trouble-shooting<a class="anchor" aria-label="anchor" href="#trouble-shooting"></a>
