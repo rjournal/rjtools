@@ -160,7 +160,47 @@ All the packages mentioned with a `\CRANpkg{.}` or `\BIOpkg{.}` tag need to be a
 which is not really an issue here!
 
 
+# Checklist
 
+Editors, associate editors and reviewers will routinely check that papers adhere to these criteria:
 
+## General
 
+- Filenames are sensible such as author-names.XXX
+- Add-on package, and dependent packages, are on CRAN
+- Code runs easily and quickly
+- Examples can be reproduced with the R code provided
+- Figures are readable and clear, with appropriate captioning
+- Tables don't exceed text margins 
+- Code is appropriately indented 
+- Contact email address is provided for at least one author
+
+## Titles
+
+- Title is in title case
+- Section titles are in sentence case
+- No special formatting is used in the title
+
+## Abstract
+
+- Should not have math notation
+
+## Mathematics
+
+- Brackets need to be appropriately paired
+- Punctuation after equations needs to be consistent
+- Mathematical operators (eg log) should be roman, not italic
+
+## Code
+
+- Needs to be marked up
+- Styled and indented nicely
+
+## Citations
+
+- All references need to have a DOI where available
+- The default bibliography style needs to be used
+- Inline citations are appropriately "(author, year)" or "author (year)" 
+- Consistent capitalisation of reference titles
+- All R packages used in the work are appropriately cited, eg `ggplot` if this is used to create the figures
 
