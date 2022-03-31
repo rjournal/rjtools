@@ -23,7 +23,9 @@ author:
     - Somewhere, Australia
 type: package
 output: 
-  rjtools::rjournal_web_article
+  rjtools::rjournal_web_article:
+    self_contained: yes
+    toc: no
 bibliography: RJreferences.bib
 
 ---
