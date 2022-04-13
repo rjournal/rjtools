@@ -1,7 +1,7 @@
 {{#supp}}
-## Supplementary material {.appendix}
+## Supplementary materials {.appendix}
 
-Materials is available in addition to this article. It can be downloaded at 
+Supplementary materials are available in addition to this article. It can be downloaded at 
 [{{supp}}]({{supp}})
 {{/supp}}
 
