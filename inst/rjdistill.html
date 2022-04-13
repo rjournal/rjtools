@@ -54,8 +54,8 @@
     $('div.rjournal').append('<p class="volume">'+volume+':'+issue+'</p>')
     $('div.rjournal').append('<p class="pages">'+firstpage+' - '+lastpage+'</p>')
 
-    const received_date = get_meta('date_received', rmd_meta)
-    byline.find('h3:contains("Published")').parent().append('<h3>Received</h3><p>'+received_date+'</p>')
+    const received_date = new Date(get_meta('date_received', rmd_meta))
+    byline.find('h3:contains("Published")').parent().append('<h3>Received</h3><p>'+received_date.toLocaleDateString('en-US', {month: 'short'})+' '+received_date.getDate()+', '+received_date.getFullYear()+'</p>')
 
   })
 </script>
