@@ -114,13 +114,16 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
 
     # Add custom appendix
     data <- list()
-    if (!is.null(metadata$supplementary_materials)) {
-      data <- c(data, list(supp = metadata$supplementary_materials))
+    if(file.exists(suppl <- xfun::with_ext(metadata$slug, ".zip"))) {
+    # if (!is.null(metadata$supplementary_materials)) {
+      data <- c(data, list(supp = suppl))
     }
     if (!is.null(metadata$CTV)) {
-      CTV <- sprintf("[%s](https://cran.r-project.org/view=%s)", metadata$CTV, metadata$CTV)
-      CTV <- paste(CTV, collapse = ", ")
-      data <- c(data, list(CTV = CTV))
+      if (length(metadata$packages$cran) > 0) {
+        CTV <- sprintf("[%s](https://cran.r-project.org/view=%s)", metadata$CTV, metadata$CTV)
+        CTV <- paste(CTV, collapse = ", ")
+        data <- c(data, list(CTV = CTV))
+      }
     }
     if (!is.null(metadata$packages)) {
       if (length(metadata$packages$cran) != 0) {
