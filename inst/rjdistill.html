@@ -52,7 +52,7 @@
     byline.append('<div class="rjournal grid">')
     $('div.rjournal').append('<h3>Volume</h3>')
     $('div.rjournal').append('<h3>Pages</h3>')
-    $('div.rjournal').append('<a class="volume" href="../../issues/'+year+'-'+issue+'">'+volume+':'+issue+'</a>')
+    $('div.rjournal').append('<a class="volume" href="../../issues/'+year+'-'+issue+'">'+volume+'/'+issue+'</a>')
     $('div.rjournal').append('<p class="pages">'+firstpage+' - '+lastpage+'</p>')
 
     const received_date = new Date(get_meta('date_received', rmd_meta))
