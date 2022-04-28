@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rjtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -195,6 +195,28 @@ knitr::kable(head(penguins), format = "html", caption = "Table caption")
 knitr::kable(head(penguins), format = "latex", caption = "Table caption")
 ```   </code></pre>
 <p>For inline reference, remember to use <code>tab:</code> instead of <code>fig:</code> in <code>\\@ref(tab:penguins-interactive)</code> and <code>\\@ref(tab:penguins-static)</code>. The same <code>layout</code> used for figure sizing is also applicable for tables.</p>
+</div>
+<div class="section level2">
+<h2 id="equations">Equations<a class="anchor" aria-label="anchor" href="#equations"></a>
+</h2>
+<p>All equations need to have a label for consistency in both html and pdf outputs. For example:</p>
+<pre><code>\begin{equation} 
+STP_{\textit{parity loss}} = \Big | \ln \Big( \frac{STP_b}{STP_a} \Big)\Big|. 
+  (\#eq:parityLoss1)
+\end{equation} </code></pre>
+<p><span class="math display">\[\begin{equation} 
+STP_{\textit{parity loss}} = \Big | \ln \Big( \frac{STP_b}{STP_a} \Big)\Big|. 
+  (\#eq:parityLoss1)
+\end{equation}\]</span></p>
+<pre><code>\begin{equation} 
+STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_i}{STP_a} \Big)\Big|.  
+  (\#eq:parityLoss2)
+\end{equation} </code></pre>
+<p><span class="math display">\[\begin{equation} 
+STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_i}{STP_a} \Big)\Big|.  
+  (\#eq:parityLoss2)
+\end{equation}\]</span></p>
+<p>Both equations will be numbered, and referenced with. <code>\@ref(eq:parityLoss2)</code>. So you can link to Equation @ref(eq:parityLoss2) in both html and pdf outputs.</p>
 </div>
 <div class="section level2">
 <h2 id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>
