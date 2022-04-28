@@ -1,3 +1,7 @@
+# rjtools 1.0.1
+
+* Self-contained html is default
+
 # rjtools 1.0.0
 
 * Depends on distill instead of rjdistill

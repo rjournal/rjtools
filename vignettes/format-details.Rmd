@@ -1,7 +1,7 @@
 ---
 title: "More details on the R Journal format"
 author: H. Sherry Zhang and Di Cook
-output: rmarkdown::html_vignette
+output: bookdown::html_vignette2
 vignette: >
   %\VignetteIndexEntry{format-details}
   %\VignetteEngine{knitr::rmarkdown}
@@ -134,6 +134,34 @@ knitr::kable(head(penguins), format = "latex", caption = "Table caption")
 
 For inline reference, remember to use `tab:` instead of `fig:` in `\\@ref(tab:penguins-interactive)` and `\\@ref(tab:penguins-static)`. The same `layout` used for figure sizing is also applicable for tables.
 
+# Equations
+
+All equations need to have a label for consistency in both html and pdf outputs. For example:
+
+```
+\begin{equation} 
+STP_{\textit{parity loss}} = \Big | \ln \Big( \frac{STP_b}{STP_a} \Big)\Big|. 
+  (\#eq:parityLoss1)
+\end{equation} 
+```
+\begin{equation} 
+STP_{\textit{parity loss}} = \Big | \ln \Big( \frac{STP_b}{STP_a} \Big)\Big|. 
+  (\#eq:parityLoss1)
+\end{equation} 
+
+```
+\begin{equation} 
+STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_i}{STP_a} \Big)\Big|.  
+  (\#eq:parityLoss2)
+\end{equation} 
+```
+
+\begin{equation} 
+STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_i}{STP_a} \Big)\Big|.  
+  (\#eq:parityLoss2)
+\end{equation}
+
+Both equations will be numbered, and referenced with.  `\@ref(eq:parityLoss2)`. So you can link to Equation \@ref(eq:parityLoss2) in both html and pdf outputs.
 
 # Citations
 
