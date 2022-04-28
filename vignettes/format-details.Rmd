@@ -144,10 +144,6 @@ STP_{\textit{parity loss}} = \Big | \ln \Big( \frac{STP_b}{STP_a} \Big)\Big|.
   (\#eq:parityLoss1)
 \end{equation} 
 ```
-\begin{equation} 
-STP_{\textit{parity loss}} = \Big | \ln \Big( \frac{STP_b}{STP_a} \Big)\Big|. 
-  (\#eq:parityLoss1)
-\end{equation} 
 
 ```
 \begin{equation} 
@@ -156,12 +152,7 @@ STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_
 \end{equation} 
 ```
 
-\begin{equation} 
-STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_i}{STP_a} \Big)\Big|.  
-  (\#eq:parityLoss2)
-\end{equation}
-
-Both equations will be numbered, and referenced with.  `\@ref(eq:parityLoss2)`. So you can link to Equation \@ref(eq:parityLoss2) in both html and pdf outputs.
+Both equations will be numbered, and referenced with  `\@ref(eq:parityLoss2)`. So you can link to the equation in both html and pdf outputs.
 
 # Citations
 
