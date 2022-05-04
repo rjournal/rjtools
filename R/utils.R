@@ -16,3 +16,21 @@ strip_macros <- function(x){
 `%@%` <- function(x, attribute) {
   attr(x, attribute)
 }
+
+local_cache <- function() {
+  table <- new.env(parent = emptyenv())
+  list(
+    add = function(x, nm) {
+      table[[nm]] <- x
+      table[[nm]]
+    },
+    get = function(nm) {
+      table[[nm]]
+    },
+    exists = function(nm) {
+      nm %in% names(table)
+    }
+  )
+}
+
+local_cache <- local_cache()

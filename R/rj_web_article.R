@@ -72,9 +72,14 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
       )
     }
     if(is.null(metadata$CTV)) {
-      ctvs <- readRDS(
-        gzcon(url("https://cran.r-project.org/src/contrib/Views.rds", open = "rb"))
-      )
+      if(local_cache$exists("ctv")){
+        ctvs <- local_cache$get("ctv")
+      } else {
+        ctvs <- readRDS(
+          gzcon(url("https://cran.r-project.org/src/contrib/Views.rds", open = "rb"))
+        )
+        local_cache$add(ctvs, "ctv")
+      }
       ctvs <- Filter(
         function(taskview) {
           any(metadata$packages$cran %in% taskview$packagelist$name)
