@@ -170,14 +170,12 @@ Editors, associate editors and reviewers will routinely check that papers adhere
 - Add-on package, and dependent packages, are on CRAN
 - Code runs easily and quickly
 - Examples can be reproduced with the R code provided
-- Figures are readable and clear, with appropriate captioning
-- Tables don't exceed text margins 
 - Code is appropriately indented 
 - Contact email address is provided for at least one author
 
 ## Titles
 
-- Title is in title case
+- Title are in title case
 - Section titles are in sentence case
 - No special formatting is used in the title
 
@@ -193,8 +191,16 @@ Editors, associate editors and reviewers will routinely check that papers adhere
 
 ## Code
 
-- Needs to be marked up
+- Needs to be embedded in backticks
 - Styled and indented nicely
+
+## Figures and tables
+
+- Figures are readable and clear. Good advice on figure can be found in 
+    - Healy (2018) Data Visualization: A practical introduction, available at https://socviz.co
+    - Wilke (2019) Fundamentals of Data Visualization, available at https://clauswilke.com/dataviz/
+- Tables are conctructed effectively, with right-justified numbers, and don't exceed text margins. See [Schwabish (2020) Ten Guidelines for Better Tables](https://www.cambridge.org/core/journals/journal-of-benefit-cost-analysis/article/ten-guidelines-for-better-tables/74C6FD9FEB12038A52A95B9FBCA05A12) for advice on tables.
+- Captions have three parts: (1) what is the plot/table about, (2) specific details of plot/table, like what type of display and how variables are mapped, (3) the most important thing that the reader should learn.
 
 ## Citations
 
