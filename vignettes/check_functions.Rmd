@@ -175,9 +175,9 @@ Editors, associate editors and reviewers will routinely check that papers adhere
 
 ## Titles
 
-- Title are in title case
-- Section titles are in sentence case
-- No special formatting is used in the title
+- Title need to be in title case
+- Section titles should be in sentence case
+- No special formatting can be used in the title
 
 ## Abstract
 
@@ -191,8 +191,10 @@ Editors, associate editors and reviewers will routinely check that papers adhere
 
 ## Code
 
-- Needs to be embedded in backticks
-- Styled and indented nicely
+- Chunks of code in the text of the paper are concise and not overly long, is readable and nicely formatted. 
+- Code provided with the paper reproduces the results reported in the paper. 
+
+Advice on good coding style can be found in the `rjtools` article ["More details on the R Journal format"](https://rjournal.github.io/rjtools/articles/format-details.html).
 
 ## Figures and tables
 

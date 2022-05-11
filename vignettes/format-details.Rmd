@@ -190,13 +190,13 @@ If you are already writing your articles using Rmarkdown, and have written your 
 Code chunks should provide the examples of usage of the package, if the paper is about an add-on package for R. Nice structure to the code is expected of R Journal papers. 
 
 Some good advice on code style can be found in
-    - "R packages" chapter 7 by Hadley Wickham at https://r-pkgs.org/r.html,
-    - "rOpenSci Packages: Development, Maintenance, and Peer Review" at https://devguide.ropensci.org/building.html,
-    - "What I look for in 'Software Papers'" by Carl Boettiger at https://www.carlboettiger.info/2013/06/13/what-I-look-for-in-software-papers.html
-    - Using the "styler" package,
-    - and avoiding the features warned against by Jenny Bryan at https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
-    
 
+- "R packages" chapter 7 by Hadley Wickham at https://r-pkgs.org/r.html,
+- "rOpenSci Packages: Development, Maintenance, and Peer Review" at https://devguide.ropensci.org/building.html,
+- "What I look for in 'Software Papers'" by Carl Boettiger at https://www.carlboettiger.info/2013/06/13/what-I-look-for-in-software-papers.html
+- Use the "styler" package,
+- and avoiding the features warned against by Jenny Bryan at https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
+    
 # Trouble-shooting
 
 If the pdf did not compile, check your latex installation, and update your version of `rjtools`. If this hasn't fixed the problem, there may be a latex error in your file. If the `.tex` file was created you can use latex on your system to typeset from this file, and it might help you track down the location of the error in the `.tex` file, and hence narrow down the location in the `.Rmd`.
