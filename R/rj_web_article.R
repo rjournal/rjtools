@@ -45,7 +45,12 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
     metadata$doi <- paste0("10.32614/", metadata$slug)
     metadata$creative_commons <- metadata$creative_commons %||% "CC BY"
     if(is.null(metadata$date)) {
-      metadata$date <- paste0(2008 + metadata$volume, "-", 6 * metadata$issue, "-01")
+      if(!is.null(metadata$volume) && !is.null(metadata$issue)) {
+        metadata$date <- paste0(2008 + metadata$volume, "-", 6 * metadata$issue, "-01")
+      } else {
+        warning("A date must be provided for your article. Defaulting to today's date.")
+        metadata$date <- format(Sys.Date())
+      }
     }
     if(is.null(metadata$packages)) {
       input <- xfun::read_utf8(input_file)
