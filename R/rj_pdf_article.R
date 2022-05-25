@@ -1,5 +1,5 @@
 #' @export
-#' @rdname article
+#' @rdname rjournal_article
 rjournal_pdf_article <- function(..., self_contained = FALSE) {
   fmt <- rticles::rjournal_article(...)
   post_process <- fmt$post_processor

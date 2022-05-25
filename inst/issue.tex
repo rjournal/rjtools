@@ -1,0 +1,84 @@
+\documentclass[a4paper,twoside]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{RJournal}
+\usepackage[sectionbib,round]{natbib}
+
+\bibliographystyle{abbrvnat}
+\usepackage{amsmath,amssymb,array}
+\usepackage{booktabs} % for tables
+
+\begin{document}
+
+\sectionhead{}
+\volume{$volume$}
+\volnumber{$issue$}
+\year{$issue_year$}
+\month{$issue_month$}
+
+\titlepage
+
+\vspace*{1in}
+\begin{center}
+\begin{minipage}{0.65\textwidth}
+    \begin{center}
+    The \R{} Journal is a peer-reviewed publication of
+    the \R{} Foundation for Statistical Computing. Communications
+    regarding this publication should be addressed to the editors. All
+    articles are licensed under the Creative Commons Attribution 4.0
+    International license (CC BY 4.0, \url{http://creativecommons.org/licenses/by/4.0/}).
+    \bigskip
+
+    Prospective authors will find detailed and up-to-date submission
+    instructions on the Journal's homepage.
+
+
+    \bigskip
+      \textbf{Editor-in-Chief:}\\
+      $for(editors.chief)$
+        $editors.chief.name$, $editors.chief.affiliation$, $editors.chief.country$
+      $endfor$\\
+
+    \bigskip
+      \textbf{Executive editors:}\\
+      $for(editors.executive)$
+        $editors.executive.name$, $editors.executive.affiliation$, $editors.executive.country$\\
+      $endfor$
+
+%    \bigskip
+%      \textbf{Editor Programmer's Niche:}\\
+%      Bill Venables
+
+%    \bigskip
+%      \textbf{Editor Help Desk:}\\
+%      Uwe Ligges
+
+%    \bigskip
+%      \textbf{Editor Book Reviews:}\\
+%      G. Jay Kerns\\
+%      Department of Mathematics and Statistics\\
+%      Youngstown State University\\
+%      Youngstown, Ohio 44555-0002\\
+%      USA\\
+%      \texttt{gkerns@ysu.edu}
+
+    \bigskip
+    \textbf{\R{} Journal Homepage:}\\
+    \url{http://journal.r-project.org/}
+
+    \bigskip
+    \textbf{Email of editors and editorial board:}\\
+    \texttt{r-journal@R-project.org}
+
+    \bigskip The R Journal is indexed/abstracted by EBSCO, DOAJ, Thomson Reuters.
+
+    $body$
+
+  \end{center}
+
+  \end{minipage}
+\end{center}
+
+\newpage
+
+\end{document}
