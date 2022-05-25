@@ -37,9 +37,6 @@
     <loc>https://rjournal.github.io/rjtools/news/index.html</loc>
   </url>
   <url>
-    <loc>https://rjournal.github.io/rjtools/reference/article.html</loc>
-  </url>
-  <url>
     <loc>https://rjournal.github.io/rjtools/reference/checks.html</loc>
   </url>
   <url>
@@ -59,6 +56,12 @@
   </url>
   <url>
     <loc>https://rjournal.github.io/rjtools/reference/prepare_submission.html</loc>
+  </url>
+  <url>
+    <loc>https://rjournal.github.io/rjtools/reference/rjournal_article.html</loc>
+  </url>
+  <url>
+    <loc>https://rjournal.github.io/rjtools/reference/rjournal_issue.html</loc>
   </url>
   <url>
     <loc>https://rjournal.github.io/rjtools/reference/rjtools-package.html</loc>
