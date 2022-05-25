@@ -8,7 +8,7 @@
 #' @param ... Arguments passed to `distill::distill_article()`.
 #' @inheritParams distill::distill_article
 #' @export
-#' @rdname article
+#' @rdname rjournal_issue
 rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
   base_format <- distill::distill_article(
     self_contained = self_contained, toc = toc, ...
