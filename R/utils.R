@@ -34,3 +34,20 @@ local_cache <- function() {
 }
 
 local_cache <- local_cache()
+
+
+update_front_matter <- function(yml, file) {
+  input <- xfun::read_utf8(file)
+  front_matter_delimiters <- grep("^(---|\\.\\.\\.)\\s*$", input)
+
+  xfun::write_utf8(
+    c(
+      "---",
+      yaml::as.yaml(yml),
+      "---",
+      "",
+      input[(front_matter_delimiters[2]+1):length(input)]
+    ),
+    file
+  )
+}

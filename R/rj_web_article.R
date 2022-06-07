@@ -22,6 +22,7 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
 
   rmd_path <- NULL
   render_pdf <- NULL
+  article_metadata <- NULL
 
   base_format$post_knit <- function(metadata, input_file, runtime, ...) {
     # Modify YAML metadata for pre-processor
@@ -36,7 +37,7 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
     metadata$journal <- list(
       title = metadata$journal$title %||% "The R Journal",
       issn = metadata$journal$issn %||% "2073-4859",
-      firstpage = metadata$journal$firstpage %||% metadata$pages[1],
+      firstpage = metadata$journal$firstpage %||% metadata$pages[1] %||% 1,
       lastpage = metadata$journal$lastpage %||% metadata$pages[2]
     )
     metadata$slug <- metadata$slug %||% xfun::sans_ext(basename(input_file))
@@ -98,6 +99,8 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
 
     metadata$output <- replace_names(metadata$output, c("rjtools::rjournal_web_article" = "distill::distill_article"))
 
+    # Replace metadata with modified copy
+    article_metadata <<- metadata
     rlang::env_poke(
       render_env, nm = "front_matter", value = metadata,
       inherit = TRUE, create = TRUE
@@ -162,9 +165,8 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
         "---",
         yaml::as.yaml(metadata),
         "---",
-        input[(front_matter_delimiters[2]+1):length(input)],
         "",
-        embed_pdf,
+        if(legacy_pdf) embed_pdf else input[(front_matter_delimiters[2]+1):length(input)],
         "",
         appendix
       ),
@@ -183,8 +185,72 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
     # TODO: This should be done in a temp directory
     # and files produced moved back into the main dir.
 
-    # Deactivate for now as I am not sure to understand what should be built
-    if (!is.null(render_pdf) && !legacy_pdf) {
+    # Skip rendering pdf for non-article pages
+    if(is.null(render_pdf)) return()
+
+    # Update legacy PDF metadata just by changing the wrapper
+    if (legacy_pdf) {
+      wrapper_path <- file.path(dirname(rmd_path), "RJwrapper.tex")
+      if(!file.exists(wrapper_path)) {
+        warn("Could not find wrapper for this legacy article, so the PDF could not be updated.")
+        return()
+      }
+
+      # Update wrapper with new metadata
+      wrapper <- xfun::read_utf8(wrapper_path)
+      has_parent_dir <- function(path, nm){
+        if(basename(path) == nm) return(TRUE)
+        if(path == dirname(path)) return(FALSE)
+        has_parent_dir(dirname(path), nm)
+      }
+
+      issue_months <- if(article_metadata$volume < 14) {
+        c("June", "December")
+      } else {
+        c("March", "June", "September", "December")
+      }
+      section <- if(has_parent_dir(normalizePath(wrapper_path), "_articles")) "Contributed research article" else "News and notes"
+      wrapper[str_which(wrapper, "^\\s*\\\\sectionhead")] <- sprintf("\\sectionhead{%s}", section)
+      wrapper[str_which(wrapper, "^\\s*\\\\volume")] <- sprintf("\\volume{%s}", article_metadata$volume)
+      wrapper[str_which(wrapper, "^\\s*\\\\volnumber")] <- sprintf("\\volnumber{%s}", article_metadata$issue)
+      wrapper[str_which(wrapper, "^\\s*\\\\year")] <- sprintf("\\year{%s}", 2008 + article_metadata$volume)
+      wrapper[str_which(wrapper, "^\\s*\\\\month")] <- sprintf("\\month{%s}", issue_months[article_metadata$issue])
+
+      # Set page count
+      wrapper_page_counter <- which(str_detect(wrapper, "^\\s*\\\\setcounter\\{page\\}\\{.+\\}"))
+      if(length(wrapper_page_counter) == 0) {
+        wrapper_page_counter <- which(str_detect(wrapper, "^\\s*\\\\month\\{.+\\}")) + 1
+        wrapper <- append(wrapper, "", wrapper_page_counter - 1)
+      }
+      wrapper[wrapper_page_counter] <- paste0("\\setcounter{page}{", article_metadata$journal$firstpage, "}")
+      if(identical(wrapper, xfun::read_utf8(wrapper_path))) return()
+      message("Detected changes to the article metadata, re-building PDF.")
+      xfun::write_utf8(wrapper, wrapper_path)
+
+      oldwd <- setwd(dirname(wrapper_path))
+      file.copy(
+        system.file("tex/RJournal.sty", package = "rjtools"),
+        "RJournal.sty"
+      )
+      on.exit({
+        file.remove("RJournal.sty")
+        setwd(oldwd)
+      })
+      pdf_path <- xfun::with_ext(article_metadata$slug, ".pdf")
+      tinytex::latexmk(
+        wrapper_path,
+        base_format$pandoc$latex_engine,
+        pdf_file = pdf_path,
+        clean = TRUE
+      )
+
+      # Update metadata with new page numbers
+      if(requireNamespace("pdftools", quietly = TRUE)) {
+        yml <- rmarkdown::yaml_front_matter(rmd_path)
+        yml$journal$lastpage <- pdftools::pdf_length(pdf_path)
+        update_front_matter(yml, rmd_path)
+      }
+    } else {
       callr::r(function(input){
         rmarkdown::render(
           input,
