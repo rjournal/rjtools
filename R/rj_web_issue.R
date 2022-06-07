@@ -70,7 +70,7 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
     metadata$news <- c(
       # Manually specified news (prioritised to top)
       intersect(metadata$news, news_slugs),
-      # All remaining articles
+      # All remaining news articles
       setdiff(news_slugs, metadata$news)
     )
     news <- issue_news[match(metadata$news, news_slugs)]
@@ -131,7 +131,7 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
 
 list_issue_articles <- function(volume, issue) {
   articles <- list.files(
-    list.dirs("~/github/rjournal.github.io/_articles", recursive = FALSE),
+    list.dirs("../../_articles", recursive = FALSE),
     "RJ-\\d{4}-\\d{3}\\.(r|R)md",
     full.names = TRUE
   )
@@ -151,7 +151,7 @@ list_issue_articles <- function(volume, issue) {
 list_issue_news <- function(volume, issue) {
   news_pattern <- paste0("RJ-", 2008 + volume, "-", issue, "-.+")
   news <- list.files(
-    dir("~/github/rjournal.github.io/_news", news_pattern, full.names = TRUE),
+    dir("../../_news", news_pattern, full.names = TRUE),
     paste0("\\.(r|R)md$"),
     full.names = TRUE
   )

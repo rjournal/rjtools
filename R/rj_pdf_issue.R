@@ -23,7 +23,7 @@ rjournal_pdf_issue <- function(...) {
     front_matter_delimiters <- grep("^(---|\\.\\.\\.)\\s*$", input)
 
     issue_articles <- list_issue_articles(metadata$volume, metadata$issue)
-    article_slugs <<- vapply(issue_articles, function(art) art[["slug"]], character(1L))
+    article_slugs <- vapply(issue_articles, function(art) art[["slug"]], character(1L))
 
     special_slugs <- unlist(metadata$articles, use.names = FALSE)
     if(any(!special_slugs %in% article_slugs)) {
@@ -41,9 +41,13 @@ rjournal_pdf_issue <- function(...) {
       setdiff(article_slugs, unlist(metadata$articles))
     )
 
-    articles <- lapply(metadata$articles, function(slugs) {
+    get_article_data <- function(slugs) {
+      if(is.list(slugs)) return(lapply(slugs, get_article_data))
       issue_articles[match(slugs, article_slugs)]
-    })
+    }
+    articles <- lapply(metadata$articles, get_article_data)
+    # Update order of PDF article slugs
+    article_slugs <<- unlist(metadata$articles, use.names = FALSE)
 
     # Organise news metadata
     issue_news <- list_issue_news(metadata$volume, metadata$issue)
@@ -75,10 +79,20 @@ rjournal_pdf_issue <- function(...) {
 
     articles <- c(
       list(editorial),
-      articles,
+      articles$before,
+      articles["Contributed Research Articles"],
+      articles$after,
       list(`News and Notes` = news)
     )
 
+    # Check and update article page numbers
+    # 1. Obtain page length of toc
+    # 2. Obtain page length of article pdfs
+    # 3. Using article order, compute and assign page numbers
+    # 4. If the page numbers have changed for an article, re-render it.
+    # 5. Generate toc with the appropriate page numbers for articles
+
+    current_page <- as.integer(articles[[1]][[1]]$journal$firstpage %||% articles[[1]]$pages[1] %||% 1)
     toc <- mapply(function(articles, toc_section) {
       c(
         if(toc_section=="")
@@ -86,7 +100,23 @@ rjournal_pdf_issue <- function(...) {
         else
           paste0("\\addtocontents{toc}{\\protect\\subsection*{", toc_section, "}\\protect}"),
         vapply(articles, function(x) {
-          start_page <- x$journal$firstpage %||% x$pages[1]
+          start_page <- as.integer(x$journal$firstpage %||% x$pages[1])
+          end_page <- as.integer(x$journal$lastpage %||% x$pages[2])
+          if(!identical(current_page, start_page)) {
+            art_type <- if(grepl("^RJ-\\d{4}-\\d{3}$", x$slug)) "_articles" else "_news"
+            art_rmd <- file.path("..", "..", art_type, x$slug, xfun::with_ext(x$slug, ".Rmd"))
+            end_page <- x$journal$lastpage <- current_page + pdftools::pdf_length(xfun::with_ext(art_rmd, ".pdf")) - 1L
+            x$journal$firstpage <- current_page
+            update_front_matter(x, art_rmd)
+            message(sprintf("Updating page numbers for '%s' article.", x$slug))
+            callr::r(function(input){
+              rmarkdown::render(
+                input,
+                output_format = "rjtools::rjournal_web_article"
+              )
+            }, args = list(input = art_rmd))
+          }
+          current_page <<- end_page + 1L
           paste0(
             "\\addtocontents{toc}{\\protect\\contentsline{chapter}{\\protect\\numberline{}",
             x$title, "}{", start_page, "}{}}"

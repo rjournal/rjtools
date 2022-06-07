@@ -192,7 +192,7 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
     if (legacy_pdf) {
       wrapper_path <- file.path(dirname(rmd_path), "RJwrapper.tex")
       if(!file.exists(wrapper_path)) {
-        warn("Could not find wrapper for this legacy article, so the PDF could not be updated.")
+        warning("Could not find wrapper for this legacy article, so the PDF could not be updated.")
         return()
       }
 
@@ -247,7 +247,7 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
       # Update metadata with new page numbers
       if(requireNamespace("pdftools", quietly = TRUE)) {
         yml <- rmarkdown::yaml_front_matter(rmd_path)
-        yml$journal$lastpage <- pdftools::pdf_length(pdf_path)
+        yml$journal$lastpage <- yml$journal$firstpage + pdftools::pdf_length(pdf_path)
         update_front_matter(yml, rmd_path)
       }
     } else {
