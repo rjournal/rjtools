@@ -106,7 +106,8 @@ rjournal_pdf_issue <- function(...) {
             art_type <- if(grepl("^RJ-\\d{4}-\\d{3}$", x$slug)) "_articles" else "_news"
             art_rmd <- file.path("..", "..", art_type, x$slug, xfun::with_ext(x$slug, ".Rmd"))
             end_page <- x$journal$lastpage <- current_page + pdftools::pdf_length(xfun::with_ext(art_rmd, ".pdf")) - 1L
-            x$journal$firstpage <- current_page
+            start_page <- x$journal$firstpage <- current_page
+            x$draft <- FALSE
             update_front_matter(x, art_rmd)
             message(sprintf("Updating page numbers for '%s' article.", x$slug))
             callr::r(function(input){
@@ -126,7 +127,12 @@ rjournal_pdf_issue <- function(...) {
     }, articles, names(articles))
 
     metadata$issue_year <- 2008 + metadata$volume
-    metadata$issue_month <- c("June", "December")[metadata$issue]
+    issue_months <- if(metadata$volume < 14) {
+      c("June", "December")
+    } else {
+      c("March", "June", "September", "December")
+    }
+    metadata$issue_month <- issue_months[metadata$issue]
 
     xfun::write_utf8(
       c(

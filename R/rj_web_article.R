@@ -47,7 +47,8 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
     metadata$creative_commons <- metadata$creative_commons %||% "CC BY"
     if(is.null(metadata$date)) {
       if(!is.null(metadata$volume) && !is.null(metadata$issue)) {
-        metadata$date <- paste0(2008 + metadata$volume, "-", 6 * metadata$issue, "-01")
+        issue_freq <- if(metadata$volume < 14) 6 else 3
+        metadata$date <- paste0(2008 + metadata$volume, "-", issue_freq * metadata$issue, "-01")
       } else {
         warning("A date must be provided for your article. Defaulting to today's date.")
         metadata$date <- format(Sys.Date())
