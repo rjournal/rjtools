@@ -155,6 +155,7 @@ list_issue_news <- function(volume, issue) {
     paste0("\\.(r|R)md$"),
     full.names = TRUE
   )
+  news <- news[basename(dirname(news)) == xfun::sans_ext(basename(news))]
 
   lapply(news, rmarkdown::yaml_front_matter)
 }
