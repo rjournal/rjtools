@@ -29,7 +29,7 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
     render_env <- rlang::caller_env(n = 2)
     metadata <- replace_names(metadata, c("abstract" = "description"))
     metadata$title <- strip_macros(metadata$title)
-    metadata$description <- strip_macros(metadata$description)
+    metadata$description <- strip_macros(metadata$description %||% paste0('"', metadata$title, '" published in The R Journal.'))
     for(i in seq_along(metadata$author)) {
       metadata$author[[i]] <- replace_names(metadata$author[[i]], c("orcid" = "orcid_id"))
     }
