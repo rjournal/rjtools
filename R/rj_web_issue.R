@@ -45,9 +45,12 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
       setdiff(article_slugs, unlist(metadata$articles))
     )
 
-    articles <- lapply(metadata$articles, function(slugs) {
-      issue_articles[match(slugs, article_slugs)]
-    })
+    articles <- lapply(
+      c(metadata$articles$before, metadata$articles["Contributed Research Articles"], metadata$articles$after),
+      function(slugs) {
+        issue_articles[match(slugs, article_slugs)]
+      }
+    )
 
     issue_news <- list_issue_news(metadata$volume, metadata$issue)
     news_slugs <- vapply(issue_news, function(art) art[["slug"]], character(1L))
@@ -183,6 +186,7 @@ news_entry <- function(art) {
 }
 
 articles_toc <- function(contents) {
+  contents <- Filter(function(x) length(x)>0, contents)
   unlist(
     mapply(
       function(header, articles) c(paste("###", header), article_entries(articles)),
