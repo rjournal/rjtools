@@ -218,7 +218,14 @@ check_section <- function(path){
     str
   }
 
-  str <- lapply(str, clean_section_title)
+  remove_uppercase <- function(str){
+    words <- stringr::str_split(str, " ", simplify = TRUE)
+    out <- paste(c(words[1], words[stringr::str_to_lower(words) == words]),
+                 collapse = " ")
+    out
+  }
+
+  str <- lapply(str, clean_section_title) %>% lapply(remove_uppercase)
 
   if (!all(stringr::str_to_sentence(str) == str)){
     problem_one <- str[!stringr::str_to_sentence(str) == str]
