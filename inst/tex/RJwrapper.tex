@@ -81,7 +81,9 @@ $endfor$
 \volnumber{$issue$}
 \year{$issueyear$}
 \month{$issuemonth$}
+$if(journal.firstpage)$
 \setcounter{page}{$journal.firstpage$}
+$endif$
 
 \begin{article}
   \input{$filename$}

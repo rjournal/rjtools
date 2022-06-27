@@ -22,10 +22,10 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
     metadata$journal$section <- metadata$journal$section %||% "Contributed research article"
     m <- list(
       filename = xfun::sans_ext(filename),
-      volume = metadata$volume,
-      issue = metadata$issue,
-      issueyear = 2008 + metadata$volume,
-      issuemonth = issue_months[metadata$issue],
+      volume = metadata$volume %||% "XX",
+      issue = metadata$issue %||% "YY",
+      issueyear = if(is.null(metadata$volume)) "20ZZ" else 2008 + metadata$volume,
+      issuemonth = if(is.null(metadata$volume)) "AAAA" else issue_months[metadata$issue],
       journal = metadata$journal
     )
 
@@ -42,7 +42,7 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
       f
     })
     wrapper_template <- system.file(
-      file.path("inst", "tex", "RJwrapper.tex"),
+      file.path("tex", "RJwrapper.tex"),
       package = "rjtools"
     )
 
