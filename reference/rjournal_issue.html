@@ -82,7 +82,7 @@ changes.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rjournal_pdf_issue</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rjournal_pdf_issue</span><span class="op">(</span><span class="va">...</span>, render_all <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">rjournal_web_issue</span><span class="op">(</span>toc <span class="op">=</span> <span class="cn">FALSE</span>, self_contained <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -91,6 +91,10 @@ changes.</p>
     <h2>Arguments</h2>
     <dl><dt>...</dt>
 <dd><p>Arguments passed to <code><a href="https://pkgs.rstudio.com/distill/reference/distill_article.html" class="external-link">distill::distill_article()</a></code>.</p></dd>
+
+
+<dt>render_all</dt>
+<dd><p>Re-render all articles in the issue, even if the page numbers have not changed.</p></dd>
 
 
 <dt>toc</dt>
