@@ -24,7 +24,7 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
     input <- xfun::read_utf8(input_file)
     front_matter_delimiters <- grep("^(---|\\.\\.\\.)\\s*$", input)
 
-    issue_slug <- paste("RJ", metadata$volume + 2008, metadata$issue, sep = "-")
+    issue_slug <- paste(metadata$volume + 2008, metadata$issue, sep = "-")
 
     issue_articles <- list_issue_articles(metadata$volume, metadata$issue)
     article_slugs <- vapply(issue_articles, function(art) art[["slug"]], character(1L))
