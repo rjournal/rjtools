@@ -5,12 +5,14 @@
 \alias{rjournal_web_issue}
 \title{R Markdown output formats for R Journal issues}
 \usage{
-rjournal_pdf_issue(...)
+rjournal_pdf_issue(..., render_all = FALSE)
 
 rjournal_web_issue(toc = FALSE, self_contained = FALSE, ...)
 }
 \arguments{
 \item{...}{Arguments passed to \code{distill::distill_article()}.}
+
+\item{render_all}{Re-render all articles in the issue, even if the page numbers have not changed.}
 
 \item{toc}{\code{TRUE} to include a table of contents in the output}
 

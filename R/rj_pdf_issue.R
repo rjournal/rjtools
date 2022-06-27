@@ -4,9 +4,10 @@
 #' This output format produces the PDF for an R Journal issue.
 #'
 #' @param ... Arguments passed to `rmarkdown::pdf_document()`.
+#' @param render_all Re-render all articles in the issue, even if the page numbers have not changed.
 #' @export
 #' @rdname rjournal_issue
-rjournal_pdf_issue <- function(...) {
+rjournal_pdf_issue <- function(..., render_all = FALSE) {
 
   editorial_slug <- NULL
   article_slugs <- NULL
@@ -102,7 +103,7 @@ rjournal_pdf_issue <- function(...) {
         vapply(articles, function(x) {
           start_page <- as.integer(x$journal$firstpage %||% x$pages[1])
           end_page <- as.integer(x$journal$lastpage %||% x$pages[2])
-          if(!identical(current_page, start_page)) {
+          if(!identical(current_page, start_page) || render_all) {
             art_type <- if(grepl("^RJ-\\d{4}-\\d{3}$", x$slug)) "_articles" else "_news"
             art_rmd <- file.path("..", "..", art_type, x$slug, xfun::with_ext(x$slug, ".Rmd"))
             end_page <- x$journal$lastpage <- current_page + pdftools::pdf_length(xfun::with_ext(art_rmd, ".pdf")) - 1L
