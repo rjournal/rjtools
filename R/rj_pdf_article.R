@@ -14,10 +14,12 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
     # Replace \@ref(***) with \ref{***}
     temp_tex <- resolve_refs_latex(temp_tex)
     xfun::write_utf8(temp_tex, output_file)
-    issue_months <- if(metadata$volume < 14) {
-      c("June", "December")
-    } else {
-      c("March", "June", "September", "December")
+    if(!is.null(metadata$volume)) {
+      issue_months <- if(metadata$volume < 14) {
+        c("June", "December")
+      } else {
+        c("March", "June", "September", "December")
+      }
     }
     metadata$journal$section <- metadata$journal$section %||% "Contributed research article"
     m <- list(
