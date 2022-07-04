@@ -18,6 +18,10 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
   base_format <- distill::distill_article(
     self_contained = self_contained, toc = toc, ...
   )
+
+  # Remove distill RStudio validation checks
+  base_format$on_exit <- function(){}
+
   distill_post_knit <- base_format$post_knit
 
   rmd_path <- NULL
