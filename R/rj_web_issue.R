@@ -15,9 +15,6 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
   )
   distill_post_knit <- base_format$post_knit
 
-  rmd_path <- NULL
-  render_pdf <- NULL
-
   pre_processor <- function(metadata, input_file, runtime, knit_meta, files_dir,
                             output_dir) {
 
@@ -96,6 +93,12 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
         news_toc(list("News and Notes" = news))
       ),
       input_file
+    )
+
+    # Create DOI
+    xfun::write_utf8(
+      article_doi(issue_articles),
+      "doi.xml"
     )
 
     # Custom args
