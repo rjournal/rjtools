@@ -1,0 +1,70 @@
+<doi_batch xmlns="http://www.crossref.org/schema/4.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.4.0" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schemas/crossref4.4.0.xsd">
+<head>
+  <doi_batch_id>{{batch_id}}</doi_batch_id>
+  <timestamp>{{timestamp}}</timestamp>
+  <depositor>
+    <depositor_name>{{depositor_name}}</depositor_name>
+    <email_address>{{depositor_email}}</email_address>
+  </depositor>
+  <registrant>CrossRef</registrant>
+</head>
+<body>
+  <journal>
+    <journal_metadata language="en">
+      <full_title>{{journal_title}}</full_title>
+      <abbrev_title>{{journal_abbreviated_title}}</abbrev_title>
+      {{#issn}}<issn media_type="electronic">{{issn}}</issn>{{/issn}}
+      {{#coden}}<coden>{{coden}}</coden>{{/coden}}
+    </journal_metadata>
+
+
+    <journal_issue>
+      <publication_date media_type="online">
+        <year>{{issue_year}}</year>
+        <month>{{issue_month}}</month>
+      </publication_date>
+      <journal_volume>
+        <volume>{{issue_volume}}</volume>
+      </journal_volume>
+      <issue>{{issue_num}}</issue>
+    </journal_issue>
+
+    {{#articles}}
+    <journal_article publication_type="full_text">
+      <titles>
+        <title>{{title}}</title>
+      </titles>
+      <contributors>
+        {{#authors}}
+        <person_name sequence="{{author_order}}" contributor_role="author">
+          <given_name>{{given}}</given_name>
+          <surname>{{family}}</surname>
+          {{#suffix}}<suffix>{{suffix}}</suffix}{{/suffix}}
+          {{#affiliation}}<affiliation>{{affiliation}}</affiliation>{{/affiliation}}
+          {{#orcid_id}}<ORCID>{{orcid_id}}</ORCID>{{/orcid_id}}
+        </person_name>
+        {{/authors}}
+      </contributors>
+      <publication_date media_type="online">
+        <year>{{pub_day}}</year>
+        <month>{{pub_month}}</month>
+        <day>{{pub_day}}</day>
+      </publication_date>
+      {{#journal}}
+      <pages>
+        <first_page>{{firstpage}}</first_page>
+       	<last_page>{{lastpage}}</last_page>
+      </pages>
+      {{/journal}}
+      <publisher_item>
+        <identifier id_type="doi">{{doi_prefix}}/{{slug}}</identifier>
+      </publisher_item>
+      <doi_data>
+        <doi>{{doi_prefix}}/{{slug}}</doi>
+        <resource>{{rjournal_url}}/articles/{{slug}}</resource>
+      </doi_data>
+    </journal_article>
+    {{/articles}}
+  </journal>
+</body>
+</doi_batch>
