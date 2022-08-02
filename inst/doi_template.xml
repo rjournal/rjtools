@@ -46,7 +46,7 @@
         {{/authors}}
       </contributors>
       <publication_date media_type="online">
-        <year>{{pub_day}}</year>
+        <year>{{pub_year}}</year>
         <month>{{pub_month}}</month>
         <day>{{pub_day}}</day>
       </publication_date>
