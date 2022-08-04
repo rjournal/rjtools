@@ -11,7 +11,6 @@ article_doi <- function(metadata) {
         list(
           family = name[,3],
           given = name[,2],
-          suffix = z$suffix,
           affiliation = z$affiliation,
           orcid_id = z$orcid_id,
           author_order = if(i == 1L) "first" else "additional"
@@ -31,6 +30,9 @@ article_doi <- function(metadata) {
   issue_month <- if(volume < 14) c("06", "12")[issue] else c("03", "06", "09", "12")[issue]
 
   whisker::whisker.render(
+    # Template from schema examples here:
+    # https://gitlab.com/crossref/schema/-/blob/master/best-practice-examples/journal_article_4.8.0.xml
+    # https://gitlab.com/crossref/schema/-/blob/master/best-practice-examples/journal.vol.issue5.3.0.xml
     doi_template,
     data = list(
       # Constants
