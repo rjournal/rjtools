@@ -24,8 +24,9 @@
 
     <journal_issue>
       <publication_date media_type="online">
-        <year>{{issue_year}}</year>
         <month>{{issue_month}}</month>
+        <day>01</day>
+        <year>{{issue_year}}</year>
       </publication_date>
       <journal_volume>
         <volume>{{issue_volume}}</volume>
@@ -49,9 +50,9 @@
         {{/authors}}
       </contributors>
       <publication_date media_type="online">
-        <year>{{pub_year}}</year>
         <month>{{pub_month}}</month>
         <day>{{pub_day}}</day>
+        <year>{{pub_year}}</year>
       </publication_date>
       {{#journal}}
       <pages>
