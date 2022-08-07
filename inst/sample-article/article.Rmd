@@ -24,7 +24,7 @@ author:
 type: package
 output: 
   rjtools::rjournal_web_article
-bibliography: RJreferences.bib
+bibliography: article.bib
 
 ---
 
