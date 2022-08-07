@@ -1,6 +1,8 @@
 # rjtools 1.0.1
 
 * Self-contained html is default
+* remove check on WJwrapper.pdf (#46)
+
 
 # rjtools 1.0.0
 

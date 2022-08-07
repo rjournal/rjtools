@@ -26,9 +26,9 @@ library(rmarkdown)
 Here we provide a worked example article with both the pdf and html formats rendered. All the source files are available [here](https://github.com/rjournal/rjtools/tree/main/inst/sample-article) and  specifically, the rendered pdf output can be found [here](https://github.com/rjournal/rjtools/blob/main/inst/sample-article/article.pdf)  and below is the html output:
 
 ```{r echo = FALSE}
-webshot2::webshot(here::here("inst/sample-article/article.html"),
-                  file = here::here("vignettes/figures/webshot.png"),
-                  delay = 1, zoom = 4, vwidth = 1000, vheight = 300)
+# webshot2::webshot(here::here("inst/sample-article/article.html"),
+#                   file = here::here("vignettes/figures/webshot.png"),
+#                   delay = 1, zoom = 4, vwidth = 1000, vheight = 300)
 ```
 
 ```{r, out.width="100%", out.height="100%"}
