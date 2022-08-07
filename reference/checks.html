@@ -74,8 +74,6 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">initial_check_article</span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="op">)</span>, dic <span class="op">=</span> <span class="st">"en_US"</span>, pkg <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">check_wrappers</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu">check_filenames</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">check_unnecessary_files</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
@@ -115,11 +113,7 @@
 </dl></div>
     <div id="details">
     <h2>Details</h2>
-    
-
-
-<p>Folder structure checks:</p><ul><li><p><code>check_wrappers()</code>: the two expected RJwrapper files (RJwrapper.tex and RJwrapper.pdf) exist</p></li>
-<li><p><code>check_filenames()</code>: the three files (.bib, .Rmd, and .tex) all present and have consistent names</p></li>
+    <p>Folder structure checks:</p><ul><li><p><code>check_filenames()</code>: the three files (.bib, .Rmd, and .tex) all present and have consistent names</p></li>
 <li><p><code>check_unnecessary_files()</code>: template files (i.e. RJtemplate.tex and RJournal.sty) are not included in the directory</p></li>
 <li><p><code>check_cover_letter()</code>: a motivational letter</p></li>
 </ul><p>Content checks:</p><ul><li><p><code>check_title()</code>: article title is in title case</p></li>
