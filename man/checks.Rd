@@ -2,7 +2,6 @@
 % Please edit documentation in R/check.R
 \name{initial_check_article}
 \alias{initial_check_article}
-\alias{check_wrappers}
 \alias{check_filenames}
 \alias{check_unnecessary_files}
 \alias{check_cover_letter}
@@ -15,8 +14,6 @@
 \title{A single article check}
 \usage{
 initial_check_article(path = here::here(), dic = "en_US", pkg = NULL, ...)
-
-check_wrappers(path)
 
 check_filenames(path)
 
@@ -49,11 +46,8 @@ check_packages_available(path)
 A single article check
 }
 \details{
-
-
 Folder structure checks:
 \itemize{
-\item \code{check_wrappers()}: the two expected RJwrapper files (RJwrapper.tex and RJwrapper.pdf) exist
 \item \code{check_filenames()}: the three files (.bib, .Rmd, and .tex) all present and have consistent names
 \item \code{check_unnecessary_files()}: template files (i.e. RJtemplate.tex and RJournal.sty) are not included in the directory
 \item \code{check_cover_letter()}: a motivational letter

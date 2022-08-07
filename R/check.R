@@ -1,7 +1,5 @@
 #' A single article check
 #'
-#' @details
-#'
 #' @param path The directory that contains the .tex file (Ideally, this directory should contain .bib, .rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)
 #' @param dic The dictionary used for spelling check. See \code{dict} argument in [hunspell::hunspell()]
 #' @param pkg The name of the proposed package (if relevant), to be checked for activity on CRAN
@@ -9,7 +7,6 @@
 #' @details
 #' Folder structure checks:
 #'
-#' * \code{check_wrappers()}: the two expected RJwrapper files (RJwrapper.tex and RJwrapper.pdf) exist
 #' * \code{check_filenames()}: the three files (.bib, .Rmd, and .tex) all present and have consistent names
 #' * \code{check_unnecessary_files()}: template files (i.e. RJtemplate.tex and RJournal.sty) are not included in the directory
 #' * \code{check_cover_letter()}: a motivational letter
@@ -48,7 +45,6 @@ initial_check_article <- function(path = here::here(), dic = "en_US", pkg=NULL, 
 
   # BEGIN CHECKS
   # Folder structure checks:
-  check_wrappers(path)
   check_filenames(path)
   check_unnecessary_files(path)
   check_cover_letter(path)
@@ -73,30 +69,6 @@ initial_check_article <- function(path = here::here(), dic = "en_US", pkg=NULL, 
 
 ##############################################
 ##############################################
-# Folder structure checks:
-
-#' @rdname checks
-#' @export
-check_wrappers <- function(path) {
-
-  submission_files <-  list.files(path)
-
-  # Check for RJwrapper files
-  wrapper_files <- c("RJwrapper.tex", "RJwrapper.pdf")
-
-  # Immediate failure?
-  # Return a warning if either "RJwrapper.tex" and/or "RJwrapper.pdf" not found
-  if (!all(wrapper_files %in% submission_files)) {
-
-    log_error("Submission is missing an RJwrapper file")
-
-  } else {
-
-    log_success("Submission contains both RJwrapper.tex and RJwrapper.pdf")
-
-  }
-
-}
 
 #' @importFrom tools file_ext file_path_sans_ext
 #' @rdname checks
@@ -424,7 +396,7 @@ output_summary <- function(path, file = stdout()) {
 remove_wrapper <- function(path){
 
   submission_files <- list.files(path)
-  wrapper_files <- c("RJwrapper.tex", "RJwrapper.pdf")
+  wrapper_files <- c("RJwrapper.tex")
   submission_files[!(submission_files %in% wrapper_files)]
 }
 

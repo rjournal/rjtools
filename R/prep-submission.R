@@ -40,7 +40,7 @@ zip_paper <- function(name, others = NULL){
   basic <- list.files(pattern = name, recursive = TRUE, full.names = TRUE)
   html_files <- list.dirs(path = file.path(dirname(basic[1]), glue::glue("{name}_files")))
 
-  # should find RJwrapper.tex and RJwrapper.pdf
+  # should find RJwrapper.tex
   rjwrapper <- list.files(pattern = "RJwrapper",
                           recursive = TRUE, full.names = TRUE)
 

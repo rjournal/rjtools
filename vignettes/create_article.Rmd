@@ -48,7 +48,7 @@ create_article(file_name = "quokka-bilby")
 The `rjtools::rjournal_web_article` output specified in the article YAML will create the article in both html and pdf formats. Additional files created during the knit are (assuming file name of `quokka-bilby`):
 
   - **quokka-bilby.html**: the html article 
-  - **RJwrapper.pdf**: the pdf article 
+  - **quokka-bilby.pdf**: the pdf article 
   - **quokka-bilby.tex**: the LaTex file 
   - **quokka-bilby.R**: an R file that contains all the codes
   - **quokka-bilby-files/**: a folder of javascript libraries, necessary to view the the html article

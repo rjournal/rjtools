@@ -38,7 +38,6 @@ initial_check_article(path = here::here("inst/paper-with-errors"))
 The check result will be saved in an initial_check.log file under the same folder, as well as displayed in the console. This is how it looks like for the sample article:
 
     Initial check results:
-    SUCCESS: Submission contains both RJwrapper.tex and RJwrapper.pdf
     ERROR: Submission does not have consistently named tex, bib, and R files
     SUCCESS: No problematic file found
     SUCCESS: Possible motivation letter found
@@ -47,13 +46,11 @@ The check result will be saved in an initial_check.log file under the same folde
     SUCCESS: All sections are properly formatted in sentence case
     SUCCESS: Abstract comes before the introduction section
     NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot
-    SUCCESS: Submission contains both RJwrapper.tex and RJwrapper.pdf
 
 # Individual check functions
 
 The nine individual checks contained in `initial_check_article()` are: 
 
-  - `check_wrappers()`
   - `check_filenames()`
   - `check_unnecessary_files()`
   - `check_cover_letter()`
@@ -65,14 +62,6 @@ The nine individual checks contained in `initial_check_article()` are:
   - `check_packages_available()`
 
 and they can all be individually checked on the article.
-
-## Wrappers
-
-```{r}
-check_wrappers(path = here::here("inst/paper-with-errors"))
-```
-
-A properly rendered article should have both the `RJwrapper.tex` and `RJwrapper.pdf` file and our article passes this check. 
 
 ## Filenames
 
