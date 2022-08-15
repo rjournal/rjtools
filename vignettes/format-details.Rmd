@@ -91,7 +91,7 @@ This line is quite complicated so let's dissect its components: the if-else stat
 
 For static plots, you can use `fig.width` and `fig.height` to adjust figure sizing for both pdf and html outputs. 
 
-For html output, distill provides several larger than text-width layouts, i.e. `l-body-outset`, `l-page`, and `l-screen`. These can be set via the chunk option `layout`:
+For html output, distill provides several larger than text-width layouts, i.e. `l-body` (textwidth) `l-body-outset` (slightly extended from text width), `l-page` (pagewidth), and `l-screen` (window width). These can be set via the chunk option `layout`:
 
 ````rmarkdown
 `r ''````{r layout = "l-body-outset", fig.width = 5, fig.height = 3}
@@ -197,6 +197,12 @@ Some good advice on code style can be found in
 - Use the "styler" package,
 - and avoiding the features warned against by Jenny Bryan at https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
     
+Inline code, eg the function calc_stat from the bilby package, should be delimited by a single back-tick. The old latex command `\code{}` shouldn't be used. 
+
+# Referring to packages
+
+The old latex commands `\CRANpkg{}` or `\BIOpkg{}` can be used for all CRAN and Bioconductor package references. This will create a link in the document that links to the CRAN or Bioconductor site for the package. Any other package should be treated like code, and delimited using single backticks.
+
 # Trouble-shooting
 
 If the pdf did not compile, check your latex installation, and update your version of `rjtools`. If this hasn't fixed the problem, there may be a latex error in your file. If the `.tex` file was created you can use latex on your system to typeset from this file, and it might help you track down the location of the error in the `.tex` file, and hence narrow down the location in the `.Rmd`.
