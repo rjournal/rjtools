@@ -13,16 +13,16 @@ reference:
   desc: Functions to check that folder structure and article format meet Rjournal submission guideline
   contents:
   - starts_with("check")
-- title: Build articles
-  desc: Functions to build distill articles
+- title: R Markdown article format
+  desc: Functions to build HTML and PDF R Journal articles
   contents:
-  - starts_with("rjournal")
+  - rjournal_web_article
 - title: Prepare article submission
   desc: Functions to help building a zip file of relevant materials for submission
   contents:
   - zip_paper
   - prepare_submission
-- title: Misc
+- title: Tools for building journal issues
+  desc: Functions for the editor to produce issues from several articles
   contents:
-  - starts_with("log")
-  - symbol
+  - ends_with("issue")
