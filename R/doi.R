@@ -1,16 +1,23 @@
-article_doi <- function(metadata) {
+article_doi <- function(issue_metadata, article_metadata) {
   timestamp <- format(Sys.time(), format = "%Y%m%d%H%M%S")
   doi_template <- xfun::read_utf8(system.file("doi_template.xml", package = "rjtools"))
 
-  articles_metadata <- lapply(metadata, function(x) {
+  articles_metadata <- lapply(article_metadata, function(x) {
     published_date <- stringr::str_match(x$date, "(\\d{4})-(\\d{2})-(\\d{2})")
     list(
       title = x$title,
       authors = mapply(function(z, i) {
-        name <- stringr::str_match(z$name, "([^\\s]+)\\s*(.*)")
+        if(!is.list(z)) {
+          z <- list(name = z)
+        }
+        if(!is.null(z$name)) {
+          name <- stringr::str_match(z$name, "([^\\s]+)\\s*(.*)")
+          z$first_name <- name[,2]
+          z$last_name <- name[,3]
+        }
         list(
-          family = name[,3],
-          given = name[,2],
+          family = z$last_name,
+          given = z$first_name,
           affiliation = z$affiliation,
           orcid_id = z$orcid_id,
           author_order = if(i == 1L) "first" else "additional"
@@ -24,10 +31,11 @@ article_doi <- function(metadata) {
     )
   })
 
-  volume <- metadata[[1]]$volume
-  issue <- metadata[[1]]$issue
-  issue_year <- 2008 + volume
-  issue_month <- if(volume < 14) c("06", "12")[issue] else c("03", "06", "09", "12")[issue]
+  volume <- issue_metadata$volume
+  issue <- issue_metadata$issue
+  issue_date <- as.Date(issue_metadata$date)
+  # issue_year <- 2008 + volume
+  # issue_month <- if(volume < 14) c("06", "12")[issue] else c("03", "06", "09", "12")[issue]
 
   whisker::whisker.render(
     # Template from schema examples here:
@@ -50,8 +58,8 @@ article_doi <- function(metadata) {
       batch_id = timestamp,
       timestamp = timestamp,
 
-      issue_year = issue_year,
-      issue_month = issue_month,
+      issue_year = format(issue_date, "%Y"),
+      issue_month = format(issue_date, "%m"),
       issue_volume = volume,
       issue_num = issue,
 
