@@ -46,8 +46,10 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
     )
     metadata$slug <- metadata$slug %||% xfun::sans_ext(basename(input_file))
     metadata$pdf_url <- xfun::with_ext(metadata$slug, "pdf")
-    metadata$citation_url <- paste0("https://doi.org/10.32614/", metadata$slug)
-    metadata$doi <- paste0("10.32614/", metadata$slug)
+    if(metadata$journal$title == "The R Journal") {
+      metadata$citation_url <- paste0("https://doi.org/10.32614/", metadata$slug)
+      metadata$doi <- paste0("10.32614/", metadata$slug)
+    }
     metadata$creative_commons <- metadata$creative_commons %||% "CC BY"
     if(is.null(metadata$date)) {
       if(!is.null(metadata$volume) && !is.null(metadata$issue)) {

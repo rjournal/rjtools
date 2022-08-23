@@ -6,10 +6,11 @@
 #' changes.
 #'
 #' @param ... Arguments passed to `distill::distill_article()`.
+#' @param rnews This issue is from R News.
 #' @inheritParams distill::distill_article
 #' @export
 #' @rdname rjournal_issue
-rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
+rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, rnews = FALSE, ...) {
   base_format <- distill::distill_article(
     self_contained = self_contained, toc = toc, ...
   )
@@ -21,9 +22,9 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
     input <- xfun::read_utf8(input_file)
     front_matter_delimiters <- grep("^(---|\\.\\.\\.)\\s*$", input)
 
-    issue_slug <- paste(metadata$volume + 2008, metadata$issue, sep = "-")
+    issue_slug <- paste(metadata$volume + if(rnews) 2000 else 2008, metadata$issue, sep = "-")
 
-    issue_articles <- list_issue_articles(metadata$volume, metadata$issue)
+    issue_articles <- list_issue_articles(metadata$volume, metadata$issue, rnews)
     article_slugs <- vapply(issue_articles, function(art) art[["slug"]], character(1L))
 
     special_slugs <- unlist(metadata$articles, use.names = FALSE)
@@ -49,7 +50,7 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
       }
     )
 
-    issue_news <- list_issue_news(metadata$volume, metadata$issue)
+    issue_news <- list_issue_news(metadata$volume, metadata$issue, rnews)
     news_slugs <- vapply(issue_news, function(art) art[["slug"]], character(1L))
     editorial_idx <- which(grepl("editorial$", news_slugs))
     if(length(editorial_idx) != 1) {
@@ -97,7 +98,7 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
 
     # Create DOI
     xfun::write_utf8(
-      article_doi(issue_articles),
+      article_doi(metadata, issue_articles),
       "doi.xml"
     )
 
@@ -135,10 +136,11 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, ...) {
 }
 
 
-list_issue_articles <- function(volume, issue) {
+list_issue_articles <- function(volume, issue, rnews = FALSE) {
+  prefix <- if(rnews) "RN" else "RJ"
   articles <- list.files(
     list.dirs("../../_articles", recursive = FALSE),
-    "RJ-\\d{4}-\\d{3}\\.(r|R)md",
+    paste0(prefix, "-\\d{4}-\\d{3}\\.(r|R)md"),
     full.names = TRUE
   )
 
@@ -154,8 +156,9 @@ list_issue_articles <- function(volume, issue) {
   issue_articles[order(issue_article_sort)]
 }
 
-list_issue_news <- function(volume, issue) {
-  news_pattern <- paste0("RJ-", 2008 + volume, "-", issue, "-.+")
+list_issue_news <- function(volume, issue, rnews = FALSE) {
+  base_year <- if(rnews) 2000 else 2008
+  news_pattern <- paste0("R(J|N)-", base_year + volume, "-", issue, "-.+")
   news <- list.files(
     dir("../../_news", news_pattern, full.names = TRUE),
     paste0("\\.(r|R)md$"),
@@ -163,13 +166,19 @@ list_issue_news <- function(volume, issue) {
   )
   news <- news[basename(dirname(news)) == xfun::sans_ext(basename(news))]
 
-  lapply(news, rmarkdown::yaml_front_matter)
+  # Sort by page number
+  news <- lapply(news, rmarkdown::yaml_front_matter)
+  news_pages <- vapply(news, function(x) x$journal$firstpage, integer(1L))
+  news[order(news_pages)]
 }
 
 news_toc <- function(contents) {
   unlist(
     mapply(
-      function(header, articles) c(paste("###", header), news_entries(articles)),
+      function(header, articles) {
+        if(length(articles) == 0) return(NULL)
+        c(paste("###", header), news_entries(articles))
+      },
       names(contents), contents,
       SIMPLIFY = FALSE, USE.NAMES = FALSE
     )
@@ -180,8 +189,9 @@ news_entries <- function(news) {
   vapply(news, news_entry, character(1L))
 }
 news_entry <- function(art) {
+  if(is.null(art$author)) art$author <- ""
   if(!is.character(art$author)) {
-    art$author <- vapply(art$author, function(z) z$name, character(1L))
+    art$author <- vapply(art$author, function(z) z$name %||% paste(z$first_name, z$last_name), character(1L))
   }
   stringr::str_glue(
     "[{art$title}](../../news/{art$slug})<br>{glue::glue_collapse(art$author, sep = ', ', last = ' and ')} {art$journal$firstpage %||% art$pages[1]}\n\n"
@@ -205,7 +215,7 @@ article_entries <- function(articles) {
 
 article_entry <- function(art) {
   if(!is.character(art$author)) {
-    art$author <- vapply(art$author, function(z) z$name, character(1L))
+    art$author <- vapply(art$author, function(z) z$name %||% paste(z$first_name, z$last_name), character(1L))
   }
 
   stringr::str_glue(
