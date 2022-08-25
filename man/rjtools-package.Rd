@@ -17,13 +17,13 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Mitchell O'Hara-Wild \email{mail@mitchelloharawild.com}
+\strong{Maintainer}: Di Cook \email{dicook@monash.edu} (\href{https://orcid.org/0000-0002-3813-7155}{ORCID})
 
 Authors:
 \itemize{
+  \item Mitchell O'Hara-Wild \email{mail@mitchelloharawild.com}
   \item Stephanie Kobakian
   \item H. Sherry Zhang \email{huizezhangsh@gmail.com}
-  \item Di Cook \email{dicook@monash.edu} (\href{https://orcid.org/0000-0002-3813-7155}{ORCID})
   \item Christophe Dervieux \email{cderv@rstudio.com} (\href{https://orcid.org/0000-0003-4474-2498}{ORCID})
 }
 

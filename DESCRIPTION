@@ -5,7 +5,7 @@ Authors@R:
     c(person(given = "Mitchell",
              family = "O'Hara-Wild",
              email = "mail@mitchelloharawild.com",
-             role = c("aut", "cre")),
+             role = c("aut")),
       person(given = "Stephanie",
              family = "Kobakian",
              role = c("aut")),
@@ -16,7 +16,7 @@ Authors@R:
       person(given = "Di", 
              family = "Cook", 
              email = "dicook@monash.edu", 
-             role = "aut", 
+             role = c("aut", "cre"), 
              comment = c(ORCID = "0000-0002-3813-7155")),
       person(given = "Christophe", 
              family = "Dervieux", 
@@ -28,7 +28,7 @@ Description: Tools for writing, checking, and submitting articles to the R
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Imports: 
     distill,
     stringr,
