@@ -7,7 +7,7 @@
 \usage{
 rjournal_pdf_issue(..., render_all = FALSE)
 
-rjournal_web_issue(toc = FALSE, self_contained = FALSE, ...)
+rjournal_web_issue(toc = FALSE, self_contained = FALSE, rnews = FALSE, ...)
 }
 \arguments{
 \item{...}{Arguments passed to \code{distill::distill_article()}.}
@@ -21,6 +21,8 @@ dependencies, using data: URIs to incorporate the contents of linked
 scripts, stylesheets, images, and videos. Note that even for self contained
 documents MathJax is still loaded externally (this is necessary because of
 its size).}
+
+\item{rnews}{This issue is from R News.}
 }
 \description{
 The R Journal is built upon the distill framework with some modifications.
