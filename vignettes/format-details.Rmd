@@ -191,11 +191,11 @@ Code chunks should provide the examples of usage of the package, if the paper is
 
 Some good advice on code style can be found in
 
-- "R packages" chapter 7 by Hadley Wickham at https://r-pkgs.org/r.html,
+- "R packages" chapter 7 by Hadley Wickham at https://r-pkgs.org/Code.html,
 - "rOpenSci Packages: Development, Maintenance, and Peer Review" at https://devguide.ropensci.org/building.html,
 - "What I look for in 'Software Papers'" by Carl Boettiger at https://www.carlboettiger.info/2013/06/13/what-I-look-for-in-software-papers.html
 - Use the "styler" package,
-- and avoiding the features warned against by Jenny Bryan at https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
+- and avoiding the features warned against by Jenny Bryan at https://www.tidyverse.org/blog/2017/12/workflow-vs-script/
     
 Inline code, e.g., the function `calc_stat` from the bilby package, should be delimited by a single back-tick. The old latex command `\code{}` shouldn't be used. 
 
