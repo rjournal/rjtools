@@ -1,6 +1,6 @@
 #' Zip your directory for R Journal submission
 #'
-#' Zip up  files in the directory into a \code{paper.zip} for Rjournal submission.
+#' Zip up  files in the directory into a \code{paper.zip} for R Journal submission.
 #'
 #'
 #' @param name the file name you used to create the article. See argument `file_name` in \code{create_article()}

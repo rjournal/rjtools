@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 library(rjtools)
 ```
 
-This article will work you the key parts of an rjournal template article as produced by `create_article()`. This assumes that you have already followed the "Create an R Journal Article" vignette, have created your initial article, and you have been able to knit both the `pdf` and `html` article. Here we explain the important parts you can see in the `Rmd` file that generates both output types, and how to modify them, and to debug if problems arise.
+This article will work you the key parts of an R Journal template article as produced by `create_article()`. This assumes that you have already followed the "Create an R Journal Article" vignette, have created your initial article, and you have been able to knit both the `pdf` and `html` article. Here we explain the important parts you can see in the `Rmd` file that generates both output types, and how to modify them, and to debug if problems arise.
 
 # YAML header
 
@@ -58,7 +58,7 @@ penguins %>%
 
 ## Interactive 
 
-For an interactive graphic, use separate code chunks to create a static plot for the pdf article and an interative one for the html article:
+For an interactive graphic, use separate code chunks to create a static plot for the pdf article and an interactive one for the html article:
 
 ````markdown
 `r ''````{r penguins-static, eval=knitr::is_latex_output(), fig.cap="This is the figure caption."}
@@ -85,7 +85,7 @@ For in-text citation, you will something like this:
 
     Figure `r "\u0060r"` knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(fig:penguins-interactive)', '\\@ref(fig:penguins-static)'))`r "\u0060"` shows ...
     
-This line is quite complicated so let's dissect its components: the if-else statement uses `knitr::is_html_output()` to decide if the output is an html or pdf ouput. For an html output, `\\@ref(fig:penguins-interactive)` will be used to reference the chunk of the interactive graphic. If the output is a pdf, `\\@ref(fig:penguins-static)` will reference the static figure. Finally, `knitr::asis_output()` makes sure that the reference string is parsed as it is, so no special treatment on `\@`.
+This line is quite complicated so let's dissect its components: the if-else statement uses `knitr::is_html_output()` to decide if the output is an html or pdf output. For an html output, `\\@ref(fig:penguins-interactive)` will be used to reference the chunk of the interactive graphic. If the output is a pdf, `\\@ref(fig:penguins-static)` will reference the static figure. Finally, `knitr::asis_output()` makes sure that the reference string is parsed as it is, so no special treatment on `\@`.
 
 ## Sizing
 
@@ -197,7 +197,7 @@ Some good advice on code style can be found in
 - Use the "styler" package,
 - and avoiding the features warned against by Jenny Bryan at https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
     
-Inline code, eg the function calc_stat from the bilby package, should be delimited by a single back-tick. The old latex command `\code{}` shouldn't be used. 
+Inline code, e.g., the function `calc_stat` from the bilby package, should be delimited by a single back-tick. The old latex command `\code{}` shouldn't be used. 
 
 # Referring to packages
 

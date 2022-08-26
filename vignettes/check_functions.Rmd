@@ -117,7 +117,7 @@ check_spelling(path = here::here("inst/paper-with-errors"))
 
 The spelling is checked from the abstract to bibliography section and only words with all lowercase letters are checked to avoid picking up on acronyms and names. The underlying checking is done through the `hunspell` package with US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained. 
 
-Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if these are true spelling mistakes. In our article, "tooltip" is a specialised vocabulary in interactive graphics, rather than a mis-spell, so we are free to go :)
+Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if these are true spelling mistakes. In our article, "tooltip" is a specialised vocabulary in interactive graphics, rather than a misspell, so we are free to go :)
 
 
 ## Package is available on CRAN
@@ -134,7 +134,7 @@ and authors need to enter the exact package name, with proper capitalisation, fo
 
   > NOTE: No CRAN activities detected for package ToOoOlTiPs
   
-Not suprising that CRAN can't find our package since it is a hypothetical one!  
+Not surprising that CRAN can't find our package since it is a hypothetical one!  
 
 ## Package availability
 
@@ -176,7 +176,7 @@ Editors, associate editors and reviewers will routinely check that papers adhere
 
 - Brackets need to be appropriately paired
 - Punctuation after equations needs to be consistent
-- Mathematical operators (eg log) should be roman, not italic
+- Mathematical operators (e.g., log) should be roman, not italic
 
 ## Code
 
@@ -190,7 +190,7 @@ Advice on good coding style can be found in the `rjtools` article ["More details
 - Figures are readable and clear. Good advice on figure can be found in 
     - Healy (2018) Data Visualization: A practical introduction, available at https://socviz.co
     - Wilke (2019) Fundamentals of Data Visualization, available at https://clauswilke.com/dataviz/
-- Tables are conctructed effectively, with right-justified numbers, and don't exceed text margins. See [Schwabish (2020) Ten Guidelines for Better Tables](https://www.cambridge.org/core/journals/journal-of-benefit-cost-analysis/article/ten-guidelines-for-better-tables/74C6FD9FEB12038A52A95B9FBCA05A12) for advice on tables.
+- Tables are constructed effectively, with right-justified numbers, and don't exceed text margins. See [Schwabish (2020) Ten Guidelines for Better Tables](https://www.cambridge.org/core/journals/journal-of-benefit-cost-analysis/article/ten-guidelines-for-better-tables/74C6FD9FEB12038A52A95B9FBCA05A12) for advice on tables.
 - Captions have three parts: (1) what is the plot/table about, (2) specific details of plot/table, like what type of display and how variables are mapped, (3) the most important thing that the reader should learn.
 
 ## Citations
@@ -199,5 +199,5 @@ Advice on good coding style can be found in the `rjtools` article ["More details
 - The default bibliography style needs to be used
 - Inline citations are appropriately "(author, year)" or "author (year)" 
 - Consistent capitalisation of reference titles
-- All R packages used in the work are appropriately cited, eg `ggplot` if this is used to create the figures
+- All R packages used in the work are appropriately cited, e.g., `ggplot` if this is used to create the figures
 

@@ -1,6 +1,6 @@
 #' A single article check
 #'
-#' @param path The directory that contains the .tex file (Ideally, this directory should contain .bib, .rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)
+#' @param path The directory that contains the .tex file (Ideally, this directory should contain .bib, .Rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)
 #' @param dic The dictionary used for spelling check. See \code{dict} argument in [hunspell::hunspell()]
 #' @param pkg The name of the proposed package (if relevant), to be checked for activity on CRAN
 #' @param ... Additional arguments for spelling check with [hunspell::hunspell]
@@ -8,7 +8,7 @@
 #' Folder structure checks:
 #'
 #' * \code{check_filenames()}: the three files (.bib, .Rmd, and .tex) all present and have consistent names
-#' * \code{check_unnecessary_files()}: template files (i.e. RJtemplate.tex and RJournal.sty) are not included in the directory
+#' * \code{check_unnecessary_files()}: the template file (i.e., RJtemplate.tex) is not included in the directory
 #' * \code{check_cover_letter()}: a motivational letter
 #'
 #' Content checks:
