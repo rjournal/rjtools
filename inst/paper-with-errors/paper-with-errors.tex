@@ -1,0 +1,130 @@
+% !TeX root = RJwrapper.tex
+\title{ToOoOlTiPs: An R package for Customizable Tooltips in Interactive
+Graphics}
+\author{by Quietest Quokka and Bounciest Bilby}
+
+\maketitle
+
+\abstract{%
+An abstract of less than 150 words.
+}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Interactive data graphics provides plots that allow users to interact
+them. One of the most basic types of interaction is through tooltips,
+where users are provided additional information about elements in the
+plot by moving the cursor over the plot.
+
+This paper will first review some R packages on interactive graphics and
+their tooltip implementations. A new package \CRANpkg{ToOoOlTiPs} that
+provides customized tooltips for plot, is introduced. Some example plots
+will then be given to showcase how these tooltips help users to better
+read the graphics.
+
+\hypertarget{background}{%
+\section{Background}\label{background}}
+
+Some packages on interactive graphics include \CRANpkg{plotly}
+\citep{plotly} that interfaces with Javascript for web-based interactive
+graphics, \CRANpkg{crosstalk} \citep{crosstalk} that specializes
+cross-linking elements across individual graphics. The recent R Journal
+paper \CRANpkg{tsibbletalk} \citep{RJ-2021-050} provides a good example
+of including interactive graphics into an article for the journal. It
+has both a set of linked plots, and also an animated gif example,
+illustrating linking between time series plots and feature summaries.
+
+\hypertarget{customizing-tooltip-design-with}{%
+\section{\texorpdfstring{Customizing tooltip design with
+\pkg{ToOoOlTiPs}}{Customizing tooltip design with }}\label{customizing-tooltip-design-with}}
+
+\pkg{ToOoOlTiPs} is a packages for customizing tooltips in interactive
+graphics, it features these possibilities.
+
+\hypertarget{a-gallery-of-tooltips-examples}{%
+\section{A gallery of tooltips
+examples}\label{a-gallery-of-tooltips-examples}}
+
+The \CRANpkg{palmerpenguins} data \citep{palmerpenguins} features three
+penguin species which has a lovely illustration by Alison Horst in
+Figure \ref{fig:penguins-alison}.
+
+\begin{Schunk}
+\begin{figure}
+\includegraphics[width=1\linewidth,height=0.3\textheight]{penguins} \caption[Artwork by \@allison\_horst]{Artwork by \@allison\_horst}\label{fig:penguins-alison}
+\end{figure}
+\end{Schunk}
+
+Table \ref{tab:penguins-tab-static} prints at the first five rows of the
+\texttt{penguins} data:
+
+\begin{Schunk}
+\begin{table}
+
+\caption{\label{tab:penguins-tab-static}A basic table}
+\centering
+\fontsize{7}{9}\selectfont
+\begin{tabular}[t]{l|l|r|r|r|r|l|r}
+\hline
+species & island & bill\_length\_mm & bill\_depth\_mm & flipper\_length\_mm & body\_mass\_g & sex & year\\
+\hline
+Adelie & Torgersen & 39.1 & 18.7 & 181 & 3750 & male & 2007\\
+\hline
+Adelie & Torgersen & 39.5 & 17.4 & 186 & 3800 & female & 2007\\
+\hline
+Adelie & Torgersen & 40.3 & 18.0 & 195 & 3250 & female & 2007\\
+\hline
+Adelie & Torgersen & NA & NA & NA & NA & NA & 2007\\
+\hline
+Adelie & Torgersen & 36.7 & 19.3 & 193 & 3450 & female & 2007\\
+\hline
+Adelie & Torgersen & 39.3 & 20.6 & 190 & 3650 & male & 2007\\
+\hline
+\end{tabular}
+\end{table}
+
+\end{Schunk}
+
+Figure \ref{fig:penguins-ggplot} shows an plot of the penguins data,
+made using the \CRANpkg{ggplot2} package.
+
+\begin{Schunk}
+\begin{Sinput}
+penguins %>% 
+  ggplot(aes(x = bill_depth_mm, y = bill_length_mm, 
+             color = species)) + 
+  geom_point()
+\end{Sinput}
+\begin{figure}
+\includegraphics{paper-with-errors_files/figure-latex/penguins-ggplot-1} \caption[A basic non-interactive plot made with the ggplot2 package on palmer penguin data]{A basic non-interactive plot made with the ggplot2 package on palmer penguin data. Three species of penguins are plotted with bill depth on the x-axis and bill length on the y-axis. Visit the online article to access the interactive version made with the plotly package.}\label{fig:penguins-ggplot}
+\end{figure}
+\end{Schunk}
+
+\hypertarget{summary}{%
+\section{Summary}\label{summary}}
+
+We have displayed various tooltips that are available in the package
+\pkg{ToOoOlTiPs}.
+
+\bibliography{RJreferences.bib}
+
+\address{%
+Quietest Quokka\\
+University of Little Mates\\%
+Department of Letter Q\\ Somewhere, Australia\\
+%
+\url{https://www.britannica.com/animal/quokka}\\%
+\textit{ORCiD: \href{https://orcid.org/0000-1721-1511-1101}{0000-1721-1511-1101}}\\%
+\href{mailto:qquo@ulm.edu}{\nolinkurl{qquo@ulm.edu}}%
+}
+
+\address{%
+Bounciest Bilby\\
+University of Little Mates\\%
+Department of Letter B\\ Somewhere, Australia\\
+%
+\url{https://www.britannica.com/animal/bilby}\\%
+\textit{ORCiD: \href{https://orcid.org/0000-0002-0912-0225}{0000-0002-0912-0225}}\\%
+\href{mailto:bbil@ulm.edu}{\nolinkurl{bbil@ulm.edu}}%
+}
