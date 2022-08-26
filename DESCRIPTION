@@ -39,7 +39,6 @@ Imports:
     fs,
     cli,
     glue,
-    here,
     whisker,
     xfun,
     callr,
@@ -51,7 +50,8 @@ Imports:
 Suggests: 
     rmarkdown,
     knitr,
-    pdftools
+    pdftools,
+    here
 VignetteBuilder: knitr
 URL: https://github.com/rjournal/rjtools
 BugReports: https://github.com/rjournal/rjtools/issues

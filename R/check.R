@@ -23,7 +23,7 @@
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 #' @rdname checks
 #' @export
-initial_check_article <- function(path = here::here(), dic = "en_US", pkg=NULL, ...) {
+initial_check_article <- function(path = getwd(), dic = "en_US", pkg=NULL, ...) {
 
   # Documents:
   # Necessary files must be included in submission folder
