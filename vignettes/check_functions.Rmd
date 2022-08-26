@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   message = FALSE
 )
+path_to_article <- system.file("paper-with-errors", package = "rjtools")
 ```
 
 ```{r setup, echo = FALSE}
@@ -22,18 +23,17 @@ library(rjtools)
 
 The `rjtools` package has implemented some automated checks on style, spelling, and package availability, according to the R Journal format. For a comprehensive instruction on the journal format, we recommend authors to follow [instructions for Authors](https://journal.r-project.org/share/author-guide.pdf). 
 
-This vignette will demonstrate these checks with an example article, [paper-with-errors](https://github.com/rjournal/rjtools/tree/main/inst/paper-with-errors).
-
+This vignette will demonstrate these checks with an example article, [paper-with-errors](https://github.com/rjournal/rjtools/tree/main/inst/paper-with-errors), where the argument `path = path_to_article` in the checks points to the directory of the .tex file. If you have created the article using `create_article()` with the default arguments, you can check with `path = here::here("rjarticle")`.
 
 # All checks in one function
 
 All the nine checks in `rjtools` can be completed with `initial_check_article()`, given a path to the article folder: 
 
 ```{r eval = FALSE}
-initial_check_article(path = here::here("inst/paper-with-errors"))
+initial_check_article(path = path_to_article)
 ```
 
-*Notice the file path here is the path to the .tex file of your article. If you have created the article using `create_article()` with the default arguments, you can check with `initial_check_article(path = here::here("rjarticle"))`.*
+
 
 The check result will be saved in an initial_check.log file under the same folder, as well as displayed in the console. This is how it looks like for the sample article:
 
@@ -66,7 +66,7 @@ and they can all be individually checked on the article.
 ## Filenames
 
 ```{r}
-check_filenames(path = here::here("inst/paper-with-errors"))
+check_filenames(path = path_to_article)
 ```
 
 The .bib file is named `Rjreferences.bib` when created and we recommend setting a consistent name across the .bib, .tex, and .Rmd file.  A fix to this is to rename the `Rjreferences.bib` as the file name you used when create the article, in our case, `paper-with-errors`. 
@@ -74,7 +74,7 @@ The .bib file is named `Rjreferences.bib` when created and we recommend setting 
 ## Presence of unnecessary files
 
 ```{r} 
-check_unnecessary_files(path = here::here("inst/paper-with-errors")) 
+check_unnecessary_files(path = path_to_article) 
 ```
 
 This function checks that the folder doesn't contain the `RJtemplate.tex` file, which is included the past R journal template. The [authors instruction](https://journal.r-project.org/share/author-guide.pdf) requires the authors to replace the content of this `RJtemplate.tex` file with article content and name with the lowercase concatenated author name, so it is essentially the `.tex` file automatically generated in the previous section. Our article don't have unnecessary files.
@@ -82,7 +82,7 @@ This function checks that the folder doesn't contain the `RJtemplate.tex` file, 
 ## Presence of a motivating letter
 
 ```{r} 
-check_cover_letter(path = here::here("inst/paper-with-errors")) 
+check_cover_letter(path = path_to_article) 
 ```
 
 Cover letter should be provided for article of type "add-on package" and saved at the same folder as the article. The function checks whether there is a file containing the word "motivation" in its name. Our article passes this check.
@@ -90,7 +90,7 @@ Cover letter should be provided for article of type "add-on package" and saved a
 ## Article title is in title case
 
 ```{r} 
-check_title(path = here::here("inst/paper-with-errors")) 
+check_title(path = path_to_article) 
 ```
 
 The article title needs to be in the title case and the check is not happy with our title here. Use `tools::toTitleCase()` to get the correct title case format:
@@ -104,7 +104,7 @@ Here we forget to capitalise "P" in the word "package" - better make this change
 ## Section title is in sentence case
 
 ```{r} 
-check_section(path = here::here("inst/paper-with-errors")) 
+check_section(path = path_to_article) 
 ```
 
 Section titles need to be in the sentence case and we are all good here :)
@@ -112,7 +112,7 @@ Section titles need to be in the sentence case and we are all good here :)
 ## Spelling
 
 ```{r} 
-check_spelling(path = here::here("inst/paper-with-errors")) 
+check_spelling(path = path_to_article) 
 ```
 
 The spelling is checked from the abstract to bibliography section and only words with all lowercase letters are checked to avoid picking up on acronyms and names. The underlying checking is done through the `hunspell` package with US spelling by default. British spelling can be checked with argument `dic = "en_GB"`. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained. 
@@ -139,7 +139,7 @@ Not surprising that CRAN can't find our package since it is a hypothetical one!
 ## Package availability
 
 ```{r eval = FALSE} 
-check_packages_available(path = here::here("inst/paper-with-errors")) 
+check_packages_available(path = path_to_article) 
 ```
 
 All the packages mentioned with a `\CRANpkg{.}` or `\BIOpkg{.}` tag need to be available on CRAN or Bioconductor and `check_packages_available()` makes sure this is the case. For our article, we get 
