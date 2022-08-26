@@ -22,7 +22,8 @@ reference:
   contents:
   - zip_paper
   - prepare_submission
-- title: Tools for building journal issues
+- title: Tools for building journal issues and website
   desc: Functions for the editor to produce issues from several articles
   contents:
   - ends_with("issue")
+  - rjournal_website
