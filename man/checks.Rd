@@ -13,7 +13,7 @@
 \alias{check_packages_available}
 \title{A single article check}
 \usage{
-initial_check_article(path = here::here(), dic = "en_US", pkg = NULL, ...)
+initial_check_article(path = getwd(), dic = "en_US", pkg = NULL, ...)
 
 check_filenames(path)
 
