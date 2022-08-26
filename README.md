@@ -4,6 +4,8 @@
 # rjtools
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/rjournal/rjtools/workflows/R-CMD-check/badge.svg)](https://github.com/rjournal/rjtools/actions)
 <!-- badges: end -->
 
 The goal of rjtools is to make it easier for AUTHORS of R Journal
