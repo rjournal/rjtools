@@ -23,7 +23,7 @@ library(rjtools)
 library(rmarkdown)
 ```
 
-Here we provide a worked example article with both the pdf and html formats rendered. All the source files are available [here](https://github.com/rjournal/rjtools/tree/main/inst/sample-article) and  specifically, the rendered pdf output can be found [here](https://github.com/rjournal/rjtools/blob/main/inst/sample-article/article.pdf)  and below is the html output:
+The source files to create an html and pdf sample article are available [here](https://github.com/rjournal/rjtools/tree/main/inst/sample-article). The rendered pdf output can be viewed [here](https://github.com/rjournal/rjtools/blob/main/inst/sample-article/article.pdf)  and below is the html:
 
 ```{r echo = FALSE}
 # webshot2::webshot(here::here("inst/sample-article/article.html"),

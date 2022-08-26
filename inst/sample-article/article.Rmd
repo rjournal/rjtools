@@ -25,7 +25,6 @@ type: package
 output: 
   rjtools::rjournal_web_article
 bibliography: article.bib
-
 ---
 
 ```{r setup, include=FALSE}
