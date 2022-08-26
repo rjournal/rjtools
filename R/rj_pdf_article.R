@@ -6,7 +6,8 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
   fmt <- bookdown::pdf_document2(
     ...,
     highlight = NULL,
-    template = system.file("rmarkdown/templates/rjournal/resources/template.tex", package = "rjtools")
+    template = system.file("rmarkdown/templates/rjournal/resources/template.tex",
+                           package = "rjtools", mustWork = TRUE)
   )
 
   # Render will generate tex file, post-knit hook gerenates the R file,
