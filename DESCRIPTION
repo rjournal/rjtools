@@ -32,7 +32,6 @@ RoxygenNote: 7.2.1
 Imports: 
     distill,
     stringr,
-    rticles,
     cranlogs,
     purrr,
     hunspell,
