@@ -45,7 +45,8 @@ Imports:
     yaml,
     yesno,
     utils,
-    tinytex
+    tinytex,
+    bookdown
 Suggests: 
     rmarkdown,
     knitr,
