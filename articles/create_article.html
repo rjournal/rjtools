@@ -84,12 +84,11 @@
 
       
 
-      </header><div class="row">
+      </header><script src="create_article_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Create an R Journal Article</h1>
-                        <h4 data-toc-skip class="author">Sherry
-Zhang</h4>
+                        <h4 data-toc-skip class="author">Sherry Zhang</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/rjournal/rjtools/blob/HEAD/vignettes/create_article.Rmd" class="external-link"><code>vignettes/create_article.Rmd</code></a></small>
@@ -99,60 +98,35 @@ Zhang</h4>
 
     
     
-<p>With advances in html delivery of research articles through the web,
-the <em>R Journal</em> now has a new format of its website using a
-version of the <code>distill</code> package. This will allow
-incorporation of interactive graphics directly into articles and easier
-reading of the research online.</p>
-<p>The Rmd template in <code>rjtools</code> creates an article in the
-format needed for the <em>R Journal</em> <code>distill</code> web site.
-The <code>rjtools</code> package is provided to help authors meet these
-requirements with an intention that it would help authors to write an
-<em>R Journal</em> article, similar to the way that
-<code>devtools</code> help developers build an R package. In this
-vignette, I will walk you through how to use <code>rjtools</code> to
-create an <em>R Journal</em> article using the built-in template.</p>
+<p>With advances in html delivery of research articles through the web, the <em>R Journal</em> now has a new format of its website using a version of the <code>distill</code> package. This will allow incorporation of interactive graphics directly into articles and easier reading of the research online.</p>
+<p>The Rmd template in <code>rjtools</code> creates an article in the format needed for the <em>R Journal</em> <code>distill</code> web site. The <code>rjtools</code> package is provided to help authors meet these requirements with an intention that it would help authors to write an <em>R Journal</em> article, similar to the way that <code>devtools</code> help developers build an R package. In this vignette, I will walk you through how to use <code>rjtools</code> to create an <em>R Journal</em> article using the built-in template.</p>
 <div class="section level2">
 <h2 id="create-an-article">Create an Article<a class="anchor" aria-label="anchor" href="#create-an-article"></a>
 </h2>
-<p>The <code><a href="../reference/create_article.html">create_article()</a></code> function will create these files
-under a default <code>rjarticle</code> folder:</p>
+<p>The <code><a href="../reference/create_article.html">create_article()</a></code> function will create these files under a default <code>rjarticle</code> folder:</p>
 <ul>
 <li>
 <strong>quokka-bilby.Rmd</strong>: the main document</li>
 <li>
-<strong>motivation-letter.md</strong>: a motivation letter template
-for the article</li>
+<strong>motivation-letter.md</strong>: a motivation letter template for the article</li>
 <li>
-<strong>penguins.png</strong>: an example png used to illustrate how
-to include a figure in the new format</li>
+<strong>penguins.png</strong>: an example png used to illustrate how to include a figure in the new format</li>
 <li>
-<strong>Rjreferences.bib</strong>: the bibtex file for
-reference</li>
+<strong>Rjreferences.bib</strong>: the bibtex file for reference</li>
 <li>
-<strong>RJwrapper.tex</strong>: the tex template for compiling the
-pdf output</li>
+<strong>RJwrapper.tex</strong>: the tex template for compiling the pdf output</li>
 <li>
-<strong>Rjournal.sty</strong>: the R journal style sheet for the pdf
-output</li>
+<strong>Rjournal.sty</strong>: the R journal style sheet for the pdf output</li>
 </ul>
-<p>The <code>.tex</code>, and <code>.sty</code> files make sure all the
-<em>R Journal</em> articles follow the same latex and reference style
-and should not be modified unless there is a strong reason to do so.</p>
-<p>The <code>file_name</code> argument changes the name of the main R
-Markdown document, for example, if you wish to use
-<code>quokka-bilby</code> as the file name instead of
-<code>article</code>, create the article with:</p>
+<p>The <code>.tex</code>, and <code>.sty</code> files make sure all the <em>R Journal</em> articles follow the same latex and reference style and should not be modified unless there is a strong reason to do so.</p>
+<p>The <code>file_name</code> argument changes the name of the main R Markdown document, for example, if you wish to use <code>quokka-bilby</code> as the file name instead of <code>article</code>, create the article with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/create_article.html">create_article</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="st">"quokka-bilby"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/create_article.html">create_article</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="st">"quokka-bilby"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="your-first-knit">Your first knit<a class="anchor" aria-label="anchor" href="#your-first-knit"></a>
 </h2>
-<p>The <code><a href="../reference/rjournal_article.html">rjtools::rjournal_web_article</a></code> output specified in
-the article YAML will create the article in both html and pdf formats.
-Additional files created during the knit are (assuming file name of
-<code>quokka-bilby</code>):</p>
+<p>The <code><a href="../reference/rjournal_article.html">rjtools::rjournal_web_article</a></code> output specified in the article YAML will create the article in both html and pdf formats. Additional files created during the knit are (assuming file name of <code>quokka-bilby</code>):</p>
 <ul>
 <li>
 <strong>quokka-bilby.html</strong>: the html article</li>
@@ -161,31 +135,17 @@ Additional files created during the knit are (assuming file name of
 <li>
 <strong>quokka-bilby.tex</strong>: the LaTeX file</li>
 <li>
-<strong>quokka-bilby.R</strong>: an R file that contains all the
-codes</li>
+<strong>quokka-bilby.R</strong>: an R file that contains all the codes</li>
 <li>
-<strong>quokka-bilby-files/</strong>: a folder of Javascript
-libraries, necessary to view the the html article</li>
+<strong>quokka-bilby-files/</strong>: a folder of Javascript libraries, necessary to view the the html article</li>
 </ul>
-<p>You can use the regular ways to render the files, either through the
-RStudio <code>knit</code> button, or using
-<code>rmarkdown::render("paper/quokka-bilby.Rmd")</code> on the R
-command line.</p>
+<p>You can use the regular ways to render the files, either through the RStudio <code>knit</code> button, or using <code>rmarkdown::render("paper/quokka-bilby.Rmd")</code> on the R command line.</p>
 </div>
 <div class="section level2">
 <h2 id="note-rticles-template">Note: <code>rticles</code> template<a class="anchor" aria-label="anchor" href="#note-rticles-template"></a>
 </h2>
-<p>The <code>rticles</code> package contains a template for creating an
-<em>R Journal</em> article, which you might have used before if you have
-been already working with R Markdown for writing papers. This template
-creates an article that will be compiled with latex into a pdf format
-paper. It is using the current style file. If this new
-<code>distill</code> version of the delivery of the <em>R Journal</em>
-is successful, we will also synchronise the template to the one in
-<code>rjtools</code>.</p>
-<p>Now feel free to head to the vignette <em>The Article Template</em>
-or <em>More details on the R Journal format</em> for an example article
-and more detailed information on the template.</p>
+<p>The <code>rticles</code> package contains a template for creating an <em>R Journal</em> article, which you might have used before if you have been already working with R Markdown for writing papers. This template creates an article that will be compiled with latex into a pdf format paper. It is using the current style file. If this new <code>distill</code> version of the delivery of the <em>R Journal</em> is successful, we will also synchronise the template to the one in <code>rjtools</code>.</p>
+<p>Now feel free to head to the vignette <em>The Article Template</em> or <em>More details on the R Journal format</em> for an example article and more detailed information on the template.</p>
 </div>
   </div>
 
@@ -206,7 +166,7 @@ and more detailed information on the template.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
