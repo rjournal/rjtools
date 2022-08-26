@@ -31,7 +31,7 @@ $endif$
 \makesavenoteenv{longtable}
 $endif$
 
-$if(csl-refs)$
+% Always define CSL refs as bib entries are contained in separate doc
 % Pandoc citation processing
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
@@ -62,7 +62,7 @@ $if(csl-refs)$
 \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
-$endif$
+
 
 $for(header-includes)$
 $header-includes$
