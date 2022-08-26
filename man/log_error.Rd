@@ -18,3 +18,4 @@ log_error(text, ..., file = stdout(), .envir = parent.frame())
 \description{
 Append a line in the log file that details an error
 }
+\keyword{internal}

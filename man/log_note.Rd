@@ -18,3 +18,4 @@ log_note(text, ..., file = stdout(), .envir = parent.frame())
 \description{
 Append a line in the log file that details a note
 }
+\keyword{internal}

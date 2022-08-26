@@ -459,8 +459,7 @@ log_factory <- function(prefix, .f) {
 #' @param ... Additional inputs for text passed to the glue function
 #' @param .envir The environment used to find the text string replacements
 #' @param file The console output directed to the log, using `stdout`
-#'
-#'
+#' @keywords internal
 log_error <- log_factory(prefix = "ERROR: ", .f = cli::cli_alert_warning)
 
 #' Produce a log file entry for a success
@@ -471,8 +470,7 @@ log_error <- log_factory(prefix = "ERROR: ", .f = cli::cli_alert_warning)
 #' @param ... Additional inputs for text passed to the glue function
 #' @param .envir The environment used to find the text string replacements
 #' @param file The console output directed to the log, using `stdout`
-#'
-#'
+#' @keywords internal
 log_success <- log_factory(prefix = "SUCCESS: ", .f = cli::cli_alert_success)
 
 
@@ -484,8 +482,7 @@ log_success <- log_factory(prefix = "SUCCESS: ", .f = cli::cli_alert_success)
 #' @param ... Additional inputs for text passed to the glue function
 #' @param .envir The environment used to find the text string replacements
 #' @param file The console output directed to the log, using `stdout`
-#'
-#'
+#' @keywords internal
 log_note <- log_factory(prefix = "NOTE: ", .f = cli::cli_alert_info)
 
 
@@ -498,7 +495,7 @@ log_note <- log_factory(prefix = "NOTE: ", .f = cli::cli_alert_info)
 #'
 #' @name symbol
 #' @aliases symbol
-#'
+#' @keywords internal
 symbol_utf8 <- list(
   "tick" = '\u2714',
   "cross" = '\u2716',

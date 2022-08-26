@@ -34,7 +34,7 @@ check_proposed_pkg(pkg = NULL)
 check_packages_available(path)
 }
 \arguments{
-\item{path}{The directory that contains the .tex file (Ideally, this directory should contain .bib, .rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)}
+\item{path}{The directory that contains the .tex file (Ideally, this directory should contain .bib, .Rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)}
 
 \item{dic}{The dictionary used for spelling check. See \code{dict} argument in \code{\link[hunspell:hunspell]{hunspell::hunspell()}}}
 
@@ -49,7 +49,7 @@ A single article check
 Folder structure checks:
 \itemize{
 \item \code{check_filenames()}: the three files (.bib, .Rmd, and .tex) all present and have consistent names
-\item \code{check_unnecessary_files()}: template files (i.e. RJtemplate.tex and RJournal.sty) are not included in the directory
+\item \code{check_unnecessary_files()}: the template file (i.e., RJtemplate.tex) is not included in the directory
 \item \code{check_cover_letter()}: a motivational letter
 }
 

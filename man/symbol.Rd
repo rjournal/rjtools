@@ -14,4 +14,4 @@ symbol_utf8
 \description{
 Show symbols in console output
 }
-\keyword{datasets}
+\keyword{internal}
