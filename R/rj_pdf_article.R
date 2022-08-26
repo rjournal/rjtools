@@ -10,7 +10,7 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
 
     temp_tex <- xfun::read_utf8(output_file)
     # Add author line
-    temp_tex <- rticles:::post_process_authors(temp_tex)
+    temp_tex <- post_process_authors(temp_tex)
     # Replace \@ref(***) with \ref{***}
     temp_tex <- resolve_refs_latex(temp_tex)
     xfun::write_utf8(temp_tex, output_file)

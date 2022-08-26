@@ -1,6 +1,6 @@
 Package: rjtools
 Title: Tools for Preparing, Checking, and Submitting Articles to the R Journal
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: 
     c(person(given = "Mitchell",
              family = "O'Hara-Wild",
@@ -46,7 +46,8 @@ Imports:
     rlang,
     yaml,
     yesno,
-    utils
+    utils,
+    tinytex
 Suggests: 
     rmarkdown,
     knitr,

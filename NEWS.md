@@ -1,8 +1,12 @@
+# rjtools 1.0.2
+
+* Fixes for CRAN
+* Additions to build a full issue
+
 # rjtools 1.0.1
 
 * Self-contained html is default
-* remove check on WJwrapper.pdf (#46)
-
+* remove check on RJwrapper.pdf (#46)
 
 # rjtools 1.0.0
 
