@@ -82,32 +82,27 @@ changes.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rjournal_pdf_issue</span><span class="op">(</span><span class="va">...</span>, render_all <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">rjournal_web_issue</span><span class="op">(</span>toc <span class="op">=</span> <span class="cn">FALSE</span>, self_contained <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">rjournal_pdf_issue</span><span class="op">(</span><span class="va">...</span>, render_all <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="fu">rjournal_web_issue</span><span class="op">(</span>toc <span class="op">=</span> <span class="cn">FALSE</span>, self_contained <span class="op">=</span> <span class="cn">FALSE</span>, rnews <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>...</dt>
 <dd><p>Arguments passed to <code><a href="https://pkgs.rstudio.com/distill/reference/distill_article.html" class="external-link">distill::distill_article()</a></code>.</p></dd>
-
-
 <dt>render_all</dt>
 <dd><p>Re-render all articles in the issue, even if the page numbers have not changed.</p></dd>
-
-
 <dt>toc</dt>
 <dd><p><code>TRUE</code> to include a table of contents in the output</p></dd>
-
-
 <dt>self_contained</dt>
 <dd><p>Produce a standalone HTML file with no external
 dependencies, using data: URIs to incorporate the contents of linked
 scripts, stylesheets, images, and videos. Note that even for self contained
 documents MathJax is still loaded externally (this is necessary because of
 its size).</p></dd>
-
+<dt>rnews</dt>
+<dd><p>This issue is from R News.</p></dd>
 </dl></div>
 
   </div>
@@ -122,7 +117,7 @@ its size).</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>
