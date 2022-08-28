@@ -9,6 +9,9 @@ prepare_submission(name)
 \arguments{
 \item{name}{the file name you used to create the article. See argument \code{file_name} in \code{create_article()}}
 }
+\value{
+auto-generated answers for some R Journal submission questions
+}
 \description{
 Auto-generate answers to some fields in the R Jorunal submission form
 }

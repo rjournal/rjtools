@@ -10,6 +10,7 @@
 #' @inheritParams distill::distill_article
 #' @param legacy_pdf whether an article is from the past and only have pdf version
 #' @importFrom rlang caller_env env_poke
+#' @return the rendered R Journal article
 #' @export
 #' @rdname rjournal_article
 rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,

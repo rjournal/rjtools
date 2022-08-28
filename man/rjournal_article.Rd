@@ -28,6 +28,9 @@ its size).}
 
 \item{legacy_pdf}{whether an article is from the past and only have pdf version}
 }
+\value{
+the rendered R Journal article
+}
 \description{
 The R Journal is built upon the distill framework with some modifications.
 This output format behaves almost identically to the

@@ -11,9 +11,17 @@ create_article(file_name = "quokka-bilby", dir_path = "rjarticle")
 
 \item{dir_path}{the directory name that houses the template files}
 }
+\value{
+a created R Journal template in the directory specified by \code{dir_path}
+}
 \description{
 Create an R Journal article with the existing template
 }
 \details{
 See \code{vignette("create_article", package = "rjtools")} for how to create an article
+}
+\examples{
+if (FALSE){
+create_article(file_name = "quokka-bilby", dir_path = "rjarticle")
+}
 }

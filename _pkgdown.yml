@@ -10,7 +10,7 @@ reference:
   contents:
   - create_article
 - title: Article checks
-  desc: Functions to check that folder structure and article format meet Rjournal submission guideline
+  desc: Functions to check that folder structure and article format meet R Journal submission guideline
   contents:
   - starts_with("check")
 - title: R Markdown article format

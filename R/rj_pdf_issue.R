@@ -5,6 +5,7 @@
 #'
 #' @param ... Arguments passed to `rmarkdown::pdf_document()`.
 #' @param render_all Re-render all articles in the issue, even if the page numbers have not changed.
+#' @return an generated R Journal issue
 #' @export
 #' @rdname rjournal_issue
 rjournal_pdf_issue <- function(..., render_all = FALSE) {

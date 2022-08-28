@@ -42,6 +42,9 @@ check_packages_available(path)
 
 \item{...}{Additional arguments for spelling check with \link[hunspell:hunspell]{hunspell::hunspell}}
 }
+\value{
+a checking message that informs the user whether the check passes
+}
 \description{
 A single article check
 }
@@ -64,4 +67,9 @@ Content checks:
 }
 
 See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
+}
+\examples{
+if (FALSE){
+initial_check_article()
+}
 }

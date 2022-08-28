@@ -5,8 +5,13 @@
 #'
 #' @param file_name the name of the Rmd file
 #' @param dir_path the directory name that houses the template files
+#' @return a created R Journal template in the directory specified by `dir_path`
 #' @importFrom stringr str_extract
 #' @importFrom fs dir_create file_copy file_move
+#' @examples
+#' if (FALSE){
+#' create_article(file_name = "quokka-bilby", dir_path = "rjarticle")
+#' }
 #' @export
 create_article <- function(file_name = "quokka-bilby", dir_path = "rjarticle"){
 

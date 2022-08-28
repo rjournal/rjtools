@@ -8,6 +8,7 @@
 #' motivational letter for add-in packages, and \code{review/} folder for reviewer's comments and responses.
 #' @importFrom utils zip
 #' @importFrom yesno yesno
+#' @return a zip file with necessary element for an R Journal submission
 #' @export
 #'
 zip_paper <- function(name, others = NULL){
@@ -82,6 +83,7 @@ zip_paper <- function(name, others = NULL){
 #' Auto-generate answers to some fields in the R Jorunal submission form
 #'
 #' @param name the file name you used to create the article. See argument `file_name` in \code{create_article()}
+#' @return auto-generated answers for some R Journal submission questions
 #' @export
 prepare_submission <- function(name){
 

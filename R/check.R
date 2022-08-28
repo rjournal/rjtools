@@ -22,6 +22,12 @@
 #'
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 #' @rdname checks
+#' @return a checking message that informs the user whether the check passes
+#' @examples
+#' if (FALSE){
+#' initial_check_article()
+#' }
+
 #' @export
 initial_check_article <- function(path = getwd(), dic = "en_US", pkg=NULL, ...) {
 

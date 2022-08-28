@@ -24,6 +24,9 @@ its size).}
 
 \item{rnews}{This issue is from R News.}
 }
+\value{
+an generated R Journal issue
+}
 \description{
 The R Journal is built upon the distill framework with some modifications.
 This output format produces the PDF for an R Journal issue.

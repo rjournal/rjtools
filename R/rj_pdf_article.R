@@ -1,5 +1,4 @@
 # Adapted from rticles::rjournal_article
-
 #' @export
 #' @rdname rjournal_article
 rjournal_pdf_article <- function(..., self_contained = FALSE) {
