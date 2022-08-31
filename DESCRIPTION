@@ -23,8 +23,11 @@ Authors@R:
              email = "cderv@rstudio.com", 
              role = "aut", 
              comment = c(ORCID = "0000-0003-4474-2498")))
-Description: A set of functions to generate the R Journal template, to build the article, 
-  and to self-check article submission format. 
+Description: A set of functions to create an R Journal template article, 
+  to generate html and pdf versions, and to check that the paper folder 
+  has all the suitable components and satifies requirements needed for 
+  submission. Examples of R Journal publications can be found at 
+  <https://journal.r-project.org>. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

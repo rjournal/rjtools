@@ -24,7 +24,7 @@
 #' @rdname checks
 #' @return a checking message that informs the user whether the check passes
 #' @examples
-#' if (FALSE){
+#' if (FALSE) {
 #' initial_check_article()
 #' }
 
