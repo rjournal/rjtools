@@ -169,7 +169,7 @@ rjournal_pdf_issue <- function(..., render_all = FALSE) {
       sprintf(
         "pdftk %s cat output %s",
         paste(c(output_file, editorial_pdf, article_pdf, news_pdf), collapse = " "),
-        tmp <- tempfile(fileext = "pdf")
+        tmp <- tempfile(fileext = ".pdf")
       )
     )
 
