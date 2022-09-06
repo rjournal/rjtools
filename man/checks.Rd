@@ -13,7 +13,7 @@
 \alias{check_packages_available}
 \title{A single article check}
 \usage{
-initial_check_article(path = getwd(), dic = "en_US", pkg = NULL, ...)
+initial_check_article(path = NULL, dic = "en_US", pkg = NULL, ...)
 
 check_filenames(path)
 
@@ -69,7 +69,7 @@ Content checks:
 See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 }
 \examples{
-if (FALSE){
-initial_check_article()
+\dontrun{
+if (interactive()) initial_check_article("inst/sample-article")
 }
 }

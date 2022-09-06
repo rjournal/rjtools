@@ -6,7 +6,7 @@
 \alias{rjtools-package}
 \title{rjtools: Tools for Preparing, Checking, and Submitting Articles to the R Journal}
 \description{
-A set of functions to generate the R Journal template, to build the article, and to self-check article submission format.
+A set of functions to create an R Journal template article, to generate html and pdf versions, and to check that the paper folder has all the suitable components and satifies requirements needed for submission. Examples of R Journal publications can be found at \url{https://journal.r-project.org}.
 }
 \seealso{
 Useful links:

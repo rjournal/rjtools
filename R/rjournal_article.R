@@ -9,7 +9,7 @@
 #' @importFrom stringr str_extract
 #' @importFrom fs dir_create file_copy file_move
 #' @examples
-#' if (FALSE) {
+#' \dontrun{
 #' create_article(file_name = "quokka-bilby", dir_path = "rjarticle")
 #' }
 #' @export

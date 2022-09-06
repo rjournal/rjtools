@@ -24,18 +24,24 @@
 #' @rdname checks
 #' @return a checking message that informs the user whether the check passes
 #' @examples
-#' if (FALSE) {
-#' initial_check_article()
+#' \dontrun{
+#' if (interactive()) initial_check_article("inst/sample-article")
 #' }
 
 #' @export
-initial_check_article <- function(path = getwd(), dic = "en_US", pkg=NULL, ...) {
+initial_check_article <- function(path = NULL, dic = "en_US", pkg=NULL, ...) {
 
   # Documents:
   # Necessary files must be included in submission folder
   # Do not proceed without them, flag for manual check
   # Unnecessary files must not be included in submission folder
   # Do not proceed with them, flag for manual check
+
+  if (is.null(path)){
+    cli::cli_abort(
+      " The {.code path} argument can't be {.code NULL}.
+    Please specify the file directory that contains the article {.field .tex} file.")
+  }
 
   if (!"tex" %in% tools::file_ext(list.files(path = path))){
     stop("Please supply the directory that contains the .tex file")
@@ -526,3 +532,4 @@ symbol_ascii <- list(
   "star" = '*',
   "line" = '-'
 )
+

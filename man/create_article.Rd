@@ -21,7 +21,7 @@ Create an R Journal article with the existing template
 See \code{vignette("create_article", package = "rjtools")} for how to create an article
 }
 \examples{
-if (FALSE){
+\dontrun{
 create_article(file_name = "quokka-bilby", dir_path = "rjarticle")
 }
 }
