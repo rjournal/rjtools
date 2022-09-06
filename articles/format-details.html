@@ -84,11 +84,12 @@
 
       
 
-      </header><script src="format-details_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>More details on the R Journal format</h1>
-                        <h4 data-toc-skip class="author">H. Sherry Zhang and Di Cook</h4>
+                        <h4 data-toc-skip class="author">H. Sherry Zhang
+and Di Cook</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/rjournal/rjtools/blob/HEAD/vignettes/format-details.Rmd" class="external-link"><code>vignettes/format-details.Rmd</code></a></small>
@@ -98,7 +99,14 @@
 
     
     
-<p>This article will work you the key parts of an R Journal template article as produced by <code><a href="../reference/create_article.html">create_article()</a></code>. This assumes that you have already followed the “Create an R Journal Article” vignette, have created your initial article, and you have been able to knit both the <code>pdf</code> and <code>html</code> article. Here we explain the important parts you can see in the <code>Rmd</code> file that generates both output types, and how to modify them, and to debug if problems arise.</p>
+<p>This article will work you the key parts of an R Journal template
+article as produced by <code><a href="../reference/create_article.html">create_article()</a></code>. This assumes that
+you have already followed the “Create an R Journal Article” vignette,
+have created your initial article, and you have been able to knit both
+the <code>pdf</code> and <code>html</code> article. Here we explain the
+important parts you can see in the <code>Rmd</code> file that generates
+both output types, and how to modify them, and to debug if problems
+arise.</p>
 <div class="section level2">
 <h2 id="yaml-header">YAML header<a class="anchor" aria-label="anchor" href="#yaml-header"></a>
 </h2>
@@ -107,11 +115,14 @@
 <li><code>title: "your article title"</code></li>
 <li><code>abstract: &gt; ....</code></li>
 <li>
-<code>author:</code> with separate lines for <code>name:</code>, <code>affiliation:</code>, <code>address:</code>, <code>url:</code>, <code>orcid:</code>, <code>email:</code> and a block for each author</li>
+<code>author:</code> with separate lines for <code>name:</code>,
+<code>affiliation:</code>, <code>address:</code>, <code>url:</code>,
+<code>orcid:</code>, <code>email:</code> and a block for each
+author</li>
 <li>output format lines should look like</li>
 </ul>
-<pre><code><span><span class="va">output</span><span class="op">:</span></span>
-<span>  <span class="fu">rjtools</span><span class="fu">::</span><span class="va"><a href="../reference/rjournal_article.html">rjournal_web_article</a></span></span></code></pre>
+<pre><code><span class="va">output</span><span class="op">:</span>
+  <span class="fu">rjtools</span><span class="fu">::</span><span class="va"><a href="../reference/rjournal_article.html">rjournal_web_article</a></span></code></pre>
 <ul>
 <li><code>bibliography: RJreferences.bib</code></li>
 </ul>
@@ -119,47 +130,76 @@
 <div class="section level2">
 <h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
 </h2>
-<p>If you would like to have an interactive plot in the html output, you will also need to provide a static plot for the pdf output. You will need two code blocks, one for each, with conditional <code>eval</code> options. The inline reference will also need to do a conditional <code>eval</code> to write the appropriate reference link depending on the html or pdf knitting.</p>
-<p>Of course, if only a static plot is to be rendered in both outputs, a single code chunk and a single inline reference will be sufficient.</p>
-<p>Note that the structure of a thorough caption is three components: (1) what is the plot/table about, (2) specific details of plot/table, like what type of display and how variables are mapped, (3) the most important thing that the reader should learn.</p>
+<p>If you would like to have an interactive plot in the html output, you
+will also need to provide a static plot for the pdf output. You will
+need two code blocks, one for each, with conditional <code>eval</code>
+options. The inline reference will also need to do a conditional
+<code>eval</code> to write the appropriate reference link depending on
+the html or pdf knitting.</p>
+<p>Of course, if only a static plot is to be rendered in both outputs, a
+single code chunk and a single inline reference will be sufficient.</p>
+<p>Note that the structure of a thorough caption is three components:
+(1) what is the plot/table about, (2) specific details of plot/table,
+like what type of display and how variables are mapped, (3) the most
+important thing that the reader should learn.</p>
 <div class="section level3">
 <h3 id="static">Static<a class="anchor" aria-label="anchor" href="#static"></a>
 </h3>
-<p>For a static graph, use <code>\@ref(fig:penguins)</code> for in-text reference and your code chunk should look something like this:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="bn">```{r penguins, fig.cap="This is the figure caption"}</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="bn">penguins %&gt;% </span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="bn">  ggplot(aes(x = flipper_length_mm, y = body_mass_g, </span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="bn">             color = species)) + </span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="bn">  geom_point()</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="bn">```</span></span></code></pre></div>
+<p>For a static graph, use <code>\@ref(fig:penguins)</code> for in-text
+reference and your code chunk should look something like this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r penguins, fig.cap="This is the figure caption"}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="in">penguins %&gt;% </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="in">  ggplot(aes(x = flipper_length_mm, y = body_mass_g, </span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="in">             color = species)) + </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_point()</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="interactive">Interactive<a class="anchor" aria-label="anchor" href="#interactive"></a>
 </h3>
-<p>For an interactive graphic, use separate code chunks to create a static plot for the pdf article and an interactive one for the html article:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a><span class="bn">```{r penguins-static, eval=knitr::is_latex_output(), fig.cap="This is the figure caption."}</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="bn">penguins %&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="bn">  ggplot(aes(x = bill_depth_mm, y = bill_length_mm,</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="bn">             color = species)) +</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="bn">  geom_point()</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="bn">```</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="bn">```{r penguins-interactive, eval=knitr::is_html_output(), fig.cap="This is the figure caption."}</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="bn">p1 &lt;- penguins %&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="bn">  ggplot(aes(x = bill_depth_mm, y = bill_length_mm,</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="bn">             color = species)) +</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="bn">  geom_point()</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="bn">plotly::ggplotly(p1)</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="bn">```</span></span></code></pre></div>
-<p>Notice here you need <code>eval=knitr::is_html_output()</code> and <code>eval=knitr::is_latex_output()</code> to make sure that the pdf output only evaluates the first chunk and the html output only evaluates the second.</p>
+<p>For an interactive graphic, use separate code chunks to create a
+static plot for the pdf article and an interactive one for the html
+article:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r penguins-static, eval=knitr::is_latex_output(), fig.cap="This is the figure caption."}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="in">penguins %&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="in">  ggplot(aes(x = bill_depth_mm, y = bill_length_mm,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="in">             color = species)) +</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_point()</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r penguins-interactive, eval=knitr::is_html_output(), fig.cap="This is the figure caption."}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in">p1 &lt;- penguins %&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">  ggplot(aes(x = bill_depth_mm, y = bill_length_mm,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">             color = species)) +</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_point()</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">plotly::ggplotly(p1)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<p>Notice here you need <code>eval=knitr::is_html_output()</code> and
+<code>eval=knitr::is_latex_output()</code> to make sure that the pdf
+output only evaluates the first chunk and the html output only evaluates
+the second.</p>
 <p>For in-text citation, you will something like this:</p>
 <pre><code>Figure `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(fig:penguins-interactive)', '\\@ref(fig:penguins-static)'))` shows ...</code></pre>
-<p>This line is quite complicated so let’s dissect its components: the if-else statement uses <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html" class="external-link">knitr::is_html_output()</a></code> to decide if the output is an html or pdf output. For an html output, <code>\\@ref(fig:penguins-interactive)</code> will be used to reference the chunk of the interactive graphic. If the output is a pdf, <code>\\@ref(fig:penguins-static)</code> will reference the static figure. Finally, <code><a href="https://rdrr.io/pkg/knitr/man/asis_output.html" class="external-link">knitr::asis_output()</a></code> makes sure that the reference string is parsed as it is, so no special treatment on <code>\@</code>.</p>
+<p>This line is quite complicated so let’s dissect its components: the
+if-else statement uses <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html" class="external-link">knitr::is_html_output()</a></code> to decide if
+the output is an html or pdf output. For an html output,
+<code>\\@ref(fig:penguins-interactive)</code> will be used to reference
+the chunk of the interactive graphic. If the output is a pdf,
+<code>\\@ref(fig:penguins-static)</code> will reference the static
+figure. Finally, <code><a href="https://rdrr.io/pkg/knitr/man/asis_output.html" class="external-link">knitr::asis_output()</a></code> makes sure that the
+reference string is parsed as it is, so no special treatment on
+<code>\@</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="sizing">Sizing<a class="anchor" aria-label="anchor" href="#sizing"></a>
 </h3>
-<p>For static plots, you can use <code>fig.width</code> and <code>fig.height</code> to adjust figure sizing for both pdf and html outputs.</p>
-<p>For html output, distill provides several larger than text-width layouts, i.e. <code>l-body</code> (textwidth) <code>l-body-outset</code> (slightly extended from text width), <code>l-page</code> (pagewidth), and <code>l-screen</code> (window width). These can be set via the chunk option <code>layout</code>:</p>
+<p>For static plots, you can use <code>fig.width</code> and
+<code>fig.height</code> to adjust figure sizing for both pdf and html
+outputs.</p>
+<p>For html output, distill provides several larger than text-width
+layouts, i.e. <code>l-body</code> (textwidth) <code>l-body-outset</code>
+(slightly extended from text width), <code>l-page</code> (pagewidth),
+and <code>l-screen</code> (window width). These can be set via the chunk
+option <code>layout</code>:</p>
 <pre class="rmarkdown"><code>```{r layout = "l-body-outset", fig.width = 5, fig.height = 3}
 library(ggplot2)
 library(palmerpenguins)
@@ -169,37 +209,61 @@ ggplot(data = penguins,
            color = species)) + 
   geom_point()
 ```</code></pre>
-<p>Notice that <code>fig.width</code> and <code>fig.height</code> still apply here and <code>layout</code> option will not affect the pdf rendering. Some interactive graphics set the figure sizing inside its function, for example,</p>
+<p>Notice that <code>fig.width</code> and <code>fig.height</code> still
+apply here and <code>layout</code> option will not affect the pdf
+rendering. Some interactive graphics set the figure sizing inside its
+function, for example,</p>
 <ul>
 <li>
-<code>plotly::ggplotly(p, width = ..., height = ...)</code>, and</li>
+<code>plotly::ggplotly(p, width = ..., height = ...)</code>,
+and</li>
 <li>
 <code>ggiraph::girafe(p, width_svg = ..., height_svg = ...)</code>.</li>
 </ul>
-<p>Sizing these figures should via the relevant arguments rather than the chunk options.</p>
+<p>Sizing these figures should via the relevant arguments rather than
+the chunk options.</p>
 </div>
 <div class="section level3">
 <h3 id="alt-text">Alt text<a class="anchor" aria-label="anchor" href="#alt-text"></a>
 </h3>
-<p>Alt text is read by a screen reader for people with visual disability and authors are encouraged to include alt text in their figures to make them more accessible in the R community. You only need to add alt text for the html figures and this can be done via the <code>fig.alt</code> chunk option. There are a few guidelines on how to write an alt text can be found at <a href="https://www.vic.gov.au/alternative-text" class="external-link">here</a>, <a href="https://rjionline.org/news/alt-text-is-journalism-enhancing-your-reporting-with-accessibility/" class="external-link">here</a>, and <a href="https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81" class="external-link">here</a>. Remember an alt text is not supposed to tell the reader what can be learnt from the plot, but merely to describe what is on the plot. With a good alt text, people should be able to sketch a copy of the figure based on your description.</p>
+<p>Alt text is read by a screen reader for people with visual disability
+and authors are encouraged to include alt text in their figures to make
+them more accessible in the R community. You only need to add alt text
+for the html figures and this can be done via the <code>fig.alt</code>
+chunk option. There are a few guidelines on how to write an alt text can
+be found at <a href="https://www.vic.gov.au/alternative-text" class="external-link">here</a>,
+<a href="https://rjionline.org/news/alt-text-is-journalism-enhancing-your-reporting-with-accessibility/" class="external-link">here</a>,
+and <a href="https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81" class="external-link">here</a>.
+Remember an alt text is not supposed to tell the reader what can be
+learnt from the plot, but merely to describe what is on the plot. With a
+good alt text, people should be able to sketch a copy of the figure
+based on your description.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="tables">Tables<a class="anchor" aria-label="anchor" href="#tables"></a>
 </h2>
-<p>To use a simple markdown table, you need to add <code>preamble: \usepackage{longtable}</code> in the YAML for the tex file to render the pdf output. Another option is to use <code><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">knitr::kable()</a></code>, where you need to set up two chunks similar to the figures with different <code>format</code> arguments:</p>
+<p>To use a simple markdown table, you need to add
+<code>preamble: \usepackage{longtable}</code> in the YAML for the tex
+file to render the pdf output. Another option is to use
+<code><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">knitr::kable()</a></code>, where you need to set up two chunks similar
+to the figures with different <code>format</code> arguments:</p>
 <pre class="rmarkdown"><code>```{r penguins-interactive, eval = knitr::is_html_output()}
 knitr::kable(head(penguins), format = "html", caption = "Table caption")
 ```</code></pre>
 <pre class="rmarkdown"><code>```{r penguins-static, eval = knitr::is_latex_output()}
 knitr::kable(head(penguins), format = "latex", caption = "Table caption")
 ```   </code></pre>
-<p>For inline reference, remember to use <code>tab:</code> instead of <code>fig:</code> in <code>\\@ref(tab:penguins-interactive)</code> and <code>\\@ref(tab:penguins-static)</code>. The same <code>layout</code> used for figure sizing is also applicable for tables.</p>
+<p>For inline reference, remember to use <code>tab:</code> instead of
+<code>fig:</code> in <code>\\@ref(tab:penguins-interactive)</code> and
+<code>\\@ref(tab:penguins-static)</code>. The same <code>layout</code>
+used for figure sizing is also applicable for tables.</p>
 </div>
 <div class="section level2">
 <h2 id="equations">Equations<a class="anchor" aria-label="anchor" href="#equations"></a>
 </h2>
-<p>All equations need to have a label for consistency in both html and pdf outputs. For example:</p>
+<p>All equations need to have a label for consistency in both html and
+pdf outputs. For example:</p>
 <pre><code>\begin{equation} 
 STP_{\textit{parity loss}} = \Big | \ln \Big( \frac{STP_b}{STP_a} \Big)\Big|. 
   (\#eq:parityLoss1)
@@ -208,12 +272,20 @@ STP_{\textit{parity loss}} = \Big | \ln \Big( \frac{STP_b}{STP_a} \Big)\Big|.
 STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_i}{STP_a} \Big)\Big|.  
   (\#eq:parityLoss2)
 \end{equation} </code></pre>
-<p>Both equations will be numbered, and referenced with <code>\@ref(eq:parityLoss2)</code>. So you can link to the equation in both html and pdf outputs.</p>
+<p>Both equations will be numbered, and referenced with
+<code>\@ref(eq:parityLoss2)</code>. So you can link to the equation in
+both html and pdf outputs.</p>
 </div>
 <div class="section level2">
 <h2 id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>
 </h2>
-<p>The citation style will be added during the building process and you can find the csl file <a href="https://github.com/rjournal/rjtools/blob/main/inst/rjournal.csl" class="external-link">here</a>. This style adopts a “capitalize-first” text case on title, which means it will capitalise the first world, including the one after the colon, and use lowercase for the rest. If you would like to preserve the text case of the title in the reference, wrap the word with curly braces. A common example of this is to preserve the lowercase R package name:</p>
+<p>The citation style will be added during the building process and you
+can find the csl file <a href="https://github.com/rjournal/rjtools/blob/main/inst/rjournal.csl" class="external-link">here</a>.
+This style adopts a “capitalize-first” text case on title, which means
+it will capitalise the first world, including the one after the colon,
+and use lowercase for the rest. If you would like to preserve the text
+case of the title in the reference, wrap the word with curly braces. A
+common example of this is to preserve the lowercase R package name:</p>
 <pre class="eval"><code>@Manual{crosstalk,
   title = {{crosstalk}: Inter-Widget Interactivity for HTML Widgets},
   author = {Joe Cheng and Carson Sievert},
@@ -221,29 +293,46 @@ STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_
   note = {R package version 1.1.1},
   url = {https://CRAN.R-project.org/package=crosstalk},
 }</code></pre>
-<p>R Journal requires a link for easy access to the reference and this can be done through either the <code>doi</code> or <code>url</code> field. If both fields are presented, <code>url</code> takes priority and we recommend providing the URL link as <code>url = {https://doi.org/.../...},</code>.</p>
+<p>R Journal requires a link for easy access to the reference and this
+can be done through either the <code>doi</code> or <code>url</code>
+field. If both fields are presented, <code>url</code> takes priority and
+we recommend providing the URL link as
+<code>url = {https://doi.org/.../...},</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="styling">Styling<a class="anchor" aria-label="anchor" href="#styling"></a>
 </h2>
-<p>Custom <code>css</code> is discouraged, because all articles should look similar. However, if you would like to make <strong>small</strong> changes in style for the appearance of your paper, even to get sizing of plots and tables cleaner in the html output, you can add a custom <code>css</code> and point to it in the YAML along with the <code>rjournal.css</code>.</p>
+<p>Custom <code>css</code> is discouraged, because all articles should
+look similar. However, if you would like to make <strong>small</strong>
+changes in style for the appearance of your paper, even to get sizing of
+plots and tables cleaner in the html output, you can add a custom
+<code>css</code> and point to it in the YAML along with the
+<code>rjournal.css</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="converting-from-other-rmarkdown-formats">Converting from other Rmarkdown formats<a class="anchor" aria-label="anchor" href="#converting-from-other-rmarkdown-formats"></a>
 </h2>
-<p>If you are already writing your articles using Rmarkdown, and have written your article using the <code><a href="https://rdrr.io/pkg/rticles/man/rjournal_article.html" class="external-link">rticles::rjournal_article</a></code> style it is straightforward to make the switch to the <code>rjtools</code> styling. These are the steps that you need to follow:</p>
+<p>If you are already writing your articles using Rmarkdown, and have
+written your article using the <code><a href="https://rdrr.io/pkg/rticles/man/rjournal_article.html" class="external-link">rticles::rjournal_article</a></code>
+style it is straightforward to make the switch to the
+<code>rjtools</code> styling. These are the steps that you need to
+follow:</p>
 <ol style="list-style-type: decimal">
-<li>change output formats to <code><a href="../reference/rjournal_article.html">rjtools::rjournal_web_article</a></code> to switch to the new style,</li>
+<li>change output formats to <code><a href="../reference/rjournal_article.html">rjtools::rjournal_web_article</a></code>
+to switch to the new style,</li>
 <li>remove any latex specific functionality,</li>
 <li>change figure, table references to <code>\@ref()</code> and</li>
-<li>add the <code>rjournal.csl</code> and <code>rjournal.css</code> template files to your folder, updating YAML to utilise them, and</li>
+<li>add the <code>rjournal.csl</code> and <code>rjournal.css</code>
+template files to your folder, updating YAML to utilise them, and</li>
 <li>set the reference to the <code>.bib</code> in the YAML.</li>
 </ol>
 </div>
 <div class="section level2">
 <h2 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
 </h2>
-<p>Code chunks should provide the examples of usage of the package, if the paper is about an add-on package for R. Nice structure to the code is expected of R Journal papers.</p>
+<p>Code chunks should provide the examples of usage of the package, if
+the paper is about an add-on package for R. Nice structure to the code
+is expected of R Journal papers.</p>
 <p>Some good advice on code style can be found in</p>
 <ul>
 <li>“R packages” chapter 7 by Hadley Wickham at <a href="https://r-pkgs.org/Code.html" class="external-link uri">https://r-pkgs.org/Code.html</a>,</li>
@@ -254,17 +343,29 @@ STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_
 <li>and avoiding the features warned against by Jenny Bryan at <a href="https://www.tidyverse.org/blog/2017/12/workflow-vs-script/" class="external-link uri">https://www.tidyverse.org/blog/2017/12/workflow-vs-script/</a>
 </li>
 </ul>
-<p>Inline code, e.g., the function <code>calc_stat</code> from the bilby package, should be delimited by a single back-tick. The old latex command <code>\code{}</code> shouldn’t be used.</p>
+<p>Inline code, e.g., the function <code>calc_stat</code> from the bilby
+package, should be delimited by a single back-tick. The old latex
+command <code>\code{}</code> shouldn’t be used.</p>
 </div>
 <div class="section level2">
 <h2 id="referring-to-packages">Referring to packages<a class="anchor" aria-label="anchor" href="#referring-to-packages"></a>
 </h2>
-<p>The old latex commands <code>\CRANpkg{}</code> or <code>\BIOpkg{}</code> can be used for all CRAN and Bioconductor package references. This will create a link in the document that links to the CRAN or Bioconductor site for the package. Any other package should be treated like code, and delimited using single backticks.</p>
+<p>The old latex commands <code>\CRANpkg{}</code> or
+<code>\BIOpkg{}</code> can be used for all CRAN and Bioconductor package
+references. This will create a link in the document that links to the
+CRAN or Bioconductor site for the package. Any other package should be
+treated like code, and delimited using single backticks.</p>
 </div>
 <div class="section level2">
 <h2 id="trouble-shooting">Trouble-shooting<a class="anchor" aria-label="anchor" href="#trouble-shooting"></a>
 </h2>
-<p>If the pdf did not compile, check your latex installation, and update your version of <code>rjtools</code>. If this hasn’t fixed the problem, there may be a latex error in your file. If the <code>.tex</code> file was created you can use latex on your system to typeset from this file, and it might help you track down the location of the error in the <code>.tex</code> file, and hence narrow down the location in the <code>.Rmd</code>.</p>
+<p>If the pdf did not compile, check your latex installation, and update
+your version of <code>rjtools</code>. If this hasn’t fixed the problem,
+there may be a latex error in your file. If the <code>.tex</code> file
+was created you can use latex on your system to typeset from this file,
+and it might help you track down the location of the error in the
+<code>.tex</code> file, and hence narrow down the location in the
+<code>.Rmd</code>.</p>
 </div>
   </div>
 
@@ -285,7 +386,7 @@ STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
