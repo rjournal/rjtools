@@ -29,7 +29,7 @@ its size).}
 
 \item{legacy_pdf}{whether an article is from the past and only have pdf version}
 
-\item{web_only}{additional param for skipping PDF compilation for legacy articles}
+\item{web_only}{additional param for embedding PDF or using Rmd to produce HTML}
 }
 \value{
 the rendered R Journal article
