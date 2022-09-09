@@ -9,12 +9,13 @@
 #'   and `rticles::rjournal_article()` for pdf articles.
 #' @inheritParams distill::distill_article
 #' @param legacy_pdf whether an article is from the past and only have pdf version
+#' @param web_only additional param for embedding PDF or using Rmd to produce HTML
 #' @importFrom rlang caller_env env_poke
 #' @return the rendered R Journal article
 #' @export
 #' @rdname rjournal_article
 rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
-                                 legacy_pdf = FALSE, ...) {
+                                 legacy_pdf = FALSE, web_only = FALSE, ...) {
   args <- c()
   base_format <- distill::distill_article(
     self_contained = self_contained, toc = toc, ...
@@ -127,7 +128,7 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
                             output_dir) {
 
     # Add embedded PDF
-    embed_pdf <- if(legacy_pdf) {
+    embed_pdf <- if(! web_only){
       whisker::whisker.render(
 '<div class="l-page">
   <embed src="{{slug}}.pdf" type="application/pdf" height="955px" width="100%">
@@ -175,7 +176,7 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
         yaml::as.yaml(metadata),
         "---",
         "",
-        if(legacy_pdf) embed_pdf else input[(front_matter_delimiters[2]+1):length(input)],
+        if(! web_only) embed_pdf else input[(front_matter_delimiters[2]+1):length(input)],
         "",
         appendix
       ),

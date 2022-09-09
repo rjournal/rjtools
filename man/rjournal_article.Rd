@@ -11,6 +11,7 @@ rjournal_web_article(
   toc = FALSE,
   self_contained = FALSE,
   legacy_pdf = FALSE,
+  web_only = FALSE,
   ...
 )
 }
@@ -27,6 +28,8 @@ its size).}
 \item{toc}{\code{TRUE} to include a table of contents in the output}
 
 \item{legacy_pdf}{whether an article is from the past and only have pdf version}
+
+\item{web_only}{additional param for embedding PDF or using Rmd to produce HTML}
 }
 \value{
 the rendered R Journal article
