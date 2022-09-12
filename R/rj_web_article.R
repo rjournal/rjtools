@@ -15,7 +15,7 @@
 #' @export
 #' @rdname rjournal_article
 rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
-                                 legacy_pdf = FALSE, web_only = FALSE, ...) {
+                                 legacy_pdf = FALSE, web_only = !legacy_pdf, ...) {
   args <- c()
   base_format <- distill::distill_article(
     self_contained = self_contained, toc = toc, ...
