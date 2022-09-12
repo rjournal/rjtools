@@ -9,6 +9,7 @@
 #' @export
 #' @rdname rjournal_issue
 rjournal_pdf_issue <- function(..., render_all = FALSE) {
+  require_package("pdftools")
 
   editorial_slug <- NULL
   article_slugs <- NULL
@@ -93,31 +94,31 @@ rjournal_pdf_issue <- function(..., render_all = FALSE) {
     # 3. Using article order, compute and assign page numbers
     # 4. If the page numbers have changed for an article, re-render it.
     # 5. Generate toc with the appropriate page numbers for articles
-
-    current_page <- as.integer(articles[[1]][[1]]$journal$firstpage %||% articles[[1]]$pages[1] %||% 1)
-    toc <- mapply(function(articles, toc_section) {
+    make_toc <- function(articles, toc_section, skip_updates = FALSE) {
       c(
         if(toc_section=="")
           NULL
         else
           paste0("\\addtocontents{toc}{\\protect\\subsection*{", toc_section, "}\\protect}"),
         vapply(articles, function(x) {
-          start_page <- as.integer(x$journal$firstpage %||% x$pages[1])
-          end_page <- as.integer(x$journal$lastpage %||% x$pages[2])
-          if(!identical(current_page, start_page) || render_all) {
-            art_type <- if(grepl("^RJ-\\d{4}-\\d{3}$", x$slug)) "_articles" else "_news"
-            art_rmd <- file.path("..", "..", art_type, x$slug, xfun::with_ext(x$slug, ".Rmd"))
-            end_page <- x$journal$lastpage <- current_page + pdftools::pdf_length(xfun::with_ext(art_rmd, ".pdf")) - 1L
-            start_page <- x$journal$firstpage <- current_page
-            x$draft <- FALSE
-            update_front_matter(x, art_rmd)
-            message(sprintf("Updating page numbers for '%s' article.", x$slug))
-            callr::r(function(input){
-              rmarkdown::render(
-                input,
-                output_format = "rjtools::rjournal_web_article"
-              )
-            }, args = list(input = art_rmd))
+          start_page <- as.integer(x$journal$firstpage %||% x$pages[1] %||% 1L)
+          end_page <- as.integer(x$journal$lastpage %||% x$pages[2] %||% 1L)
+          if(!skip_updates) {
+            if(!identical(current_page, start_page) || render_all) {
+              art_type <- if(grepl("^RJ-\\d{4}-\\d{3}$", x$slug)) "_articles" else "_news"
+              art_rmd <- file.path("..", "..", art_type, x$slug, xfun::with_ext(x$slug, ".Rmd"))
+              end_page <- x$journal$lastpage <- current_page + pdftools::pdf_length(xfun::with_ext(art_rmd, ".pdf")) - 1L
+              start_page <- x$journal$firstpage <- current_page
+              x$draft <- FALSE
+              update_front_matter(x, art_rmd)
+              message(sprintf("Updating page numbers for '%s' article.", x$slug))
+              callr::r(function(input){
+                rmarkdown::render(
+                  input,
+                  output_format = "rjtools::rjournal_web_article"
+                )
+              }, args = list(input = art_rmd))
+            }
           }
           current_page <<- end_page + 1L
           paste0(
@@ -126,7 +127,33 @@ rjournal_pdf_issue <- function(..., render_all = FALSE) {
           )
         }, character(1L))
       )
-    }, articles, names(articles))
+    }
+
+    toc <- mapply(make_toc, articles, names(articles), skip_updates = TRUE)
+    xfun::write_utf8(
+      c(
+        "---",
+        yaml::as.yaml(metadata),
+        "---",
+        input[(front_matter_delimiters[2]+1):length(input)],
+        "",
+        unlist(toc),
+        # Add empty content to ensure toc is generated
+        "\\empty"
+      ),
+      toc_file <- file.path(tempdir(), "toc.md")
+    )
+    file.copy(list.files(system.file("tex", package = "rjtools")), dirname(toc_file))
+    rmarkdown::pandoc_convert(
+      toc_file, to = "pdf", output = toc_pdf <- xfun::with_ext(toc_file, ".pdf"),
+      options = c(
+        "--template", system.file("issue.tex", package = "rjtools")
+      )
+    )
+
+    current_page <- pdftools::pdf_length(toc_pdf) + 1L
+    #as.integer(articles[[1]][[1]]$journal$firstpage %||% articles[[1]]$pages[1] %||% 1)
+    toc <- mapply(make_toc, articles, names(articles))
 
     metadata$issue_year <- 2008 + metadata$volume
     issue_months <- if(metadata$volume < 14) {

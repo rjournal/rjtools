@@ -168,7 +168,7 @@ list_issue_news <- function(volume, issue, rnews = FALSE) {
 
   # Sort by page number
   news <- lapply(news, rmarkdown::yaml_front_matter)
-  news_pages <- vapply(news, function(x) as.integer(x$journal$firstpage), integer(1L))
+  news_pages <- vapply(news, function(x) as.integer(x$journal$firstpage %||% 1L), integer(1L))
   news[order(news_pages)]
 }
 
