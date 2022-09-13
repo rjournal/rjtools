@@ -1,7 +1,7 @@
 # rjtools 1.0.3
 
 * Changes requested by CRAN
-* DESCRIPTION and some function arguments
+* DESCRIPTION and some function arguments modified
 
 # rjtools 1.0.2
 

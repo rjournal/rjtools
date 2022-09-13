@@ -22,7 +22,7 @@
 #'
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 #' @rdname checks
-#' @return a checking message that informs the user whether the check passes
+#' @return message that checks were satisfactorily completed
 #' @examples
 #' \dontrun{
 #' if (interactive()) initial_check_article("inst/sample-article")

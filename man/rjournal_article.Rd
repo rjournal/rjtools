@@ -11,7 +11,7 @@ rjournal_web_article(
   toc = FALSE,
   self_contained = FALSE,
   legacy_pdf = FALSE,
-  web_only = FALSE,
+  web_only = !legacy_pdf,
   ...
 )
 }
