@@ -237,15 +237,17 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
       message("Detected changes to the article metadata, re-building PDF.")
       xfun::write_utf8(wrapper, wrapper_path)
 
-      oldwd <- setwd(dirname(wrapper_path))
+      oldwd <- getwd()
+      on.exit(setwd(oldwd))
+      setwd(dirname(wrapper_path))
       file.copy(
         system.file("tex/RJournal.sty", package = "rjtools"),
         "RJournal.sty"
       )
-      on.exit({
-        file.remove("RJournal.sty")
-        setwd(oldwd)
-      })
+      on.exit(
+        file.remove("RJournal.sty"),
+        add = TRUE
+      )
       pdf_path <- xfun::with_ext(article_metadata$slug, ".pdf")
       tinytex::latexmk(
         wrapper_path,
