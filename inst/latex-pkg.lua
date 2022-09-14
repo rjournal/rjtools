@@ -1,22 +1,22 @@
 local replace_cranpkg = {
-  match = '\\CRANpkg%{(%w+)%}',
+  match = '\\CRANpkg{([^}]+)}',
   html = 'https://cran.r-project.org/package=%s',
   pdf = '\\CRANpkg{%s}'
 }
 local replace_biopkg = {
-  match = '\\BIOpkg%{(%w+)%}',
+  match = '\\BIOpkg{([^}]+)}',
   html = 'https://www.bioconductor.org/packages/%s/',
   pdf = '\\BIOpkg{%s}'
 }
 local replace_pkg = {
-  match = '\\pkg%{(%w+)%}',
+  match = '\\pkg{([^}]+)}',
   html = '%s',
   pdf = '\\pkg{%s}'
 }
 
 function RawInline(elem)
   local out = {}
-  
+
   local cranpkg = string.match(elem.text, replace_cranpkg.match)
   local biopkg = string.match(elem.text, replace_biopkg.match)
   local pkg = string.match(elem.text, replace_pkg.match)
@@ -39,7 +39,7 @@ function RawInline(elem)
       table.insert(out, pandoc.RawInline(string.format(replace_biopkg.pdf, biopkg)))
     end
   end
-  
+
   if #(out) == 0 then
     return elem
   end
