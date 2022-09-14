@@ -213,14 +213,23 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
         if(path == dirname(path)) return(FALSE)
         has_parent_dir(dirname(path), nm)
       }
+      is_repo <- has_parent_dir(normalizePath(wrapper_path), "rjournal.github.io")
+      article_section <- if(is_repo) {
+        if(has_parent_dir(normalizePath(wrapper_path), "_articles")) {
+          "Contributed research article"
+        } else {
+          "News and notes"
+        }
+      } else {
+        "Contributed research article"
+      }
 
       issue_months <- if(article_metadata$volume < 14) {
         c("June", "December")
       } else {
         c("March", "June", "September", "December")
       }
-      section <- if(has_parent_dir(normalizePath(wrapper_path), "_articles")) "Contributed research article" else "News and notes"
-      wrapper[str_which(wrapper, "^\\s*\\\\sectionhead")] <- sprintf("\\sectionhead{%s}", section)
+      wrapper[str_which(wrapper, "^\\s*\\\\sectionhead")] <- sprintf("\\sectionhead{%s}", article_section)
       wrapper[str_which(wrapper, "^\\s*\\\\volume")] <- sprintf("\\volume{%s}", article_metadata$volume)
       wrapper[str_which(wrapper, "^\\s*\\\\volnumber")] <- sprintf("\\volnumber{%s}", article_metadata$issue)
       wrapper[str_which(wrapper, "^\\s*\\\\year")] <- sprintf("\\year{%s}", 2008 + article_metadata$volume)
