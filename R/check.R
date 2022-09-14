@@ -92,7 +92,7 @@ check_filenames <- function(path) {
 
   files_exist <- c("tex", "bib", "R") %in% exts
 
-  matching_filename <- remaining_files[exts %in% c("tex", "bib", "R")]
+  matching_filename <- remaining_files[exts %in% c("tex", "R")]
 
   single_filename <- tools::file_path_sans_ext(matching_filename)
 
@@ -101,7 +101,7 @@ check_filenames <- function(path) {
 
   if (length(unique(single_filename)) != 1) {
 
-    log_error("Submission does not have consistently named tex, bib, and R files")
+    log_error("Submission does not have consistently named tex, R files")
 
   } else if (!all(files_exist)){
 
