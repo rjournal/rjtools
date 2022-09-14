@@ -13,6 +13,11 @@ local replace_pkg = {
   html = '%s',
   pdf = '\\pkg{%s}'
 }
+local replace_ctv = {
+  match = '\\ctv{([^}]+)}',
+  html = 'https://CRAN.R-project.org/view=%s',
+  pdf = '\\ctv{%s}'
+}
 
 function RawInline(elem)
   local out = {}
@@ -20,6 +25,7 @@ function RawInline(elem)
   local cranpkg = string.match(elem.text, replace_cranpkg.match)
   local biopkg = string.match(elem.text, replace_biopkg.match)
   local pkg = string.match(elem.text, replace_pkg.match)
+  local ctv = string.match(elem.text, replace_ctv.match)
   if pkg ~= nil then
     if FORMAT:match 'html.*' then
       table.insert(out, pandoc.Link(pkg, '#'))
@@ -35,6 +41,12 @@ function RawInline(elem)
   elseif biopkg ~= nil then
     if FORMAT:match 'html.*' then
       table.insert(out, pandoc.Link(biopkg, string.format(replace_biopkg.html, biopkg)))
+    else
+      table.insert(out, pandoc.RawInline(string.format(replace_biopkg.pdf, biopkg)))
+    end
+  elseif ctv ~= nil then
+    if FORMAT:match 'html.*' then
+      table.insert(out, pandoc.Link(ctv, string.format(replace_ctv.html, ctv)))
     else
       table.insert(out, pandoc.RawInline(string.format(replace_biopkg.pdf, biopkg)))
     end
