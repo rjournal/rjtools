@@ -43,7 +43,7 @@ check_packages_available(path)
 \item{...}{Additional arguments for spelling check with \link[hunspell:hunspell]{hunspell::hunspell}}
 }
 \value{
-a checking message that informs the user whether the check passes
+message that checks were satisfactorily completed
 }
 \description{
 A single article check
@@ -69,7 +69,7 @@ Content checks:
 See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 }
 \examples{
-\dontrun{
-if (interactive()) initial_check_article("inst/sample-article")
-}
+your_article_path <- system.file("sample-article", package = "rjtools")
+if (interactive()) initial_check_article(your_article_path)
+
 }

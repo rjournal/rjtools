@@ -23,11 +23,11 @@
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 #' @rdname checks
 #' @return message that checks were satisfactorily completed
+#'
 #' @examples
-#' \dontrun{
-#' if (interactive()) initial_check_article("inst/sample-article")
-#' }
-
+#' your_article_path <- system.file("sample-article", package = "rjtools")
+#' if (interactive()) initial_check_article(your_article_path)
+#'
 #' @export
 initial_check_article <- function(path = NULL, dic = "en_US", pkg=NULL, ...) {
 
