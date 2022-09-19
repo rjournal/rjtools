@@ -8,7 +8,7 @@
 #' motivational letter for add-in packages, and \code{review/} folder for reviewer's comments and responses.
 #' @importFrom utils zip
 #' @importFrom yesno yesno
-#' @return a zip file with necessary element for an R Journal submission
+#' @return a zip file with items for an R Journal submission
 #' @export
 #'
 zip_paper <- function(name, others = NULL){

@@ -1,4 +1,4 @@
-This is a new submission.
+This is a new submission, with changes made in response to initial checks by CRAN (Victoria Wimmer).
 
 ## Test environment
 

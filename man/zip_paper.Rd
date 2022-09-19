@@ -13,7 +13,7 @@ zip_paper(name, others = NULL)
 motivational letter for add-in packages, and \code{review/} folder for reviewer's comments and responses.}
 }
 \value{
-a zip file with necessary element for an R Journal submission
+a zip file with items for an R Journal submission
 }
 \description{
 Zip up  files in the directory into a \code{paper.zip} for R Journal submission.
