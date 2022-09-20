@@ -1,3 +1,7 @@
+# rjtools 1.0.4
+
+* Fix a typo in the README
+
 # rjtools 1.0.3
 
 * Changes requested by CRAN
