@@ -53,7 +53,8 @@ Imports:
 Suggests: 
     rmarkdown,
     knitr,
-    pdftools
+    pdftools,
+    rstudioapi
 VignetteBuilder: knitr
 URL: https://github.com/rjournal/rjtools
 BugReports: https://github.com/rjournal/rjtools/issues

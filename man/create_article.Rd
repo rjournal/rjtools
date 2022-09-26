@@ -4,12 +4,23 @@
 \alias{create_article}
 \title{Create an R Journal article with the existing template}
 \usage{
-create_article(file_name = "quokka-bilby", dir_path = "rjarticle")
+create_article(
+  name,
+  file = xfun::with_ext(name, "Rmd"),
+  create_dir = TRUE,
+  edit = TRUE
+)
 }
 \arguments{
-\item{file_name}{the name of the Rmd file}
+\item{name}{the name of the Rmd}
 
-\item{dir_path}{the directory name that houses the template files}
+\item{file}{File name for the draft}
+
+\item{create_dir}{\code{TRUE} to create a new directory for the document
+(the "default" setting leaves this behavior up to the creator of the
+template).}
+
+\item{edit}{\code{TRUE} to edit the template immediately}
 }
 \value{
 a created R Journal template in the directory specified by \code{dir_path}
@@ -22,6 +33,7 @@ See \code{vignette("create_article", package = "rjtools")} for how to create an 
 }
 \examples{
 \dontrun{
-create_article(file_name = "quokka-bilby", dir_path = "rjarticle")
+create_article(name = "quokka-bilby")
 }
+
 }

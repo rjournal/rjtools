@@ -37,10 +37,10 @@ The `create_article()` function will create these files under a default `rjartic
 
 The `.tex`, and `.sty` files make sure all the *R Journal* articles follow the same latex and reference style and should not be modified unless there is a strong reason to do so.
 
-The `file_name` argument changes the name of the main R Markdown document, for example, if you wish to use `quokka-bilby` as the file name instead of `article`, create the article with: 
+The `name` argument changes the name of the main R Markdown document, for example, if you wish to use `quokka-bilby` as the file name instead of `article`, create the article with: 
 
 ```{r eval = FALSE}
-create_article(file_name = "quokka-bilby")
+create_article(name = "quokka-bilby")
 ```
 
 ## Your first knit
