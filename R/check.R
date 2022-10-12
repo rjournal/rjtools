@@ -62,7 +62,7 @@ initial_check_article <- function(path = NULL, dic = "en_US", pkg=NULL, ...) {
   check_cover_letter(path)
 
   # Tex file checks:
-  check_title(path)
+  check_title(path, ...)
   check_section(path)
   check_abstract_before_intro(path)
   check_spelling(path, dic, ...)
@@ -158,18 +158,19 @@ check_cover_letter <- function(path){
 ##############################################
 # Tex file checks:
 
+#' @param ignore The words to ignore in title check, use c(pkg, pkg, ...) for multiple words
 #' @importFrom stringr str_extract
 #' @importFrom tools toTitleCase
 #' @rdname checks
 #' @export
-check_title <- function(path){
+check_title <- function(path, ignore = ""){
 
   tex <- extract_tex(path)
   str <- sub(".*((?<=\\\\title\\{)(.*)(?=\\}\\s\\\\author\\{)).*","\\1", tex, perl = TRUE)
-  str <- gsub("\\{.*\\}", "", str) # remove package name
+  res <- check_str(str, ignore)
 
-  if (tools::toTitleCase(str) != str){
-    correct <- tools::toTitleCase(str)
+  if (!res$result){
+    correct <- res$suggest
     quote_fixed <- gsub('\"', "", correct, fixed = TRUE)
     log_error("The title is not in title case! Suggest title to be changed to:
               {quote_fixed}")
@@ -177,6 +178,16 @@ check_title <- function(path){
     log_success("The article title is properly formatted in title case.")
   }
 
+}
+
+check_str <- function(str, ignore = ""){
+  # if \\pkg{} is used to mark up pkg name, they are removed form title check
+  str <- gsub("\\\\pkg\\{[a-z.A-Z0-9]*\\}", "", str)
+  ignore <- paste0(ignore, collapse = "", sep = "|")
+  str <- gsub(ignore, "", str) # remove ignored words
+
+  list(result = tools::toTitleCase(str) == str,
+       suggest = tools::toTitleCase(str))
 }
 
 
@@ -328,7 +339,7 @@ check_packages_available <- function(path) {
   # Run cran checks
   allCRANpkgs <- available.packages()[,1]
 
-  allBIOpkgs <- available.packages(repos = "https://bioconductor.org/packages/3.11/bioc")[,1]
+  allBIOpkgs <- available.packages(repos = "https://bioconductor.org/packages/3.15/bioc")[,1]
 
   BIOpkgs <- unique(stringr::str_sub(unlist(pkgs_to_check[2]), start = 9, end = -2))
 
