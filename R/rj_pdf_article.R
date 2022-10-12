@@ -30,7 +30,17 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
 
     NULL
   }
+  pre_processor <- fmt$pre_processor
+  fmt$pre_processor <- function(front_matter, input, ...) {
+    if(!is.null(front_matter$bibliography)) {
+      xfun::write_utf8(
+        c(xfun::read_utf8(input), "\n# References\n"),
+        input
+      )
+    }
+    pre_processor(front_matter, input, ...)
 
+  }
   post_process <- fmt$post_processor
   fmt$post_processor <- function(metadata, utf8_input, output_file, clean, verbose) {
     filename <- basename(output_file)
