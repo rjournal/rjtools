@@ -1,3 +1,10 @@
+# rjtools 1.0.5
+
+* More tests
+* Changes to checks
+* Fixes to web issue articles to not have page numbers
+* create_article now uses rmarkdown::draft()
+
 # rjtools 1.0.4
 
 * Fix a typo in the README
