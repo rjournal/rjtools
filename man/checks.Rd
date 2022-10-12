@@ -21,7 +21,7 @@ check_unnecessary_files(path)
 
 check_cover_letter(path)
 
-check_title(path)
+check_title(path, ignore = "")
 
 check_section(path)
 
@@ -41,6 +41,8 @@ check_packages_available(path)
 \item{pkg}{The name of the proposed package (if relevant), to be checked for activity on CRAN}
 
 \item{...}{Additional arguments for spelling check with \link[hunspell:hunspell]{hunspell::hunspell}}
+
+\item{ignore}{The words to ignore in title check, use c(pkg, pkg, ...) for multiple words}
 }
 \value{
 message that checks were satisfactorily completed
