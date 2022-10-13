@@ -5,6 +5,7 @@
 * Fixes to web issue articles to not have page numbers
 * create_article now uses rmarkdown::draft()
 * Section title "References" automatically added in pdf file
+* Added section numbering to HTML output to match PDF style
 
 # rjtools 1.0.4
 

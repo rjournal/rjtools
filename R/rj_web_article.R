@@ -184,8 +184,11 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
     )
 
     # Custom args
-    args <- rmarkdown::pandoc_include_args(
-      in_header = system.file("rjdistill.html", package = "rjtools")
+    args <- c(
+      "--number-sections",
+      rmarkdown::pandoc_include_args(
+        in_header = system.file("rjdistill.html", package = "rjtools")
+      )
     )
 
     args
@@ -285,7 +288,10 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
     knitr = NULL, # use base one
     pandoc = list(
       args = args,
-      lua_filters = system.file("latex-pkg.lua", package = "rjtools")
+      lua_filters = c(
+        system.file("latex-pkg.lua", package = "rjtools"),
+        system.file("sec-depth.lua", package = "rjtools")
+      )
     ),
     keep_md = NULL, # use base one
     clean_supporting = NULL, # use base one
