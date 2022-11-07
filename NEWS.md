@@ -1,3 +1,7 @@
+# rjtools 1.0.6
+
+* Removed writing to default directories, as requested by CRAN maintainer.
+
 # rjtools 1.0.5
 
 * More tests
