@@ -1,6 +1,6 @@
 Package: rjtools
-Title: Preparing, Checking, and Submitting Articles to the R Journal
-Version: 1.0.6
+Title: Preparing, Checking, and Submitting Articles to the 'R Journal'
+Version: 1.0.7
 Authors@R: 
     c(person(given = "Mitchell",
              family = "O'Hara-Wild",
@@ -23,10 +23,10 @@ Authors@R:
              email = "cderv@rstudio.com", 
              role = "aut", 
              comment = c(ORCID = "0000-0003-4474-2498")))
-Description: Create an R Journal Rmarkdown template article, that will
+Description: Create an 'R Journal' 'Rmarkdown' template article, that will
   generate html and pdf versions of your paper. Check that the paper folder 
   has all the required components needed for submission. 
-  Examples of R Journal publications can be found at 
+  Examples of 'R Journal' publications can be found at 
   <https://journal.r-project.org>. 
 License: MIT + file LICENSE
 Encoding: UTF-8

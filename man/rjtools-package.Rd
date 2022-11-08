@@ -4,9 +4,9 @@
 \name{rjtools-package}
 \alias{rjtools}
 \alias{rjtools-package}
-\title{rjtools: Tools for Preparing, Checking, and Submitting Articles to the R Journal}
+\title{rjtools: Preparing, Checking, and Submitting Articles to the 'R Journal'}
 \description{
-Create an R Journal Rmarkdown template article, that will generate html and pdf versions of your paper. Check that the paper folder has all the required components needed for submission. Examples of R Journal publications can be found at \url{https://journal.r-project.org}.
+Create an 'R Journal' 'Rmarkdown' template article, that will generate html and pdf versions of your paper. Check that the paper folder has all the required components needed for submission. Examples of 'R Journal' publications can be found at \url{https://journal.r-project.org}.
 }
 \seealso{
 Useful links:

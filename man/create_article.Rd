@@ -7,7 +7,7 @@
 create_article(
   name,
   file = xfun::with_ext(name, "Rmd"),
-  create_dir = TRUE,
+  create_dir = FALSE,
   edit = TRUE
 )
 }

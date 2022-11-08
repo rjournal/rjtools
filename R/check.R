@@ -321,11 +321,12 @@ check_proposed_pkg <- function(pkg=NULL){
 }
 
 
+#' @param ignore The words to ignore in title check, use c(pkg, pkg, ...) for multiple quoted words
 #' @importFrom stringr str_extract_all
 #' @importFrom utils available.packages
 #' @rdname checks
 #' @export
-check_packages_available <- function(path) {
+check_packages_available <- function(path, ignore = "") {
 
 
   tex <- extract_tex(path)
@@ -335,6 +336,7 @@ check_packages_available <- function(path) {
 
   # Names of cran pkgs
   CRANpkgs <- unique(stringr::str_sub(unlist(pkgs_to_check[1]), start = 10, end = -2))
+  CRANpkgs <- CRANpkgs[!(CRANpkgs %in% ignore)]
 
   # Run cran checks
   allCRANpkgs <- available.packages()[,1]
@@ -342,6 +344,7 @@ check_packages_available <- function(path) {
   allBIOpkgs <- available.packages(repos = "https://bioconductor.org/packages/3.15/bioc")[,1]
 
   BIOpkgs <- unique(stringr::str_sub(unlist(pkgs_to_check[2]), start = 9, end = -2))
+  BIOpkgs <- BIOpkgs[!(BIOpkgs %in% ignore)]
 
   if (!all(CRANpkgs %in% allCRANpkgs)) {
     # When one is missing from CRAN

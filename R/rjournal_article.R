@@ -17,7 +17,7 @@
 #' }
 #'
 #' @export
-create_article <- function(name, file = xfun::with_ext(name, "Rmd"), create_dir = TRUE, edit = TRUE){
+create_article <- function(name, file = xfun::with_ext(name, "Rmd"), create_dir = FALSE, edit = TRUE){
   rmarkdown::draft(
     file,
     template = "rjournal",

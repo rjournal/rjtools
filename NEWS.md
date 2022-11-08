@@ -1,6 +1,10 @@
+# rjtools 1.0.7
+
+* Added a number of tests, as requested by CRAN tester.
+
 # rjtools 1.0.6
 
-* Removed writing to default directories, as requested by CRAN maintainer.
+* Removed writing to default directories, as requested by CRAN tester.
 
 # rjtools 1.0.5
 

@@ -31,7 +31,7 @@ check_spelling(path, dic = "en_US", ...)
 
 check_proposed_pkg(pkg = NULL)
 
-check_packages_available(path)
+check_packages_available(path, ignore = "")
 }
 \arguments{
 \item{path}{The directory that contains the .tex file (Ideally, this directory should contain .bib, .Rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)}
@@ -42,7 +42,7 @@ check_packages_available(path)
 
 \item{...}{Additional arguments for spelling check with \link[hunspell:hunspell]{hunspell::hunspell}}
 
-\item{ignore}{The words to ignore in title check, use c(pkg, pkg, ...) for multiple words}
+\item{ignore}{The words to ignore in title check, use c(pkg, pkg, ...) for multiple quoted words}
 }
 \value{
 message that checks were satisfactorily completed
