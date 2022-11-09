@@ -10,12 +10,6 @@
 #'
 #' @importFrom stringr str_extract
 #' @importFrom fs dir_create file_copy file_move
-#'
-#' @examples
-#' \dontrun{
-#' create_article(name = "quokka-bilby")
-#' }
-#'
 #' @export
 create_article <- function(name, file = xfun::with_ext(name, "Rmd"), create_dir = FALSE, edit = TRUE){
   rmarkdown::draft(

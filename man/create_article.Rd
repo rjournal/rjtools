@@ -31,9 +31,3 @@ Create an R Journal article with the existing template
 \details{
 See \code{vignette("create_article", package = "rjtools")} for how to create an article
 }
-\examples{
-\dontrun{
-create_article(name = "quokka-bilby")
-}
-
-}

@@ -1,6 +1,6 @@
-This is a new submission, with changes made in response to initial checks by CRAN (Benjamin Altmann).
+This is a new submission, with changes made in response to initial checks by CRAN (Benjamin Altmann, Victoria Wimmer).
 
-Tests have been added as requested. 
+Tests have been modified as requested. Examples wrapped with dontrun are removed. 
 
 ## Test environment
 
