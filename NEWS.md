@@ -1,3 +1,7 @@
+# rjtools 1.0.8
+
+* Remove the rendering Rmd from the test-create because plotly does not exist on the CRAN test computer and it fails the automated test.
+
 # rjtools 1.0.7
 
 * Added a number of tests, as requested by CRAN tester.

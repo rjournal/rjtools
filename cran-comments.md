@@ -1,6 +1,6 @@
 This is a new submission, with changes made in response to initial checks by CRAN (Benjamin Altmann).
 
-Tests have been added as requested.
+Tests have been added as requested. 
 
 ## Test environment
 
