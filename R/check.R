@@ -241,7 +241,7 @@ check_abstract_before_intro <- function(path){
 
   abstract <- stringr::str_locate(tex, "abstract")[,"start"]
   abstract <- abstract[!is.na(abstract)][1]
-  intro <- stringr::str_locate(tex, "introduction")[,"start"]
+  intro <- stringr::str_locate(tex, "Introduction")[,"start"]
   intro <- intro[!is.na(intro)][1]
 
   if(is.na(abstract)){
