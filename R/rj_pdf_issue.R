@@ -103,11 +103,14 @@ rjournal_pdf_issue <- function(..., render_all = FALSE) {
         vapply(articles, function(x) {
           start_page <- as.integer(x$journal$firstpage %||% x$pages[1] %||% 1L)
           end_page <- as.integer(x$journal$lastpage %||% x$pages[2] %||% 1L)
+
+          art_type <- if(grepl("^RJ-\\d{4}-\\d{3}$", x$slug)) "_articles" else "_news"
+          art_rmd <- file.path("..", "..", art_type, x$slug, xfun::with_ext(x$slug, ".Rmd"))
+          pdf_pages <- pdftools::pdf_length(xfun::with_ext(art_rmd, ".pdf"))
           if(!skip_updates) {
-            if(!identical(current_page, start_page) || render_all) {
-              art_type <- if(grepl("^RJ-\\d{4}-\\d{3}$", x$slug)) "_articles" else "_news"
-              art_rmd <- file.path("..", "..", art_type, x$slug, xfun::with_ext(x$slug, ".Rmd"))
-              end_page <- x$journal$lastpage <- current_page + pdftools::pdf_length(xfun::with_ext(art_rmd, ".pdf")) - 1L
+            pages_match <- identical(current_page, start_page) && identical(current_page + pdf_pages - 1L, end_page)
+            if(!pages_match || render_all) {
+              end_page <- x$journal$lastpage <- current_page + pdf_pages - 1L
               start_page <- x$journal$firstpage <- current_page
               x$draft <- FALSE
               update_front_matter(x, art_rmd)
