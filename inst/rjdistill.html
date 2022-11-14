@@ -23,14 +23,14 @@
     // tweak description
     // Add clickable tags
     const slug = get_meta('slug', rmd_meta)
-    const doi = get_meta('doi', rmd_meta)
+    const cite_url = get_meta('citation_url', rmd_meta)
 
     var title = $("d-title").text
 
     const buttons = $('<div class="dt-tags" style="grid-column: page;">')
     buttons.append('<a href="#citation" class="dt-tag"><i class="fas fa-quote-left"></i> Cite</a>')
     buttons.append('<a href="' + slug + '.pdf" class="dt-tag"><i class="fas fa-file-pdf"></i> PDF</a>')
-    buttons.append('<a href="https://twitter.com/intent/tweet?text='+title+'&url=https%3A%2F%2Fdoi.org%2F' + doi + '" class="dt-tag"><i class="fab fa-twitter"></i> Tweet</a>')
+    buttons.append('<a href="https://twitter.com/intent/tweet?text='+title+'&url=' + cite_url + '" class="dt-tag"><i class="fab fa-twitter"></i> Tweet</a>')
 
     const abstract = $('<d-abstract>')
     abstract.append('<b>Abstract:</b><br>')
