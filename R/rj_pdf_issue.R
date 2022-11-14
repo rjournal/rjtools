@@ -146,7 +146,10 @@ rjournal_pdf_issue <- function(..., render_all = FALSE) {
       ),
       toc_file <- file.path(tempdir(), "toc.md")
     )
-    file.copy(list.files(system.file("tex", package = "rjtools")), dirname(toc_file))
+    file.copy(
+      list.files(system.file("tex", package = "rjtools"), full.names = TRUE),
+      dirname(toc_file)
+    )
     rmarkdown::pandoc_convert(
       toc_file, to = "pdf", output = toc_pdf <- xfun::with_ext(toc_file, ".pdf"),
       options = c(
@@ -178,6 +181,10 @@ rjournal_pdf_issue <- function(..., render_all = FALSE) {
         "\\empty"
       ),
       input_file
+    )
+    file.copy(
+      list.files(system.file("tex", package = "rjtools"), full.names = TRUE),
+      dirname(input_file)
     )
 
     NULL
