@@ -49,8 +49,22 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
     metadata$slug <- metadata$slug %||% xfun::sans_ext(basename(input_file))
     metadata$pdf_url <- xfun::with_ext(metadata$slug, "pdf")
     if(metadata$journal$title == "The R Journal") {
-      metadata$citation_url <- paste0("https://doi.org/10.32614/", metadata$slug)
-      metadata$doi <- paste0("10.32614/", metadata$slug)
+      has_parent_dir <- function(path, nm){
+        if(basename(path) == nm) return(TRUE)
+        if(path == dirname(path)) return(FALSE)
+        has_parent_dir(dirname(path), nm)
+      }
+      is_repo <- has_parent_dir(normalizePath(input_file), "rjournal.github.io")
+      if(is_repo) {
+        if(has_parent_dir(normalizePath(input_file), "_articles")) {
+          # Use article DOIs
+          metadata$citation_url <- paste0("https://doi.org/10.32614/", metadata$slug)
+          metadata$doi <- paste0("10.32614/", metadata$slug)
+        } else {
+          # News don't have DOIs
+          metadata$citation_url <- paste0("https://journal.r-project.org/news/", metadata$slug)
+        }
+      }
     }
     metadata$creative_commons <- metadata$creative_commons %||% "CC BY"
     if(is.null(metadata$date)) {
