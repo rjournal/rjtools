@@ -130,6 +130,8 @@ check_filenames <- function(path) {
     }
 }
 
+#' @rdname checks
+#' @export
 check_structure <- function(path) {
     all <- list.files(path, all.files=TRUE, include.dirs=TRUE, recursive=TRUE)
     depth <- nchar(gsub("[^/]+", "", all))
@@ -340,6 +342,7 @@ check_proposed_pkg <- function(pkg, ask=interactive()) {
 #' @param ignore The words to ignore in title check, use c(pkg, pkg, ...) for multiple quoted words
 #' @importFrom stringr str_match_all
 #' @importFrom utils available.packages
+#' @importFrom BiocManager version
 #' @rdname checks
 #' @export
 check_packages_available <- function(path, ignore) {
@@ -361,10 +364,12 @@ check_packages_available <- function(path, ignore) {
     ## Get CRAN list
     allCRANpkgs <- available.packages(type='source')[,1]
 
-    ## Get BioC list
-    tools <- asNamespace("tools") ## make R CMD check happy ...
-    BioCver <- tools$.BioC_version_associated_with_R_version()
-    allBioCpkgs <- available.packages(repos = paste0("https://bioconductor.org/packages/", BioCver, "/bioc"), type='source')[,1]
+    ## only bother with BioC if it is mentioned
+    allBioCpkgs <- if (length(BioCpkgs)) {
+        ## Get BioC list
+        BioCver <- BiocManager::version()
+        allBioCpkgs <- available.packages(repos = paste0("https://bioconductor.org/packages/", BioCver, "/bioc"), type='source')[,1]
+    } else character()
 
     res1 <- if (!all(CRANpkgs %in% allCRANpkgs)) {
         ## When one is missing from CRAN
