@@ -2,20 +2,106 @@
 % Please edit documentation in R/check.R
 \name{log_error}
 \alias{log_error}
-\title{Produce a log file entry for an error}
+\alias{log_success}
+\alias{log_note}
+\alias{log_warning}
+\alias{journal_summary}
+\alias{simplify_journal}
+\title{Logging functions}
 \usage{
-log_error(text, ..., file = stdout(), .envir = parent.frame())
+log_error(
+  text,
+  ...,
+  output = getOption("check.log.output", "cli"),
+  file = getOption("check.log.file", NULL),
+  signal = getOption("check.log.conditions", FALSE),
+  .envir = parent.frame()
+)
+
+log_success(
+  text,
+  ...,
+  output = getOption("check.log.output", "cli"),
+  file = getOption("check.log.file", NULL),
+  signal = getOption("check.log.conditions", FALSE),
+  .envir = parent.frame()
+)
+
+log_note(
+  text,
+  ...,
+  output = getOption("check.log.output", "cli"),
+  file = getOption("check.log.file", NULL),
+  signal = getOption("check.log.conditions", FALSE),
+  .envir = parent.frame()
+)
+
+log_warning(
+  text,
+  ...,
+  output = getOption("check.log.output", "cli"),
+  file = getOption("check.log.file", NULL),
+  signal = getOption("check.log.conditions", FALSE),
+  .envir = parent.frame()
+)
+
+journal_summary(journal = getOption("check.log.journal"), file = stdout())
+
+simplify_journal(journal = getOption("check.log.journal"))
 }
 \arguments{
-\item{text}{Description of the error that occurred}
+\item{text}{string, description of the error that occurred,
+will be passed to \code{\link{glue}}.}
 
-\item{...}{Additional inputs for text passed to the glue function}
+\item{...}{additional inputs for text passed to the \code{\link{glue}} function.}
 
-\item{file}{The console output directed to the log, using \code{stdout}}
+\item{output}{type of the output, can either a string (\code{"cli"}
+to use the \code{cli} package (default), \code{"R"} for
+standard R facilities or \code{"none"} for no output) or a
+connection. It uses the \code{"check.log.output"} option if
+set.}
 
-\item{.envir}{The environment used to find the text string replacements}
+\item{file}{connection to log a copy of the output to or NULL
+(default) if no additional copy is desired. It uses the
+\code{"check.log.file"} option.}
+
+\item{signal}{logical, if \code{TRUE} then a condition is signalled
+at the end of the function. All conditions have superclass
+\code{"RJcheckCondition"} and subclass \code{"RJCheck<result>"}
+where \code{<result>} is one of \code{SUCCESS}, \code{NOTE},
+\code{WARNING} and \code{ERROR}. They also have the
+corresponding standard R condition classes. Uses option
+\code{"check.log.conditions"}.}
+
+\item{.envir}{the environment used to find the text string replacements}
+
+\item{journal}{environment of the journal}
+}
+\value{
+\code{log_...} string with the result type. The
+corresponding condition object with a message and call is
+included in the \code{"info"} attribute (even if no condition
+is signalled).
+
+\code{journal_summary} table of the status counts
+
+\code{simplify_journal} string matrix with columns "result"
+(status), "test" (name of the calling function) and "message"
 }
 \description{
-Append a line in the log file that details an error
+\code{log_...} functions produce a log entry.
+
+\code{journal_summary} prints a quick summary (status
+counts) based on the journal.
+
+\code{simplify_journal} returns a simplified form of the
+results in the journal.
+}
+\details{
+Most arguments are intended to be set with options to allow the use
+of the checking mechanism both in interactive and automated
+settings. There are four types of log entries: SUCCESS, NOTE,
+WARNING and ERROR. If the \code{"check.log.journal"} option is set
+to an environment then the entry is also added to the journal.
 }
 \keyword{internal}

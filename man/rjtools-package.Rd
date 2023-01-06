@@ -24,6 +24,7 @@ Authors:
   \item Mitchell O'Hara-Wild \email{mail@mitchelloharawild.com}
   \item Stephanie Kobakian
   \item H. Sherry Zhang \email{huizezhangsh@gmail.com}
+  \item Simon Urbanek \email{simon.urbanek@R-project.org}
   \item Christophe Dervieux \email{cderv@rstudio.com} (\href{https://orcid.org/0000-0003-4474-2498}{ORCID})
 }
 
