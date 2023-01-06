@@ -18,6 +18,9 @@ Authors@R:
              email = "dicook@monash.edu", 
              role = c("aut", "cre"), 
              comment = c(ORCID = "0000-0002-3813-7155")),
+      person(given="Simon", family="Urbanek",
+             email="simon.urbanek@R-project.org",
+             role="aut"),
       person(given = "Christophe", 
              family = "Dervieux", 
              email = "cderv@rstudio.com", 
@@ -31,7 +34,6 @@ Description: Create an 'R Journal' 'Rmarkdown' template article, that will
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
 Imports: 
     distill,
     stringr,
