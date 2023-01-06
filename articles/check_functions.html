@@ -136,33 +136,28 @@ NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot</
 <h3 id="filenames">Filenames<a class="anchor" aria-label="anchor" href="#filenames"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_filenames</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ERROR: Submission is missing a tex, bib or R file</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_filenames</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span></span></code></pre></div>
 <p>The .bib file is named <code>Rjreferences.bib</code> when created and we recommend setting a consistent name across the .bib, .tex, and .Rmd file. A fix to this is to rename the <code>Rjreferences.bib</code> as the file name you used when create the article, in our case, <code>paper-with-errors</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="presence-of-unnecessary-files">Presence of unnecessary files<a class="anchor" aria-label="anchor" href="#presence-of-unnecessary-files"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_unnecessary_files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; SUCCESS: No problematic file found</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_unnecessary_files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span> </span></code></pre></div>
 <p>This function checks that the folder doesn’t contain the <code>RJtemplate.tex</code> file, which is included the past R journal template. The <a href="https://journal.r-project.org/share/author-guide.pdf" class="external-link">authors instruction</a> requires the authors to replace the content of this <code>RJtemplate.tex</code> file with article content and name with the lowercase concatenated author name, so it is essentially the <code>.tex</code> file automatically generated in the previous section. Our article don’t have unnecessary files.</p>
 </div>
 <div class="section level3">
 <h3 id="presence-of-a-motivating-letter">Presence of a motivating letter<a class="anchor" aria-label="anchor" href="#presence-of-a-motivating-letter"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_cover_letter</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; SUCCESS: Possible motivation letter found</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_cover_letter</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span> </span></code></pre></div>
 <p>Cover letter should be provided for article of type “add-on package” and saved at the same folder as the article. The function checks whether there is a file containing the word “motivation” in its name. Our article passes this check.</p>
 </div>
 <div class="section level3">
 <h3 id="article-title-is-in-title-case">Article title is in title case<a class="anchor" aria-label="anchor" href="#article-title-is-in-title-case"></a>
 </h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_title</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; ERROR: The title is not in title case! Suggest title to be changed to:</span></span>
-<span><span class="co">#&gt; ToOoOlTiPs: An R Package for Customizable Tooltips in Interactive Graphics</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_title</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span> </span></code></pre></div>
 <p>The article title needs to be in the title case and the check is not happy with our title here. Use <code><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">tools::toTitleCase()</a></code> to get the correct title case format:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="st">"ToOoOlTiPs: An R package for Customizable Tooltips in Interactive Graphics"</span><span class="op">)</span></span>
@@ -173,16 +168,14 @@ NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot</
 <h3 id="section-title-is-in-sentence-case">Section title is in sentence case<a class="anchor" aria-label="anchor" href="#section-title-is-in-sentence-case"></a>
 </h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_section</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; SUCCESS: All sections are properly formatted in sentence case</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_section</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span> </span></code></pre></div>
 <p>Section titles need to be in the sentence case and we are all good here :)</p>
 </div>
 <div class="section level3">
 <h3 id="spelling">Spelling<a class="anchor" aria-label="anchor" href="#spelling"></a>
 </h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_spelling</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; NOTE: A potential list of spelling to check: tooltips, tooltip</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/checks.html">check_spelling</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_to_article</span><span class="op">)</span> </span></code></pre></div>
 <p>The spelling is checked from the abstract to bibliography section and only words with all lowercase letters are checked to avoid picking up on acronyms and names. The underlying checking is done through the <code>hunspell</code> package with US spelling by default. British spelling can be checked with argument <code>dic = "en_GB"</code>. The R journal welcomes both the U.S and British spelling, along with other national variation, as long as consistency is maintained.</p>
 <p>Notice that the spelling check may pick up some domain specific vocabularies and authors may want to further confirm if these are true spelling mistakes. In our article, “tooltip” is a specialised vocabulary in interactive graphics, rather than a misspell, so we are free to go :)</p>
 </div>
@@ -305,12 +298,12 @@ NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot</
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Mitchell O’Hara-Wild, Stephanie Kobakian, H. Sherry Zhang, Di Cook, Christophe Dervieux.</p>
+<p>Developed by Mitchell O’Hara-Wild, Stephanie Kobakian, H. Sherry Zhang, Di Cook, Simon Urbanek, Christophe Dervieux.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
