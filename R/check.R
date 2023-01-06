@@ -1,13 +1,25 @@
 #' A single article check
 #'
-#' @param path The directory that contains the .tex file (Ideally, this directory should contain .bib, .Rmd, and .tex with author names and two RJwrapper files:  RJwrapper.pdf and RJwrapper.tex)
-#' @param dic The dictionary used for spelling check. See \code{dict} argument in [hunspell::hunspell()]
-#' @param pkg The name of the proposed package (if relevant), to be checked for activity on CRAN
-#' @param ... Additional arguments for spelling check with [hunspell::hunspell]
+#' @param path string, path to the directory that contains the .tex
+#'     file (Ideally, this directory should contain .bib, .Rmd, and
+#'     .tex with author names and two RJwrapper files:  RJwrapper.pdf
+#'     and RJwrapper.tex)
+#' @param dic string, the dictionary used for spelling check. See
+#'     \code{dict} argument in [hunspell::hunspell()]
+#' @param pkg string, optional. The name of the proposed package (if
+#'     relevant), to be checked for activity on CRAN
+#' @param ... additional arguments for spelling check with
+#'     [hunspell::hunspell]
+#' @param ask logical, if \code{TRUE} then checks may ask the user for
+#'     interactive input of missing information.
+#' @param logfile a connection for the output log, or a string with
+#'     the filename of the output log or \code{NULL} if no log should
+#'     be written
 #' @details
 #' Folder structure checks:
 #'
 #' * \code{check_filenames()}: the three files (.bib, .Rmd, and .tex) all present and have consistent names
+#' * \code{check_structure()}: check validity of all filenames and depth of the directory structure
 #' * \code{check_unnecessary_files()}: the template file (i.e., RJtemplate.tex) is not included in the directory
 #' * \code{check_cover_letter()}: a motivational letter
 #'
@@ -22,60 +34,70 @@
 #'
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 #' @rdname checks
-#' @return message that checks were satisfactorily completed
+#' @return list of all results (see \code{\link{log_error}} for
+#'     details). You can use \code{unlist()} to get a character vector
+#'     of the result statuses.
 #'
 #' @examples
 #' your_article_path <- system.file("sample-article", package = "rjtools")
 #' if (interactive()) initial_check_article(your_article_path)
 #'
 #' @export
-initial_check_article <- function(path = NULL, dic = "en_US", pkg=NULL, ...) {
+initial_check_article <- function(path, dic = "en_US", pkg, ...,
+                                  ask = interactive(),
+                                  logfile=file.path(path, "initial_checks.log")) {
+    if (missing(path))
+        cli::cli_abort(
+                 "The {.code path} argument is missing.
+Please specify the file directory that contains the article {.field .tex} file.")
 
-  # Documents:
-  # Necessary files must be included in submission folder
-  # Do not proceed without them, flag for manual check
-  # Unnecessary files must not be included in submission folder
-  # Do not proceed with them, flag for manual check
+    if (is.character(logfile)) {
+        logfile <- file(logfile, "a")
+        on.exit(close(logfile))
+    } else if (!inherits(logfile, "connection") && !is.null(logfile))
+        stop("logfile must be a string or connection")
 
-  if (is.null(path)){
-    cli::cli_abort(
-      " The {.code path} argument can't be {.code NULL}.
-    Please specify the file directory that contains the article {.field .tex} file.")
-  }
+    if (!is.null(logfile)) {
+        old.check.log.file <- getOption("check.log.file")
+        on.exit(options(check.log.file=old.check.log.file), add=TRUE)
+        options(check.log.file=logfile)
+    }
 
-  if (!"tex" %in% tools::file_ext(list.files(path = path))){
-    stop("Please supply the directory that contains the .tex file")
-  }
+    if (!"tex" %in% tools::file_ext(list.files(path = path)))
+        stop("Please supply the directory that contains the .tex file")
 
-  # Create a log file for errors
-  sink(file.path(path, "initial_checks.log"))
+    if (is.null(getOption("check.log.journal"))) {
+        journal <- new.env(parent=emptyenv())
+        options(check.log.journal=journal)
+        on.exit(options(check.log.journal=NULL), add=TRUE)
+    }
 
-  # Display the name of the current article
-  cat(paste0("Initial check results: ", "\n"))
+    if (!is.null(logfile))
+        writeLines(c("Initial check results: ", ""), logfile)
 
-  cli::cli_h1(paste0("Initial check results: "))
+    if (getOption("check.log.output", "cli") == "cli")
+        cli::cli_h1(paste0("Initial check results: "))
 
-  # BEGIN CHECKS
-  # Folder structure checks:
-  check_filenames(path)
-  check_unnecessary_files(path)
-  check_cover_letter(path)
+    ## BEGIN CHECKS
+    ## Folder structure checks:
+    check_filenames(path)
+    check_structure(path)
+    check_unnecessary_files(path)
+    check_cover_letter(path)
 
-  # Tex file checks:
-  check_title(path, ...)
-  check_section(path)
-  check_abstract_before_intro(path)
-  check_spelling(path, dic, ...)
-  check_proposed_pkg(pkg)
-  check_packages_available(path)
+    ## Tex file checks:
+    check_title(path, ...)
+    check_section(path)
+    check_abstract_before_intro(path)
+    check_spelling(path, dic, ...)
+    check_proposed_pkg(pkg, ask)
+    check_packages_available(path)
 
-  # Show a numeric summary of successes, errors and notes
-  output_summary(path)
+    ## Show a numeric summary of successes, errors and notes
+    journal_summary(file=logfile)
 
-  # Return to console output
-  sink()
-  closeAllConnections()
-
+    ## return all results
+    invisible(getOption("check.log.journal")$results)
 }
 
 
@@ -86,71 +108,65 @@ initial_check_article <- function(path = NULL, dic = "en_US", pkg=NULL, ...) {
 #' @rdname checks
 #' @export
 check_filenames <- function(path) {
+    remaining_files <- remove_wrapper(path)
+    exts <- tools::file_ext(remaining_files)
 
-  remaining_files <- remove_wrapper(path)
-  exts <- tools::file_ext(remaining_files)
+    ## do we really want to require R? We didn't use to ...
+    files_exist <- c("tex", "bib", "R") %in% exts
 
-  files_exist <- c("tex", "bib", "R") %in% exts
+    matching_filename <- remaining_files[exts %in% c("tex", "R")]
 
-  matching_filename <- remaining_files[exts %in% c("tex", "R")]
+    single_filename <- tools::file_path_sans_ext(matching_filename)
 
-  single_filename <- tools::file_path_sans_ext(matching_filename)
+    ## Check for all three files with matching names
+    ## Find the file name that should match
 
-  # Check for all three files with matching names
-  # Find the file name that should match
+    if (length(unique(single_filename)) != 1) {
+        log_error("Submission does not have consistently named tex, R files")
+    } else if (!all(files_exist)){
+        log_error("Submission is missing a tex, bib or R file")
+    } else{
+        log_success("Submission has consistently named tex, bib, and R files")
+    }
+}
 
-  if (length(unique(single_filename)) != 1) {
-
-    log_error("Submission does not have consistently named tex, R files")
-
-  } else if (!all(files_exist)){
-
-    log_error("Submission is missing a tex, bib or R file")
-
-  } else{
-
-    log_success("Submission has consistently named tex, bib, and R files")
-
-  }
-
+check_structure <- function(path) {
+    all <- list.files(path, all.files=TRUE, include.dirs=TRUE, recursive=TRUE)
+    depth <- nchar(gsub("[^/]+", "", all))
+    if (max(depth) > 2)
+        return(log_error("There are nested subdirectories. Please use at most two directory levels for the article."))
+    if (length(dot <- grep("^\\.", gsub(".*/", "", all))))
+        log_warning("The archive contains hidden files which will be removed: ", paste(all[dot], collapse=", "))
+    nonascii <- function(x) { r <- charToRaw(x); any(r > 127 | r <= 0x20) }
+    if (any(sapply(all, nonascii)))
+        log_error("File or directory names contain spaces or non-ASCII characters. For portability only use ASCII characters and no spaces in file and directory names.")
+    else
+        log_success("File and directory names are compliant.")
 }
 
 #' @rdname checks
 #' @export
 check_unnecessary_files <- function(path) {
+    submission_files <- list.files(path)
+    unnecessary_files <- "RJtemplate.tex"
 
-  submission_files <- list.files(path)
-  unnecessary_files <- "RJtemplate.tex"
-
-  if (any(unnecessary_files %in% submission_files)) {
-
-    unnecessary <- unnecessary_files[unnecessary_files %in% submission_files]
-    log_error("Submission contains unnecessary files: ", unnecessary)
-
-  } else {
-
-    log_success("No problematic file found")
-
-  }
-
+    if (any(unnecessary_files %in% submission_files)) {
+        unnecessary <- unnecessary_files[unnecessary_files %in% submission_files]
+        log_error("Submission contains unnecessary files: ", unnecessary)
+    } else {
+        log_success("No problematic file found")
+    }
 }
 
 #' @rdname checks
 #' @export
 check_cover_letter <- function(path){
-
-
-  remaining_files <- remove_wrapper(path)
-  if (!any(grepl("motivation", remaining_files))) {
-
-    log_note("Motivation letter is not detected, if applicable")
-
-  } else {
-
-    log_success("Possible motivation letter found")
-
-  }
-
+    remaining_files <- remove_wrapper(path)
+    if (!length(mot <- grep("motivation", remaining_files))) {
+        log_note("Motivation letter is not detected, if applicable")
+    } else {
+        log_success("Possible motivation letter found: {remaining_files[mot]}")
+    }
 }
 
 
@@ -302,93 +318,89 @@ check_spelling <- function(path, dic = "en_US", ...){
 #' @importFrom cranlogs cran_downloads
 #' @rdname checks
 #' @export
-check_proposed_pkg <- function(pkg=NULL){
-  if(is.null(pkg)){
-    pkg <- readline(prompt = paste0("What's the name of package being ",
-                                    "proposed in the article? If none, please ",
-                                    "enter 0. "))
-  }
-
-  if (pkg != 0) {
-    count <- sum(cranlogs::cran_downloads(pkg, from = "2020-01-01")$count)
-    if (count == 0){
-      log_note(text = "No CRAN activities detected for package {pkg}")
-    } else{
-      log_success(text = "CRAN activities have been detected for package {pkg}")
+check_proposed_pkg <- function(pkg, ask=interactive()) {
+    if (missing(pkg) || is.null(pkg)) {
+        if (!ask)
+            return(log_note("No proposed package supplied."))
+        ## This is a really terrible hack ...
+        pkg <- readline(prompt = "What's the name of package being proposed in the article? Press Enter if none. ")
     }
 
-  }
+    if (length(pkg) == 1 && nzchar(pkg)) {
+        count <- sum(cranlogs::cran_downloads(pkg, from = "2020-01-01")$count)
+        if (count == 0)
+            log_note(text = "No CRAN activities detected for package {pkg}")
+        else
+            log_success(text = "CRAN activities have been detected for package {pkg}")
+    } else
+        log_success("No proposed package for the article, nothing to check.")
 }
 
 
 #' @param ignore The words to ignore in title check, use c(pkg, pkg, ...) for multiple quoted words
-#' @importFrom stringr str_extract_all
+#' @importFrom stringr str_match_all
 #' @importFrom utils available.packages
 #' @rdname checks
 #' @export
-check_packages_available <- function(path, ignore = "") {
+check_packages_available <- function(path, ignore) {
+    if (missing(ignore)) ignore <- character()
+    tex <- extract_tex(path)
 
+    ## get first group from all matches in all strings
+    greg1 <- function(pattern, strings)
+        do.call(rbind, stringr::str_match_all(strings, pattern))[,2]
 
-  tex <- extract_tex(path)
-  # List of CRAN and BIO pkgs used in the text
-  pkgs_to_check <- lapply(X = c("\\\\CRANpkg\\{(.*?)\\}", "\\\\BIOpkg\\{(.*?)\\}"),
-                          FUN = stringr::str_extract_all, string = tex)
+    ## List of CRAN and BioC pkgs used in the text
+    CRANpkgs <- unique(greg1("\\\\CRANpkg\\{(.*?)\\}", tex))
+    BioCpkgs <- unique(greg1("\\\\BIOpkg\\{(.*?)\\}", tex))
 
-  # Names of cran pkgs
-  CRANpkgs <- unique(stringr::str_sub(unlist(pkgs_to_check[1]), start = 10, end = -2))
-  CRANpkgs <- CRANpkgs[!(CRANpkgs %in% ignore)]
+    ## remove ignored ones
+    CRANpkgs <- CRANpkgs[!(CRANpkgs %in% ignore)]
+    BioCpkgs <- BioCpkgs[!(BioCpkgs %in% ignore)]
 
-  # Run cran checks
-  allCRANpkgs <- available.packages()[,1]
+    ## Get CRAN list
+    allCRANpkgs <- available.packages(type='source')[,1]
 
-  allBIOpkgs <- available.packages(repos = "https://bioconductor.org/packages/3.15/bioc")[,1]
+    ## Get BioC list
+    tools <- asNamespace("tools") ## make R CMD check happy ...
+    BioCver <- tools$.BioC_version_associated_with_R_version()
+    allBioCpkgs <- available.packages(repos = paste0("https://bioconductor.org/packages/", BioCver, "/bioc"), type='source')[,1]
 
-  BIOpkgs <- unique(stringr::str_sub(unlist(pkgs_to_check[2]), start = 9, end = -2))
-  BIOpkgs <- BIOpkgs[!(BIOpkgs %in% ignore)]
+    res1 <- if (!all(CRANpkgs %in% allCRANpkgs)) {
+        ## When one is missing from CRAN
+        missing <- CRANpkgs[!(CRANpkgs %in% allCRANpkgs)]
+        amount_missing <- length(missing)
+        amount_pkgs <- length(CRANpkgs)
 
-  if (!all(CRANpkgs %in% allCRANpkgs)) {
-    # When one is missing from CRAN
-    missing <- CRANpkgs[!(CRANpkgs %in% allCRANpkgs)]
-    amount_missing <- length(missing)
-    amount_pkgs <- length(CRANpkgs)
+        log_error(text = "{amount_missing} of {amount_pkgs} package(s) not available on CRAN: {paste(missing, collapse = ', ')}")
+    } else if (!all(BioCpkgs %in% allBioCpkgs)) {
+        ## When one is missing from Bioconductor
+        missing <- BioCpkgs[!(BioCpkgs %in% allBioCpkgs)]
+        amount_missing <- length(missing)
+        amount_pkgs <- length(BioCpkgs)
 
-    log_error(text = "{amount_missing} of {amount_pkgs} package(s) not available on CRAN: {paste(missing, collapse = ', ')}")
+        log_error("{amount_missing} of {amount_pkgs} package(s) not available on Bioconductor: {paste(missing, collapse = ', ')}")
+    } else {
+        log_success("All CRAN & Bioconductor packages mentioned are available")
+    }
 
-  } else if (!all(BIOpkgs %in% allBIOpkgs)) {
-    # When one is missing from Bioconductor
-    missing <- BIOpkgs[!(BIOpkgs %in% allBIOpkgs)]
-    amount_missing <- length(missing)
-    amount_pkgs <- length(BIOpkgs)
+    ## Check that all packages with a \pkg reference also have a \CRANpkg or \BIOpkg mention
+    ## pkgs referred to in the text
 
-    log_error("{amount_missing} of {amount_pkgs} package(s) not available on Bioconductor: {paste(missing, collapse = ', ')}")
+    pkgs_used <-  unique(greg1("pkg\\{(.*?)\\}", tex))
 
-  } else {
-    log_success("All CRAN & Bioconductor packages mentioned are available")
+    ## Start with full list of pkgs
+    declared_pkgs <- pkgs_used %in% c(CRANpkgs, BioCpkgs)
 
-  }
+    if (any(!declared_pkgs)) {
+        ## Look for pkgs that were used in the text but did not have a CRANpkg{} commands
+        pkgs_missing_ref <- unique(pkgs_used[!(declared_pkgs)])
+        amount_missing <- length(pkgs_missing_ref)
 
-
-  # Check that all packages with a \pkg reference also have a \CRANpkg or \BIOpkg mention
-
-  # pkgs referred to in the text
-
-  pkgs_used <- stringr::str_sub(
-    unlist(
-      stringr::str_extract_all(string = tex, "pkg\\{(.*?)\\}")),
-    start = 5, end = -2)
-
-  # Start with full list of pkgs
-  declared_pkgs <- pkgs_used %in% c(CRANpkgs, BIOpkgs)
-
-  if (any(!declared_pkgs)) {
-    # Look for pkgs that were used in the text but did not have a CRANpkg{} commands
-    pkgs_missing_ref <- unique(pkgs_used[!(declared_pkgs)])
-    amount_missing <- length(pkgs_missing_ref)
-
-    log_note("{amount_missing} package(s) used in the text without CRANpkg or BIOpkg commands: {paste(pkgs_missing_ref, collapse = ', ')}")
-  }
-
-
+        log_note("{amount_missing} package(s) used in the text without \\CRANpkg or \\BIOpkg commands: {paste(pkgs_missing_ref, collapse = ', ')}")
+    }
+    ## the last note is not passed as result but will be recorded in the journal
+    res1
 }
 
 
@@ -420,25 +432,29 @@ output_summary <- function(path, file = stdout()) {
 # helper functions
 
 remove_wrapper <- function(path){
-
-  submission_files <- list.files(path)
-  wrapper_files <- c("RJwrapper.tex")
-  submission_files[!(submission_files %in% wrapper_files)]
+    submission_files <- list.files(path)
+    ## remove both template and wrapper
+    wrapper_files <- c("RJwrapper.tex", "RJtemplate.tex")
+    submission_files[!(submission_files %in% wrapper_files)]
 }
 
 extract_tex_vec <- function(path){
-  remaining <- remove_wrapper(path)
-  name <- remaining[tools::file_ext(remaining) == "tex"]
+    remaining <- remove_wrapper(path)
+    name <- remaining[tools::file_ext(remaining) == "tex"]
 
-  if (length(name) == 0){
-    stop("please specify the correct path that contains the .tex file")
-  }
+    if (length(name) == 0)
+        stop("please specify the correct path that contains the .tex file")
 
-  readLines(file.path(path, name))
+    ## NOTE: this may match more files if there are stray ones, so we
+    ##       concatenate them all
+    if (length(name) > 1) {
+        log_warning("Multiple .tex files found: {paste(name, collapse=', ')}")
+        unlist(lapply(file.path(path, name), readLines))
+    } else
+        readLines(file.path(path, name))
 }
 
 extract_tex <- function(path){
-
   vec <- extract_tex_vec(path)
   paste0(vec , collapse = " ")
 }
@@ -459,57 +475,170 @@ spell_to_remove <- c("(\\\\url\\{(.*)\\})",
 )
 
 ##############################################
-log_factory <- function(prefix, .f) {
+## Note: this is seriously over-engineered, but the goal was to
+## support the previous behavior, allow logging into files as well as
+## in-session recording for automated use. We may not keep
+## all of it in the end (e.g., it's unclear how useful are the
+## conditions), so consider it experimental.
+log_factory <- function(result = c("SUCCESS", "NOTE", "WARNING", "ERROR")) {
+    result <- match.arg(result)
 
-  # Guarantee definitions exist in the factory environment
-  force(.f)
-  force(prefix)
+    function(text, ...,
+             output = getOption("check.log.output", "cli"),
+             file   = getOption("check.log.file", NULL),
+             signal = getOption("check.log.conditions", FALSE),
+             .envir = parent.frame()) {
 
-  function(text, ..., file = stdout(), .envir = parent.frame()) {
+        ## cli is brain-dead and always sends input through glue
+        ## with no way to prevent that so we need a way to defer glue
+        ## in that case
+        cli.glue.fix <- FALSE
+        output <- if (is.character(output))
+                  switch(output,
+                         cli = {
+                             cli.glue.fix <- TRUE
+                             switch(result,
+                                    SUCCESS = cli::cli_alert_success,
+                                    NOTE    = cli::cli_alert_info,
+                                    WARNING = cli::cli_alert_warning,
+                                    ERROR   = cli::cli_alert_danger) },
+                         none = identity,
+                         switch(result,
+                                 SUCCESS =,
+                                 NOTE    = function(x) cat(x, "\n", sep=''),
+                                 WARNING =,
+                                 ERROR   = message)
+                         )
+              else if (inherits(output, "connection")) {
+                  function(x)
+                      cat(x, "\n", sep='', file=output, append=TRUE)
+              } else
+                  stop("Invalid output specification")
 
-    text <- glue::glue(prefix, text, ..., .envir = .envir)
+        text <- glue::glue(result, ": ", text, ..., .envir = .envir)
+        output(if (!cli.glue.fix) text else "{text}")
 
-    .f(text)
+        ## Send output to the log file (if requested)
+        if (!is.null(file))
+            cat(text, "\n", sep = "", file = file, append = TRUE)
 
-    # Send output to the log file
-    cat(text, "\n", sep = "", file = file, append = TRUE)
+        ## we use the condition objects as result objects as well
+        cond <-
+            switch(result,
+                   SUCCESS = structure(list(
+                       message = text, call = sys.call(-1), trace = sys.calls()),
+                       class = c("RJcheckSUCCESS", "RJcheckCondition",
+                                 "condition")),
+                   NOTE = structure(list(
+                       message = text, call = sys.call(-1), trace = sys.calls()),
+                       class = c("RJcheckNOTE", "RJcheckCondition",
+                                 "message", "condition")),
+                   WARNING = structure(list(
+                       message = text, call = sys.call(-1), trace = sys.calls()),
+                       class = c("RJcheckWARNING", "RJcheckCondition",
+                                 "warning", "condition")),
+                   ERROR = structure(list(
+                       message = text, call = sys.call(-1), trace = sys.calls()),
+                       class = c("RJcheckERROR", "RJcheckCondition",
+                                 "error", "condition")))
 
-  }
+        ## signal the condition only if asked
+        if (isTRUE(getOption("check.log.conditions", FALSE)))
+            signalCondition(cond)
+        ## otherwise we just attach the info
+        ## Note that with a simple c() you can drop this
+        ## and just get the string with the final status.
+        attr(result, "info") <- cond
+
+        ## if the user asked for a journal, add it to the journal
+        if (is.environment(ce <- getOption("check.log.journal")))
+            ce$results <- c(ce$results, list(result))
+
+        invisible(result)
+    }
 }
 
-#' Produce a log file entry for an error
+#' @title Logging functions
 #'
-#' Append a line in the log file that details an error
+#' @description \code{log_...} functions produce a log entry.
 #'
-#' @param text Description of the error that occurred
-#' @param ... Additional inputs for text passed to the glue function
-#' @param .envir The environment used to find the text string replacements
-#' @param file The console output directed to the log, using `stdout`
+#' @details
+#' Most arguments are intended to be set with options to allow the use
+#' of the checking mechanism both in interactive and automated
+#' settings. There are four types of log entries: SUCCESS, NOTE,
+#' WARNING and ERROR. If the \code{"check.log.journal"} option is set
+#' to an environment then the entry is also added to the journal.
+#'
+#' @param text string, description of the error that occurred,
+#'     will be passed to \code{\link{glue}}.
+#' @param ... additional inputs for text passed to the \code{\link{glue}} function.
+#' @param .envir the environment used to find the text string replacements
+#' @param output type of the output, can either a string (\code{"cli"}
+#'     to use the \code{cli} package (default), \code{"R"} for
+#'     standard R facilities or \code{"none"} for no output) or a
+#'     connection. It uses the \code{"check.log.output"} option if
+#'     set.
+#' @param file connection to log a copy of the output to or NULL
+#'     (default) if no additional copy is desired. It uses the
+#'     \code{"check.log.file"} option.
+#' @param signal logical, if \code{TRUE} then a condition is signalled
+#'     at the end of the function. All conditions have superclass
+#'     \code{"RJcheckCondition"} and subclass \code{"RJCheck<result>"}
+#'     where \code{<result>} is one of \code{SUCCESS}, \code{NOTE},
+#'     \code{WARNING} and \code{ERROR}. They also have the
+#'     corresponding standard R condition classes. Uses option
+#'     \code{"check.log.conditions"}.
+#' 
+#' @return \code{log_...} string with the result type. The
+#'     corresponding condition object with a message and call is
+#'     included in the \code{"info"} attribute (even if no condition
+#'     is signalled).
+#'
 #' @keywords internal
-log_error <- log_factory(prefix = "ERROR: ", .f = cli::cli_alert_warning)
+log_error <- log_factory("ERROR")
 
-#' Produce a log file entry for a success
-#'
-#' Append a line in the log file that details a success
-#'
-#' @param text Description of the error that occurred
-#' @param ... Additional inputs for text passed to the glue function
-#' @param .envir The environment used to find the text string replacements
-#' @param file The console output directed to the log, using `stdout`
-#' @keywords internal
-log_success <- log_factory(prefix = "SUCCESS: ", .f = cli::cli_alert_success)
+#' @rdname log_error
+log_success <- log_factory("SUCCESS")
+
+#' @rdname log_error
+log_note <- log_factory("NOTE")
+
+#' @rdname log_error
+log_warning <- log_factory("WARNING")
 
 
-#' Produce a log file entry for a note
+#' @description \code{journal_summary} prints a quick summary (status
+#'     counts) based on the journal.
 #'
-#' Append a line in the log file that details a note
+#' @param journal environment of the journal
+#' @rdname log_error
+#' @return \code{journal_summary} table of the status counts
+journal_summary <- function(journal=getOption("check.log.journal"),
+                            file=stdout()) {
+    if (!is.environment(journal))
+        return(warning("No journal found."))
+    res <- unlist(journal$results)
+    ct <- table(factor(res, c("SUCCESS", "NOTE", "WARNING", "ERROR")))
+    text <- paste(names(ct), ct, sep=": ", collapse=" | ")
+    cat("", text, "", sep="\n")
+    if (!is.null(file))
+        cat("", text, "", sep="\n", file=file, append=TRUE)
+    invisible(ct)
+}
+
+#' @description \code{simplify_journal} returns a simplified form of the
+#'     results in the journal.
 #'
-#' @param text Description of the error that occurred
-#' @param ... Additional inputs for text passed to the glue function
-#' @param .envir The environment used to find the text string replacements
-#' @param file The console output directed to the log, using `stdout`
-#' @keywords internal
-log_note <- log_factory(prefix = "NOTE: ", .f = cli::cli_alert_info)
+#' @return \code{simplify_journal} string matrix with columns "result"
+#'     (status), "test" (name of the calling function) and "message"
+#' @rdname log_error
+simplify_journal <- function(journal=getOption("check.log.journal")) {
+    if (!is.environment(journal))
+        return(warning("No journal found."))
+    res <- journal$results
+    t(sapply(res, function(o)
+        c(result=c(o), test=as.character(attr(o, "info")$call[[1]]), message=c(attr(o, "info")$message))))
+}
 
 
 ################################################################################
