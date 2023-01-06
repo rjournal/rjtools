@@ -51,7 +51,8 @@ Imports:
     yesno,
     utils,
     tinytex,
-    bookdown
+    bookdown,
+    BiocManager
 Suggests: 
     rmarkdown,
     knitr,
