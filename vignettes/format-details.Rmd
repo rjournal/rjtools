@@ -115,7 +115,7 @@ Notice that `fig.width` and `fig.height` still apply here and `layout` option wi
   
 Sizing these figures should via the relevant arguments rather than the chunk options.
 
-## Captions
+## Captions with special formatting
 
 To include formatted text or references in the caption to a figure requires a different approach for HTML and PDF output formats.
 
