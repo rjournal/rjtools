@@ -152,8 +152,8 @@
 <span id="cb4-7"><a href="#cb4-7"></a><span class="bn">```</span></span></code></pre></div>
 <p>Notice here you need <code>eval=knitr::is_html_output()</code> and <code>eval=knitr::is_latex_output()</code> to make sure that the pdf output only evaluates the first chunk and the html output only evaluates the second.</p>
 <p>For in-text citation, you will something like this:</p>
-<pre><code>Figure `r knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(fig:penguins-interactive)', '\\@ref(fig:penguins-static)'))` shows ...</code></pre>
-<p>This line is quite complicated so let’s dissect its components: the if-else statement uses <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html" class="external-link">knitr::is_html_output()</a></code> to decide if the output is an html or pdf output. For an html output, <code>\\@ref(fig:penguins-interactive)</code> will be used to reference the chunk of the interactive graphic. If the output is a pdf, <code>\\@ref(fig:penguins-static)</code> will reference the static figure. Finally, <code><a href="https://rdrr.io/pkg/knitr/man/asis_output.html" class="external-link">knitr::asis_output()</a></code> makes sure that the reference string is parsed as it is, so no special treatment on <code>\@</code>.</p>
+<pre><code>Figure \@ref(fig:`r ifelse(knitr::is_html_output(), 'penguins-interactive', 'penguins-static')` shows ...</code></pre>
+<p>This line is quite complicated so let’s dissect its components: the if-else statement uses <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html" class="external-link">knitr::is_html_output()</a></code> to decide if the output is an html or pdf output, then completes the fugure reference to read either <code>\@ref(fig:penguins-interactive)</code>, to reference the chunk of the interactive graphic in HTML output, or <code>\@ref(fig:penguins-static)</code>, to reference the static figure for PDF output.</p>
 </div>
 <div class="section level3">
 <h3 id="sizing">Sizing<a class="anchor" aria-label="anchor" href="#sizing"></a>
