@@ -112,6 +112,25 @@ Notice that `fig.width` and `fig.height` still apply here and `layout` option wi
   
 Sizing these figures should via the relevant arguments rather than the chunk options.
 
+## Captions
+
+To include formatted text or references in the caption to a figure requires a different approach for HTML and PDF output formats.
+
+Here is an example of the necessary treatment:
+
+````rmarkdown
+```{r demo-html, eval=knitr::is_html_output(), fig.cap = "_Italics_ and a reference to @RJournal in a caption", echo = FALSE}
+knitr::include_graphics("Demo.svg")
+```
+```{r demo-latex, eval=knitr::is_latex_output(), fig.cap = "(ref:demo-caption)", echo = FALSE}
+knitr::include_graphics("Demo.pdf")
+```
+`r if (knitr::is_latex_output()) "(ref:demo-caption) _Italics_ and a reference to @RJournal in a caption"`
+
+Fig. \@ref(fig:demo-`r ifelse(knitr::is_html_output(), "html", "latex")`) shows...
+````
+
+
 ## Alt text
 
 Alt text is read by a screen reader for people with visual disability and authors are encouraged to include alt text in their figures to make them more accessible in the R community. You only need to add alt text for the html figures and this can be done via the `fig.alt` chunk option. There are a few guidelines on how to write an alt text can be found at [here](https://www.vic.gov.au/alternative-text), [here](https://rjionline.org/news/alt-text-is-journalism-enhancing-your-reporting-with-accessibility/), and [here](https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81). Remember an alt text is not supposed to tell the reader what can be learnt from the plot, but merely to describe what is on the plot. With a good alt text, people should be able to sketch a copy of the figure based on your description. 
