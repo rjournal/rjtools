@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rjtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.9.9001</span>
       </span>
     </div>
 
@@ -128,10 +128,11 @@
 <p>For a static graph, use <code>\@ref(fig:penguins)</code> for in-text reference and your code chunk should look something like this:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="bn">```{r penguins, fig.cap="This is the figure caption"}</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="bn">penguins %&gt;% </span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="bn">  ggplot(aes(x = flipper_length_mm, y = body_mass_g, </span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="bn">             color = species)) + </span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="bn">  geom_point()</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="bn">```</span></span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="bn">  ggplot(aes(x = flipper_length_mm, </span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="bn">             y = body_mass_g, </span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="bn">             color = species)) + </span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="bn">  geom_point()</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="bn">```</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="interactive">Interactive<a class="anchor" aria-label="anchor" href="#interactive"></a>
@@ -139,21 +140,23 @@
 <p>For an interactive graphic, use separate code chunks to create a static plot for the pdf article and an interactive one for the html article:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a><span class="bn">```{r penguins-static, eval=knitr::is_latex_output(), fig.cap="This is the figure caption."}</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="bn">penguins %&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="bn">  ggplot(aes(x = bill_depth_mm, y = bill_length_mm,</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="bn">             color = species)) +</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="bn">  geom_point()</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="bn">```</span></span></code></pre></div>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="bn">  ggplot(aes(x = bill_depth_mm, </span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="bn">             y = bill_length_mm,</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="bn">             color = species)) +</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="bn">  geom_point()</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="bn">```</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="bn">```{r penguins-interactive, eval=knitr::is_html_output(), fig.cap="This is the figure caption."}</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="bn">p1 &lt;- penguins %&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="bn">  ggplot(aes(x = bill_depth_mm, y = bill_length_mm,</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="bn">             color = species)) +</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="bn">  geom_point()</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="bn">plotly::ggplotly(p1)</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="bn">```</span></span></code></pre></div>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="bn">  ggplot(aes(x = bill_depth_mm, </span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="bn">             y = bill_length_mm,</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="bn">             color = species)) +</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="bn">  geom_point()</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="bn">plotly::ggplotly(p1)</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="bn">```</span></span></code></pre></div>
 <p>Notice here you need <code>eval=knitr::is_html_output()</code> and <code>eval=knitr::is_latex_output()</code> to make sure that the pdf output only evaluates the first chunk and the html output only evaluates the second.</p>
 <p>For in-text citation, you will something like this:</p>
 <pre><code>Figure \@ref(fig:`r ifelse(knitr::is_html_output(), 'penguins-interactive', 'penguins-static')` shows ...</code></pre>
-<p>This line is quite complicated so let’s dissect its components: the if-else statement uses <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html" class="external-link">knitr::is_html_output()</a></code> to decide if the output is an html or pdf output, then completes the fugure reference to read either <code>\@ref(fig:penguins-interactive)</code>, to reference the chunk of the interactive graphic in HTML output, or <code>\@ref(fig:penguins-static)</code>, to reference the static figure for PDF output.</p>
+<p>This line is quite complicated so let’s dissect its components: the <code>ifelse</code> statement uses <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html" class="external-link">knitr::is_html_output()</a></code> to decide if the output is an html or pdf output, then completes the fugure reference to read either <code>\@ref(fig:penguins-interactive)</code>, to reference the chunk of the interactive graphic in HTML output, or <code>\@ref(fig:penguins-static)</code>, to reference the static figure for PDF output.</p>
 </div>
 <div class="section level3">
 <h3 id="sizing">Sizing<a class="anchor" aria-label="anchor" href="#sizing"></a>
@@ -177,6 +180,21 @@ ggplot(data = penguins,
 <code>ggiraph::girafe(p, width_svg = ..., height_svg = ...)</code>.</li>
 </ul>
 <p>Sizing these figures should via the relevant arguments rather than the chunk options.</p>
+</div>
+<div class="section level3">
+<h3 id="captions">Captions<a class="anchor" aria-label="anchor" href="#captions"></a>
+</h3>
+<p>To include formatted text or references in the caption to a figure requires a different approach for HTML and PDF output formats.</p>
+<p>Here is an example of the necessary treatment:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="bn">```{r demo-html, eval=knitr::is_html_output(), fig.cap = "Here is _italics_ and a reference to @RJournal in a caption.", echo = FALSE}</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="bn">knitr::include_graphics("figures/penguins.svg")</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="bn">```</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="bn">```{r demo-latex, eval=knitr::is_latex_output(), fig.cap = "(ref:demo-caption)", echo = FALSE}</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="bn">knitr::include_graphics("figures/penguins.pdf")</span></span></code></pre></div>
+<p>And then to finish the caption text for the latex chunk use:</p>
+<p>and to refer to it in the text:</p>
+<pre><code>Fig. \@ref(fig:demo-html) shows...</code></pre>
 </div>
 <div class="section level3">
 <h3 id="alt-text">Alt text<a class="anchor" aria-label="anchor" href="#alt-text"></a>
