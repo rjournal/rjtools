@@ -1,3 +1,15 @@
+# rjtools 1.0.9.9001
+
+* Information about referencing in figure captions, and conditional figure inclusions depending on output. 
+
+# rjtools 1.0.9.9001
+
+* Import BioCManager
+* Import artifacts
+* Update authors
+* Update tests
+* Bad example added
+
 # rjtools 1.0.9
 
 * Errant dontrun removed by CRAN request
