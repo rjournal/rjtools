@@ -83,9 +83,9 @@ Notice here you need `eval=knitr::is_html_output()` and `eval=knitr::is_latex_ou
 
 For in-text citation, you will something like this: 
 
-    Figure `r "\u0060r"` knitr::asis_output(ifelse(knitr::is_html_output(), '\\@ref(fig:penguins-interactive)', '\\@ref(fig:penguins-static)'))`r "\u0060"` shows ...
+    Figure \@ref(fig:`r "\u0060r"` ifelse(knitr::is_html_output(), 'penguins-interactive', 'penguins-static')`r "\u0060"` shows ...
     
-This line is quite complicated so let's dissect its components: the if-else statement uses `knitr::is_html_output()` to decide if the output is an html or pdf output. For an html output, `\\@ref(fig:penguins-interactive)` will be used to reference the chunk of the interactive graphic. If the output is a pdf, `\\@ref(fig:penguins-static)` will reference the static figure. Finally, `knitr::asis_output()` makes sure that the reference string is parsed as it is, so no special treatment on `\@`.
+This line is quite complicated so let's dissect its components: the if-else statement uses `knitr::is_html_output()` to decide if the output is an html or pdf output, then completes the fugure reference to read either `\@ref(fig:penguins-interactive)`, to reference the chunk of the interactive graphic in HTML output, or `\@ref(fig:penguins-static)`, to reference the static figure for PDF output.
 
 ## Sizing
 
