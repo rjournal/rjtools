@@ -193,6 +193,7 @@ ggplot(data = penguins,
 <span id="cb7-5"><a href="#cb7-5"></a><span class="bn">```{r demo-latex, eval=knitr::is_latex_output(), fig.cap = "(ref:demo-caption)", echo = FALSE}</span></span>
 <span id="cb7-6"><a href="#cb7-6"></a><span class="bn">knitr::include_graphics("figures/penguins.pdf")</span></span></code></pre></div>
 <p>And then to finish the caption text for the latex chunk use:</p>
+<p><code>`r if (knitr::is_latex_output()) "(ref:demo-caption) Here is _italics_ and a reference to <span class="citation">@RJournal</span> in a caption."`</code></p>
 <p>and to refer to it in the text:</p>
 <pre><code>Fig. \@ref(fig:demo-html) shows...</code></pre>
 </div>
