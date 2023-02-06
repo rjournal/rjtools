@@ -132,7 +132,7 @@ knitr::include_graphics("figures/penguins.pdf")
 
 And then to finish the caption text for the latex chunk use:
 
-`r if (knitr::is_latex_output()) "(ref:demo-caption) Here is _italics_ and a reference to @RJournal in a caption." `
+<code>&grave;r if (knitr::is_latex_output()) \"(ref:demo-caption) Here is \_italics\_ and a reference to @RJournal in a caption.\"`</code>
 
 and to refer to it in the text:
 
