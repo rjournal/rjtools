@@ -329,8 +329,8 @@ check_proposed_pkg <- function(pkg, ask=interactive()) {
     }
 
     if (length(pkg) == 1 && nzchar(pkg)) {
-        count <- sum(cranlogs::cran_downloads(pkg, from = "2020-01-01")$count)
-        if (count == 0)
+        allCRANpkgs <- available.packages(type='source')[,1]
+        if (!pkg %in% allCRANpkgs)
             log_note(text = "No CRAN activities detected for package {pkg}")
         else
             log_success(text = "CRAN activities have been detected for package {pkg}")
@@ -593,7 +593,7 @@ log_factory <- function(result = c("SUCCESS", "NOTE", "WARNING", "ERROR")) {
 #'     \code{WARNING} and \code{ERROR}. They also have the
 #'     corresponding standard R condition classes. Uses option
 #'     \code{"check.log.conditions"}.
-#' 
+#'
 #' @return \code{log_...} string with the result type. The
 #'     corresponding condition object with a message and call is
 #'     included in the \code{"info"} attribute (even if no condition
