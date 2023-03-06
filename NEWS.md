@@ -1,4 +1,8 @@
-# rjtools 1.0.9.9001
+# rjtools 1.0.10
+
+* available_packages() is used in check_packages_available() instead of cranlogs::cran_downloads()
+
+# rjtools 1.0.9.9002
 
 * Information about referencing in figure captions, and conditional figure inclusions depending on output. 
 

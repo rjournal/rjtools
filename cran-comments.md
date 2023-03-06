@@ -1,6 +1,4 @@
-This is a new submission, with changes made in response to initial checks by CRAN (Benjamin Altmann, Victoria Wimmer).
-
-Tests have been modified as requested. Examples wrapped with dontrun are removed. 
+This revision is to fix a problem identified by CRAN maintainers.
 
 ## Test environment
 
