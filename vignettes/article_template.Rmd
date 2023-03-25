@@ -1,9 +1,9 @@
 ---
-title: "The Article Template"
+title: "Template output showcase"
 author: Sherry Zhang
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{rjtools-template}
+  %\VignetteIndexEntry{template-showcase}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

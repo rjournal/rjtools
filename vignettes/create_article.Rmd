@@ -1,9 +1,9 @@
 ---
-title: "Create an R Journal Article"
+title: "Create an R Journal article"
 author: Sherry Zhang
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{create_article}
+  %\VignetteIndexEntry{create-article}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

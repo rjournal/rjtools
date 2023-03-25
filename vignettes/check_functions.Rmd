@@ -1,9 +1,9 @@
 ---
-title: "Check your Article Before Submission"
+title: "Check your article before submission"
 author: Sherry Zhang
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Check}
+  %\VignetteIndexEntry{check}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
