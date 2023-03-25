@@ -27,3 +27,12 @@ reference:
   contents:
   - ends_with("issue")
   - rjournal_website
+
+articles:
+- title: All vignette
+  navbar: ~
+  contents:
+  - create_article
+  - format-details
+  - check_functions
+  - article_template

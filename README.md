@@ -38,13 +38,13 @@ To create an article template under the project directory:
 
 ``` r
 library(rjtools)
-create_article()
+create_article(name = "quokka-bilby")
 ```
 
 To examine how the papers in this format would look in an R Journal
 issue, take a look at the June 2021 issue
-<https://journal.r-project.org/issues/2021-1/>. Particularly
-articles by Wang, and two articles by Kane, and the editorial.
+<https://journal.r-project.org/issues/2021-1/>. Particularly articles by
+Wang, and two articles by Kane, and the editorial.
 
 -   To learn more on the article creation, read [Create an R Journal
     Article](https://rjournal.github.io/rjtools/articles/create_article.html).

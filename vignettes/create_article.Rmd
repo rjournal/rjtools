@@ -45,6 +45,21 @@ create_article(name = "quokka-bilby")
 
 ## Your first knit
 
+To knit the `Rmd` file, you can use either through the RStudio `knit` button, or type the following command in the R console:  
+
+```{r eval = FALSE}
+rmarkdown::render("quokka-bilby.Rmd")
+```
+  
+Before knitting, you may need to install the packages used in the template file (`plotly`, `ggplot2`, `kableExtra` and `palmerpenguins`) by 
+  
+```{r eval = FALSE}
+install.packages(c("plotly", "ggplot2", "kableExtra", "palmerpenguins"))
+```
+
+The R Journal uses `pandoc-citeproc` to handle the Citation Style Language (CSL) style. 
+If you're knitting the document within RStudio (which we recommend), this is automatically handled. However, if you're using the command line, you'll need to ensure the `pandoc-citeproc` extension is installed properly on your system.
+
 The `rjtools::rjournal_web_article` output specified in the article YAML will create the article in both html and pdf formats. Additional files created during the knit are (assuming file name of `quokka-bilby`):
 
   - **quokka-bilby.html**: the html article 
@@ -53,8 +68,6 @@ The `rjtools::rjournal_web_article` output specified in the article YAML will cr
   - **quokka-bilby.R**: an R file that contains all the codes
   - **quokka-bilby-files/**: a folder of Javascript libraries, necessary to view the the html article
   
-You can use the regular ways to render the files, either through the RStudio `knit` button, or using `rmarkdown::render("paper/quokka-bilby.Rmd")` on the R command line. 
-
 ## Note: `rticles` template
 
 The `rticles` package contains a template for creating an *R Journal* article, which you might have used before if you have been already working with R Markdown for writing papers. This template creates an article that will be compiled with latex into a pdf format paper. It is using the current style file. If this new `distill` version of the delivery of the *R Journal* is successful, we will also synchronise the template to the one in `rjtools`. 
