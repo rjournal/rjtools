@@ -50,16 +50,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/article_template.html">The Article Template</a>
+      <a href="../articles/create_article.html">Create an R Journal Article</a>
+    </li>
+    <li>
+      <a href="../articles/format-details.html">More details on the R Journal format</a>
     </li>
     <li>
       <a href="../articles/check_functions.html">Check your Article Before Submission</a>
     </li>
     <li>
-      <a href="../articles/create_article.html">Create an R Journal Article</a>
-    </li>
-    <li>
-      <a href="../articles/format-details.html">More details on the R Journal format</a>
+      <a href="../articles/article_template.html">The Article Template</a>
     </li>
   </ul>
 </li>
@@ -126,6 +126,13 @@
 <div class="section level2">
 <h2 id="your-first-knit">Your first knit<a class="anchor" aria-label="anchor" href="#your-first-knit"></a>
 </h2>
+<p>To knit the <code>Rmd</code> file, you can use either through the RStudio <code>knit</code> button, or type the following command in the R console:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"quokka-bilby.Rmd"</span><span class="op">)</span></span></code></pre></div>
+<p>Before knitting, you may need to install the packages used in the template file (<code>plotly</code>, <code>ggplot2</code>, <code>kableExtra</code> and <code>palmerpenguins</code>) by</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plotly"</span>, <span class="st">"ggplot2"</span>, <span class="st">"kableExtra"</span>, <span class="st">"palmerpenguins"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>The R Journal uses <code>pandoc-citeproc</code> to handle the Citation Style Language (CSL) style. If you’re knitting the document within RStudio (which we recommend), this is automatically handled. However, if you’re using the command line, you’ll need to ensure the <code>pandoc-citeproc</code> extension is installed properly on your system.</p>
 <p>The <code><a href="../reference/rjournal_article.html">rjtools::rjournal_web_article</a></code> output specified in the article YAML will create the article in both html and pdf formats. Additional files created during the knit are (assuming file name of <code>quokka-bilby</code>):</p>
 <ul>
 <li>
@@ -139,7 +146,6 @@
 <li>
 <strong>quokka-bilby-files/</strong>: a folder of Javascript libraries, necessary to view the the html article</li>
 </ul>
-<p>You can use the regular ways to render the files, either through the RStudio <code>knit</code> button, or using <code>rmarkdown::render("paper/quokka-bilby.Rmd")</code> on the R command line.</p>
 </div>
 <div class="section level2">
 <h2 id="note-rticles-template">Note: <code>rticles</code> template<a class="anchor" aria-label="anchor" href="#note-rticles-template"></a>
