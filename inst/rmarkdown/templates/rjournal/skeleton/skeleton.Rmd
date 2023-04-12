@@ -15,13 +15,15 @@ author:
     orcid: 0000-1721-1511-1101
     email:  qquo@ulm.edu
   - name: Bounciest Bilby
+    affiliation:
+    - University of Little Mates
+    - University of Aussie Animals
+    address:
+    - Department of Letter Q, Somewhere, Australia
+    - Department of Marsupials, Somewhere, Australia
     url: https://www.britannica.com/animal/bilby
     email: bbil@ulm.edu
     orcid: 0000-0002-0912-0225
-    affiliation: University of Little Mates
-    address:
-    - Department of Letter B
-    - Somewhere, Australia
 type: package
 output: 
   rjtools::rjournal_web_article:
