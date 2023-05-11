@@ -1,5 +1,12 @@
 % !TeX root = RJwrapper.tex
 \title{$title$}
+
+$if(subtitle)$
+\subtitle{%
+$subtitle$
+}
+$endif$
+
 \author{by $for(author)$$author.name$$sep$, $endfor$}
 
 \maketitle
