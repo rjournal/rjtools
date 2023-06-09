@@ -1,6 +1,6 @@
 ---
 title: "Check your article before submission"
-author: Sherry Zhang
+author: H. Sherry Zhang and Di Cook
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{check}
@@ -195,9 +195,45 @@ Advice on good coding style can be found in the `rjtools` article ["More details
 
 ## Citations
 
-- All references need to have a DOI where available
-- The default bibliography style needs to be used
-- Inline citations are appropriately "(author, year)" or "author (year)" 
-- Consistent capitalisation of reference titles
-- All R packages used in the work are appropriately cited, e.g., `ggplot` if this is used to create the figures
+- All R packages used in the work are appropriately cited. For example, if you use `ggplot2` to make your plots, the citation for this package needs to be added to your paper. See more details below if you need help on how ot do this.
+- All references need to have a DOI where available.
+- The default bibliography style needs to be used.
+- Use consistent capitalization for titles in the citations, which may require manual editing if extracting citation information from different services.
+
+**How to get the package citations**
+
+The preferred citation is provided by:
+
+```
+> citation("ggplot2")
+
+To cite ggplot2 in publications, please use
+
+  H. Wickham. ggplot2: Elegant Graphics for Data Analysis.
+  Springer-Verlag New York, 2016.
+
+A BibTeX entry for LaTeX users is
+
+  @Book{,
+    author = {Hadley Wickham},
+    title = {ggplot2: Elegant Graphics for Data Analysis},
+    publisher = {Springer-Verlag New York},
+    year = {2016},
+    isbn = {978-3-319-24277-4},
+    url = {https://ggplot2.tidyverse.org},
+  }
+```
+
+To check if you've appropriately cited all the packages used in your code, the [`grateful`](https://pakillo.github.io/grateful/) package can help.
+
+In the project where you are writing your paper, use
+
+```{r eval=FALSE}
+cite_packages(out.dir = ".")
+```
+
+to get a `.bib` file for all packages referenced. The entries can be added to the rest of your paper's bib file.
+
+The `scan_packages` function can give you a list of the packages you are using.
+
 
