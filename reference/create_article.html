@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rjtools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.11</span>
       </span>
     </div>
 
@@ -73,7 +73,7 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_article</span><span class="op">(</span></span>
-<span>  <span class="va">name</span>,</span>
+<span>  name <span class="op">=</span> <span class="st">"test"</span>,</span>
 <span>  file <span class="op">=</span> <span class="fu">xfun</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xfun/man/file_ext.html" class="external-link">with_ext</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">"Rmd"</span><span class="op">)</span>,</span>
 <span>  create_dir <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  edit <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -83,7 +83,7 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>name</dt>
-<dd><p>the name of the Rmd</p></dd>
+<dd><p>the name of the Rmd, will default to "test"</p></dd>
 
 
 <dt>file</dt>
@@ -100,17 +100,12 @@ template).</p></dd>
 <dd><p><code>TRUE</code> to edit the template immediately</p></dd>
 
 </dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    
-
-<p>a created R Journal template in the directory specified by <code>dir_path</code></p>
-
-
-    </div>
     <div id="details">
     <h2>Details</h2>
-    <p>See <code><a href="../articles/create_article.html">vignette("create_article", package = "rjtools")</a></code> for how to create an article</p>
+    <p>Outputs an R Journal paper template set of files in the directory specified
+by <code>dir_path</code> or in the project directory, if nothing is specified.
+See <code><a href="../articles/create_article.html">vignette("create_article", package = "rjtools")</a></code> for more details
+on how to create and format an article.</p>
     </div>
 
   </div>
