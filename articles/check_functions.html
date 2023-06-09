@@ -88,7 +88,7 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Check your article before submission</h1>
-                        <h4 data-toc-skip class="author">Sherry Zhang</h4>
+                        <h4 data-toc-skip class="author">H. Sherry Zhang and Di Cook</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/rjournal/rjtools/blob/HEAD/vignettes/check_functions.Rmd" class="external-link"><code>vignettes/check_functions.Rmd</code></a></small>
@@ -276,12 +276,36 @@ NOTE: A potential list of spelling to check: tooltips, tooltip, alison, ggplot</
 <h3 id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>
 </h3>
 <ul>
-<li>All references need to have a DOI where available</li>
-<li>The default bibliography style needs to be used</li>
-<li>Inline citations are appropriately “(author, year)” or “author (year)”</li>
-<li>Consistent capitalisation of reference titles</li>
-<li>All R packages used in the work are appropriately cited, e.g., <code>ggplot</code> if this is used to create the figures</li>
+<li>All R packages used in the work are appropriately cited. For example, if you use <code>ggplot2</code> to make your plots, the citation for this package needs to be added to your paper. See more details below if you need help on how ot do this.</li>
+<li>All references need to have a DOI where available.</li>
+<li>The default bibliography style needs to be used.</li>
+<li>Use consistent capitalization for titles in the citations, which may require manual editing if extracting citation information from different services.</li>
 </ul>
+<p><strong>How to get the package citations</strong></p>
+<p>The preferred citation is provided by:</p>
+<pre><code>&gt; citation("ggplot2")
+
+To cite ggplot2 in publications, please use
+
+  H. Wickham. ggplot2: Elegant Graphics for Data Analysis.
+  Springer-Verlag New York, 2016.
+
+A BibTeX entry for LaTeX users is
+
+  @Book{,
+    author = {Hadley Wickham},
+    title = {ggplot2: Elegant Graphics for Data Analysis},
+    publisher = {Springer-Verlag New York},
+    year = {2016},
+    isbn = {978-3-319-24277-4},
+    url = {https://ggplot2.tidyverse.org},
+  }</code></pre>
+<p>To check if you’ve appropriately cited all the packages used in your code, the <a href="https://pakillo.github.io/grateful/" class="external-link"><code>grateful</code></a> package can help.</p>
+<p>In the project where you are writing your paper, use</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">cite_packages</span><span class="op">(</span>out.dir <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
+<p>to get a <code>.bib</code> file for all packages referenced. The entries can be added to the rest of your paper’s bib file.</p>
+<p>The <code>scan_packages</code> function can give you a list of the packages you are using.</p>
 </div>
 </div>
   </div>
