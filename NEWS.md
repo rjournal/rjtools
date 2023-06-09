@@ -1,3 +1,8 @@
+# rjtools 1.0.11
+
+* removed return value, and set create_article to write a message
+* set a default name for the paper
+
 # rjtools 1.0.10
 
 * available_packages() is used in check_packages_available() instead of cranlogs::cran_downloads()

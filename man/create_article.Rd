@@ -5,14 +5,14 @@
 \title{Create an R Journal article with the existing template}
 \usage{
 create_article(
-  name,
+  name = "test",
   file = xfun::with_ext(name, "Rmd"),
   create_dir = FALSE,
   edit = TRUE
 )
 }
 \arguments{
-\item{name}{the name of the Rmd}
+\item{name}{the name of the Rmd, will default to "test"}
 
 \item{file}{File name for the draft}
 
@@ -22,12 +22,12 @@ template).}
 
 \item{edit}{\code{TRUE} to edit the template immediately}
 }
-\value{
-a created R Journal template in the directory specified by \code{dir_path}
-}
 \description{
 Create an R Journal article with the existing template
 }
 \details{
-See \code{vignette("create_article", package = "rjtools")} for how to create an article
+Outputs an R Journal paper template set of files in the directory specified
+by \code{dir_path} or in the project directory, if nothing is specified.
+See \code{vignette("create_article", package = "rjtools")} for more details
+on how to create and format an article.
 }
