@@ -215,7 +215,7 @@ If you are already writing your articles using Rmarkdown, and have written your 
 
 Code chunks should provide the examples of usage of the package, if the paper is about an add-on package for R. Nice structure to the code is expected of R Journal papers. 
 
-Some good advice on code style can be found in
+Some good advice on code style can be found in:
 
 - "R packages" chapter 7 by Hadley Wickham at https://r-pkgs.org/Code.html,
 - "rOpenSci Packages: Development, Maintenance, and Peer Review" at https://devguide.ropensci.org/building.html,
@@ -223,11 +223,19 @@ Some good advice on code style can be found in
 - Use the "styler" package,
 - and avoiding the features warned against by Jenny Bryan at https://www.tidyverse.org/blog/2017/12/workflow-vs-script/
     
-Inline code, e.g., the function `calc_stat` from the bilby package, should be delimited by a single back-tick. The old latex command `\code{}` shouldn't be used. 
+Inline code, e.g., the function `calc_stat` from the bilby package, should be delimited by a single back-tick. The old latex command `\code{}` **should not** be used. 
+
+Your code should run reasonably fast. It is better to have a small example to illustrate your work.
 
 # Referring to packages
 
 The old latex commands `\CRANpkg{}` or `\BIOpkg{}` can be used for all CRAN and Bioconductor package references. This will create a link in the document that links to the CRAN or Bioconductor site for the package. Any other package should be treated like code, and delimited using single backticks.
+
+# Handling data
+
+Examples for your paper should be computed relatively quickly, which often means that the data files need to be relatively small (less than 5Mb). 
+
+If you have a large file that you believe should be used for the paper, you could store the file elsewhere, on your own github repo, or on a data file share service like [Figshare](https://help.figshare.com/article/guide-to-sharing-data-on-figshare-plus), and add download and handling code to your paper.
 
 # Trouble-shooting
 
