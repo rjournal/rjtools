@@ -70,6 +70,10 @@ The `rjtools::rjournal_web_article` output specified in the article YAML will cr
   
 ## Note: `rticles` template
 
-The `rticles` package contains a template for creating an *R Journal* article, which you might have used before if you have been already working with R Markdown for writing papers. This template creates an article that will be compiled with latex into a pdf format paper. It is using the current style file. If this new `distill` version of the delivery of the *R Journal* is successful, we will also synchronise the template to the one in `rjtools`. 
+The `rticles` package historically contained a template for creating an *R Journal* article, which you might have used before if you have been already working with R Markdown for writing papers. This template is now synchronised with the template in `rjtools`. 
 
-Now feel free to head to the vignette *The Article Template* or *More details on the R Journal format* for an example article and more detailed information on the template. 
+Now feel free to head to the vignette *More details on the R Journal format* for an example article and more detailed information on the template. 
+
+## No quarto yet
+
+At this time the journal only takes `Rmd` formatted papers, which makes sense because the journal is focused on R, not other languages. At some point in the future it may be able to accommodate `qmd` formatted papers. 
