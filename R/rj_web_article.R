@@ -177,6 +177,13 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
         data <- c(data, list(BIOC = BIOC))
       }
     }
+    if (web_only && legacy_pdf) {
+      TEXOR <- "This article is converted from a Legacy LaTeX article using the
+                [texor](https://cran.r-project.org/package=texor) package.
+                The pdf version is the official version. To report a problem with the html,
+                refer to CONTRIBUTE on the R Journal homepage."
+      data <- c(data, list(TEXOR = TEXOR))
+    }
 
     template <- xfun::read_utf8(system.file("appendix.md", package = "rjtools"))
     appendix <- whisker::whisker.render(template, data)
