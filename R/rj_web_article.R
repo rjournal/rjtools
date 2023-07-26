@@ -27,7 +27,7 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
   distill_post_knit <- base_format$post_knit
 
   rmd_path <- NULL
-  render_pdf <- NULL
+  render_pdf <- NA
   article_metadata <- NULL
 
   base_format$post_knit <- function(metadata, input_file, runtime, ...) {
@@ -132,7 +132,7 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
 
     # save Rmd path for later use
     rmd_path <<- normalizePath(input_file)
-    render_pdf <<- !is.null(metadata$author)
+    render_pdf <<- !is.null(metadata$author) && !web_only
 
     # Pass updated metadata to distill's post_knit()
     distill_post_knit(metadata, input_file, runtime, ...)
@@ -219,8 +219,8 @@ rjournal_web_article <- function(toc = FALSE, self_contained = FALSE,
     # TODO: This should be done in a temp directory
     # and files produced moved back into the main dir.
 
-    # Skip rendering pdf for non-article pages
-    if(is.null(render_pdf)) return()
+    # Skip rendering pdf for non-article pages and converted legacy articles
+    if(isFALSE(render_pdf)) return()
 
     # Update legacy PDF metadata just by changing the wrapper
     if (legacy_pdf) {
