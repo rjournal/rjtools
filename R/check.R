@@ -184,7 +184,7 @@ check_cover_letter <- function(path){
 check_title <- function(path, ignore = ""){
 
   tex <- extract_tex(path)
-  str <- sub(".*((?<=\\\\title\\{)(.*)(?=\\}\\s\\\\author\\{)).*","\\1", tex, perl = TRUE)
+  str <- sub(".*\\\\title\\{([^}]*)\\}.*","\\1", tex, perl = TRUE)
   res <- check_str(str, ignore)
 
   if (!res$result){
