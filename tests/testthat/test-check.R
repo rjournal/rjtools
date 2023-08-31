@@ -9,17 +9,17 @@ test_that("different styles for titles are ok", {
   str <- "An R Package for Customizable Tooltips in Interactive Graphics"
   expect_true(rjtools:::check_str(str)$result)
 
-  # use \\pkg{} to mark up pkg name
+  # title should not include special format: \\pkg{}
   str <- "\\pkg{toOoOlTiPs}: An R Package for Customizable Tooltips in Interactive Graphics"
-  expect_true(rjtools:::check_str(str)$result)
+  expect_false(rjtools:::check_str(str)$result)
 
-  # multiple pkgs
+  # title should not include special format: multiple \\pkgs{}
   str <- "\\pkg{toOoOlTiPs}: An R Package for Customizable Tooltips in \\pkg{leaflet}"
-  expect_true(rjtools:::check_str(str)$result)
+  expect_false(rjtools:::check_str(str)$result)
 
-  # with dot in the pkg name
+  # title should not include special format: with dot in the pkg name
   str <- "\\pkg{toOoOlTiPs}: An R Package for Customizable Tooltips in \\pkg{data.table}"
-  expect_true(rjtools:::check_str(str)$result)
+  expect_false(rjtools:::check_str(str)$result)
 
   # use the ignore parameter
   str <- "toOoOlTiPs: An R Package for Customizable Tooltips in Interactive Graphics"

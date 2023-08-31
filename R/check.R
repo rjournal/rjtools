@@ -176,8 +176,7 @@ check_cover_letter <- function(path){
 ##############################################
 # Tex file checks:
 
-#' @param ignore The words to ignore in title check, use c(pkg, pkg, ...) for multiple words
-#' @importFrom stringr str_extract
+#' @param ignore The words to ignore in title check, e.g. package name (data.table, toOoOlTiPs)
 #' @importFrom tools toTitleCase
 #' @rdname checks
 #' @export
@@ -187,25 +186,29 @@ check_title <- function(path, ignore = ""){
   str <- sub(".*\\\\title\\{([^}]*)\\}.*","\\1", tex, perl = TRUE)
   res <- check_str(str, ignore)
 
+  has_special_format <- grepl(
+    "\\pkg\\{.*\\}|\\CRANpkg\\{.*\\}|\\BOIpkg\\{.*\\}", str)
+  if (has_special_format){
+    log_error("The title should not contain any special format, such as the
+              \\pkg{}, \\CRANpkg{}, \\BOIpkg{} markups used for package names.")
+  }
+
   if (!res$result){
-    correct <- res$suggest
-    quote_fixed <- gsub('\"', "", correct, fixed = TRUE)
     log_error("The title is not in title case! Suggest title to be changed to:
-              {quote_fixed}")
+              {res$suggest}.")
   } else{
-    log_success("The article title is properly formatted in title case.")
+    log_success("The article title is properly formatted.")
   }
 
 }
 
 check_str <- function(str, ignore = ""){
-  # if \\pkg{} is used to mark up pkg name, they are removed form title check
-  str <- gsub("\\\\pkg\\{[a-z.A-Z0-9]*\\}", "", str)
   ignore <- paste0(ignore, collapse = "", sep = "|")
   str <- gsub(ignore, "", str) # remove ignored words
+  str_in_title_case <- tools::toTitleCase(str)
+  pass <- str_in_title_case == str
 
-  list(result = tools::toTitleCase(str) == str,
-       suggest = tools::toTitleCase(str))
+  list(result = pass, suggest = if (!pass) str_in_title_case else NULL)
 }
 
 
@@ -325,7 +328,7 @@ check_proposed_pkg <- function(pkg, ask=interactive()) {
         if (!ask)
             return(log_note("No proposed package supplied."))
         ## This is a really terrible hack ...
-        pkg <- readline(prompt = "What's the name of package being proposed in the article? Press Enter if none. ")
+        pkg <- readline(prompt = "What's the name of the package being proposed in the article? Press Enter if none. ")
     }
 
     if (length(pkg) == 1 && nzchar(pkg)) {
