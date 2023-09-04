@@ -2,6 +2,7 @@
 
 * Added `rjournal_article()` as a preferred alias to `rjournal_web_article()`
   since this output format generally produces both HTML and PDF outputs.
+* Updated included style file for PDF article outputs.
 
 # rjtools 1.0.9
 
