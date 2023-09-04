@@ -1,3 +1,8 @@
+# rjtools dev
+
+* Added `rjournal_article()` as a preferred alias to `rjournal_web_article()`
+  since this output format generally produces both HTML and PDF outputs.
+
 # rjtools 1.0.9
 
 * Errant dontrun removed by CRAN request
