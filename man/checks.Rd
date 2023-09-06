@@ -13,6 +13,7 @@
 \alias{check_proposed_pkg}
 \alias{check_pkg_label}
 \alias{check_packages_available}
+\alias{check_bib}
 \title{A single article check}
 \usage{
 initial_check_article(
@@ -45,6 +46,8 @@ check_proposed_pkg(pkg, ask = interactive())
 check_pkg_label(path)
 
 check_packages_available(path, ignore)
+
+check_bib(path)
 }
 \arguments{
 \item{path}{string, path to the directory that contains the .tex
@@ -98,7 +101,10 @@ formattings (highlight, italic, etc)
 \item \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
 \item \code{check_pkg_label()}: packages marked up with \pkg{} are not available
 on CRAN or BioConductor
-\item \code{check_packages_available()}: packages mentioned in the article are available on CRAN
+\item \code{check_packages_available()}: packages mentioned in the article are
+available on CRAN
+\item \code{check_bib}: whether bib entries have DOI or URL included, uncless
+can't sourced online
 }
 
 See \code{vignette("create_article", package = "rjtools")} for how to use the check functions

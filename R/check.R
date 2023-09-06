@@ -34,7 +34,10 @@
 #' * \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
 #' * \code{check_pkg_label()}: packages marked up with \pkg{} are not available
 #' on CRAN or BioConductor
-#' * \code{check_packages_available()}: packages mentioned in the article are available on CRAN
+#' * \code{check_packages_available()}: packages mentioned in the article are
+#' available on CRAN
+#' * \code{check_bib}: whether bib entries have DOI or URL included, uncless
+#' can't sourced online
 #'
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 #' @rdname checks
@@ -97,6 +100,7 @@ Please specify the file directory that contains the article {.field .tex} file."
     check_proposed_pkg(pkg, ask)
     check_pkg_label(pkg)
     check_packages_available(path)
+    check_bib(path)
 
     ## Show a numeric summary of successes, errors and notes
     journal_summary(file=logfile)
@@ -444,6 +448,33 @@ allBioCpkgs <- function(){
   BioCver <- BiocManager::version()
   available.packages(repos = paste0("https://bioconductor.org/packages/", BioCver, "/bioc"), type='source')[,1]
 }
+
+#' @rdname checks
+#' @export
+check_bib <- function(path){
+  bib_json <- tempfile(fileext = ".csljson")
+  files <- list.files(here::here(path), full.names = TRUE)
+  bib_file <- files[tools::file_ext(files) == "bib"]
+  rmarkdown::pandoc_convert(bib_file, to = "csljson", output = bib_json)
+  bib_list <- rjson::fromJSON(paste0(readLines(bib_json), collapse = ""))
+  bib_tbl <- mapply(function(x) {
+    a <- data.frame(id = x$id)
+    a[,"doi"] <- x$DOI
+    a[,"url"] <- x$URL
+    a}, bib_list)
+  res <- unlist(bib_tbl[mapply(length, bib_tbl) <= 1]) %>%
+    paste0(collapse = ", ")
+  unlink(bib_json)
+  if (nchar(res) == 0){
+    log_success("All the references contain DOI or URL")
+  } else{
+    log_warning("Citation should include a link to the reference, preferably a
+    DOI, unless online resources cannot be found.
+    References without DOI or URL: {res}.")
+  }
+
+}
+
 
 #' @importFrom stringr str_match str_count
 output_summary <- function(path, file = stdout()) {

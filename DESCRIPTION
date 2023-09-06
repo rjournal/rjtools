@@ -51,7 +51,9 @@ Imports:
     utils,
     tinytex,
     bookdown,
-    BiocManager
+    BiocManager,
+    rjson,
+    here
 Suggests: 
     rmarkdown,
     knitr,
