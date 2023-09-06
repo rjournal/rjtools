@@ -11,6 +11,7 @@
 \alias{check_abstract}
 \alias{check_spelling}
 \alias{check_proposed_pkg}
+\alias{check_pkg_label}
 \alias{check_packages_available}
 \title{A single article check}
 \usage{
@@ -40,6 +41,8 @@ check_abstract(path)
 check_spelling(path, dic = "en_US", ...)
 
 check_proposed_pkg(pkg, ask = interactive())
+
+check_pkg_label(path)
 
 check_packages_available(path, ignore)
 }
@@ -93,6 +96,8 @@ markups (CRANpkg, BIOpkg, pkg), math notations($...$), citations, and other
 formattings (highlight, italic, etc)
 \item \code{check_spelling()}: potential spelling mistakes
 \item \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
+\item \code{check_pkg_label()}: packages marked up with \pkg{} are not available
+on CRAN or BioConductor
 \item \code{check_packages_available()}: packages mentioned in the article are available on CRAN
 }
 

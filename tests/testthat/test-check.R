@@ -32,8 +32,8 @@ test_that("different styles for titles are ok", {
 
 test_that("check abstract works", {
 
-  # pick up BOIpkg, CRANpkg, and pkg markups
-  str <- "The package \\BOIpkg{toOoOlTiPs} for the R language is great."
+  # pick up BIOpkg, CRANpkg, and pkg markups
+  str <- "The package \\BIOpkg{toOoOlTiPs} for the R language is great."
   expect_true(check_abstract_str(str))
   str <- "The package \\CRANpkg{toOoOlTiPs} for the R language is great."
   expect_true(check_abstract_str(str))
@@ -59,6 +59,12 @@ test_that("check abstract works", {
 # pick up mathematics
   str <- "and great equations $\\mathcal{O}$"
   expect_true(check_abstract_str(str))
+
+})
+
+check_pkg_label
+
+test_that("packages labelled \pkg{} are not on CRAN or BIO Conductor ", {
 
 })
 

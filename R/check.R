@@ -32,6 +32,8 @@
 #' formattings (highlight, italic, etc)
 #' * \code{check_spelling()}: potential spelling mistakes
 #' * \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
+#' * \code{check_pkg_label()}: packages marked up with \pkg{} are not available
+#' on CRAN or BioConductor
 #' * \code{check_packages_available()}: packages mentioned in the article are available on CRAN
 #'
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
@@ -93,6 +95,7 @@ Please specify the file directory that contains the article {.field .tex} file."
     check_abstract(path)
     check_spelling(path, dic, ...)
     check_proposed_pkg(pkg, ask)
+    check_pkg_label(pkg)
     check_packages_available(path)
 
     ## Show a numeric summary of successes, errors and notes
@@ -189,10 +192,10 @@ check_title <- function(path, ignore = ""){
   res <- check_str(str, ignore)
 
   has_special_format <- grepl(
-    "\\pkg\\{.*\\}|\\CRANpkg\\{.*\\}|\\BOIpkg\\{.*\\}", str)
+    "\\pkg\\{.*\\}|\\CRANpkg\\{.*\\}|\\BIOpkg\\{.*\\}", str)
   if (has_special_format){
     log_error("The title should not contain any special format, such as the
-              \\pkg, \\CRANpkg, \\BOIpkg markups used for package names.")
+              \\pkg, \\CRANpkg, \\BIOpkg markups used for package names.")
   }
 
   if (!res$result){
@@ -276,7 +279,7 @@ check_abstract <- function(path){
 
 check_abstract_str <- function(str){
   #pkgs
-  pkgs <- grepl("\\pkg\\{.*\\}|\\CRANpkg\\{.*\\}|\\BOIpkg\\{.*\\}", str)
+  pkgs <- grepl("\\pkg\\{.*\\}|\\CRANpkg\\{.*\\}|\\BIOpkg\\{.*\\}", str)
 
   # citation
   citations <- grepl("\\cite\\{.*\\}|\\citep|\\citet", str)
@@ -349,6 +352,31 @@ check_proposed_pkg <- function(pkg, ask=interactive()) {
         log_success("No proposed package for the article, nothing to check.")
 }
 
+#' @rdname checks
+#' @export
+check_pkg_label <- function(path){
+  tex <- extract_tex(path)
+  with_pkg_markup <- unique(greg1("\\\\pkg\\{(.*?)\\}", tex))
+  cran_idx <- which(with_pkg_markup %in% allCRANpkgs())
+  cran_str <- paste0(with_pkg_markup[cran_idx],collapse = ", ")
+  bio_idx <- which(with_pkg_markup %in% allBioCpkgs())
+  bio_str <- paste0(with_pkg_markup[bio_idx],collapse = ", ")
+  if (length(cran_idx) != 0){
+    log_error("Package(s) available on CRAN: {cran_str}.
+              please use \\CRANpkg rather than \\pkg.")
+  } else if (length(bio_idx) != 0){
+    log_error("Package(s) available on CRAN: {bio_str}.
+            please use \\BIOpkg rather than \\pkg.")
+  } else{
+    log_success("No error with the use of \\pkg markup.")
+  }
+
+
+}
+
+## get first group from all matches in all strings
+greg1 <- function(pattern, strings)
+  do.call(rbind, stringr::str_match_all(strings, pattern))[,2]
 
 #' @param ignore The words to ignore in title check, use c(pkg, pkg, ...) for multiple quoted words
 #' @importFrom stringr str_match_all
@@ -360,10 +388,6 @@ check_packages_available <- function(path, ignore) {
     if (missing(ignore)) ignore <- character()
     tex <- extract_tex(path)
 
-    ## get first group from all matches in all strings
-    greg1 <- function(pattern, strings)
-        do.call(rbind, stringr::str_match_all(strings, pattern))[,2]
-
     ## List of CRAN and BioC pkgs used in the text
     CRANpkgs <- unique(greg1("\\\\CRANpkg\\{(.*?)\\}", tex))
     BioCpkgs <- unique(greg1("\\\\BIOpkg\\{(.*?)\\}", tex))
@@ -372,14 +396,10 @@ check_packages_available <- function(path, ignore) {
     CRANpkgs <- CRANpkgs[!(CRANpkgs %in% ignore)]
     BioCpkgs <- BioCpkgs[!(BioCpkgs %in% ignore)]
 
-    ## Get CRAN list
-    allCRANpkgs <- available.packages(type='source')[,1]
-
+    allCRANpkgs <- allCRANpkgs()
     ## only bother with BioC if it is mentioned
     allBioCpkgs <- if (length(BioCpkgs)) {
-        ## Get BioC list
-        BioCver <- BiocManager::version()
-        allBioCpkgs <- available.packages(repos = paste0("https://bioconductor.org/packages/", BioCver, "/bioc"), type='source')[,1]
+        allBioCpkgs()
     } else character()
 
     res1 <- if (!all(CRANpkgs %in% allCRANpkgs)) {
@@ -419,6 +439,13 @@ check_packages_available <- function(path, ignore) {
     res1
 }
 
+## Get CRAN list
+allCRANpkgs <- function() {tools::CRAN_package_db()$Package}
+allBioCpkgs <- function(){
+  ## Get BioC list
+  BioCver <- BiocManager::version()
+  available.packages(repos = paste0("https://bioconductor.org/packages/", BioCver, "/bioc"), type='source')[,1]
+}
 
 #' @importFrom stringr str_match str_count
 output_summary <- function(path, file = stdout()) {
