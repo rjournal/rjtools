@@ -103,7 +103,9 @@
 <span></span>
 <span><span class="fu">check_packages_available</span><span class="op">(</span><span class="va">path</span>, <span class="va">ignore</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">check_bib</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">check_bib_doi</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">check_bib_title</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -170,8 +172,10 @@ formattings (highlight, italic, etc)</p></li>
 on CRAN or BioConductor</p></li>
 <li><p><code>check_packages_available()</code>: packages mentioned in the article are
 available on CRAN</p></li>
-<li><p><code>check_bib</code>: whether bib entries have DOI or URL included, uncless
+<li><p><code>check_bib_doi</code>: whether bib entries have DOI or URL included, uncless
 can't sourced online</p></li>
+<li><p><code>check_bib_title</code>: all the titles in the reference should be
+consistent, either in sentence (preferred) or title case</p></li>
 </ul><p>See <code><a href="../articles/create_article.html">vignette("create_article", package = "rjtools")</a></code> for how to use the check functions</p>
     </div>
 
