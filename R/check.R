@@ -27,7 +27,9 @@
 #'
 #' * \code{check_title()}: article title is in title case
 #' * \code{check_section()}: section sections are in sentence case
-#' * \code{check_abstract_before_intro()}: abstract comes before the introduction section
+#' * \code{check_abstract()}: abstract should be plain text without package
+#' markups (CRANpkg, BIOpkg, pkg), math notations($...$), citations, and other
+#' formattings (highlight, italic, etc)
 #' * \code{check_spelling()}: potential spelling mistakes
 #' * \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
 #' * \code{check_packages_available()}: packages mentioned in the article are available on CRAN
@@ -88,7 +90,7 @@ Please specify the file directory that contains the article {.field .tex} file."
     ## Tex file checks:
     check_title(path, ...)
     check_section(path)
-    check_abstract_before_intro(path)
+    check_abstract(path)
     check_spelling(path, dic, ...)
     check_proposed_pkg(pkg, ask)
     check_packages_available(path)
@@ -190,7 +192,7 @@ check_title <- function(path, ignore = ""){
     "\\pkg\\{.*\\}|\\CRANpkg\\{.*\\}|\\BOIpkg\\{.*\\}", str)
   if (has_special_format){
     log_error("The title should not contain any special format, such as the
-              \\pkg{}, \\CRANpkg{}, \\BOIpkg{} markups used for package names.")
+              \\pkg, \\CRANpkg, \\BOIpkg markups used for package names.")
   }
 
   if (!res$result){
@@ -201,6 +203,7 @@ check_title <- function(path, ignore = ""){
   }
 
 }
+
 
 check_str <- function(str, ignore = ""){
   ignore <- paste0(ignore, collapse = "", sep = "|")
@@ -252,30 +255,35 @@ check_section <- function(path){
 
 }
 
-
-#' @importFrom stringr str_locate
 #' @rdname checks
 #' @export
-check_abstract_before_intro <- function(path){
-
+check_abstract <- function(path){
   tex <- extract_tex_vec(path)
+  idx_abs <- which(grepl("\\\\abstract\\{", tex))
+  idx_intro <- which(grepl("\\\\section\\{Introduction\\}", tex))
+  str <- paste0(tex[(idx_abs+1):(idx_intro-2)], collapse = " ")
 
-  abstract <- stringr::str_locate(tex, "abstract")[,"start"]
-  abstract <- abstract[!is.na(abstract)][1]
-  intro <- stringr::str_locate(tex, "Introduction")[,"start"]
-  intro <- intro[!is.na(intro)][1]
+  has_special_format <- check_abstract_str(str)
 
-  if(is.na(abstract)){
-    log_error(paste0("Unable to find abstract! Please check for the \abstract ",
-                     "tag in your Tex document"))
-  } else if(is.na(intro)){
-    log_error(paste0("Unable to find introduction! Please check for an intro ",
-                     "in your Tex document"))
-  } else if (abstract > intro){
-    log_error("Abstract doesn't come before the introduction section")
-  } else {
-    log_success("Abstract comes before the introduction section")
+  if (has_special_format){
+    log_error("Abstract should be plain text without package markups,
+    mathmatic notations, citation, or other formattings."
+    )
+  } else{
+    log_success("Abstract is properly formatted as plain text.")
   }
+}
+
+check_abstract_str <- function(str){
+  #pkgs
+  pkgs <- grepl("\\pkg\\{.*\\}|\\CRANpkg\\{.*\\}|\\BOIpkg\\{.*\\}", str)
+
+  # citation
+  citations <- grepl("\\cite\\{.*\\}|\\citep|\\citet", str)
+
+  others <-  grepl("texttt|\\$.*\\$|emph|proglang", str)
+
+  any(c(pkgs, citations, others))
 }
 
 #' @importFrom stringr str_extract str_replace_all
@@ -451,7 +459,9 @@ extract_tex_vec <- function(path){
     name <- remaining[tools::file_ext(remaining) == "tex"]
 
     if (length(name) == 0)
-        stop("please specify the correct path that contains the .tex file")
+        log_error(
+        "Can't locate the .tex file under the current path,
+        please specify the correct path that contains the .tex file")
 
     ## NOTE: this may match more files if there are stray ones, so we
     ##       concatenate them all

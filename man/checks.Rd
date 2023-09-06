@@ -8,7 +8,7 @@
 \alias{check_cover_letter}
 \alias{check_title}
 \alias{check_section}
-\alias{check_abstract_before_intro}
+\alias{check_abstract}
 \alias{check_spelling}
 \alias{check_proposed_pkg}
 \alias{check_packages_available}
@@ -35,7 +35,7 @@ check_title(path, ignore = "")
 
 check_section(path)
 
-check_abstract_before_intro(path)
+check_abstract(path)
 
 check_spelling(path, dic = "en_US", ...)
 
@@ -88,7 +88,9 @@ Content checks:
 \itemize{
 \item \code{check_title()}: article title is in title case
 \item \code{check_section()}: section sections are in sentence case
-\item \code{check_abstract_before_intro()}: abstract comes before the introduction section
+\item \code{check_abstract()}: abstract should be plain text without package
+markups (CRANpkg, BIOpkg, pkg), math notations($...$), citations, and other
+formattings (highlight, italic, etc)
 \item \code{check_spelling()}: potential spelling mistakes
 \item \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
 \item \code{check_packages_available()}: packages mentioned in the article are available on CRAN
