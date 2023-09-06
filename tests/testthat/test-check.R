@@ -62,12 +62,6 @@ test_that("check abstract works", {
 
 })
 
-check_pkg_label
-
-test_that("packages labelled \pkg{} are not on CRAN or BIO Conductor ", {
-
-})
-
 
 expect_SUCCESS <- function(expr) expect_equal(c(expr), "SUCCESS")
 expect_NOTE <- function(expr) expect_equal(c(expr), "NOTE")

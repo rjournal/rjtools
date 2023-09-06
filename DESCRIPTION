@@ -37,7 +37,6 @@ Roxygen: list(markdown = TRUE)
 Imports: 
     distill,
     stringr,
-    cranlogs,
     purrr,
     hunspell,
     fs,

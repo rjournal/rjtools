@@ -330,8 +330,6 @@ check_spelling <- function(path, dic = "en_US", ...){
 
 }
 
-
-#' @importFrom cranlogs cran_downloads
 #' @rdname checks
 #' @export
 check_proposed_pkg <- function(pkg, ask=interactive()) {
