@@ -36,8 +36,10 @@
 #' on CRAN or BioConductor
 #' * \code{check_packages_available()}: packages mentioned in the article are
 #' available on CRAN
-#' * \code{check_bib}: whether bib entries have DOI or URL included, uncless
+#' * \code{check_bib_doi}: whether bib entries have DOI or URL included, uncless
 #' can't sourced online
+#' * \code{check_bib_title}: all the titles in the reference should be
+#' consistent, either in sentence (preferred) or title case
 #'
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 #' @rdname checks
@@ -100,7 +102,8 @@ Please specify the file directory that contains the article {.field .tex} file."
     check_proposed_pkg(pkg, ask)
     check_pkg_label(pkg)
     check_packages_available(path)
-    check_bib(path)
+    check_bib_doi(path)
+    check_bib_title(path)
 
     ## Show a numeric summary of successes, errors and notes
     journal_summary(file=logfile)
@@ -244,23 +247,37 @@ check_section <- function(path){
     str
   }
 
-  remove_uppercase <- function(str){
-    words <- stringr::str_split(str, " ", simplify = TRUE)
-    out <- paste(c(words[1], words[stringr::str_to_lower(words) == words]),
-                 collapse = " ")
-    out
-  }
-
-  str <- lapply(str, clean_section_title) %>% lapply(remove_uppercase)
-
-  if (!all(stringr::str_to_sentence(str) == str)){
-    problem_one <- str[!stringr::str_to_sentence(str) == str]
-    log_error("Section {problem_one} is not in sentence case!")
+  str <- lapply(str, clean_section_title)
+  # remove the capital R
+  dt <- do.call(rbind, lapply(str_remove(str, " R"), check_sentence_case))
+  res <- paste0(str[!dt[["in_sentence_case"]]], collapse = ", ")
+  if (nchar(res) != 0){
+    log_error("Section {res} is not in sentence case!")
   } else{
     log_success("All sections are properly formatted in sentence case")
   }
 
 }
+
+check_sentence_case <- function(str){
+  remove_uppercase <- function(str){
+    words <- stringr::str_split(str, " ", simplify = TRUE)
+    out <- paste(words[(!stringr::str_to_upper(words) == words )| nchar(words) == 1 ],
+                 collapse = " ")
+    out
+  }
+
+  raw <- str
+  str <- remove_uppercase(str)
+  str <- strsplit(str, ": ")[[1]]
+
+  data.frame(
+    origin = raw,
+    in_sentence_case = all(stringr::str_to_sentence(str) == str)
+  )
+}
+
+
 
 #' @rdname checks
 #' @export
@@ -449,28 +466,50 @@ allBioCpkgs <- function(){
   available.packages(repos = paste0("https://bioconductor.org/packages/", BioCver, "/bioc"), type='source')[,1]
 }
 
-#' @rdname checks
-#' @export
-check_bib <- function(path){
-  bib_json <- tempfile(fileext = ".csljson")
+read_bib <- function(path){
   files <- list.files(here::here(path), full.names = TRUE)
   bib_file <- files[tools::file_ext(files) == "bib"]
-  rmarkdown::pandoc_convert(bib_file, to = "csljson", output = bib_json)
-  bib_list <- rjson::fromJSON(paste0(readLines(bib_json), collapse = ""))
-  bib_tbl <- mapply(function(x) {
-    a <- data.frame(id = x$id)
-    a[,"doi"] <- x$DOI
-    a[,"url"] <- x$URL
-    a}, bib_list)
-  res <- unlist(bib_tbl[mapply(length, bib_tbl) <= 1]) %>%
-    paste0(collapse = ", ")
-  unlink(bib_json)
+  a <- rmarkdown::pandoc_citeproc_convert(bib_file, type = "yaml")
+  bib_list <- yaml::yaml.load(a)$reference
+  return(bib_list)
+}
+
+#' @rdname checks
+#' @export
+check_bib_doi <- function(path){
+  bib_list <- read_bib(path)
+  id <- c()
+  bib_tbl <- lapply(bib_list, function(x) {
+    if (is.null(x$doi) && is.null(x$url)){
+      id <- c(id, x$id)
+    }
+  })
+
+  res <- paste0(do.call(rbind,bib_tbl), collapse = ", ")
+
   if (nchar(res) == 0){
     log_success("All the references contain DOI or URL")
   } else{
     log_warning("Citation should include a link to the reference, preferably a
     DOI, unless online resources cannot be found.
     References without DOI or URL: {res}.")
+  }
+
+}
+
+#' @rdname checks
+#' @export
+check_bib_title <- function(path){
+  bib_list <- read_bib(path)
+  bib_title <- lapply(bib_list, function(x) x$title)
+  bib_id <- lapply(bib_list, function(x) x$id)
+  dt <- do.call(rbind, lapply(str_remove(bib_title, " R"), check_sentence_case))
+  res <- paste0(bib_id[!dt[["in_sentence_case"]]], collapse = ", ")
+  if (nchar(res) == 0){
+    log_success("All the references are properly formatted in sentence case.")
+  } else{
+    log_warning("The reference title associated with the following ids may not
+                be formatted properly in sentence case: {res}.")
   }
 
 }

@@ -13,7 +13,8 @@
 \alias{check_proposed_pkg}
 \alias{check_pkg_label}
 \alias{check_packages_available}
-\alias{check_bib}
+\alias{check_bib_doi}
+\alias{check_bib_title}
 \title{A single article check}
 \usage{
 initial_check_article(
@@ -47,7 +48,9 @@ check_pkg_label(path)
 
 check_packages_available(path, ignore)
 
-check_bib(path)
+check_bib_doi(path)
+
+check_bib_title(path)
 }
 \arguments{
 \item{path}{string, path to the directory that contains the .tex
@@ -103,8 +106,10 @@ formattings (highlight, italic, etc)
 on CRAN or BioConductor
 \item \code{check_packages_available()}: packages mentioned in the article are
 available on CRAN
-\item \code{check_bib}: whether bib entries have DOI or URL included, uncless
+\item \code{check_bib_doi}: whether bib entries have DOI or URL included, uncless
 can't sourced online
+\item \code{check_bib_title}: all the titles in the reference should be
+consistent, either in sentence (preferred) or title case
 }
 
 See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
