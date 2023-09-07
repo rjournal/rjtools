@@ -528,25 +528,26 @@ check_csl <- function(path){
   if (length(rmd_file) == 0) {
     csl_file <- files[tools::file_ext(files) == "csl"]
     if (length(csl_file) != 0) {res <- "has_csl"} else {res <- "good"}
-  }
-
-  if (length(rmd_file) > 1){
-    html_basename <- basename(tools::file_path_sans_ext(
-      files[tools::file_ext(files) == "html"]
+  } else{
+    if (length(rmd_file) > 1){
+      html_basename <- basename(tools::file_path_sans_ext(
+        files[tools::file_ext(files) == "html"]
       ))
-    rmd_file <- rmd_file[grepl(html_basename, rmd_file)]
-  }
+      rmd_file <- rmd_file[grepl(html_basename, rmd_file)]
+    }
 
     yaml <- rmarkdown::yaml_front_matter(rmd_file)
     yaml_nms <- names(yaml)
     if ("csl" %in% yaml_nms){ res <- "has_csl"} else {res <- "good"}
 
-    if (res == "has_csl"){
-      log_error("Found CSL file {yaml[['csl']]} in the Rmarkdown file.
-                No CSL file should be used in R Journal article.")
-    } else{
-      log_success("No customised csl file used. Good!")
-    }
+  }
+
+  if (res == "has_csl"){
+    log_error("Found CSL file {yaml[['csl']]} in the repository.
+              No CSL file should be used in R Journal article.")
+  } else{
+    log_success("No customised csl file used. Good!")
+  }
 
 
 
