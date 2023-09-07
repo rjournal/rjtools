@@ -38,7 +38,6 @@
 #' available on CRAN
 #' * \code{check_bib_doi}: whether bib entries have DOI or URL included, uncless
 #' can't sourced online
-#' * \code{check_bib_title}: all the titles in the reference should be
 #' * \code{check_csl}: no additional csl file should be used
 #' consistent, either in sentence (preferred) or title case
 #'
@@ -104,7 +103,6 @@ Please specify the file directory that contains the article {.field .tex} file."
     check_pkg_label(pkg)
     check_packages_available(path)
     check_bib_doi(path)
-    check_bib_title(path)
     check_csl(path)
 
     ## Show a numeric summary of successes, errors and notes
@@ -495,26 +493,6 @@ check_bib_doi <- function(path){
     log_warning("Citation should include a link to the reference, preferably a
     DOI, unless online resources cannot be found.
     References without DOI or URL: {res}.")
-  }
-
-}
-
-#' @rdname checks
-#' @export
-check_bib_title <- function(path){
-  bib_list <- read_bib(path)
-  bib_title <- lapply(bib_list, function(x) x$title)
-  bib_id <- lapply(bib_list, function(x) x$id)
-  bib_title2 <- str_remove_all(bib_title, "\\[.+?\\]\\{.nocase\\}") |>
-    str_replace(pattern = " R | R\\}", replacement = " ")
-
-  dt <- do.call(rbind, lapply(bib_title2, check_sentence_case))
-  res <- paste0(bib_id[!dt[["in_sentence_case"]]], collapse = ", ")
-  if (nchar(res) == 0){
-    log_success("All the references are properly formatted in sentence case.")
-  } else{
-    log_warning("The reference title associated with the following ids may not
-                be formatted properly in sentence case: {res}.")
   }
 
 }
