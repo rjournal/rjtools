@@ -39,6 +39,7 @@
 #' * \code{check_bib_doi}: whether bib entries have DOI or URL included, uncless
 #' can't sourced online
 #' * \code{check_bib_title}: all the titles in the reference should be
+#' * \code{check_csl}: no additional csl file should be used
 #' consistent, either in sentence (preferred) or title case
 #'
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
@@ -104,6 +105,7 @@ Please specify the file directory that contains the article {.field .tex} file."
     check_packages_available(path)
     check_bib_doi(path)
     check_bib_title(path)
+    check_csl(path)
 
     ## Show a numeric summary of successes, errors and notes
     journal_summary(file=logfile)
@@ -503,7 +505,10 @@ check_bib_title <- function(path){
   bib_list <- read_bib(path)
   bib_title <- lapply(bib_list, function(x) x$title)
   bib_id <- lapply(bib_list, function(x) x$id)
-  dt <- do.call(rbind, lapply(str_remove(bib_title, " R"), check_sentence_case))
+  bib_title2 <- str_remove_all(bib_title, "\\[.+?\\]\\{.nocase\\}") |>
+    str_replace(pattern = " R | R\\}", replacement = " ")
+
+  dt <- do.call(rbind, lapply(bib_title2, check_sentence_case))
   res <- paste0(bib_id[!dt[["in_sentence_case"]]], collapse = ", ")
   if (nchar(res) == 0){
     log_success("All the references are properly formatted in sentence case.")
@@ -511,6 +516,40 @@ check_bib_title <- function(path){
     log_warning("The reference title associated with the following ids may not
                 be formatted properly in sentence case: {res}.")
   }
+
+}
+
+#' @rdname checks
+#' @export
+check_csl <- function(path){
+  files <- list.files(here::here(path), full.names = TRUE)
+  rmd_file <- files[tools::file_ext(files) == "Rmd"]
+
+  if (length(rmd_file) == 0) {
+    csl_file <- files[tools::file_ext(files) == "csl"]
+    if (length(csl_file) != 0) {res <- "has_csl"} else {res <- "good"}
+  }
+
+  if (length(rmd_file) > 1){
+    html_basename <- basename(tools::file_path_sans_ext(
+      files[tools::file_ext(files) == "html"]
+      ))
+    rmd_file <- rmd_file[grepl(html_basename, rmd_file)]
+  }
+
+    yaml <- rmarkdown::yaml_front_matter(rmd_file)
+    yaml_nms <- names(yaml)
+    if ("csl" %in% yaml_nms){ res <- "has_csl"} else {res <- "good"}
+
+    if (res == "has_csl"){
+      log_error("Found CSL file {yaml[['csl']]} in the Rmarkdown file.
+                No CSL file should be used in R Journal article.")
+    } else{
+      log_success("No customised csl file used. Good!")
+    }
+
+
+
 
 }
 

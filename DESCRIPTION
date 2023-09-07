@@ -52,10 +52,9 @@ Imports:
     tinytex,
     bookdown,
     BiocManager,
-    rjson,
-    here
+    here,
+    rmarkdown
 Suggests: 
-    rmarkdown,
     knitr,
     pdftools,
     rstudioapi,

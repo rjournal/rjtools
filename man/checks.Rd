@@ -15,6 +15,7 @@
 \alias{check_packages_available}
 \alias{check_bib_doi}
 \alias{check_bib_title}
+\alias{check_csl}
 \title{A single article check}
 \usage{
 initial_check_article(
@@ -51,6 +52,8 @@ check_packages_available(path, ignore)
 check_bib_doi(path)
 
 check_bib_title(path)
+
+check_csl(path)
 }
 \arguments{
 \item{path}{string, path to the directory that contains the .tex
@@ -109,6 +112,7 @@ available on CRAN
 \item \code{check_bib_doi}: whether bib entries have DOI or URL included, uncless
 can't sourced online
 \item \code{check_bib_title}: all the titles in the reference should be
+\item \code{check_csl}: no additional csl file should be used
 consistent, either in sentence (preferred) or title case
 }
 
