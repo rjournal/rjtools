@@ -5,7 +5,6 @@ abstract: >
   An abstract of less than 150 words.
 draft: true
 author:  
-  # see ?rjournal_article for more information
   - name: Quietest Quokka
     affiliation: University of Little Mates
     address:
