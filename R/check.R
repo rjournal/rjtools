@@ -100,7 +100,7 @@ Please specify the file directory that contains the article {.field .tex} file."
     check_abstract(path)
     check_spelling(path, dic, ...)
     check_proposed_pkg(pkg, ask)
-    check_pkg_label(pkg)
+    check_pkg_label(path)
     check_packages_available(path)
     check_bib_doi(path)
     check_csl(path)
@@ -179,7 +179,7 @@ check_cover_letter <- function(path){
     if (!length(mot <- grep("motivation", remaining_files))) {
         log_note("Motivation letter is not detected, if applicable")
     } else {
-        log_success("Possible motivation letter found: {remaining_files[mot]}")
+        log_success("Possible motivation letter found: {paste0(remaining_files[mot], collapse = ', ')}")
     }
 }
 
@@ -201,15 +201,14 @@ check_title <- function(path, ignore = ""){
   has_special_format <- grepl(
     "\\pkg\\{.*\\}|\\CRANpkg\\{.*\\}|\\BIOpkg\\{.*\\}", str)
   if (has_special_format){
-    log_error("The title should not contain any special format, such as the
+    log_error("Article title should not contain any special format, such as the
               \\pkg, \\CRANpkg, \\BIOpkg markups used for package names.")
   }
 
   if (!res$result){
-    log_error("The title is not in title case! Suggest title to be changed to:
-              {res$suggest}.")
+    log_error("Article title not in title case! Suggest title: {res$suggest}.")
   } else{
-    log_success("The article title is properly formatted.")
+    log_success("Article title formatted in title case.")
   }
 
 }
@@ -254,7 +253,7 @@ check_section <- function(path){
   if (nchar(res) != 0){
     log_error("Section {res} is not in sentence case!")
   } else{
-    log_success("All sections are properly formatted in sentence case")
+    log_success("Section titles formatted in sentence case.")
   }
 
 }
@@ -294,7 +293,7 @@ check_abstract <- function(path){
     mathmatic notations, citation, or other formattings."
     )
   } else{
-    log_success("Abstract is properly formatted as plain text.")
+    log_success("Abstract formatted in plain text.")
   }
 }
 
@@ -436,7 +435,7 @@ check_packages_available <- function(path, ignore) {
 
         log_error("{amount_missing} of {amount_pkgs} package(s) not available on Bioconductor: {paste(missing, collapse = ', ')}")
     } else {
-        log_success("All CRAN & Bioconductor packages mentioned are available")
+        log_success("All packages marked-up with \\CRANpkg or \\BIOpkg are available on CRAN or Bioconductor.")
     }
 
     ## Check that all packages with a \pkg reference also have a \CRANpkg or \BIOpkg mention
@@ -579,7 +578,8 @@ extract_tex_vec <- function(path){
     ## NOTE: this may match more files if there are stray ones, so we
     ##       concatenate them all
     if (length(name) > 1) {
-        log_warning("Multiple .tex files found: {paste(name, collapse=', ')}")
+        # this will print the msg for every check if there are multiple files
+        #log_warning("Multiple .tex files found: {paste(name, collapse=', ')}")
         unlist(lapply(file.path(path, name), readLines))
     } else
         readLines(file.path(path, name))
