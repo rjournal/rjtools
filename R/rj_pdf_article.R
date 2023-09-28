@@ -146,7 +146,7 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
                              full.names = TRUE)
     sty_dest <- file.path(".", basename(sty_origin))
     copied <- file.copy(sty_origin, sty_dest)
-    on.exit(unlink(sty_dest[copied]), add = TRUE)
+    # on.exit(unlink(sty_dest[copied]), add = TRUE)
 
     tinytex::latexmk(
       "RJwrapper.tex", fmt$pandoc$latex_engine,
