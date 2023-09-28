@@ -40,13 +40,18 @@ update_front_matter <- function(yml, file) {
   input <- xfun::read_utf8(file)
   front_matter_delimiters <- grep("^(---|\\.\\.\\.)\\s*$", input)
 
+  body <- if (front_matter_delimiters[2] == length(input)) {
+    character()
+  } else {
+    input[(front_matter_delimiters[2]+1):length(input)]
+  }
+
   xfun::write_utf8(
     c(
       "---",
       yaml::as.yaml(yml),
       "---",
-      "",
-      input[(front_matter_delimiters[2]+1):length(input)]
+      body
     ),
     file
   )
