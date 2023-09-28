@@ -1,6 +1,6 @@
- 
+
 function Header (h)
-  if h.level > 1 then 
+  if h.level > 2 then
     h.classes:insert 'unnumbered'
   end
   return h
