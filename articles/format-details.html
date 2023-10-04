@@ -111,7 +111,7 @@
 <li>output format lines should look like</li>
 </ul>
 <pre><code><span><span class="va">output</span><span class="op">:</span></span>
-<span>  <span class="fu">rjtools</span><span class="fu">::</span><span class="va"><a href="../reference/rjournal_article.html">rjournal_web_article</a></span></span></code></pre>
+<span>  <span class="fu">rjtools</span><span class="fu">::</span><span class="va"><a href="../reference/rjournal_article.html">rjournal_article</a></span></span></code></pre>
 <ul>
 <li><code>bibliography: RJreferences.bib</code></li>
 </ul>
@@ -252,7 +252,7 @@ STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_
 </h2>
 <p>If you are already writing your articles using Rmarkdown, and have written your article using the <code>rticles::rjournal_article</code> style it is straightforward to make the switch to the <code>rjtools</code> styling. These are the steps that you need to follow:</p>
 <ol style="list-style-type: decimal">
-<li>change output formats to <code><a href="../reference/rjournal_article.html">rjtools::rjournal_web_article</a></code> to switch to the new style,</li>
+<li>change output formats to <code><a href="../reference/rjournal_article.html">rjtools::rjournal_article</a></code> to switch to the new style,</li>
 <li>remove any latex specific functionality,</li>
 <li>change figure, table references to <code>\@ref()</code> and</li>
 <li>add the <code>rjournal.csl</code> and <code>rjournal.css</code> template files to your folder, updating YAML to utilise them, and</li>
