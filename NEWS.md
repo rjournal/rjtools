@@ -1,5 +1,7 @@
 # rjtools 1.0.12
 
+* Added `rjournal_article()` as a preferred alias to `rjournal_web_article()`
+  since this output format generally produces both HTML and PDF outputs.
 * check functions updated, including DOIs in references, title case in bib file, existence of csl file
 * reference to new web site in the documentation
 * new function to assist authors prepare for a release

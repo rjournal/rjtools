@@ -34,6 +34,7 @@ Description: Create an 'R Journal' 'Rmarkdown' template article, that will
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
 Imports: 
     distill,
     stringr,
@@ -63,4 +64,3 @@ VignetteBuilder: knitr
 URL: https://github.com/rjournal/rjtools
 BugReports: https://github.com/rjournal/rjtools/issues
 Config/testthat/edition: 3
-RoxygenNote: 7.2.3

@@ -16,7 +16,9 @@ reference:
 - title: R Markdown article format
   desc: Functions to build HTML and PDF R Journal articles
   contents:
+  - rjournal_article
   - rjournal_web_article
+  - rjournal_pdf_article
 - title: Prepare article submission
   desc: Functions to help building a zip file of relevant materials for submission
   contents:

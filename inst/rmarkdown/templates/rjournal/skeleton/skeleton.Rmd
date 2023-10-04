@@ -25,7 +25,7 @@ author:
     orcid: 0000-0002-0912-0225
 type: package
 output: 
-  rjtools::rjournal_web_article:
+  rjtools::rjournal_article:
     self_contained: yes
     toc: no
 bibliography: RJreferences.bib
