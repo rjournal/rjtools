@@ -4,6 +4,7 @@
 #' [devtools::release()], for handling R Journal styling that can be difficult
 #'  with automatic checks.
 #'
+#' @importFrom utils browseURL
 #' @export
 submit_rjournal <- function(){
 

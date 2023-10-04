@@ -1,3 +1,13 @@
+# rjtools 1.0.12
+
+* check functions updated, including DOIs in references, title case in bib file, existence of csl file
+* reference to new web site in the documentation
+* new function to assist authors prepare for a release
+* style to better adhere to accessibility standards
+* remove link to twitter/x
+* handling of longtable
+* utilise system sty file, not author supplied
+
 # rjtools 1.0.11
 
 * removed return value, and set create_article to write a message
