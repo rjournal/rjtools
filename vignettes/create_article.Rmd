@@ -26,14 +26,15 @@ The Rmd template in `rjtools` creates an article in the format needed for the *R
 
 ## Create an Article
 
-The `create_article()` function will create these files under a default `rjarticle` folder: 
+The `create_article()` function will create the following files and folders:
 
-  - **quokka-bilby.Rmd**: the main document
-  - **motivation-letter.md**: a motivation letter template for the article
-  - **penguins.png**: an example png used to illustrate how to include a figure in the new format
+  - **test.Rmd**: the main Rmarkdown document
   - **Rjreferences.bib**: the bibtex file for reference
-  - **RJwrapper.tex**: the tex template for compiling the pdf output
   - **Rjournal.sty**: the R journal style sheet for the pdf output
+  - **data/**: the data folder
+  - **figures/**: the figures folder that contains **penguins.png** for illustrating how to include a figure in the new format
+  - **scripts/**: the script folder for additional scripts, if any
+  - **motivation-letter/**: the folder contains **motivation-letter.md**, a motivation letter template for the article
 
 The `.tex`, and `.sty` files make sure all the *R Journal* articles follow the same latex and reference style and should not be modified unless there is a strong reason to do so.
 
@@ -42,6 +43,8 @@ The `name` argument changes the name of the main R Markdown document, for exampl
 ```{r eval = FALSE}
 create_article(name = "quokka-bilby")
 ```
+
+Please ensure that you stick to this folder structure when working with an R Journal paper. Any additional files should be organised within new folder(s) rather than being placed directly in the main directory. A uniform folder structure makes it easier to compile papers into issues during the editorial process. 
 
 ## Your first knit
 
@@ -66,7 +69,11 @@ The `rjtools::rjournal_web_article` output specified in the article YAML will cr
   - **quokka-bilby.pdf**: the pdf article 
   - **quokka-bilby.tex**: the LaTeX file 
   - **quokka-bilby.R**: an R file that contains all the codes
-  - **quokka-bilby-files/**: a folder of Javascript libraries, necessary to view the the html article
+  - **Rlogo-5.png**: the R logo used in the article - should it be hidden? 
+  - **RJwrapper.log**: the log file - should it be hidden? 
+  - **RJwrapper.tex**: the tex file. - it was there when created before now it is only here after rendered? 
+  - **quokka-bilby.log**: the log file - should it be hidden?
+  - **quokka-bilby-files/**: a folder of Javascript libraries, necessary to view the the html article  - no longer there? 
   
 ## Note: `rticles` template
 

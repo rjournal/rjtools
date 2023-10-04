@@ -40,5 +40,23 @@ create_article <- function(name="test", file = xfun::with_ext(name, "Rmd"), crea
     }
   }
 
-  message("Success: your paper is ready to edit!")
+  fs::dir_create("data")
+  fs::dir_create("figures")
+  fs::file_move("penguins.png", "figures/penguins.png")
+  fs::dir_create("scripts")
+  fs::dir_create("motivation-letter")
+  fs::file_move("motivation-letter.md",
+                "motivation-letter/motivation-letter.md")
+
+  cli::cli_alert_info(
+  "Please use the folder {.file data/}, {.file figures/}, {.file scripts/} and
+  {.file motivation-letter/} to organise additional data, figures, scripts,
+  and motivation letter.")
+  cli::cli_alert_warning(
+  "Please maintain the default file/folder structure as it will be checked
+  upon submission.")
+  cli::cli_alert_info(
+  "[Action required] Please align the file name between {.file test.Rmd} and
+  {.file RJreferences.bib}.")
+  cli::cli_inform("Success: your paper is ready to edit!")
 }
