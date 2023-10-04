@@ -4,6 +4,8 @@
 #'     file (Ideally, this directory should contain .bib, .Rmd, and
 #'     .tex with author names and two RJwrapper files:  RJwrapper.pdf
 #'     and RJwrapper.tex)
+#' @param file string, the file name if multiple files are detected
+#'     under the \code{path} argument
 #' @param dic string, the dictionary used for spelling check. See
 #'     \code{dict} argument in [hunspell::hunspell()]
 #' @param pkg string, optional. The name of the proposed package (if
