@@ -122,7 +122,13 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
     if(!is.null(metadata$csl)) warning("Please do not use custom CSL formatting, if there is an issue with the default styling please contact r-journal@r-project.org")
     metadata$csl <- metadata$csl %||% system.file("rjournal.csl", package = "rjtools", mustWork = TRUE)
 
-    metadata$output <- replace_names(metadata$output, c("rjtools::rjournal_web_article" = "distill::distill_article"))
+    metadata$output <- replace_names(
+      metadata$output,
+      c(
+        "rjtools::rjournal_web_article" = "distill::distill_article",
+        "rjtools::rjournal_article" = "distill::distill_article"
+      )
+    )
 
     # Replace metadata with modified copy
     article_metadata <<- metadata

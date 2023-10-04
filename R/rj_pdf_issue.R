@@ -118,7 +118,7 @@ rjournal_pdf_issue <- function(..., render_all = FALSE) {
               callr::r(function(input){
                 rmarkdown::render(
                   input,
-                  output_format = "rjtools::rjournal_web_article"
+                  output_format = "rjtools::rjournal_article"
                 )
               }, args = list(input = art_rmd))
             }

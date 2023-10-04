@@ -60,7 +60,7 @@ install.packages(c("plotly", "ggplot2", "kableExtra", "palmerpenguins"))
 The R Journal uses `pandoc-citeproc` to handle the Citation Style Language (CSL) style. 
 If you're knitting the document within RStudio (which we recommend), this is automatically handled. However, if you're using the command line, you'll need to ensure the `pandoc-citeproc` extension is installed properly on your system.
 
-The `rjtools::rjournal_web_article` output specified in the article YAML will create the article in both html and pdf formats. Additional files created during the knit are (assuming file name of `quokka-bilby`):
+The `rjtools::rjournal_article` output specified in the article YAML will create the article in both html and pdf formats. Additional files created during the knit are (assuming file name of `quokka-bilby`):
 
   - **quokka-bilby.html**: the html article 
   - **quokka-bilby.pdf**: the pdf article 

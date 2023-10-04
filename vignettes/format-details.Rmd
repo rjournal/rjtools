@@ -31,7 +31,7 @@ This has these components:
 - output format lines should look like
 ```
 output:
-  rjtools::rjournal_web_article
+  rjtools::rjournal_article
 ```
 - `bibliography: RJreferences.bib`
 
@@ -205,7 +205,7 @@ Custom `css` is discouraged, because all articles should look similar. However, 
 
 If you are already writing your articles using Rmarkdown, and have written your article using the `rticles::rjournal_article` style it is straightforward to make the switch to the `rjtools` styling. These are the steps that you need to follow:
 
-1. change output formats to `rjtools::rjournal_web_article` to switch to the new style, 
+1. change output formats to `rjtools::rjournal_article` to switch to the new style, 
 2. remove any latex specific functionality, 
 3. change figure, table references to `\@ref()` and 
 4. add the `rjournal.csl` and `rjournal.css` template files to your folder, updating YAML to utilise them, and 
@@ -237,7 +237,9 @@ Examples for your paper should be computed relatively quickly, which often means
 
 If you have a large file that you believe should be used for the paper, you could store the file elsewhere, on your own GitHub repo, or on a data file share service like [Figshare](https://help.figshare.com/article/guide-to-sharing-data-on-figshare-plus), and add download and handling code to your paper.
 
-# Handling slow computationsThe editorial team needs to re-build your article to check that results are reproducible, and the editor will need to re-build your article when it is organised into an issue. Try to ensure that your code runs quickly. If you need to have a code chunk that takes several minutes or more to run, consider turning the chunk off, providing an intermediate state that is loaded into the next chunk. Generally, we advise against using the `cache` feature of Rmarkdown because when multiple articles are built in the issue construction it might render your article inadequately. 
+# Handling slow computations
+
+The editorial team needs to re-build your article to check that results are reproducible, and the editor will need to re-build your article when it is organised into an issue. Try to ensure that your code runs quickly. If you need to have a code chunk that takes several minutes or more to run, consider turning the chunk off, providing an intermediate state that is loaded into the next chunk. Generally, we advise against using the `cache` feature of Rmarkdown because when multiple articles are built in the issue construction it might render your article inadequately. 
 
 # Trouble-shooting
 
