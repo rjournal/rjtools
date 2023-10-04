@@ -103,25 +103,28 @@
 <div class="section level2">
 <h2 id="create-an-article">Create an Article<a class="anchor" aria-label="anchor" href="#create-an-article"></a>
 </h2>
-<p>The <code><a href="../reference/create_article.html">create_article()</a></code> function will create these files under a default <code>rjarticle</code> folder:</p>
+<p>The <code><a href="../reference/create_article.html">create_article()</a></code> function will create the following files and folders:</p>
 <ul>
 <li>
-<strong>quokka-bilby.Rmd</strong>: the main document</li>
-<li>
-<strong>motivation-letter.md</strong>: a motivation letter template for the article</li>
-<li>
-<strong>penguins.png</strong>: an example png used to illustrate how to include a figure in the new format</li>
+<strong>test.Rmd</strong>: the main Rmarkdown document</li>
 <li>
 <strong>Rjreferences.bib</strong>: the bibtex file for reference</li>
 <li>
-<strong>RJwrapper.tex</strong>: the tex template for compiling the pdf output</li>
-<li>
 <strong>Rjournal.sty</strong>: the R journal style sheet for the pdf output</li>
+<li>
+<strong>data/</strong>: the data folder</li>
+<li>
+<strong>figures/</strong>: the figures folder that contains <strong>penguins.png</strong> for illustrating how to include a figure in the new format</li>
+<li>
+<strong>scripts/</strong>: the script folder for additional scripts, if any</li>
+<li>
+<strong>motivation-letter/</strong>: the folder contains <strong>motivation-letter.md</strong>, a motivation letter template for the article</li>
 </ul>
 <p>The <code>.tex</code>, and <code>.sty</code> files make sure all the <em>R Journal</em> articles follow the same latex and reference style and should not be modified unless there is a strong reason to do so.</p>
 <p>The <code>name</code> argument changes the name of the main R Markdown document, for example, if you wish to use <code>quokka-bilby</code> as the file name instead of <code>article</code>, create the article with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/create_article.html">create_article</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"quokka-bilby"</span><span class="op">)</span></span></code></pre></div>
+<p>Please ensure that you stick to this folder structure when working with an R Journal paper. Any additional files should be organised within new folder(s) rather than being placed directly in the main directory. A uniform folder structure makes it easier to compile papers into issues during the editorial process.</p>
 </div>
 <div class="section level2">
 <h2 id="your-first-knit">Your first knit<a class="anchor" aria-label="anchor" href="#your-first-knit"></a>
@@ -144,7 +147,15 @@
 <li>
 <strong>quokka-bilby.R</strong>: an R file that contains all the codes</li>
 <li>
-<strong>quokka-bilby-files/</strong>: a folder of Javascript libraries, necessary to view the the html article</li>
+<strong>Rlogo-5.png</strong>: the R logo used in the article - should it be hidden?</li>
+<li>
+<strong>RJwrapper.log</strong>: the log file - should it be hidden?</li>
+<li>
+<strong>RJwrapper.tex</strong>: the tex file. - it was there when created before now it is only here after rendered?</li>
+<li>
+<strong>quokka-bilby.log</strong>: the log file - should it be hidden?</li>
+<li>
+<strong>quokka-bilby-files/</strong>: a folder of Javascript libraries, necessary to view the the html article - no longer there?</li>
 </ul>
 </div>
 <div class="section level2">
