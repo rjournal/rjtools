@@ -9,33 +9,33 @@ submit_rjournal <- function(){
 
   if (!yesno(cli::cli_inform(
   "Have you checked .bib file titles? They need to be:
-  1) package name should be protected, i.e. {ggplot2} and always in lower case,
-  2) the programming language R should be protected, i.e. {R}, and
+  1) package name should be protected, i.e. {.code ggplot2} and always in lower case,
+  2) the programming language R should be protected, i.e. {.code R}, and
   3) both sentence or title case are accepteable but need to be consistent"))){
     return(invisible())
   }
 
   if (!yesno(cli::cli_inform(
-    "Have you include the automatic check results (with `initial_check_article`)
+    "Have you include the automatic check results (with {.fn rjtools::initial_check_article})
     in the motivation letter? Checks with WARNINGs and ERRORs need to be
     commented with reasons."))){
     return(invisible())
   }
 
   if (!yesno(cli::cli_inform(
-    "Have you checked spelling with `rjtools::check_spelling()? "))){
+    "Have you checked spelling with {.fn rjtools::check_spelling} ? "))){
     return(invisible())
   }
 
   if (!yesno(cli::cli_inform(
-    "Have you checked that alt text are included for figures and
-    tables to enhance accessibility for screen readers?"))){
+    "Have you added alt text to your figures as explained in
+    {.url https://rjournal.github.io/rjtools/articles/format-details.html#alt-text}?"))){
     return(invisible())
   }
 
   if (!yesno(cli::cli_inform(
     "Have you checked the ORCID number point to the correct author?
-    Try `get_orcid(<PATH>)` and click on the link returned to check."))){
+    Try {.fn rjtools::get_orcid} and click on the link returned to check."))){
     return(invisible())
   }
 
