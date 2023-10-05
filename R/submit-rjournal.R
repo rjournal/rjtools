@@ -40,6 +40,13 @@ submit_rjournal <- function(){
   }
 
   if (!yesno(cli::cli_inform(
+    "The R Journal recommends the SVG format for figures since it is
+    vector-based and is easier for low vision readers than PNGs.
+    Have you converted your plots to SVGs?"))){
+    return(invisible())
+  }
+
+  if (!yesno(cli::cli_inform(
     "Have you checked that the zip file size is less than 10 MB?"))){
     return(invisible())
   }

@@ -166,7 +166,7 @@ check_structure <- function(path) {
 check_folder_structure <- function(path){
   files <- list.files(path)
   file_exts <- tools::file_ext(files)
-  img_exts <- c("jpeg", "jpg", "png", "gif", "tiff")
+  img_exts <- c("jpeg", "jpg", "png", "gif", "tiff", "svg")
   img_files <- files[file_exts %in% img_exts]
   if (length(img_files) != 0){
     img_files <- paste0(img_files, collapse = ", ")
