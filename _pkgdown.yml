@@ -23,8 +23,9 @@ reference:
   desc: Functions to help building a zip file of relevant materials for submission
   contents:
   - zip_paper
-  - prepare_submission
+  - prep_submission
   - submit_rjournal
+  - keywords
 - title: Tools for building journal issues and website
   desc: Functions for the editor to produce issues from several articles
   contents:
