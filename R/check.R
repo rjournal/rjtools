@@ -191,7 +191,7 @@ check_folder_structure <- function(path){
     The master R file generated from rendering should still be in the main directory.")
   }
 
-  log_aux <- files[file_exts %in% c("log", "aux")]
+  log_aux <- files[file_exts %in% c("log", "aux", "out")]
   if (length(log_aux) != 0){
     log_aux <- paste0(log_aux, collapse = ", ")
     log_error("Auxiliary log and aux files detected: {log_aux}.
@@ -215,6 +215,8 @@ check_folder_structure <- function(path){
       "Other non-standard file detected: {non_standard}.
       Should they be removed? ")
   }
+
+  log_success("The paper is in good folder structure.")
 
 
 
