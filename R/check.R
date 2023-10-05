@@ -107,6 +107,7 @@ Please specify the file directory that contains the article {.field .tex} file."
     check_packages_available(path)
     check_bib_doi(path)
     check_csl(path)
+    check_date(path, file)
 
     ## Show a numeric summary of successes, errors and notes
     journal_summary(file=logfile)
@@ -590,9 +591,23 @@ check_csl <- function(path){
     log_success("No customised csl file used. Good!")
   }
 
+}
 
-
-
+#' @rdname checks
+#' @export
+check_date <- function(path, file){
+  files <- list.files(path)
+  rmd_file <- files[tools::file_ext(files) == "Rmd"]
+  rmd_file <- eliminate_mulitple(rmd_file, file)
+  yaml <- rmarkdown::yaml_front_matter(rmd_file)
+  if (as.Date(yaml[["date"]], format = "%Y-%m-%d") != Sys.Date()){
+    log_error(
+      "Please use a fixed article's date in the format of `%Y-%m-%d`,
+      e.g. 2023-10-05. The date should match the date when the article
+      is submitted. Dynamic date can cause issues on issue rendering.")
+  } else{
+    log_success("Article date is set fixed at the article submission date.")
+  }
 }
 
 

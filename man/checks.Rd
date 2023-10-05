@@ -16,6 +16,7 @@
 \alias{check_packages_available}
 \alias{check_bib_doi}
 \alias{check_csl}
+\alias{check_date}
 \alias{get_orcid}
 \title{A single article check}
 \usage{
@@ -55,6 +56,8 @@ check_packages_available(path, ignore)
 check_bib_doi(path)
 
 check_csl(path)
+
+check_date(path, file)
 
 get_orcid(path, file = NULL)
 }
