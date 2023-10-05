@@ -74,3 +74,4 @@ prep_submission <- function(){
   cli::cli_alert_info("Article title: {.field {title}}")
   invisible(res)
 }
+
