@@ -4,6 +4,7 @@
 \alias{initial_check_article}
 \alias{check_filenames}
 \alias{check_structure}
+\alias{check_folder_structure}
 \alias{check_unnecessary_files}
 \alias{check_cover_letter}
 \alias{check_title}
@@ -30,6 +31,8 @@ initial_check_article(
 check_filenames(path)
 
 check_structure(path)
+
+check_folder_structure(path)
 
 check_unnecessary_files(path)
 

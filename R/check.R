@@ -93,6 +93,7 @@ Please specify the file directory that contains the article {.field .tex} file."
     ## Folder structure checks:
     check_filenames(path)
     check_structure(path)
+    check_folder_structure(path)
     check_unnecessary_files(path)
     check_cover_letter(path)
 
@@ -158,6 +159,65 @@ check_structure <- function(path) {
         log_error("File or directory names contain spaces or non-ASCII characters. For portability only use ASCII characters and no spaces in file and directory names.")
     else
         log_success("File and directory names are compliant.")
+}
+
+#' @rdname checks
+#' @export
+check_folder_structure <- function(path){
+  files <- list.files(path)
+  file_exts <- tools::file_ext(files)
+  img_exts <- c("jpeg", "jpg", "png", "gif", "tiff")
+  img_files <- files[file_exts %in% img_exts]
+  if (length(img_files) != 0){
+    img_files <- paste0(img_files, collapse = ", ")
+    log_error("Image(s) detected in the main directory: {img_files}.
+              They should be placed in the figures/ folder.")
+  }
+
+  data_exts <- c("csv", "rda")
+  data_files <- files[file_exts %in% data_exts]
+  if (length(data_files) != 0){
+    data_files <- paste0(data_files, collapse = ", ")
+    log_error("Data file(s) detected in the main directory: {data_files}.
+              They should be placed in the data/ folder.")
+  }
+
+  r_files <- files[file_exts == "R"]
+  if (length(r_files) > 1){
+    r_files <- paste0(r_files, collapse = ", ")
+    log_error(
+    "Multiple R files detected: {r_files}.
+    Should they be organised in the scripts/ folder?
+    The master R file generated from rendering should still be in the main directory.")
+  }
+
+  log_aux <- files[file_exts %in% c("log", "aux")]
+  if (length(log_aux) != 0){
+    log_aux <- paste0(log_aux, collapse = ", ")
+    log_error("Auxiliary log and aux files detected: {log_aux}.
+              They should be removed.")
+  }
+
+  motivation <- files[grepl("motivation", tools::file_path_sans_ext(files))]
+  if (length(motivation) != 0){
+    motivation <- paste0(motivation, collapse = ", ")
+    log_error("Motivation letter related files detected: {motivation}.
+              They should be placed in the motivation-letter/ folder.")
+  }
+
+  valid_exts <- c("Rproj", ".sty", "bib", "Rmd", "html", "R", "tex", "pdf", "")
+  exts_checked <- c(img_exts, data_exts, "R", "log", "aux")
+  non_standard <- files[!file_exts %in% c(valid_exts, exts_checked)]
+  non_standard <- non_standard[!grepl("motivation", non_standard)]
+  if (length(non_standard) != 0){
+    non_standard <- paste0(non_standard, collapse = ", ")
+    log_warning(
+      "Other non-standard file detected: {non_standard}.
+      Should they be removed? ")
+  }
+
+
+
 }
 
 #' @rdname checks
