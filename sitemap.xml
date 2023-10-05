@@ -46,10 +46,13 @@
     <loc>https://rjournal.github.io/rjtools/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://rjournal.github.io/rjtools/reference/keywords.html</loc>
+  </url>
+  <url>
     <loc>https://rjournal.github.io/rjtools/reference/log_error.html</loc>
   </url>
   <url>
-    <loc>https://rjournal.github.io/rjtools/reference/prepare_submission.html</loc>
+    <loc>https://rjournal.github.io/rjtools/reference/prep_submission.html</loc>
   </url>
   <url>
     <loc>https://rjournal.github.io/rjtools/reference/rjournal_article.html</loc>
