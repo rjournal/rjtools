@@ -78,7 +78,8 @@
 <li>remove link to twitter/x</li>
 <li>handling of longtable</li>
 <li>utilise system sty file, not author supplied</li>
-</ul></div>
+</ul><p>Breaking changes * <code><a href="../reference/rjournal_article.html">rjournal_web_article()</a></code> will no longer produce the PDF via dual rendering, to produce both HTML and PDF please use <code><a href="../reference/rjournal_article.html">rjournal_article()</a></code>. This breaking change has been done to improve semantics and allow a way to quickly work on articles by specifying which output format (web or pdf) is desired.</p>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.11" id="rjtools-1011">rjtools 1.0.11<a class="anchor" aria-label="anchor" href="#rjtools-1011"></a></h2>
 <ul><li>removed return value, and set create_article to write a message</li>
