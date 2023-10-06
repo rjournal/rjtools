@@ -147,8 +147,13 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
   pre_processor <- function(metadata, input_file, runtime, knit_meta, files_dir,
                             output_dir) {
 
-    # Add embedded PDF
-    embed_pdf <- if(legacy_pdf){
+    input <- xfun::read_utf8(input_file)
+    front_matter_delimiters <- grep("^(---|\\.\\.\\.)\\s*$", input)
+    body <- input[(front_matter_delimiters[2]+1):length(input)]
+
+    # Add embedded PDF to HTML stubs
+    is_stub <- !any(grepl("^\\s*#+\\s*.*", body))
+    embed_pdf <- if(legacy_pdf && is_stub){
       whisker::whisker.render(
         '<div class="l-page">
   <embed src="{{slug}}.pdf" type="application/pdf" height="955px" width="100%">
@@ -194,16 +199,13 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
     template <- xfun::read_utf8(system.file("appendix.md", package = "rjtools"))
     appendix <- whisker::whisker.render(template, data)
 
-    input <- xfun::read_utf8(input_file)
-    front_matter_delimiters <- grep("^(---|\\.\\.\\.)\\s*$", input)
-
     xfun::write_utf8(
       c(
         "---",
         yaml::as.yaml(metadata),
         "---",
         "",
-        if(legacy_pdf) embed_pdf else input[(front_matter_delimiters[2]+1):length(input)],
+        c(embed_pdf, body),
         "",
         appendix
       ),
