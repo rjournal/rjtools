@@ -68,7 +68,8 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.12" id="rjtools-1012">rjtools 1.0.12<a class="anchor" aria-label="anchor" href="#rjtools-1012"></a></h2>
-<ul><li>file structure for template article is now cleaner, with data, figures, scripts, motivation-letter.</li>
+<ul><li>YAML now default is rjtools::rjournal_article to generate both html and pdf, not rjtools::rjournal_web_article, which will now only generate the html. To generate only the pdf you can use rjtools::rjournal_pdf_article</li>
+<li>file structure for template article is now cleaner, with data, figures, scripts, motivation-letter, folders.</li>
 <li>Added <code><a href="../reference/rjournal_article.html">rjournal_article()</a></code> as a preferred alias to <code><a href="../reference/rjournal_article.html">rjournal_web_article()</a></code> since this output format generally produces both HTML and PDF outputs.</li>
 <li>check functions updated, including DOIs in references, title case in bib file, existence of csl file</li>
 <li>reference to new web site in the documentation</li>
