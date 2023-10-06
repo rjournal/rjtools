@@ -1,5 +1,6 @@
 # rjtools 1.0.12
 
+* file structure for template article is now cleaner, with data, figures, scripts, motivation-letter. 
 * Added `rjournal_article()` as a preferred alias to `rjournal_web_article()`
   since this output format generally produces both HTML and PDF outputs.
 * check functions updated, including DOIs in references, title case in bib file, existence of csl file
