@@ -12,6 +12,12 @@
 * handling of longtable
 * utilise system sty file, not author supplied
 
+Breaking changes
+* `rjournal_web_article()` will no longer produce the PDF via dual rendering,
+  to produce both HTML and PDF please use `rjournal_article()`. This breaking
+  change has been done to improve semantics and allow a way to quickly work
+  on articles by specifying which output format (web or pdf) is desired.
+
 # rjtools 1.0.11
 
 * removed return value, and set create_article to write a message
