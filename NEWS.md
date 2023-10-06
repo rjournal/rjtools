@@ -1,6 +1,7 @@
 # rjtools 1.0.12
 
-* file structure for template article is now cleaner, with data, figures, scripts, motivation-letter. 
+* YAML now default is rjtools::rjournal_article to generate both html and pdf, not rjtools::rjournal_web_article, which will now only generate the html. To generate only the pdf you can use rjtools::rjournal_pdf_article
+* file structure for template article is now cleaner, with data, figures, scripts, motivation-letter, folders. 
 * Added `rjournal_article()` as a preferred alias to `rjournal_web_article()`
   since this output format generally produces both HTML and PDF outputs.
 * check functions updated, including DOIs in references, title case in bib file, existence of csl file
