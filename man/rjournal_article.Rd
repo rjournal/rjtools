@@ -7,13 +7,7 @@
 \alias{rjournal_web_article}
 \title{R Markdown output formats for R Journal articles}
 \usage{
-rjournal_article(
-  toc = FALSE,
-  self_contained = FALSE,
-  legacy_pdf = FALSE,
-  web_only = !legacy_pdf,
-  ...
-)
+rjournal_article(toc = FALSE, self_contained = FALSE, legacy_pdf = FALSE, ...)
 
 rjournal_pdf_article(..., self_contained = FALSE)
 
@@ -21,7 +15,6 @@ rjournal_web_article(
   toc = FALSE,
   self_contained = FALSE,
   legacy_pdf = FALSE,
-  web_only = !legacy_pdf,
   ...
 )
 }
@@ -35,8 +28,6 @@ documents MathJax is still loaded externally (this is necessary because of
 its size).}
 
 \item{legacy_pdf}{whether an article is from the past and only have pdf version}
-
-\item{web_only}{additional param for embedding PDF or using Rmd to produce HTML}
 
 \item{...}{Arguments passed to \code{distill::distill_article()} for web articles,
 and \code{rticles::rjournal_article()} for pdf articles.}
