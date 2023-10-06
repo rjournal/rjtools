@@ -80,13 +80,7 @@ outputs, while the <code>rjournal_pdf_article()</code> produces only the PDF out
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rjournal_article</span><span class="op">(</span></span>
-<span>  toc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  self_contained <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  legacy_pdf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  web_only <span class="op">=</span> <span class="op">!</span><span class="va">legacy_pdf</span>,</span>
-<span>  <span class="va">...</span></span>
-<span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rjournal_article</span><span class="op">(</span>toc <span class="op">=</span> <span class="cn">FALSE</span>, self_contained <span class="op">=</span> <span class="cn">FALSE</span>, legacy_pdf <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">rjournal_pdf_article</span><span class="op">(</span><span class="va">...</span>, self_contained <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
@@ -94,7 +88,6 @@ outputs, while the <code>rjournal_pdf_article()</code> produces only the PDF out
 <span>  toc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  self_contained <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  legacy_pdf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  web_only <span class="op">=</span> <span class="op">!</span><span class="va">legacy_pdf</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -115,10 +108,6 @@ its size).</p></dd>
 
 <dt>legacy_pdf</dt>
 <dd><p>whether an article is from the past and only have pdf version</p></dd>
-
-
-<dt>web_only</dt>
-<dd><p>additional param for embedding PDF or using Rmd to produce HTML</p></dd>
 
 
 <dt>...</dt>
