@@ -68,18 +68,18 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.12" id="rjtools-1012">rjtools 1.0.12<a class="anchor" aria-label="anchor" href="#rjtools-1012"></a></h2>
-<ul><li>YAML now default is rjtools::rjournal_article to generate both html and pdf, not rjtools::rjournal_web_article, which will now only generate the html. To generate only the pdf you can use rjtools::rjournal_pdf_article</li>
-<li>file structure for template article is now cleaner, with data, figures, scripts, motivation-letter, folders.</li>
+<ul><li>Updates for accessibility based on updates in distill package.</li>
+<li>File structure for template article is now cleaner, with data, figures, scripts, motivation-letter, folders.</li>
 <li>Added <code><a href="../reference/rjournal_article.html">rjournal_article()</a></code> as a preferred alias to <code><a href="../reference/rjournal_article.html">rjournal_web_article()</a></code> since this output format generally produces both HTML and PDF outputs.</li>
-<li>check functions updated, including DOIs in references, title case in bib file, existence of csl file</li>
-<li>reference to new web site in the documentation</li>
-<li>new function to assist authors prepare for a release</li>
-<li>style to better adhere to accessibility standards</li>
-<li>remove link to twitter/x</li>
-<li>handling of longtable</li>
-<li>utilise system sty file, not author supplied</li>
-</ul><p>Breaking changes * <code><a href="../reference/rjournal_article.html">rjournal_web_article()</a></code> will no longer produce the PDF via dual rendering, to produce both HTML and PDF please use <code><a href="../reference/rjournal_article.html">rjournal_article()</a></code>. This breaking change has been done to improve semantics and allow a way to quickly work on articles by specifying which output format (web or pdf) is desired.</p>
-</div>
+<li>This is reflected in the change in the YAML header to be <code><a href="../reference/rjournal_article.html">rjtools::rjournal_article</a></code>. This generates both html and pdf. <code><a href="../reference/rjournal_article.html">rjtools::rjournal_web_article</a></code>, which will now only generate the html. <code><a href="../reference/rjournal_article.html">rjtools::rjournal_pdf_article</a></code> now only generates the pdf.</li>
+<li>Check functions updated, including DOIs in references, title case in bib file, existence of csl file</li>
+<li>Reference to new web site in the documentation.</li>
+<li>New function to assist authors prepare for a release.</li>
+<li>Style to better adhere to accessibility standards.</li>
+<li>Remove link to twitter/x.</li>
+<li>Handling of longtable.</li>
+<li>Utilise system sty file, not author supplied.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.11" id="rjtools-1011">rjtools 1.0.11<a class="anchor" aria-label="anchor" href="#rjtools-1011"></a></h2>
 <ul><li>removed return value, and set create_article to write a message</li>
