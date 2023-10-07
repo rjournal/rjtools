@@ -11,12 +11,7 @@ rjournal_article(toc = FALSE, self_contained = FALSE, legacy_pdf = FALSE, ...)
 
 rjournal_pdf_article(..., self_contained = FALSE)
 
-rjournal_web_article(
-  toc = FALSE,
-  self_contained = FALSE,
-  legacy_pdf = FALSE,
-  ...
-)
+rjournal_web_article(toc = FALSE, self_contained = FALSE, ...)
 }
 \arguments{
 \item{toc}{\code{TRUE} to include a table of contents in the output}
