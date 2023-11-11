@@ -110,6 +110,12 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, rnews = FALS
     args
   }
 
+  args <- c(
+    rmarkdown::pandoc_include_args(
+      in_header = system.file("rjdistill.html", package = "rjtools")
+    )
+  )
+
   on_exit <- function() {
     # Deactivate for now as I am not sure to understand what should be built
     # if (!is.null(render_pdf) && !legacy_pdf) {
@@ -124,7 +130,13 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, rnews = FALS
 
   rmarkdown::output_format(
     knitr = NULL, # use base one
-    pandoc = list(),
+
+    pandoc = list(
+      args = args,
+      lua_filters = c(
+        system.file("latex-pkg.lua", package = "rjtools")
+      )
+    ),
     keep_md = NULL, # use base one
     clean_supporting = NULL, # use base one
     pre_knit = NULL,
