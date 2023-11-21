@@ -105,7 +105,7 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
         ctvs <- local_cache$get("ctv")
       } else {
         ctvs <- readRDS(
-          gzcon(url("https://cran.r-project.org/src/contrib/Views.rds", open = "rb"))
+          gzcon(url(.cran("/src/contrib/Views.rds"), open = "rb"))
         )
         local_cache$add(ctvs, "ctv")
       }
@@ -153,7 +153,7 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
 
     # Add embedded PDF to HTML stubs
     is_stub <- !any(grepl("^\\s*#+\\s*.*", body))
-    embed_pdf <- if(legacy_pdf && is_stub){
+    embed_pdf <- if(isTRUE(metadata$tex_native) || (legacy_pdf && is_stub)) {
       whisker::whisker.render(
         '<div class="l-page">
   <embed src="{{slug}}.pdf" type="application/pdf" height="955px" width="100%">
@@ -330,4 +330,14 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
     on_exit = on_exit,
     base_format = base_format
   )
+}
+
+.cran <- function(path="") {
+  cran <- "http://cran.R-project.org"
+  rep <- getOption("repos")
+  if ("CRAN" %in% names(rep)) {
+    opt <- rep["CRAN"]
+    if (opt != "@CRAN@") cran <- opt
+  }
+  paste0(cran, path)
 }
