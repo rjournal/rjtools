@@ -152,7 +152,7 @@ list_issue_articles <- function(volume, issue, rnews = FALSE) {
   prefix <- if(rnews) "RN" else "RJ"
   articles <- list.files(
     list.dirs("../../_articles", recursive = FALSE),
-    paste0(prefix, "-\\d{4}-\\d{3}\\.(r|R)md"),
+    paste0(prefix, "-\\d{4}-\\d{3}\\.[Rr]md$"),
     full.names = TRUE
   )
 
