@@ -206,7 +206,7 @@ news_entry <- function(art) {
     art$author <- vapply(art$author, function(z) z$name %||% paste(z$first_name, z$last_name), character(1L))
   }
   stringr::str_glue(
-    "[{art$title}](../../news/{art$slug})<br>{glue::glue_collapse(art$author, sep = ', ', last = ' and ')} {art$journal$firstpage %||% art$pages[1] %||% \"\"}\n\n"
+    "[{art$title}](../../news/{art$slug}/)<br>{glue::glue_collapse(art$author, sep = ', ', last = ' and ')} {art$journal$firstpage %||% art$pages[1] %||% \"\"}\n\n"
   )
 }
 
@@ -231,7 +231,7 @@ article_entry <- function(art) {
   }
 
   stringr::str_glue(
-    "[{art$title}](../../articles/{art$slug})<br>{glue::glue_collapse(art$author, sep = ', ', last = ' and ')} {art$journal$firstpage %||% art$pages[1] %||% \"\"}\n\n"
+    "[{art$title}](../../articles/{art$slug}/)<br>{glue::glue_collapse(art$author, sep = ', ', last = ' and ')} {art$journal$firstpage %||% art$pages[1] %||% \"\"}\n\n"
   )
 }
 
