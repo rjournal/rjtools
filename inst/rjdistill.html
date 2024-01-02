@@ -32,13 +32,17 @@
     buttons.append('<a href="' + slug + '.pdf" class="dt-tag"><i class="fas fa-file-pdf"></i> PDF</a>')
     buttons.append('<a href="' + slug + '.zip" class="dt-tag"><i class="fas fa-file-zipper"></i> Supplement</a>')
 
-
-    const abstract = $('<d-abstract>')
-    abstract.append('<b>Abstract:</b><br>')
-    abstract.append($("d-title p:not(:empty)").first()) // Move description to d-abstract
-    $("d-title p:empty").remove() // Remove empty paragraphs after title
-    abstract.append(buttons)
-    abstract.insertAfter($('d-title')) // Add abstract section after title
+    // adds Abstract: in front of the first <p> in the title section --
+    // unless it happens to be the subtitle (FIXME: this is a bad hack - can't distill do this?)
+    var tpar = $("d-title p:not(:empty)").first();
+    if (tpar && ! tpar.hasClass("subtitle")) {
+      const abstract = $('<d-abstract>')
+      abstract.append('<b>Abstract:</b><br>')
+      abstract.append($("d-title p:not(:empty)").first()) // Move description to d-abstract
+      $("d-title p:empty").remove() // Remove empty paragraphs after title
+      abstract.append(buttons)
+      abstract.insertAfter($('d-title')) // Add abstract section after title */
+    }
 
     // tweak by-line
     var byline = $("d-byline div.byline")

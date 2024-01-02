@@ -33,9 +33,14 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
   base_format$post_knit <- function(metadata, input_file, runtime, ...) {
     # Modify YAML metadata for pre-processor
     render_env <- rlang::caller_env(n = 2)
+    # FIXME: renames abstract to description and then later hacks around it by creating
+    # a d-abstract html element by hand in JS (rjdistill.html). This
+    # is incredibly fragile, because the element has no idenficiation tag,
+    # so this should be cleaned up so we can have distill create d-abstract directly...
     metadata <- replace_names(metadata, c("abstract" = "description"))
     metadata$title <- strip_macros(metadata$title)
-    metadata$description <- strip_macros(metadata$description %||% paste0('"', metadata$title, '" published in The R Journal.'))
+    if (is.null(metadata$subtitle)) ## the tools don't support both abstract and subtitle
+      metadata$description <- strip_macros(metadata$description %||% paste0('"', metadata$title, '" published in The R Journal.'))
     for(i in seq_along(metadata$author)) {
       metadata$author[[i]] <- replace_names(metadata$author[[i]], c("orcid" = "orcid_id"))
     }
