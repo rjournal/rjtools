@@ -10,13 +10,12 @@
 #'   and `rticles::rjournal_article()` for pdf articles.
 #' @inheritParams distill::distill_article
 #' @param legacy_pdf whether an article is from the past and only have pdf version
-#' @param web_only additional param for embedding PDF or using Rmd to produce HTML
 #' @importFrom rlang caller_env env_poke
 #' @return the rendered R Journal article
 #' @export
 #' @rdname rjournal_article
 rjournal_article <- function(toc = FALSE, self_contained = FALSE,
-                             legacy_pdf = FALSE, web_only = !legacy_pdf, ...) {
+                             legacy_pdf = FALSE, ...) {
   args <- c()
   base_format <- distill::distill_article(
     self_contained = self_contained, toc = toc, ...
@@ -34,9 +33,14 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
   base_format$post_knit <- function(metadata, input_file, runtime, ...) {
     # Modify YAML metadata for pre-processor
     render_env <- rlang::caller_env(n = 2)
+    # FIXME: renames abstract to description and then later hacks around it by creating
+    # a d-abstract html element by hand in JS (rjdistill.html). This
+    # is incredibly fragile, because the element has no idenficiation tag,
+    # so this should be cleaned up so we can have distill create d-abstract directly...
     metadata <- replace_names(metadata, c("abstract" = "description"))
     metadata$title <- strip_macros(metadata$title)
-    metadata$description <- strip_macros(metadata$description %||% paste0('"', metadata$title, '" published in The R Journal.'))
+    if (is.null(metadata$subtitle)) ## the tools don't support both abstract and subtitle
+      metadata$description <- strip_macros(metadata$description %||% paste0('"', metadata$title, '" published in The R Journal.'))
     for(i in seq_along(metadata$author)) {
       metadata$author[[i]] <- replace_names(metadata$author[[i]], c("orcid" = "orcid_id"))
     }
@@ -106,7 +110,7 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
         ctvs <- local_cache$get("ctv")
       } else {
         ctvs <- readRDS(
-          gzcon(url("https://cran.r-project.org/src/contrib/Views.rds", open = "rb"))
+          gzcon(url(.cran("/src/contrib/Views.rds"), open = "rb"))
         )
         local_cache$add(ctvs, "ctv")
       }
@@ -148,8 +152,13 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
   pre_processor <- function(metadata, input_file, runtime, knit_meta, files_dir,
                             output_dir) {
 
-    # Add embedded PDF
-    embed_pdf <- if(! web_only){
+    input <- xfun::read_utf8(input_file)
+    front_matter_delimiters <- grep("^(---|\\.\\.\\.)\\s*$", input)
+    body <- input[(front_matter_delimiters[2]+1):length(input)]
+
+    # Add embedded PDF to HTML stubs
+    is_stub <- !any(grepl("^\\s*#+\\s*.*", body))
+    embed_pdf <- if(isTRUE(metadata$tex_native) || (legacy_pdf && is_stub)) {
       whisker::whisker.render(
         '<div class="l-page">
   <embed src="{{slug}}.pdf" type="application/pdf" height="955px" width="100%">
@@ -184,7 +193,7 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
         data <- c(data, list(BIOC = BIOC))
       }
     }
-    if (web_only && legacy_pdf) {
+    if (FALSE && legacy_pdf) {
       TEXOR <- "This article is converted from a Legacy LaTeX article using the
                 [texor](https://cran.r-project.org/package=texor) package.
                 The pdf version is the official version. To report a problem with the html,
@@ -195,16 +204,13 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
     template <- xfun::read_utf8(system.file("appendix.md", package = "rjtools"))
     appendix <- whisker::whisker.render(template, data)
 
-    input <- xfun::read_utf8(input_file)
-    front_matter_delimiters <- grep("^(---|\\.\\.\\.)\\s*$", input)
-
     xfun::write_utf8(
       c(
         "---",
         yaml::as.yaml(metadata),
         "---",
         "",
-        if(! web_only) embed_pdf else input[(front_matter_delimiters[2]+1):length(input)],
+        c(embed_pdf, body),
         "",
         appendix
       ),
@@ -329,4 +335,14 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
     on_exit = on_exit,
     base_format = base_format
   )
+}
+
+.cran <- function(path="") {
+  cran <- "http://cran.R-project.org"
+  rep <- getOption("repos")
+  if ("CRAN" %in% names(rep)) {
+    opt <- rep["CRAN"]
+    if (opt != "@CRAN@") cran <- opt
+  }
+  paste0(cran, path)
 }

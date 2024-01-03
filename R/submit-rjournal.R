@@ -1,8 +1,8 @@
 #' Submit a paper to the R Journal
 #'
-#' This is a last-minute self-serve  check function, similar to
-#' [devtools::release()], for handling R Journal styling that can be difficult
-#'  with automatic checks.
+#' This is a final self-check function, similar to
+#' that runs through a checklist on your submission
+#' that cannot be done automatically.
 #' @importFrom utils browseURL
 #' @export
 submit_rjournal <- function(){

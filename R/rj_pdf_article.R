@@ -32,7 +32,7 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
   }
   pre_processor <- fmt$pre_processor
   fmt$pre_processor <- function(front_matter, input, ...) {
-    if(!is.null(front_matter$bibliography)) {
+    if(!is.null(front_matter$bibliography) && !isTRUE(front_matter$tex_native)) {
       xfun::write_utf8(
         c(xfun::read_utf8(input), "\n# References\n"),
         input
@@ -51,7 +51,6 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
       file.rename(filename, filename2)
       filename <- filename2
     }
-
     # Copy purl-ed R file with the correct name
     dest_file <- xfun::with_ext(filename, "R")
     our_file <- TRUE
@@ -79,6 +78,16 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
     temp_tex <- xfun::read_utf8(output_file)
     # Add author line
     temp_tex <- post_process_authors(temp_tex)
+    ## remove CLS references if we are using native ones
+    ## coversely, if CLS is already included, don't add TeX ones
+    if (isTRUE(metadata$tex_native)) {
+        cls.b <- grep("^\\\\begin\\{CSLReferences\\}", temp_tex)
+        cls.e <- grep("^\\\\end\\{CSLReferences\\}", temp_tex)
+        if (length(cls.b) == 1 && length(cls.e) == 1 && cls.b < cls.e)
+            temp_tex <- temp_tex[-(cls.b:cls.e)]
+    } else if (length(grep("^\\\\begin\\{CSLReferences\\}", temp_tex)) &&
+               length(bil <- grep("^\\\\bibliography", temp_tex)))
+	temp_tex <- temp_tex[-bil]
     xfun::write_utf8(temp_tex, output_file)
 
     # Bookdown post-processing, silently capture error as it will attempt to

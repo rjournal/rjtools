@@ -110,6 +110,12 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, rnews = FALS
     args
   }
 
+  args <- c(
+    rmarkdown::pandoc_include_args(
+      in_header = system.file("rjdistill.html", package = "rjtools")
+    )
+  )
+
   on_exit <- function() {
     # Deactivate for now as I am not sure to understand what should be built
     # if (!is.null(render_pdf) && !legacy_pdf) {
@@ -124,7 +130,13 @@ rjournal_web_issue <- function(toc = FALSE, self_contained = FALSE, rnews = FALS
 
   rmarkdown::output_format(
     knitr = NULL, # use base one
-    pandoc = list(),
+
+    pandoc = list(
+      args = args,
+      lua_filters = c(
+        system.file("latex-pkg.lua", package = "rjtools")
+      )
+    ),
     keep_md = NULL, # use base one
     clean_supporting = NULL, # use base one
     pre_knit = NULL,
@@ -140,7 +152,7 @@ list_issue_articles <- function(volume, issue, rnews = FALSE) {
   prefix <- if(rnews) "RN" else "RJ"
   articles <- list.files(
     list.dirs("../../_articles", recursive = FALSE),
-    paste0(prefix, "-\\d{4}-\\d{3}\\.(r|R)md"),
+    paste0(prefix, "-\\d{4}-\\d{3}\\.[Rr]md$"),
     full.names = TRUE
   )
 
@@ -194,7 +206,7 @@ news_entry <- function(art) {
     art$author <- vapply(art$author, function(z) z$name %||% paste(z$first_name, z$last_name), character(1L))
   }
   stringr::str_glue(
-    "[{art$title}](../../news/{art$slug})<br>{glue::glue_collapse(art$author, sep = ', ', last = ' and ')} {art$journal$firstpage %||% art$pages[1] %||% \"\"}\n\n"
+    "[{art$title}](../../news/{art$slug}/)<br>{glue::glue_collapse(art$author, sep = ', ', last = ' and ')} {art$journal$firstpage %||% art$pages[1] %||% \"\"}\n\n"
   )
 }
 
@@ -219,7 +231,7 @@ article_entry <- function(art) {
   }
 
   stringr::str_glue(
-    "[{art$title}](../../articles/{art$slug})<br>{glue::glue_collapse(art$author, sep = ', ', last = ' and ')} {art$journal$firstpage %||% art$pages[1] %||% \"\"}\n\n"
+    "[{art$title}](../../articles/{art$slug}/)<br>{glue::glue_collapse(art$author, sep = ', ', last = ' and ')} {art$journal$firstpage %||% art$pages[1] %||% \"\"}\n\n"
   )
 }
 
