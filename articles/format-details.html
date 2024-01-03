@@ -206,7 +206,12 @@ ggplot(data = penguins,
 <div class="section level2">
 <h2 id="tables">Tables<a class="anchor" aria-label="anchor" href="#tables"></a>
 </h2>
-<p>To use a simple markdown table, you need to add <code>preamble: \usepackage{longtable}</code> in the YAML for the tex file to render the pdf output. Another option is to use <code><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">knitr::kable()</a></code>, where you need to set up two chunks similar to the figures with different <code>format</code> arguments:</p>
+<p>For simple markdown tables, please use the rmarkdown syntax for cross-referencing, i.e. </p>
+<ul>
+<li><p>in-line: <code>The table \@ref(tab:foo) summarizes ...</code></p></li>
+<li><p>markdown table caption: <code>Table: (\#tab:foo) An overview of the ...</code></p></li>
+</ul>
+<p>For tables generated using <code><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">knitr::kable()</a></code>, set up two chunks similar to the figures with different <code>format</code> arguments:</p>
 <pre class="rmarkdown"><code>```{r penguins-interactive, eval = knitr::is_html_output()}
 knitr::kable(head(penguins), format = "html", caption = "Table caption")
 ```</code></pre>
