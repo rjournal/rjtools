@@ -144,7 +144,13 @@ Alt text is read by a screen reader for people with visual disability and author
 
 # Tables
 
-To use a simple markdown table, you need to add `preamble: \usepackage{longtable}` in the YAML for the tex file to render the pdf output. Another option is to use `knitr::kable()`, where you need to set up two chunks similar to the figures with different `format` arguments:
+For simple markdown tables, please use the rmarkdown syntax for cross-referencing, i.e. 
+
+  * in-line: ````The table \@ref(tab:foo) summarizes ...````
+
+  * markdown table caption: ````Table: (\#tab:foo) An overview of the ...````
+
+For tables generated using `knitr::kable()`, set up two chunks similar to the figures with different `format` arguments:
 
 ````rmarkdown
 `r ''````{r penguins-interactive, eval = knitr::is_html_output()}
