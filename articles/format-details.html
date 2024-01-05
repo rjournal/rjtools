@@ -245,7 +245,25 @@ STP_{\textit{parity loss}} = \sum_{i \in \{a, b, ...\}} \Big|\ln \Big(\frac{STP_
   note = {R package version 1.1.1},
   url = {https://CRAN.R-project.org/package=crosstalk},
 }</code></pre>
-<p>R Journal requires a link for easy access to the reference and this can be done through either the <code>doi</code> or <code>url</code> field. If both fields are presented, <code>url</code> takes priority and we recommend providing the URL link as <code>url = {https://doi.org/.../...},</code>.</p>
+<p>R Journal requires a link for easy access to the reference and this can be done through either the <code>doi</code> or <code>url</code> field. If both fields are presented, <code>url</code> takes priority and we recommend providing the URL link as <code>url = {https://doi.org/.../...},</code>, i.e.</p>
+<pre><code>@article{wickham_tidy_2014,
+    title = {Tidy {Data}},
+    author = {Wickham, Hadley},
+    year = {2014},
+    journal = {Journal of Statistical Software},
+    volume = {59},
+    number = {10},
+    pages = {1--23},
+    url = {https://doi.org/10.18637/jss.v059.i10}
+}</code></pre>
+<p>For webpage entries, please use the <code>url</code> field instead of <code>howpublished</code>, under <code>@misc</code>, to provide the link (and the <code>note</code> field for access date), i.e.</p>
+<pre><code>@Misc{Wiki+HCL,
+  author = {Wikipedia},
+  title = {{HCL Color Space} --- {W}ikipedia{,} The Free Encyclopedia},
+  year = {2023},  
+  url = {https://en.wikipedia.org/wiki/HCL_color_space},
+  note = {accessed 2023-07-12}
+}</code></pre>
 </div>
 <div class="section level2">
 <h2 id="styling">Styling<a class="anchor" aria-label="anchor" href="#styling"></a>
