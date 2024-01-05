@@ -200,7 +200,32 @@ The citation style will be added during the building process and you can find th
 }
 ```
 
-R Journal requires a link for easy access to the reference and this can be done through either the `doi` or `url` field. If both fields are presented, `url` takes priority and we recommend providing the URL link as `url = {https://doi.org/.../...},`.
+R Journal requires a link for easy access to the reference and this can be done through either the `doi` or `url` field. If both fields are presented, `url` takes priority and we recommend providing the URL link as `url = {https://doi.org/.../...},`, i.e.
+
+````
+@article{wickham_tidy_2014,
+	title = {Tidy {Data}},
+	author = {Wickham, Hadley},
+	year = {2014},
+	journal = {Journal of Statistical Software},
+	volume = {59},
+	number = {10},
+	pages = {1--23},
+	url = {https://doi.org/10.18637/jss.v059.i10}
+}
+````
+
+For webpage entries, please use the `url` field instead of `howpublished`, under `@misc`, to provide the link (and the `note` field for access date), i.e.
+
+````
+@Misc{Wiki+HCL,
+  author = {Wikipedia},
+  title = {{HCL Color Space} --- {W}ikipedia{,} The Free Encyclopedia},
+  year = {2023},  
+  url = {https://en.wikipedia.org/wiki/HCL_color_space},
+  note = {accessed 2023-07-12}
+}
+````
 
 
 # Styling
