@@ -21,7 +21,7 @@ path_to_article <- system.file("paper-with-errors", package = "rjtools")
 library(rjtools)
 ```
 
-The `rjtools` package has implemented some automated checks on style, spelling, and package availability, according to the R Journal format. For a comprehensive instruction on the journal format, we recommend authors to follow [instructions for Authors](https://journal.r-project.org/submissions.html). 
+The `rjtools` package has implemented some automated checks to assess if it appropriately follows the R Journal format. It is important that authors read information at [journal website](https://journal.r-project.org). 
 
 This vignette will demonstrate these checks with an example article, [paper-with-errors](https://github.com/rjournal/rjtools/tree/main/inst/paper-with-errors), where the argument `path = path_to_article` in the checks points to the directory of the .tex file. If you have created the article using `create_article()` with the default arguments, you can check with `path = here::here("rjarticle")`.
 
@@ -69,7 +69,7 @@ and they can all be individually checked on the article.
 check_filenames(path = path_to_article)
 ```
 
-The .bib file is named `Rjreferences.bib` when created and we recommend setting a consistent name across the .bib, .tex, and .Rmd file.  A fix to this is to rename the `Rjreferences.bib` as the file name you used when create the article, in our case, `paper-with-errors`. 
+The .bib file is named `Rjreferences.bib` when created and we recommend setting a consistent name across the .bib, .tex, and .Rmd file.  A fix to this is to **rename** the `Rjreferences.bib` as the file name you used when create the article, in our case, `paper-with-errors`. 
 
 ## Presence of unnecessary files
 
@@ -85,7 +85,7 @@ This function checks that the folder doesn't contain the `RJtemplate.tex` file, 
 check_cover_letter(path = path_to_article) 
 ```
 
-Cover letter should be provided for article of type "add-on package" and saved at the same folder as the article. The function checks whether there is a file containing the word "motivation" in its name. Our article passes this check.
+Cover letter should be provided for all articles and saved at the same folder as the article. The function checks whether there possible motivation letters are in the main directory, and recommends to put them in the `motivation-letter` folder if so. Our article passes this check.
 
 ## Article title is in title case
 
@@ -196,7 +196,7 @@ Advice on good coding style can be found in the `rjtools` article ["More details
 ## Citations
 
 - All R packages used in the work are appropriately cited. For example, if you use `ggplot2` to make your plots, the citation for this package needs to be added to your paper. See more details below if you need help on how ot do this.
-- All references need to have a DOI where available.
+- All references need to have a DOI where available, best added using the URL item.
 - The default bibliography style needs to be used.
 - Use consistent capitalization for titles in the citations, which may require manual editing if extracting citation information from different services.
 

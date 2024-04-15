@@ -77,7 +77,7 @@ The `rjtools::rjournal_article` output specified in the article YAML will create
   
 ## Note: `rticles` template
 
-The `rticles` package historically contained a template for creating an *R Journal* article, which you might have used before if you have been already working with R Markdown for writing papers. This template is now synchronised with the template in `rjtools`. 
+<!--The `rticles` package historically contained a template for creating an *R Journal* article, which you might have used before if you have been already working with R Markdown for writing papers. This template is now synchronised with the template in `rjtools`.--> 
 
 Now feel free to head to the vignette *More details on the R Journal format* for an example article and more detailed information on the template. 
 

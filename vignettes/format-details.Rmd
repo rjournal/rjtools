@@ -41,7 +41,7 @@ If you would like to have an interactive plot in the html output, you will also 
 
 Of course, if only a static plot is to be rendered in both outputs, a single code chunk and a single inline reference will be sufficient. 
 
-Note that the structure of a thorough caption is three components: (1) what is the plot/table about, (2) specific details of plot/table, like what type of display and how variables are mapped, (3) the most important thing that the reader should learn.
+**Note that the structure of a thorough caption is three components: (1) what is the plot/table about, (2) specific details of plot/table, like what type of display and how variables are mapped, (3) the most important thing that the reader should learn.**
 
 ## Static
 
@@ -88,7 +88,7 @@ For in-text citation, you will something like this:
 
     Figure \@ref(fig:`r "\u0060r"` ifelse(knitr::is_html_output(), 'penguins-interactive', 'penguins-static')`r "\u0060"` shows ...
     
-This line is quite complicated so let's dissect its components: the `ifelse` statement uses `knitr::is_html_output()` to decide if the output is an html or pdf output, then completes the fugure reference to read either `\@ref(fig:penguins-interactive)`, to reference the chunk of the interactive graphic in HTML output, or `\@ref(fig:penguins-static)`, to reference the static figure for PDF output.
+This line is quite complicated so let's dissect its components: the `ifelse` statement uses `knitr::is_html_output()` to decide if the output is an html or pdf output, then completes the figure reference to read either `\@ref(fig:penguins-interactive)`, to reference the chunk of the interactive graphic in HTML output, or `\@ref(fig:penguins-static)`, to reference the static figure for PDF output.
 
 ## Sizing
 

@@ -111,9 +111,9 @@ test_that("unnecessary check works", {
     expect_ERROR(check_unnecessary_files(bad_article_path))
 })
 
-test_that("spelling check works", {
-    expect_NOTE(check_spelling(article_path))
-})
+#test_that("spelling check works", {
+#    expect_NOTE(check_spelling(article_path))
+#})
 
 test_that("proposed package check works", {
     expect_SUCCESS(check_proposed_pkg("ggplot2"))

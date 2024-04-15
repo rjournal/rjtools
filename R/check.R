@@ -179,32 +179,33 @@ check_folder_structure <- function(path){
   r_files <- files[file_exts == "R"]
   log_aux <- files[file_exts %in% c("log", "aux", "out")] |> concat()
   file_txt <- tools::file_path_sans_ext(files)
-  motivation <- files[grepl("motivation", file_txt)] |> concat()
+  motivation <- files[file_exts %in% c("md", "doc", "docx")] |> concat()
 
   valid_exts <- c("Rproj", ".sty", "bib", "Rmd", "html", "R", "tex", "pdf", "")
   exts_checked <- c(img_exts, data_exts, "R", "log", "aux")
   non_standard <- files[!file_exts %in% c(valid_exts, exts_checked)]
   non_standard <- non_standard[!grepl("motivation", non_standard)] |> concat()
+  non_standard <- non_standard[!grepl("RJournal", non_standard)] |> concat()
 
-  if (length(img_files) != 0){
-    log_error("Image(s) detected in the main directory: {img_files}.
-              They should be placed in the figures/ folder.")
-  } else if (length(data_files) != 0){
-    log_error("Data file(s) detected in the main directory: {data_files}.
-              They should be placed in the data/ folder.")
+  if ((length(img_files) > 1) | (str_length(img_files) != 0)){
+    log_error("It looks like there are image(s) in the main directory: {img_files}.
+              If so, they should be organised into figures/ folder.")
+  } else if ((length(data_files) > 1) | (str_length(data_files) != 0)){
+    log_error("It looks like there are data file(s) in the main directory: {data_files}.
+              If so, they should be organised into data/ folder.")
   } else if (length(r_files) > 1){
     r_files <- concat(r_files)
     log_error(
     "Multiple R files detected: {r_files}.
-    Should they be organised in the scripts/ folder?
+    Scripts should be organised in the scripts/ folder.
     The master R file generated from rendering should still be in the main directory.")
-  } else if (length(log_aux) != 0){
+  } else if (str_length(log_aux) != 0){
     log_error("Auxiliary log and aux files detected: {log_aux}.
               They should be removed.")
-  } else if (length(motivation) != 0){
-    log_error("Motivation letter related files detected: {motivation}.
+  } else if (str_length(motivation) != 0){
+    log_error("Possible motivation or cover letters detected in main folder: {motivation}.
               They should be placed in the motivation-letter/ folder.")
-  } else if (length(non_standard) != 0){
+  } else if ((length(non_standard) > 1) | (str_length(non_standard) != 0)){
     log_warning(
       "Other non-standard file detected: {non_standard}.
       Should they be removed? ")

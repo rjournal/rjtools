@@ -1,3 +1,9 @@
+# rjtools 1.0.13
+
+* fix error reported by CRAN, occurring on linux, related to test code
+* Fixes in response to issues #119 and #120
+* web site documentation and vignettes updated
+
 # rjtools 1.0.12
 
 * Updates for accessibility based on updates in distill package.
