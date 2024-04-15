@@ -1,16 +1,20 @@
-This revision has some changes to fix some errors, and streamline usage and submission operations.
+This revision has small updates, and fixes as requested by CRAN maintainers.
 
-## Test environment, using devtools::check_rhub()
+## Test environment
 
-* local R installation: R version 4.3.1 (2023-06-16)
-* Ubuntu Linux 20.04.1 LTS, R-release, GCC
-* Fedora Fedora Linux, R-devel, clang, gfortran
-* Windows Server 2022, R-devel, 64 bit
+* R version 4.3.3 (2024-02-29 ucrt)
 
-── R CMD check results ──────────────────────────────────── rjtools 1.0.12 ────
-Duration: 29.9s
+── R CMD check results ───────────────── rjtools 1.0.13 ────
+Duration: 24.2s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+* winbuilder
+
+Installation time in seconds: 7
+Check time in seconds: 65
+Status: OK
+
 
 With check_rhub, there are two notes, which I believe can be ignored.
 
