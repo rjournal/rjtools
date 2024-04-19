@@ -379,7 +379,7 @@ check_spelling <- function(path, dic = "en_US", ...){
   detect_abstract <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\abstract\\{).*?"))
   abstract_loc <- match(detect_abstract[!is.na(detect_abstract)], detect_abstract)
 
-  detect_bib <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\bibliography\\{).*?(?=\\})"))
+  detect_bib <- purrr::map(tex, ~stringr::str_extract(.x,  "\\\\section\\*\\{References\\}"))
   bib_loc <- match(detect_bib[!is.na(detect_bib)], detect_bib)
 
   # spell_to_remove is a pre-defined vector of latex commands
