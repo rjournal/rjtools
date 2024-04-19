@@ -1,6 +1,7 @@
 % !TeX root = RJwrapper.tex
-\title{ToOoOlTiPs: An R package for Customizable Tooltips in Interactive
-Graphics}
+\title{ToOoOlTiPs: An R package for Customizable Tooltips in Interactive Graphics}
+
+
 \author{by Quietest Quokka and Bounciest Bilby}
 
 \maketitle
@@ -12,56 +13,33 @@ An abstract of less than 150 words.
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Interactive data graphics provides plots that allow users to interact
-them. One of the most basic types of interaction is through tooltips,
-where users are provided additional information about elements in the
-plot by moving the cursor over the plot.
+Interactive data graphics provides plots that allow users to interact them. One of the most basic types of interaction is through tooltips, where users are provided additional information about elements in the plot by moving the cursor over the plot.
 
-This paper will first review some R packages on interactive graphics and
-their tooltip implementations. A new package \CRANpkg{ToOoOlTiPs} that
-provides customized tooltips for plot, is introduced. Some example plots
-will then be given to showcase how these tooltips help users to better
-read the graphics.
+This paper will first review some R packages on interactive graphics and their tooltip implementations. A new package \CRANpkg{ToOoOlTiPs} that provides customized tooltips for plot, is introduced. Some example plots will then be given to showcase how these tooltips help users to better read the graphics.
 
 \hypertarget{background}{%
 \section{Background}\label{background}}
 
-Some packages on interactive graphics include \CRANpkg{plotly}
-\citep{plotly} that interfaces with Javascript for web-based interactive
-graphics, \CRANpkg{crosstalk} \citep{crosstalk} that specializes
-cross-linking elements across individual graphics. The recent R Journal
-paper \CRANpkg{tsibbletalk} \citep{RJ-2021-050} provides a good example
-of including interactive graphics into an article for the journal. It
-has both a set of linked plots, and also an animated gif example,
-illustrating linking between time series plots and feature summaries.
+Some packages on interactive graphics include \CRANpkg{plotly} (Sievert 2020) that interfaces with Javascript for web-based interactive graphics, \CRANpkg{crosstalk} (Cheng and Sievert 2021) that specializes cross-linking elements across individual graphics. The recent R Journal paper \CRANpkg{tsibbletalk} (Wang and Cook 2021) provides a good example of including interactive graphics into an article for the journal. It has both a set of linked plots, and also an animated gif example, illustrating linking between time series plots and feature summaries.
 
 \hypertarget{customizing-tooltip-design-with}{%
-\section{\texorpdfstring{Customizing tooltip design with
-\pkg{ToOoOlTiPs}}{Customizing tooltip design with }}\label{customizing-tooltip-design-with}}
+\section{\texorpdfstring{Customizing tooltip design with \pkg{ToOoOlTiPs}}{Customizing tooltip design with }}\label{customizing-tooltip-design-with}}
 
-\pkg{ToOoOlTiPs} is a packages for customizing tooltips in interactive
-graphics, it features these possibilities.
+\pkg{ToOoOlTiPs} is a packages for customizing tooltips in interactive graphics, it features these possibilities.
 
 \hypertarget{a-gallery-of-tooltips-examples}{%
-\section{A gallery of tooltips
-examples}\label{a-gallery-of-tooltips-examples}}
+\section{A gallery of tooltips examples}\label{a-gallery-of-tooltips-examples}}
 
-The \CRANpkg{palmerpenguins} data \citep{palmerpenguins} features three
-penguin species which has a lovely illustration by Alison Horst in
-Figure \ref{fig:penguins-alison}.
+The \CRANpkg{palmerpenguins} data (Horst, Hill, and Gorman 2020) features three penguin species which has a lovely illustration by Alison Horst in Figure \ref{fig:penguins-alison}.
 
-\begin{Schunk}
 \begin{figure}
-\includegraphics[width=1\linewidth,height=0.3\textheight]{penguins} \caption[Artwork by \@allison\_horst]{Artwork by \@allison\_horst}\label{fig:penguins-alison}
+\includegraphics[width=1\linewidth,height=0.3\textheight]{penguins} \caption{Artwork by \@allison\_horst}\label{fig:penguins-alison}
 \end{figure}
-\end{Schunk}
 
-Table \ref{tab:penguins-tab-static} prints at the first five rows of the
-\texttt{penguins} data:
+Table \ref{tab:penguins-tab-static} prints at the first five rows of the \texttt{penguins} data:
 
-\begin{Schunk}
 \begin{table}
-
+\centering
 \caption{\label{tab:penguins-tab-static}A basic table}
 \centering
 \fontsize{7}{9}\selectfont
@@ -84,30 +62,46 @@ Adelie & Torgersen & 39.3 & 20.6 & 190 & 3650 & male & 2007\\
 \end{tabular}
 \end{table}
 
-\end{Schunk}
+Figure \ref{fig:penguins-ggplot} shows an plot of the penguins data, made using the \CRANpkg{ggplot2} package.
 
-Figure \ref{fig:penguins-ggplot} shows an plot of the penguins data,
-made using the \CRANpkg{ggplot2} package.
-
-\begin{Schunk}
-\begin{Sinput}
+\begin{verbatim}
 penguins %>% 
   ggplot(aes(x = bill_depth_mm, y = bill_length_mm, 
              color = species)) + 
   geom_point()
-\end{Sinput}
+\end{verbatim}
+
 \begin{figure}
-\includegraphics{paper-with-errors_files/figure-latex/penguins-ggplot-1} \caption[A basic non-interactive plot made with the ggplot2 package on palmer penguin data]{A basic non-interactive plot made with the ggplot2 package on palmer penguin data. Three species of penguins are plotted with bill depth on the x-axis and bill length on the y-axis. Visit the online article to access the interactive version made with the plotly package.}\label{fig:penguins-ggplot}
+\centering
+\includegraphics{paper-with-errors_files/figure-latex/penguins-ggplot-1.pdf}
+\caption{\label{fig:penguins-ggplot}A basic non-interactive plot made with the ggplot2 package on palmer penguin data. Three species of penguins are plotted with bill depth on the x-axis and bill length on the y-axis. Visit the online article to access the interactive version made with the plotly package.}
 \end{figure}
-\end{Schunk}
 
 \hypertarget{summary}{%
 \section{Summary}\label{summary}}
 
-We have displayed various tooltips that are available in the package
-\pkg{ToOoOlTiPs}.
+We have displayed various tooltips that are available in the package \pkg{ToOoOlTiPs}.
 
-\bibliography{RJreferences.bib}
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-crosstalk}{}}%
+Cheng, Joe, and Carson Sievert. 2021. \emph{{crosstalk}: Inter-Widget Interactivity for HTML Widgets}. \url{https://CRAN.R-project.org/package=crosstalk}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-palmerpenguins}{}}%
+Horst, Allison Marie, Alison Presmanes Hill, and Kristen B Gorman. 2020. \emph{{palmerpenguins}: Palmer Archipelago (Antarctica) Penguin Data}. \url{https://allisonhorst.github.io/palmerpenguins/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-plotly}{}}%
+Sievert, Carson. 2020. \emph{{Interactive Web-Based Data Visualizatio}n with r, Plotly, and Shiny}. Chapman; Hall/CRC. \url{https://plotly-r.com}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-RJ-2021-050}{}}%
+Wang, Earo, and Dianne Cook. 2021. {``Conversations in Time: Interactive Visualisation to Explore Structured Temporal Data.''} \emph{The R Journal}. \url{https://doi.org/10.32614/RJ-2021-050}.
+
+\end{CSLReferences}
+
 
 \address{%
 Quietest Quokka\\
