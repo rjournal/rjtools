@@ -1,3 +1,7 @@
+# rjtools 1.0.14
+
+* additional issues with checks fixed to completely address issue #119 
+
 # rjtools 1.0.13
 
 * fix error reported by CRAN, occurring on linux, related to test code

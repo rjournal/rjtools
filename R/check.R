@@ -150,8 +150,9 @@ check_filenames <- function(path) {
 #' @export
 check_structure <- function(path) {
     all <- list.files(path, all.files=TRUE, include.dirs=TRUE, recursive=TRUE)
+    all <- all[!grepl(".Rproj", all)]
     depth <- nchar(gsub("[^/]+", "", all))
-    if (max(depth) > 2)
+    if (max(depth) > 3)
         return(log_error("There are nested subdirectories. Please use at most two directory levels for the article."))
     if (length(dot <- grep("^\\.", gsub(".*/", "", all))))
         log_warning("The archive contains hidden files which will be removed: ", paste(all[dot], collapse=", "))
@@ -200,8 +201,7 @@ check_folder_structure <- function(path){
     Scripts should be organised in the scripts/ folder.
     The master R file generated from rendering should still be in the main directory.")
   } else if (str_length(log_aux) != 0){
-    log_error("Auxiliary log and aux files detected: {log_aux}.
-              They should be removed.")
+    log_note("Remove .log, .aux and .out files before submitting.")
   } else if (str_length(motivation) != 0){
     log_error("Possible motivation or cover letters detected in main folder: {motivation}.
               They should be placed in the motivation-letter/ folder.")

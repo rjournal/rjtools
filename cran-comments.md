@@ -1,10 +1,10 @@
-This revision has small updates, and fixes as requested by CRAN maintainers.
+This revision has small fixes addressing recently posted issue on the Github repo.
 
 ## Test environment
 
 * R version 4.3.3 (2024-02-29 ucrt)
 
-── R CMD check results ───────────────── rjtools 1.0.13 ────
+── R CMD check results ───────────────── rjtools 1.0.14 ────
 Duration: 24.2s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
