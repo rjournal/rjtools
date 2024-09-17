@@ -1,13 +1,12 @@
 pandoc: 2.7.3
-pkgdown: 2.0.9
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   article_template: article_template.html
   check_functions: check_functions.html
   create_article: create_article.html
   format-details: format-details.html
-last_built: 2024-04-19T21:10Z
+last_built: 2024-09-17T06:29Z
 urls:
   reference: https://rjournal.github.io/rjtools/reference
   article: https://rjournal.github.io/rjtools/articles
-

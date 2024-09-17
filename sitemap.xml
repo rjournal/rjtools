@@ -1,78 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://rjournal.github.io/rjtools/404.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/articles/article_template.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/articles/check_functions.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/articles/create_article.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/articles/format-details.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/index.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/checks.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/create_article.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/keywords.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/log_error.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/prep_submission.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/rjournal_article.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/rjournal_issue.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/rjournal_website.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/rjtools-package.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/submit_rjournal.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/symbol.html</loc>
-  </url>
-  <url>
-    <loc>https://rjournal.github.io/rjtools/reference/zip_paper.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://rjournal.github.io/rjtools/404.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/LICENSE-text.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/LICENSE.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/articles/article_template.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/articles/check_functions.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/articles/create_article.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/articles/format-details.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/articles/index.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/authors.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/index.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/news/index.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/checks.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/create_article.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/index.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/keywords.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/log_error.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/prep_submission.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/rjournal_article.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/rjournal_issue.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/rjournal_website.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/rjtools-package.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/submit_rjournal.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/symbol.html</loc></url>
+<url><loc>https://rjournal.github.io/rjtools/reference/zip_paper.html</loc></url>
 </urlset>
+
