@@ -1,6 +1,6 @@
 # rjtools 1.0.15
 
-* Pull request fix 
+* Pull request #14 fix (fix #122)
 
 # rjtools 1.0.14
 
