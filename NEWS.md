@@ -1,3 +1,7 @@
+# rjtools 1.0.15
+
+* Pull request fix 
+
 # rjtools 1.0.14
 
 * additional issues with checks fixed to completely address issue #119 
