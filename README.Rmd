@@ -65,3 +65,23 @@ Explore the various `check_XXX` functions that will check the format of your art
 
 * See [Check your Article Before Submission
 ](https://rjournal.github.io/rjtools/articles/check_functions.html) for more on this.
+
+## Current problem with `pandoc` 
+
+Please render the article using these lines:
+
+```
+pandoc::pandoc_activate(version = '3.1.6')
+rmarkdown::render("quokka-bilby.Rmd", output_format = "all")
+```
+
+in your R Console. Also make sure the output in the `yaml` is set as:
+
+```
+output: 
+  rjtools::rjournal_pdf_article:
+    toc: no
+  rjtools::rjournal_web_article:
+    self_contained: yes
+    toc: no
+```
