@@ -24,7 +24,11 @@ author:
     - Somewhere, Australia
 type: package
 output: 
-  rjtools::rjournal_article
+  rjtools::rjournal_pdf_article:
+    toc: no
+  rjtools::rjournal_web_article:
+    self_contained: yes
+    toc: no
 bibliography: article.bib
 ---
 
