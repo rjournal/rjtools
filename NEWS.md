@@ -1,6 +1,7 @@
 # rjtools 1.0.16
 
 * Update template article to deal better with the pandoc problem
+* All CRAN lookups now use cran.R-project.org. This resolves problems with some CRAN-like repos (e.g. RSPM) not containing CRAN Views data.
 
 # rjtools 1.0.15
 

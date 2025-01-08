@@ -340,9 +340,9 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
 .cran <- function(path="") {
   cran <- "http://cran.R-project.org"
   rep <- getOption("repos")
-  if ("CRAN" %in% names(rep)) {
-    opt <- rep["CRAN"]
-    if (opt != "@CRAN@") cran <- opt
-  }
+  # if ("CRAN" %in% names(rep)) {
+  #   opt <- rep["CRAN"]
+  #   if (opt != "@CRAN@") cran <- opt
+  # }
   paste0(cran, path)
 }
