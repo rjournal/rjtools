@@ -224,7 +224,7 @@ rjournal_pdf_issue <- function(..., render_all = FALSE) {
       )
     )
 
-    file.rename(tmp, output_file)
+    file.copy(tmp, output_file, overwrite = TRUE)
     output_file
   }
 
