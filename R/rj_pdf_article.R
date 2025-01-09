@@ -1,10 +1,10 @@
 # Adapted from rticles::rjournal_article
 #' @export
 #' @rdname rjournal_article
-rjournal_pdf_article <- function(..., self_contained = FALSE) {
+rjournal_pdf_article <- function(..., self_contained = FALSE, citation_package = "natbib") {
   fmt <- bookdown::pdf_document2(
     ...,
-    highlight = NULL,
+    highlight = NULL, citation_package = citation_package,
     template = system.file("rmarkdown/templates/rjournal/resources/template.tex",
                            package = "rjtools", mustWork = TRUE)
   )
@@ -14,6 +14,11 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
   # use pandoc to build pdf from that
   fmt$pandoc$to <- "latex"
   fmt$pandoc$ext <- ".tex"
+
+  pandoc_version_args <- c(
+    if(rmarkdown::pandoc_available("3.1.7")) c("--variable", "pandoc317=TRUE"),
+    if(rmarkdown::pandoc_available("3.1.8")) c("--variable", "pandoc318=TRUE")
+  )
 
   output_R <- NULL
   fmt$post_knit <- function(metadata, input_file, runtime, ...) {
@@ -78,16 +83,17 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
     temp_tex <- xfun::read_utf8(output_file)
     # Add author line
     temp_tex <- post_process_authors(temp_tex)
-    ## remove CLS references if we are using native ones
-    ## coversely, if CLS is already included, don't add TeX ones
+    ## remove CSL references if we are using native ones
+    ## conversely, if CSL is already included, don't add TeX ones
     if (isTRUE(metadata$tex_native)) {
-        cls.b <- grep("^\\\\begin\\{CSLReferences\\}", temp_tex)
-        cls.e <- grep("^\\\\end\\{CSLReferences\\}", temp_tex)
-        if (length(cls.b) == 1 && length(cls.e) == 1 && cls.b < cls.e)
-            temp_tex <- temp_tex[-(cls.b:cls.e)]
+      cls.b <- grep("^\\\\begin\\{CSLReferences\\}", temp_tex)
+      cls.e <- grep("^\\\\end\\{CSLReferences\\}", temp_tex)
+      if (length(cls.b) == 1 && length(cls.e) == 1 && cls.b < cls.e)
+        temp_tex <- temp_tex[-(cls.b:cls.e)]
     } else if (length(grep("^\\\\begin\\{CSLReferences\\}", temp_tex)) &&
-               length(bil <- grep("^\\\\bibliography", temp_tex)))
-	temp_tex <- temp_tex[-bil]
+               length(bil <- grep("^\\\\bibliography", temp_tex))) {
+      temp_tex <- temp_tex[-bil]
+    }
     xfun::write_utf8(temp_tex, output_file)
 
     # Bookdown post-processing, silently capture error as it will attempt to
@@ -146,7 +152,8 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
       verbose = verbose, wd = ".",
       options = c(
         "--template", rmarkdown::pandoc_path_arg(wrapper_template),
-        rmarkdown::pandoc_include_args(pdf_header)
+        rmarkdown::pandoc_include_args(pdf_header),
+        pandoc_version_args
       )
     )
 
@@ -165,6 +172,12 @@ rjournal_pdf_article <- function(..., self_contained = FALSE) {
   }
 
   fmt$knitr$opts_chunk$comment <- "#>"
+
+  # Add pandoc version args
+  fmt$pandoc$args <- c(
+    fmt$pandoc$args,
+    pandoc_version_args
+  )
 
   fmt
 }

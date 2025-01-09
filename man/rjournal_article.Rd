@@ -15,7 +15,7 @@ rjournal_article(
   ...
 )
 
-rjournal_pdf_article(..., self_contained = FALSE)
+rjournal_pdf_article(..., self_contained = FALSE, citation_package = "natbib")
 
 rjournal_web_article(toc = FALSE, self_contained = FALSE, ...)
 }
