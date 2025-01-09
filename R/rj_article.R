@@ -8,14 +8,16 @@
 #'
 #' @param ... Arguments passed to `distill::distill_article()` for web articles,
 #'   and `rticles::rjournal_article()` for pdf articles.
+#' @param legacy_pdf whether an article was submitted in the legacy .tex format, and so the PDF should not change.
+#' @param legacy_converted whether the legacy article has been converted to the new .Rmd format (if FALSE, the PDF is simply embedded on the webpage)
 #' @inheritParams distill::distill_article
-#' @param legacy_pdf whether an article is from the past and only have pdf version
+#'
 #' @importFrom rlang caller_env env_poke
 #' @return the rendered R Journal article
 #' @export
 #' @rdname rjournal_article
 rjournal_article <- function(toc = FALSE, self_contained = FALSE,
-                             legacy_pdf = FALSE, ...) {
+                             legacy_pdf = FALSE, legacy_converted = TRUE, ...) {
   args <- c()
   base_format <- distill::distill_article(
     self_contained = self_contained, toc = toc, ...
@@ -157,8 +159,9 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
     body <- input[(front_matter_delimiters[2]+1):length(input)]
 
     # Add embedded PDF to HTML stubs
-    is_stub <- !any(grepl("^\\s*#+\\s*.*", body))
-    embed_pdf <- if(isTRUE(metadata$tex_native) || (legacy_pdf && is_stub)) {
+    # is_stub <- !any(grepl("^\\s*#+\\s*.*", body))
+    embed_pdf <- if(isTRUE(metadata$tex_native) || (legacy_pdf && !legacy_converted)) {
+      body <- NULL
       whisker::whisker.render(
         '<div class="l-page">
   <embed src="{{slug}}.pdf" type="application/pdf" height="955px" width="100%">
@@ -193,7 +196,7 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
         data <- c(data, list(BIOC = BIOC))
       }
     }
-    if (FALSE && legacy_pdf) {
+    if (legacy_converted && legacy_pdf) {
       TEXOR <- "This article is converted from a Legacy LaTeX article using the
                 [texor](https://cran.r-project.org/package=texor) package.
                 The pdf version is the official version. To report a problem with the html,
