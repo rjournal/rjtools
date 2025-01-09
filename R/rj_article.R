@@ -8,16 +8,15 @@
 #'
 #' @param ... Arguments passed to `distill::distill_article()` for web articles,
 #'   and `rticles::rjournal_article()` for pdf articles.
-#' @param legacy_pdf whether an article was submitted in the legacy .tex format, and so the PDF should not change.
-#' @param legacy_converted whether the legacy article has been converted to the new .Rmd format (if FALSE, the PDF is simply embedded on the webpage)
+# #' @param legacy_pdf whether an article was submitted in the legacy .tex format, and so the PDF should not change.
+# #' @param legacy_converted whether the legacy article has been converted to the new .Rmd format (if FALSE, the PDF is simply embedded on the webpage)
 #' @inheritParams distill::distill_article
 #'
 #' @importFrom rlang caller_env env_poke
 #' @return the rendered R Journal article
 #' @export
 #' @rdname rjournal_article
-rjournal_article <- function(toc = FALSE, self_contained = FALSE,
-                             legacy_pdf = FALSE, legacy_converted = TRUE, ...) {
+rjournal_article <- function(toc = FALSE, self_contained = FALSE, ...) {
   args <- c()
   base_format <- distill::distill_article(
     self_contained = self_contained, toc = toc, ...
@@ -160,7 +159,7 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
 
     # Add embedded PDF to HTML stubs
     # is_stub <- !any(grepl("^\\s*#+\\s*.*", body))
-    embed_pdf <- if(isTRUE(metadata$tex_native) || (legacy_pdf && !legacy_converted)) {
+    embed_pdf <- if(isTRUE(metadata$tex_native) || (isTRUE(metadata$legacy_pdf) && !isTRUE(metadata$legacy_converted))) {
       body <- NULL
       whisker::whisker.render(
         '<div class="l-page">
@@ -196,7 +195,7 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
         data <- c(data, list(BIOC = BIOC))
       }
     }
-    if (legacy_converted && legacy_pdf) {
+    if (isTRUE(metadata$legacy_converted) && isTRUE(metadata$legacy_pdf)) {
       TEXOR <- "This article is converted from a Legacy LaTeX article using the
                 [texor](https://cran.r-project.org/package=texor) package.
                 The pdf version is the official version. To report a problem with the html,
@@ -239,8 +238,9 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
     if(is.null(render_pdf)) return()
 
     # Update legacy PDF metadata just by changing the wrapper
-    if (legacy_pdf) {
+    if (isTRUE(article_metadata$legacy_pdf)) {
       wrapper_path <- file.path(dirname(rmd_path), "RJwrapper.tex")
+      pdf_path <- file.path(dirname(rmd_path), xfun::with_ext(article_metadata$slug, ".pdf"))
       if(!file.exists(wrapper_path)) {
         warning("Could not find wrapper for this legacy article, so the PDF could not be updated.")
         return()
@@ -282,7 +282,7 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
         wrapper <- append(wrapper, "", wrapper_page_counter - 1)
       }
       wrapper[wrapper_page_counter] <- paste0("\\setcounter{page}{", article_metadata$journal$firstpage, "}")
-      if(identical(wrapper, xfun::read_utf8(wrapper_path))) return()
+      if(identical(wrapper, xfun::read_utf8(wrapper_path)) && xfun::file_exists(pdf_path)) return()
       message("Detected changes to the article metadata, re-building PDF.")
       xfun::write_utf8(wrapper, wrapper_path)
 
@@ -297,7 +297,6 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE,
         file.remove("RJournal.sty"),
         add = TRUE
       )
-      pdf_path <- xfun::with_ext(article_metadata$slug, ".pdf")
       tinytex::latexmk(
         wrapper_path,
         base_format$pandoc$latex_engine,
