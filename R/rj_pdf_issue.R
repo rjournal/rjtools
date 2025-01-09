@@ -161,7 +161,12 @@ rjournal_pdf_issue <- function(..., render_all = FALSE) {
       toc_file <- file.path(tempdir(), "toc.md")
     )
     file.copy(
-      list.files(system.file("tex", package = "rjtools"), full.names = TRUE),
+      c(
+        # Style files
+        list.files(system.file("tex", package = "rjtools"), full.names = TRUE),
+        # R Logo
+        system.file("Rlogo-5.png", package = "rjtools")
+      ),
       dirname(toc_file)
     )
     rmarkdown::pandoc_convert(
