@@ -45,6 +45,14 @@
         $editors.executive.name$, $editors.executive.affiliation$, $editors.executive.country$\\
       $endfor$
 
+    $if(editors.technical)$
+    \bigskip
+      \textbf{Technical editors:}\\
+      $for(editors.technical)$
+        $editors.technical.name$, $editors.technical.affiliation$, $editors.technical.country$\\
+      $endfor$
+    $endif$
+
 %    \bigskip
 %      \textbf{Editor Programmer's Niche:}\\
 %      Bill Venables
