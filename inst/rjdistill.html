@@ -2,6 +2,19 @@
   $(function() {
     console.log("Starting...")
 
+    // Mathjax config (add automatic linebreaks when supported)
+    // MathJax = {
+    //    tex: {
+    //        inlineMath: [['$', '$'], ['\\(', '\\)']],
+    //        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    //        tags: 'ams',
+    //        multline: true,
+    //    },
+    //    options: {
+    //        linebreaks: { automatic: true },
+    //    },
+    // };
+
     // Always show Published - distill hides it if not set
     function show_byline_column(caption) {
       $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'visible');
