@@ -47,11 +47,13 @@
 
     // adds Abstract: in front of the first <p> in the title section --
     // unless it happens to be the subtitle (FIXME: this is a bad hack - can't distill do this?)
-    var tpar = $("d-title p:not(:empty)").first();
-    if (tpar && ! tpar.hasClass("subtitle")) {
+    var tpar = $("d-title p:not(:empty)").filter(function() {
+      return !$(this).hasClass("subtitle");
+    }).first();
+    if (tpar) {
       const abstract = $('<d-abstract>')
       abstract.append('<b>Abstract:</b><br>')
-      abstract.append($("d-title p:not(:empty)").first()) // Move description to d-abstract
+      abstract.append(tpar) // Move description to d-abstract
       $("d-title p:empty").remove() // Remove empty paragraphs after title
       abstract.append(buttons)
       abstract.insertAfter($('d-title')) // Add abstract section after title */
