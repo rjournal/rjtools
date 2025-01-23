@@ -49,9 +49,9 @@ test_that("check abstract works", {
   expect_true(check_abstract_str(str))
 
   # others
-  str <- "Highlight with \\texttt{xxx()} is not allowed"
+  str <- "Highlight with \\texttt{person(2025)} is not allowed"
   expect_true(check_abstract_str(str))
-  str <- "neither is \\emph{sdkfjls}"
+  str <- "neither is \\emph{sdkfjls} allowed"
   expect_true(check_abstract_str(str))
   str <- "but emphasize that this is allowed"
   expect_false(check_abstract_str(str))

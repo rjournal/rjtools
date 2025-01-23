@@ -45,7 +45,7 @@
 #'
 #' See \code{vignette("create_article", package = "rjtools")} for how to use the check functions
 #' @rdname checks
-#' @return list of all results (see \code{\link{log_error}} for
+#' @return list of all results (see \code{log_error} for
 #'     details). You can use \code{unlist()} to get a character vector
 #'     of the result statuses.
 #'
@@ -361,7 +361,7 @@ check_abstract_str <- function(str){
   # citation
   citations <- grepl("\\cite\\{.*\\}|\\citep|\\citet", str)
 
-  others <-  grepl("\\texttt|\\$.*\\$|\\emph|\\proglang", str)
+  others <-  grepl("\\\\texttt|\\$.*\\$|\\\\emph|\\\\proglang", str)
 
   any(c(pkgs, citations, others))
 }
@@ -772,8 +772,8 @@ log_factory <- function(result = c("SUCCESS", "NOTE", "WARNING", "ERROR")) {
 #' to an environment then the entry is also added to the journal.
 #'
 #' @param text string, description of the error that occurred,
-#'     will be passed to \code{\link{glue}}.
-#' @param ... additional inputs for text passed to the \code{\link{glue}} function.
+#'     will be passed to \code{\link[glue]{glue}}.
+#' @param ... additional inputs for text passed to the \code{\link[glue]{glue}} function.
 #' @param .envir the environment used to find the text string replacements
 #' @param output type of the output, can either a string (\code{"cli"}
 #'     to use the \code{cli} package (default), \code{"R"} for

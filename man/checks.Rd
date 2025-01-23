@@ -89,7 +89,7 @@ be written}
 under the \code{path} argument}
 }
 \value{
-list of all results (see \code{\link{log_error}} for
+list of all results (see \code{log_error} for
 details). You can use \code{unlist()} to get a character vector
 of the result statuses.
 }

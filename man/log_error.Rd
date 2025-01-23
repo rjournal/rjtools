@@ -51,9 +51,9 @@ simplify_journal(journal = getOption("check.log.journal"))
 }
 \arguments{
 \item{text}{string, description of the error that occurred,
-will be passed to \code{\link{glue}}.}
+will be passed to \code{\link[glue]{glue}}.}
 
-\item{...}{additional inputs for text passed to the \code{\link{glue}} function.}
+\item{...}{additional inputs for text passed to the \code{\link[glue]{glue}} function.}
 
 \item{output}{type of the output, can either a string (\code{"cli"}
 to use the \code{cli} package (default), \code{"R"} for

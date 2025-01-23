@@ -1,36 +1,19 @@
-This revision has small fixes addressing recently posted issue on the Github repo.
+This revision has fixes addressing issues posted on the Github repo. It is a reasonably small update. 
 
 ## Test environment
 
-* R version 4.3.3 (2024-02-29 ucrt)
+Checks made using the GitHub Actions at https://github.com/rjournal/rjtools/blob/main/.github/workflows/R-CMD-check.yaml
 
-── R CMD check results ───────────────── rjtools 1.0.14 ────
-Duration: 24.2s
+It checks against the latest release: R version 4.4.2 (2024-10-31) -- "Pile of Leaves" for 
+- macOS-latest 
+- ubuntu-latest 
+- windows-latest
+
+── R CMD check results ────────────────────────────────────── rjtools 1.0.17 ────
+Duration: 34.7s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-* winbuilder
+and using R CMD CHECK results in 
 
-Installation time in seconds: 7
-Check time in seconds: 65
 Status: OK
-
-
-With check_rhub, there are two notes, which I believe can be ignored.
-
-── rjtools 1.0.12: NOTE
-
-  Build ID:   rjtools_1.0.12.tar.gz-0420bebe3d074a298f5056193567f16e
-  Platform:   Windows Server 2022, R-devel, 64 bit
-  Submitted:  2h 53m 53.5s ago
-  Build time: 6m 12.7s
-
-❯ checking for non-standard things in the check directory ... NOTE
-  Found the following files/directories:
-    ''NULL''
-
-❯ checking for detritus in the temp directory ... NOTE
-  Found the following files/directories:
-    'lastMiKTeXException'
-
-0 errors ✔ | 0 warnings ✔ | 2 notes ✖
