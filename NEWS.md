@@ -1,6 +1,10 @@
 # rjtools 1.0.17
 
-* 
+* Added technical editors to issue template.
+* Fixed missing resources for building table of contents for issues.
+* Improved identification and handling of legacy pdf articles
+* Use natbib for pdf articles (fixes issues with citation rendering)
+* Fixed article buttons (pdf, supplementary files, citation) not showing when abstract is missing.
 
 # rjtools 1.0.16
 
