@@ -53,6 +53,8 @@ test_that("check abstract works", {
   expect_true(check_abstract_str(str))
   str <- "neither is \\emph{sdkfjls}"
   expect_true(check_abstract_str(str))
+  str <- "but emphasize that this is allowed"
+  expect_false(check_abstract_str(str))
   str <- "You should generally not cite \\proglang{R}. "
   expect_true(check_abstract_str(str))
 

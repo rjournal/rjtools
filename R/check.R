@@ -347,7 +347,7 @@ check_abstract <- function(path){
 
   if (has_special_format){
     log_error("Abstract should be plain text without package markups,
-    mathmatic notations, citation, or other formattings."
+    mathematical notations, citation, or other formattings."
     )
   } else{
     log_success("Abstract formatted in plain text.")
@@ -361,7 +361,7 @@ check_abstract_str <- function(str){
   # citation
   citations <- grepl("\\cite\\{.*\\}|\\citep|\\citet", str)
 
-  others <-  grepl("texttt|\\$.*\\$|emph|proglang", str)
+  others <-  grepl("\\texttt|\\$.*\\$|\\emph|\\proglang", str)
 
   any(c(pkgs, citations, others))
 }
