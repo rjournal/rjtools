@@ -1,6 +1,6 @@
 Package: rjtools
 Title: Preparing, Checking, and Submitting Articles to the 'R Journal'
-Version: 1.0.16
+Version: 1.0.17
 Authors@R: 
     c(person(given = "Mitchell",
              family = "O'Hara-Wild",

@@ -1,3 +1,7 @@
+# rjtools 1.0.17
+
+* 
+
 # rjtools 1.0.16
 
 * Update template article to deal better with the pandoc problem
