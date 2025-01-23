@@ -1,6 +1,6 @@
 Package: rjtools
 Title: Preparing, Checking, and Submitting Articles to the 'R Journal'
-Version: 1.0.17
+Version: 1.0.18
 Authors@R: 
     c(person(given = "Mitchell",
              family = "O'Hara-Wild",
@@ -65,5 +65,5 @@ URL: https://github.com/rjournal/rjtools
 BugReports: https://github.com/rjournal/rjtools/issues
 Config/testthat/edition: 3
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1.0)
 LazyData: true
