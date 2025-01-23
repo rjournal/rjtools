@@ -8,8 +8,6 @@
 #'
 #' @param ... Arguments passed to `distill::distill_article()` for web articles,
 #'   and `rticles::rjournal_article()` for pdf articles.
-# #' @param legacy_pdf whether an article was submitted in the legacy .tex format, and so the PDF should not change.
-# #' @param legacy_converted whether the legacy article has been converted to the new .Rmd format (if FALSE, the PDF is simply embedded on the webpage)
 #' @inheritParams distill::distill_article
 #'
 #' @importFrom rlang caller_env env_poke

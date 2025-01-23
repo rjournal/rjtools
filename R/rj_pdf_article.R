@@ -1,4 +1,5 @@
 # Adapted from rticles::rjournal_article
+#' @inheritParams rmarkdown::pdf_document
 #' @export
 #' @rdname rjournal_article
 rjournal_pdf_article <- function(..., self_contained = FALSE, citation_package = "natbib") {
