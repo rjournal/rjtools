@@ -70,7 +70,7 @@ your article, and some submission requirements.
   Submission](https://rjournal.github.io/rjtools/articles/check_functions.html)
   for more on this.
 
-## Current problem with `pandoc`
+## Current problem with `pandoc` (FIXED with `rjtools` version 1.0.18)
 
 Please render the article using these lines:
 
