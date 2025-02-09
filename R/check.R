@@ -263,7 +263,7 @@ check_title <- function(path, ignore = ""){
   }
 
   if (!res$result){
-    log_error("Article title not in title case! Suggest title: {res$suggest}.")
+    log_warning("Article title not in title case! Suggest title: {res$suggest}.")
   } else{
     log_success("Article title formatted in title case.")
   }
@@ -308,7 +308,7 @@ check_section <- function(path){
   dt <- do.call(rbind, lapply(str_remove(str, " R"), check_sentence_case))
   res <- paste0(str[!dt[["in_sentence_case"]]], collapse = ", ")
   if (nchar(res) != 0){
-    log_error("Section {res} is not in sentence case!")
+    log_warning("Section {res} is not in sentence case!")
   } else{
     log_success("Section titles formatted in sentence case.")
   }
@@ -379,7 +379,8 @@ check_spelling <- function(path, dic = "en_US", ...){
   detect_abstract <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\abstract\\{).*?"))
   abstract_loc <- match(detect_abstract[!is.na(detect_abstract)], detect_abstract)
 
-  detect_bib <- purrr::map(tex, ~stringr::str_extract(.x,  "\\\\section\\*\\{References\\}"))
+  #detect_bib <- purrr::map(tex, ~stringr::str_extract(.x,  "\\\\section\\*\\{References\\}"))
+  detect_bib <- purrr::map(tex, ~stringr::str_extract(.x,  "(?<=\\\\bibliography\\{).*?(?=\\})")) # Reverse 3950d84, issue #132
   bib_loc <- match(detect_bib[!is.na(detect_bib)], detect_bib)
 
   # spell_to_remove is a pre-defined vector of latex commands

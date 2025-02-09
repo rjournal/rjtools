@@ -1,3 +1,7 @@
+# rjtools 1.0.18
+
+Fix issues #132, 133, 134. Warnings instead of errors reported when potential problems with section headings and title given.
+
 # rjtools 1.0.17
 
 * Added technical editors to issue template.
