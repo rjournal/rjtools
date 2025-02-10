@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 ```{r setup, echo = FALSE}
 library(rjtools)
 library(rmarkdown)
+options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 The source files to create an html and pdf sample article are available [here](https://github.com/rjournal/rjtools/tree/main/inst/sample-article). The rendered pdf output can be viewed [here](https://github.com/rjournal/rjtools/blob/main/inst/sample-article/article.pdf)  and below is the html:
