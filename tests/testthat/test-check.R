@@ -68,6 +68,7 @@ test_that("check abstract works", {
 expect_SUCCESS <- function(expr) expect_equal(c(expr), "SUCCESS")
 expect_NOTE <- function(expr) expect_equal(c(expr), "NOTE")
 expect_ERROR <- function(expr) expect_equal(c(expr), "ERROR")
+expect_WARNING <- function(expr) expect_equal(c(expr), "WARNING")
 
 article_path <- system.file("sample-article", package = "rjtools")
 bad_article_path <- "../bad-article"
@@ -96,7 +97,7 @@ test_that("structure check works", {
 
 test_that("title check works", {
     expect_SUCCESS(check_title(article_path))
-    expect_ERROR(check_title(bad_article_path))
+    expect_WARNING(check_title(bad_article_path))
 })
 
 test_that("section check works", {
