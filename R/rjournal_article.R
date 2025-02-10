@@ -22,7 +22,7 @@ create_article <- function(name="test", file = xfun::with_ext(name, "Rmd"), crea
   )
 
   if(edit) {
-    path <- if(create_dir) {
+    path <- if (create_dir) {
       file.path(xfun::sans_ext(file), file)
     } else {
       file
@@ -40,6 +40,8 @@ create_article <- function(name="test", file = xfun::with_ext(name, "Rmd"), crea
     }
   }
 
+  if (create_dir)
+    setwd(name)
   fs::dir_create("data")
   fs::dir_create("figures")
   fs::file_move("penguins.png", "figures/penguins.png")

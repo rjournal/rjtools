@@ -1,6 +1,6 @@
 # rjtools 1.0.18
 
-Fix issues #129, 132, 133, 134. Warnings instead of errors reported when potential problems with section headings and title given.
+Fix issues #116, 129, 132, 133, 134. Warnings instead of errors reported when potential problems with section headings and title given.
 
 # rjtools 1.0.17
 
