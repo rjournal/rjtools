@@ -2,7 +2,7 @@
 title: "ToOoOlTiPs: An R Package for Customizable Tooltips in Interactive Graphics"
 date: "2022-11-09"
 abstract: >
-  An abstract of less than 150 words.
+  An abstract of less than 250 words.
 draft: true
 author:  
   # see ?rjournal_article for more information
