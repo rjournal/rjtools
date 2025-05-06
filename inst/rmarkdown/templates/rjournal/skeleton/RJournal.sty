@@ -113,9 +113,7 @@
 % We use |\FloatBarrier| from the placeins package to keep floats within
 % the article.
 \RequirePackage{placeins}
-\newenvironment{article}{\author{}\title{}\subtitle{}\FloatBarrier\setstretch{1}\small{\FloatBarrier}
-% RJH: Added \setstretch{1}\small above. This was previously inside \abstract
-%      but was never turned off, so it set the style for the whole paper.
+\newenvironment{article}{\author{}\title{}\subtitle{}\FloatBarrier}{\FloatBarrier}
 
 % Refereed articles should have an abstract, so we redefine |\abstract| to
 % give the desired style
