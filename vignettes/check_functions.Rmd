@@ -3,7 +3,7 @@ title: "Check your article before submission"
 author: H. Sherry Zhang and Di Cook
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{check}
+  %\VignetteIndexEntry{Check your article before submission}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

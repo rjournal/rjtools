@@ -3,7 +3,7 @@ title: "Create an R Journal article"
 author: Sherry Zhang
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{create-article}
+  %\VignetteIndexEntry{Create an R Journal article}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

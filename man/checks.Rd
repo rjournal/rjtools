@@ -114,7 +114,7 @@ markups (CRANpkg, BIOpkg, pkg), math notations($...$), citations, and other
 formattings (highlight, italic, etc)
 \item \code{check_spelling()}: potential spelling mistakes
 \item \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
-\item \code{check_pkg_label()}: packages marked up with \pkg{} are not available
+\item \code{check_pkg_label()}: packages marked up with \samp{\pkg{}} are not available
 on CRAN or BioConductor
 \item \code{check_packages_available()}: packages mentioned in the article are
 available on CRAN

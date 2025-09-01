@@ -1,3 +1,17 @@
+# rjtools 1.0.20
+
+* Fix at CRAN request of help information for initial_check_article
+
+# rjtools 1.0.19
+
+* RJournal.sty to be more flexible on line breaks
+* pdf template to optionally allow first_name and last_name
+* RJournal.sty to define pandocbounded
+* Change CRAN default to https and revert 
+* Relaxed abstract length to 250 words in skeleton
+* Updated spacing and size to what was apparently intended
+* Rjournal.sty to allow either \abstract or \begin{abstract}..\end{abstract}
+
 # rjtools 1.0.18
 
 Fix issues #116, 129, 132, 133, 134. Warnings instead of errors reported when potential problems with section headings and title given.

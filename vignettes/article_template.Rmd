@@ -3,7 +3,7 @@ title: "Template output showcase"
 author: Sherry Zhang
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{template-showcase}
+  %\VignetteIndexEntry{Template output showcase}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

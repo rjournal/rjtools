@@ -3,7 +3,7 @@ title: "More details on the R Journal format"
 author: H. Sherry Zhang and Di Cook
 output: bookdown::html_vignette2
 vignette: >
-  %\VignetteIndexEntry{format-details}
+  %\VignetteIndexEntry{More details on the R Journal format}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
