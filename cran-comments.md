@@ -8,7 +8,7 @@ forwarded to the current technical editor.
 
 ## Test environment
 
-Checks made using the GitHub Actions rhub.yml with details at https://github.com/rjournal/rjtools/actions/runs/17388932465.
+Checks made using the GitHub Actions rhub.yml with details at https://github.com/rjournal/rjtools/actions/runs/17480905231.
 
 Passes checks for 
 
@@ -17,3 +17,24 @@ Passes checks for
 - macos          R-* (any version)                     macos-13
 - macos-arm64    R-* (any version)                     macos-13
 - windows        R-* (any version)                     windows-latest
+
+### devtools check
+
+── R CMD check results ──────────────────────────── rjtools 1.0.20 ────
+Duration: 33s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+### R CMD check
+
+R CMD CHECK ../rjtools_1.0.20.tar.gz 
+
+* DONE
+
+Status: OK
+
+## Reverse dependencies checked
+── CHECK ──────────────────────────────────────────────── 1 packages ──
+✔ texor 1.5.6                            ── E: 0     | W: 0     | N: 0    
+OK: 1                                                                
+BROKEN: 0
