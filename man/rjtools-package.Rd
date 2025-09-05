@@ -17,14 +17,15 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Di Cook \email{dicook@monash.edu} (\href{https://orcid.org/0000-0002-3813-7155}{ORCID})
+\strong{Maintainer}: R Journal Technical Editor \email{r-journal-technical@r-project.org}
 
 Authors:
 \itemize{
-  \item Mitchell O'Hara-Wild \email{mail@mitchelloharawild.com}
+  \item Mitchell O'Hara-Wild \email{mail@mitchelloharawild.com} (\href{https://orcid.org/0000-0001-6729-7695}{ORCID})
   \item Stephanie Kobakian
-  \item H. Sherry Zhang \email{huizezhangsh@gmail.com}
-  \item Simon Urbanek \email{simon.urbanek@R-project.org}
+  \item H. Sherry Zhang \email{huizezhangsh@gmail.com} (\href{https://orcid.org/0000-0002-7122-1463}{ORCID})
+  \item Di Cook \email{dicook@monash.edu} (\href{https://orcid.org/0000-0002-3813-7155}{ORCID})
+  \item Simon Urbanek \email{simon.urbanek@R-project.org} (\href{https://orcid.org/0000-0003-2297-1732}{ORCID})
   \item Christophe Dervieux \email{cderv@rstudio.com} (\href{https://orcid.org/0000-0003-4474-2498}{ORCID})
 }
 

@@ -1,4 +1,10 @@
-Fixed error reported by CRAN maintainers. Several small fixes on document handling, as described in the NEWS.
+Note that there is a new maintainer. This package maintainer needs to  
+travel with the technical editor of the R Journal. The contact email 
+is the an address, maintained by the R Foundation, will be 
+forwarded to the current technical editor. 
+
+- Fixed error reported by CRAN maintainers. 
+- Several small fixes on document handling, as described in the NEWS.
 
 ## Test environment
 
