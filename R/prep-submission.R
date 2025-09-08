@@ -23,6 +23,7 @@ zip_paper <- function(){
   cli::cli_h1("Check for folder structure")
   res <- check_folder_structure(".")
   cli::cli_h1("Prepare paper zip")
+  continue <- FALSE
   if (res != "SUCCESS"){
     continue <- yesno::yesno2(
     "ERRORs or WARNINGs generated from checking the folder structure.
