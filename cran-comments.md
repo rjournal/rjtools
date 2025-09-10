@@ -1,8 +1,9 @@
 - Fixed (persistent) error reported by CRAN maintainers. 
+- Note the new maintainer, r-journal-technical@r-project.org
 
 ## Test environment
 
-Checks made using the GitHub Actions rhub.yml with details at https://github.com/rjournal/rjtools/actions/runs/17480905231.
+Checks made using the GitHub Actions rhub.yml with details at https://github.com/rjournal/rjtools/actions/runs/17626750210.
 
 Passes checks for 
 
