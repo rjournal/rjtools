@@ -13,3 +13,4 @@
 ^CRAN-SUBMISSION$
 ^data-raw$
 ^rjtools.Rcheck
+^revdep$

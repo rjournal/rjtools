@@ -34,7 +34,7 @@
 #' formattings (highlight, italic, etc)
 #' * \code{check_spelling()}: potential spelling mistakes
 #' * \code{check_proposed_pkg()}: package proposed in the paper is on CRAN
-#' * \code{check_pkg_label()}: packages marked up with \samp{\pkg{}} are not available
+#' * \code{check_pkg_label()}: packages marked up with \samp{\pkg{pkgname}} are not available
 #' on CRAN or BioConductor
 #' * \code{check_packages_available()}: packages mentioned in the article are
 #' available on CRAN

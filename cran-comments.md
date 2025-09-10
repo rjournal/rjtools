@@ -1,10 +1,4 @@
-Note that there is a new maintainer. This package maintainer needs to  
-travel with the technical editor of the R Journal. The contact email 
-is the an address, maintained by the R Foundation, will be 
-forwarded to the current technical editor. 
-
-- Fixed error reported by CRAN maintainers. 
-- Several small fixes on document handling, as described in the NEWS.
+- Fixed (persistent) error reported by CRAN maintainers. 
 
 ## Test environment
 
@@ -20,14 +14,14 @@ Passes checks for
 
 ### devtools check
 
-── R CMD check results ──────────────────────────── rjtools 1.0.20 ────
+── R CMD check results ──────────────────────────── rjtools 1.0.21 ────
 Duration: 33s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 ### R CMD check
 
-R CMD CHECK ../rjtools_1.0.20.tar.gz 
+R CMD CHECK ../rjtools_1.0.21.tar.gz 
 
 * DONE
 

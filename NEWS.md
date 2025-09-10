@@ -1,3 +1,7 @@
+# rjtools 1.0.21
+
+* This error fixed - checks.html:160:65 (checks.Rd:117): Warning: trimming empty <span>
+
 # rjtools 1.0.20
 
 * Fix at CRAN request of help information for initial_check_article
