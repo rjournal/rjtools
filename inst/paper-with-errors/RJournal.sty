@@ -12,7 +12,7 @@
 % should be specified in RJwrapper.tex
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{RJournal}[2025/07/15 v0.16 RJournal package]
+\ProvidesPackage{RJournal}[2025/10/05 v0.17 RJournal package]
 
 \RequirePackage{tikz}
 
@@ -28,6 +28,12 @@
    footskip=1.5cm}
 \raggedbottom
 \sloppy
+\clubpenalty = 10000
+\widowpenalty = 10000
+\brokenpenalty = 10000
+\allowdisplaybreaks
+\usepackage{microtype}
+
 
 \RequirePackage{fancyhdr}
 \fancyhead{}
