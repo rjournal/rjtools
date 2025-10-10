@@ -43,7 +43,22 @@
     const buttons = $('<div class="dt-tags" style="grid-column: page;">')
     buttons.append('<a href="#citation" class="dt-tag"><i class="fas fa-quote-left"></i> Cite</a>')
     buttons.append('<a href="' + slug + '.pdf" class="dt-tag"><i class="fas fa-file-pdf"></i> PDF</a>')
-    buttons.append('<a href="' + slug + '.zip" class="dt-tag"><i class="fas fa-file-zipper"></i> Supplement</a>')
+    
+    // Conditionally add supplementary files button
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('supplementary-materials')) {
+        // create element safely
+        const a = document.createElement('a');
+        a.href = slug + '.zip';
+        a.className = 'dt-tag';
+        a.innerHTML = '<i class="fas fa-file-zipper"></i> Supplement';
+        // append depending on what `buttons` is:
+        // if buttons is a DOM node:
+        buttons.appendChild(a);
+        // OR if buttons is a selector string:
+        // document.querySelector(buttons).appendChild(a);
+      }
+    });
 
     // adds Abstract: in front of the first <p> in the title section --
     // unless it happens to be the subtitle (FIXME: this is a bad hack - can't distill do this?)
