@@ -305,7 +305,7 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE, ...) {
       # Update metadata with new page numbers
       if(requireNamespace("pdftools", quietly = TRUE)) {
         yml <- rmarkdown::yaml_front_matter(rmd_path)
-        yml$journal$lastpage <- yml$journal$firstpage + pdftools::pdf_length(pdf_path)
+        yml$journal$lastpage <- yml$journal$firstpage + pdftools::pdf_length(pdf_path) - 1L
         update_front_matter(yml, rmd_path)
       }
     } else {
