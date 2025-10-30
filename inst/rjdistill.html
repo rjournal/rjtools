@@ -45,20 +45,14 @@
     buttons.append('<a href="' + slug + '.pdf" class="dt-tag"><i class="fas fa-file-pdf"></i> PDF</a>')
     
     // Conditionally add supplementary files button
-    document.addEventListener('DOMContentLoaded', () => {
-      if (document.getElementById('supplementary-materials')) {
-        // create element safely
-        const a = document.createElement('a');
-        a.href = slug + '.zip';
-        a.className = 'dt-tag';
-        a.innerHTML = '<i class="fas fa-file-zipper"></i> Supplement';
-        // append depending on what `buttons` is:
-        // if buttons is a DOM node:
-        buttons.appendChild(a);
-        // OR if buttons is a selector string:
-        // document.querySelector(buttons).appendChild(a);
-      }
-    });
+    if (document.getElementById('supplementary-materials')) {
+      // create element safely
+      const btn_suppl = document.createElement('a');
+      btn_suppl.href = slug + '.zip';
+      btn_suppl.className = 'dt-tag';
+      btn_suppl.innerHTML = '<i class="fas fa-file-zipper"></i> Supplement';
+      buttons.append(btn_suppl);
+    }
 
     // adds Abstract: in front of the first <p> in the title section --
     // unless it happens to be the subtitle (FIXME: this is a bad hack - can't distill do this?)
