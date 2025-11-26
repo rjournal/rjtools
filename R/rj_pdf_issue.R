@@ -129,6 +129,7 @@ rjournal_pdf_issue <- function(..., render_all = FALSE) {
               x$draft <- FALSE
               update_front_matter(x, art_rmd)
               message(sprintf("Updating page numbers for '%s' article.", x$slug))
+              unlink(art_pdf)
               callr::r(function(input){
                 rmarkdown::render(
                   input,
