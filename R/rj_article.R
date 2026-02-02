@@ -6,8 +6,8 @@
 #' changes. The `rjournal_article()` format will produce both HTML and PDF
 #' outputs, while the `rjournal_pdf_article()` produces only the PDF output.
 #'
-#' @param ... Arguments passed to `distill::distill_article()` for web articles,
-#'   and `rticles::rjournal_article()` for pdf articles.
+#' @param ... Arguments passed to `rjtools::rjournal_web_article()` for web articles,
+#'   and `rjtools::rjournal_pdf_article()` for pdf articles.
 #' @inheritParams distill::distill_article
 #'
 #' @importFrom rlang caller_env env_poke

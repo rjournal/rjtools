@@ -22,8 +22,8 @@ scripts, stylesheets, images, and videos. Note that even for self contained
 documents MathJax is still loaded externally (this is necessary because of
 its size).}
 
-\item{...}{Arguments passed to \code{distill::distill_article()} for web articles,
-and \code{rticles::rjournal_article()} for pdf articles.}
+\item{...}{Arguments passed to \code{rjtools::rjournal_web_article()} for web articles,
+and \code{rjtools::rjournal_pdf_article()} for pdf articles.}
 
 \item{citation_package}{The LaTeX package to process citations, \code{natbib}
 or \code{biblatex}. Use \code{default} if neither package is to be used,
