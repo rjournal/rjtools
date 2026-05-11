@@ -48,7 +48,7 @@ Please ensure that you stick to this folder structure when working with an R Jou
 
 ## Your first knit
 
-To knit the `Rmd` file, you can use either through the RStudio `knit` button, or type the following command in the R console:  
+To knit the `Rmd` file, you can use either the RStudio `knit` button, or type the following command in the R console:  
 
 ```{r eval = FALSE}
 rmarkdown::render("quokka-bilby.Rmd")
