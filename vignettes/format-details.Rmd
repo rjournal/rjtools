@@ -32,8 +32,8 @@ This has these components:
 ```
 output:
   rjtools::rjournal_article
+bibliography: RJreferences.bib
 ```
-- `bibliography: RJreferences.bib`
 
 # Figures
 
@@ -48,7 +48,7 @@ Of course, if only a static plot is to be rendered in both outputs, a single cod
 For a static graph, use `\@ref(fig:penguins)` for in-text reference and your code chunk should look something like this:
 
 ````markdown
-`r ''````{r penguins, fig.cap="This is the figure caption"}
+`r ''````{r penguins, fig.cap="This is the figure caption."}
 penguins %>% 
   ggplot(aes(x = flipper_length_mm, 
              y = body_mass_g, 
@@ -84,7 +84,7 @@ plotly::ggplotly(p1)
 
 Notice here you need `eval=knitr::is_html_output()` and `eval=knitr::is_latex_output()` to make sure that the pdf output only evaluates the first chunk and the html output only evaluates the second. 
 
-For in-text citation, you will something like this: 
+For in-text citation, you will need something like this: 
 
     Figure \@ref(fig:`r "\u0060r"` ifelse(knitr::is_html_output(), 'penguins-interactive', 'penguins-static')`r "\u0060"` shows ...
     
@@ -113,7 +113,7 @@ Notice that `fig.width` and `fig.height` still apply here and `layout` option wi
   - `plotly::ggplotly(p, width = ..., height = ...)`, and 
   - `ggiraph::girafe(p, width_svg = ..., height_svg = ...)`. 
   
-Sizing these figures should via the relevant arguments rather than the chunk options.
+Sizing these figures should be done via the relevant arguments rather than the chunk options.
 
 ## Captions with special formatting
 
@@ -188,7 +188,7 @@ Both equations will be numbered, and referenced with  `\@ref(eq:parityLoss2)`. S
 
 # Citations
 
-The citation style will be added during the building process and you can find the csl file [here](https://github.com/rjournal/rjtools/blob/main/inst/rjournal.csl). This style adopts a "capitalize-first" text case on title, which means it will capitalise the first world, including the one after the colon, and use lowercase for the rest. If you would like to preserve the text case of the title in the reference, wrap the word with curly braces. A common example of this is to preserve the lowercase R package name: 
+The citation style will be added during the building process and you can find the csl file [here](https://github.com/rjournal/rjtools/blob/main/inst/rjournal.csl). This style adopts a "capitalize-first" text case on title, which means it will capitalise the first word, including the one after the colon, and use lowercase for the rest. If you would like to preserve the text case of the title in the reference, wrap the word with curly braces. A common example of this is to preserve the lowercase R package name: 
 
 ```
 @Manual{crosstalk,
