@@ -121,10 +121,8 @@ author</li>
 <li>output format lines should look like</li>
 </ul>
 <pre><code><span><span class="va">output</span><span class="op">:</span></span>
-<span>  <span class="fu">rjtools</span><span class="fu">::</span><span class="va"><a href="../reference/rjournal_article.html">rjournal_article</a></span></span></code></pre>
-<ul>
-<li><code>bibliography: RJreferences.bib</code></li>
-</ul>
+<span>  <span class="fu">rjtools</span><span class="fu">::</span><span class="va"><a href="../reference/rjournal_article.html">rjournal_article</a></span></span>
+<span><span class="va">bibliography</span><span class="op">:</span> <span class="va">RJreferences.bib</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
@@ -146,7 +144,7 @@ the most important thing that the reader should learn.</strong></p>
 </h3>
 <p>For a static graph, use <code>\@ref(fig:penguins)</code> for in-text
 reference and your code chunk should look something like this:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="in">```{r penguins, fig.cap="This is the figure caption"}</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="in">```{r penguins, fig.cap="This is the figure caption."}</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="in">penguins %&gt;% </span></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="in">  ggplot(aes(x = flipper_length_mm, </span></span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="in">             y = body_mass_g, </span></span>
@@ -179,7 +177,7 @@ article:</p>
 <code>eval=knitr::is_latex_output()</code> to make sure that the pdf
 output only evaluates the first chunk and the html output only evaluates
 the second.</p>
-<p>For in-text citation, you will something like this:</p>
+<p>For in-text citation, you will need something like this:</p>
 <pre><code>Figure \@ref(fig:`r ifelse(knitr::is_html_output(), 'penguins-interactive', 'penguins-static')` shows ...</code></pre>
 <p>This line is quite complicated so let’s dissect its components: the
 <code>ifelse</code> statement uses <code><a href="https://rdrr.io/pkg/knitr/man/output_type.html" class="external-link">knitr::is_html_output()</a></code>
@@ -221,8 +219,8 @@ and</li>
 <li>
 <code>ggiraph::girafe(p, width_svg = ..., height_svg = ...)</code>.</li>
 </ul>
-<p>Sizing these figures should via the relevant arguments rather than
-the chunk options.</p>
+<p>Sizing these figures should be done via the relevant arguments rather
+than the chunk options.</p>
 </div>
 <div class="section level3">
 <h3 id="captions-with-special-formatting">Captions with special formatting<a class="anchor" aria-label="anchor" href="#captions-with-special-formatting"></a>
@@ -308,7 +306,7 @@ both html and pdf outputs.</p>
 <p>The citation style will be added during the building process and you
 can find the csl file <a href="https://github.com/rjournal/rjtools/blob/main/inst/rjournal.csl" class="external-link">here</a>.
 This style adopts a “capitalize-first” text case on title, which means
-it will capitalise the first world, including the one after the colon,
+it will capitalise the first word, including the one after the colon,
 and use lowercase for the rest. If you would like to preserve the text
 case of the title in the reference, wrap the word with curly braces. A
 common example of this is to preserve the lowercase R package name:</p>
