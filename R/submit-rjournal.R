@@ -84,7 +84,7 @@ get_orcid <- function(path, file = NULL){
     tex_file <- files[tools::file_ext(files) == "tex"]
     tex_file <- eliminate_mulitple(tex_file, file = file)
     text <- readLines(tex_file)
-    orcid_line <- text[grep("ORCiD:", text)]
+    orcid_line <- text[grep("ORCID:", text)]
     if (length(orcid_line) == 0){
       return(cli::cli_inform("No ORCID ID found"))
     }
