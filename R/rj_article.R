@@ -297,7 +297,7 @@ rjournal_article <- function(toc = FALSE, self_contained = FALSE, ...) {
       )
       tinytex::latexmk(
         wrapper_path,
-        base_format$pandoc$latex_engine,
+        article_metadata$output$`rjtools::rjournal_pdf_article`$latex_engine %||% "pdflatex",
         pdf_file = pdf_path,
         clean = TRUE
       )
